@@ -4,8 +4,8 @@ abstract class AppResponsive {
   static late Size _size;
   static double _textScaleFactor = 1.0;
 
-  static late final double _designWidth;
-  static late final double _designHeight;
+  static double? _designWidth;
+  static double? _designHeight;
 
   /// Call once in main widget or App init
   static void init(
@@ -25,9 +25,9 @@ abstract class AppResponsive {
   static double get screenHeight => _size.height;
 
   /// Scale factors
-  static double get scaleWidth => _size.width / _designWidth;
+  static double get scaleWidth => _size.width / _designWidth!;
 
-  static double get scaleHeight => _size.height / _designHeight;
+  static double get scaleHeight => _size.height / _designHeight!;
 
   /// Average scale
   static double get scale => (scaleWidth + scaleHeight) / 2;
