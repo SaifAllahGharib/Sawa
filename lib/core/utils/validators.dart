@@ -5,3 +5,8 @@ bool emailValidator(String email) {
 
   return emailRegex.hasMatch(email);
 }
+
+bool phoneValidator(String phone) {
+  final phoneRegex = RegExp(r"^\d{11}$");
+  return phoneRegex.hasMatch(phone);
+}

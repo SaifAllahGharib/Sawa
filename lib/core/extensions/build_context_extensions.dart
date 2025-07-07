@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../generated/l10n.dart';
+import '../responsive/rsponsive_config.dart';
 import '../styles/app_styles.dart';
-import 'rsponsive_config.dart';
 
 extension BuildContextExtensions on BuildContext {
   ResponsiveConfig get responsive => ResponsiveConfig.of(this);
@@ -16,10 +16,4 @@ extension BuildContextExtensions on BuildContext {
   S get tr => S.of(this);
 
   Object? get arguments => ModalRoute.of(this)!.settings.arguments;
-}
-
-extension NumberExtensions on num {
-  SizedBox get horizontalSpace => SizedBox(width: toDouble());
-
-  SizedBox get verticalSpace => SizedBox(height: toDouble());
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../core/utils/extensions.dart';
+import '../../core/extensions/build_context_extensions.dart';
 import '../di/dependency_injection.dart';
-import '../shared/helpers/shared_preferences_helper.dart';
+import '../helpers/shared_preferences_helper.dart';
 import '../styles/app_colors.dart';
 
 abstract class LightTheme {

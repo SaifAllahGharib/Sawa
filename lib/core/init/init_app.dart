@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../di/dependency_injection.dart';
+import '../di/dependency_injection.dart';
 import '../helpers/shared_preferences_helper.dart';
 import 'set_portrait_orientation.dart';
 
