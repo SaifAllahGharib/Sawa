@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 
-import '../../core/extensions/build_context_extensions.dart';
 import '../di/dependency_injection.dart';
 import '../helpers/shared_preferences_helper.dart';
 import '../styles/app_colors.dart';
@@ -49,12 +49,9 @@ abstract class LightTheme {
         hintStyle: const TextStyle(color: AppColors.lightHint),
         filled: true,
         fillColor: AppColors.gray.withValues(alpha: 0.2),
-        contentPadding: EdgeInsets.symmetric(
-          vertical: context.responsive.height12,
-          horizontal: context.responsive.height15,
-        ),
+        contentPadding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 12.r),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(context.responsive.radius10),
+          borderRadius: BorderRadius.circular(12.r),
           borderSide: BorderSide.none,
         ),
       );

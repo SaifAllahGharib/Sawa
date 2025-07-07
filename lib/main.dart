@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/responsive_builder.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,6 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return ResponsiveBuilder(
+      builder: (context) => MaterialApp(
+        home: Scaffold(body: Center(child: Text("TEsT"))),
+      ),
+    );
   }
 }

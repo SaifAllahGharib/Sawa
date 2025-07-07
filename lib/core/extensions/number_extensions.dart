@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/responsive/app_responsive.dart';
 
 extension NumberExtensions on num {
-  SizedBox get horizontalSpace => SizedBox(width: toDouble());
+  double get w => AppResponsive.w(toDouble());
 
-  SizedBox get verticalSpace => SizedBox(height: toDouble());
+  double get h => AppResponsive.h(toDouble());
+
+  double get f => AppResponsive.f(toDouble());
+
+  double get r => AppResponsive.r(toDouble());
+
+  SizedBox get horizontalSpace => SizedBox(width: toDouble().w);
+
+  SizedBox get verticalSpace => SizedBox(height: toDouble().h);
 }

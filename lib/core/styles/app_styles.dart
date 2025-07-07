@@ -1,82 +1,56 @@
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/build_context_extensions.dart';
+import '../../core/extensions/number_extensions.dart';
 
-class AppStyles {
-  final BuildContext context;
-
-  const AppStyles._(this.context);
-
-  factory AppStyles.of(BuildContext context) => AppStyles._(context);
-
+abstract class AppStyles {
   /// ----------- Sizes 11 --------------------
-  TextStyle get s11W400 => TextStyle(
-    fontSize: context.responsive.fontSize11,
-    fontWeight: FontWeight.w400,
-  );
+  static TextStyle get s11W400 =>
+      TextStyle(fontSize: 11.f, fontWeight: FontWeight.w400);
 
   /// -----------------------------------------
 
   /// ----------- Sizes 12 --------------------
-  TextStyle get s12W400 => TextStyle(
-    fontSize: context.responsive.fontSize12,
-    fontWeight: FontWeight.w400,
-  );
+  static TextStyle get s12W400 =>
+      TextStyle(fontSize: 12.f, fontWeight: FontWeight.w400);
 
   /// -----------------------------------------
 
   /// ----------- Sizes 15 --------------------
-  TextStyle get s15W400 => TextStyle(
-    fontSize: context.responsive.fontSize15,
-    fontWeight: FontWeight.w400,
-  );
+  static TextStyle get s15W400 =>
+      TextStyle(fontSize: 15.f, fontWeight: FontWeight.w400);
 
-  TextStyle get s15W500 => TextStyle(
-    fontSize: context.responsive.fontSize15,
-    fontWeight: FontWeight.w500,
-  );
+  static TextStyle get s15W500 =>
+      TextStyle(fontSize: 15.f, fontWeight: FontWeight.w500);
 
-  TextStyle get s15W600 => TextStyle(
-    fontSize: context.responsive.fontSize15,
-    fontWeight: FontWeight.w600,
-  );
+  static TextStyle get s15W600 =>
+      TextStyle(fontSize: 15.f, fontWeight: FontWeight.w600);
 
   /// -----------------------------------------
 
   /// ----------- Sizes 16 --------------------
-  TextStyle get s16W500 => TextStyle(
-    fontSize: context.responsive.fontSize16,
-    fontWeight: FontWeight.w500,
-  );
+  static TextStyle get s16W500 =>
+      TextStyle(fontSize: 16.f, fontWeight: FontWeight.w500);
 
   /// -----------------------------------------
 
   /// ----------- Sizes 18 --------------------
-  TextStyle get s18W500 => TextStyle(
-    fontSize: context.responsive.fontSize18,
-    fontWeight: FontWeight.w500,
-  );
+  static TextStyle get s18W500 =>
+      TextStyle(fontSize: 18.f, fontWeight: FontWeight.w500);
 
-  TextStyle get s18W600 => TextStyle(
-    fontSize: context.responsive.fontSize18,
-    fontWeight: FontWeight.w600,
-  );
+  static TextStyle get s18W600 =>
+      TextStyle(fontSize: 18.f, fontWeight: FontWeight.w600);
 
   /// -----------------------------------------
 
   /// ----------- Sizes 20 --------------------
-  TextStyle get s20WB => TextStyle(
-    fontSize: context.responsive.fontSize20,
-    fontWeight: FontWeight.bold,
-  );
+  static TextStyle get s20WB =>
+      TextStyle(fontSize: 20.f, fontWeight: FontWeight.bold);
 
   /// -----------------------------------------
 
   /// ----------- Sizes 30 --------------------
-  TextStyle get s30W600 => TextStyle(
-    fontSize: context.responsive.fontSize30,
-    fontWeight: FontWeight.w600,
-  );
+  static TextStyle get s30W600 =>
+      TextStyle(fontSize: 30.f, fontWeight: FontWeight.w600);
 
   /// -----------------------------------------
 }
