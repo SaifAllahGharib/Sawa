@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
-      builder: (context) => MaterialApp(
-        home: Scaffold(body: Center(child: Text("TEsT"))),
+      builder: (context) => const MaterialApp(
+        home: Scaffold(body: Center(child: Text('TEsT'))),
       ),
     );
   }

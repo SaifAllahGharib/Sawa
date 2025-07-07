@@ -33,7 +33,7 @@ class SharedPreferencesHelper {
     }
   }
 
-  String? getIdUser() => getString("uid");
+  String? getIdUser() => getString('uid');
 
   String? getNameUser() => getString('name');
 

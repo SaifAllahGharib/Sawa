@@ -8,9 +8,9 @@ import '../styles/app_colors.dart';
 abstract class LightTheme {
   static TextStyle _textStyle(BuildContext context) => TextStyle(
     color: Colors.black,
-    fontFamily: (getIt<SharedPreferencesHelper>().getLanguageCode() == "ar")
-        ? "cairo"
-        : "poppins",
+    fontFamily: (getIt<SharedPreferencesHelper>().getLanguageCode() == 'ar')
+        ? 'cairo'
+        : 'poppins',
   );
 
   static TextTheme textTheme(BuildContext context) => TextTheme(
@@ -31,14 +31,14 @@ abstract class LightTheme {
     headlineSmall: _textStyle(context),
   );
 
-  static final TextSelectionThemeData textSelectionThemeData =
-      const TextSelectionThemeData(
+  static const TextSelectionThemeData textSelectionThemeData =
+      TextSelectionThemeData(
         cursorColor: AppColors.primary,
         selectionColor: AppColors.primary,
         selectionHandleColor: AppColors.primary,
       );
 
-  static final ColorScheme colorScheme = const ColorScheme.light(
+  static const ColorScheme colorScheme = ColorScheme.light(
     primary: AppColors.primary,
     secondary: AppColors.secondary,
     error: AppColors.error,
