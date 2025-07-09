@@ -13,6 +13,7 @@ class AppRemoveFocus extends StatelessWidget {
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
       focusColor: Colors.transparent,
+      enableFeedback: false,
       onTap: () => FocusScope.of(context).unfocus(),
       child: child,
     );
