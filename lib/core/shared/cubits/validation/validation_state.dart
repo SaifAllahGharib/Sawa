@@ -1,28 +1,24 @@
 import 'package:equatable/equatable.dart';
 
-final class ValidationState extends Equatable {
-  final bool? isEmailValid;
-  final bool? isPasswordValid;
+class ValidationState extends Equatable {
+  final Map<String, bool?> fieldsValidity;
   final bool enableButton;
 
   const ValidationState({
-    this.isEmailValid,
-    this.isPasswordValid,
+    this.fieldsValidity = const {},
     this.enableButton = false,
   });
 
   ValidationState copyWith({
-    bool? isEmailValid,
-    bool? isPasswordValid,
+    Map<String, bool?>? fieldsValidity,
     bool? enableButton,
   }) {
     return ValidationState(
-      isEmailValid: isEmailValid ?? this.isEmailValid,
-      isPasswordValid: isPasswordValid ?? this.isPasswordValid,
+      fieldsValidity: fieldsValidity ?? this.fieldsValidity,
       enableButton: enableButton ?? this.enableButton,
     );
   }
 
   @override
-  List<Object?> get props => [isEmailValid, isPasswordValid, enableButton];
+  List<Object?> get props => [fieldsValidity, enableButton];
 }

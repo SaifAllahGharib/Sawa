@@ -129,6 +129,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Welcome`
+  String get welcome {
+    return Intl.message('Welcome', name: 'welcome', desc: '', args: []);
+  }
+
+  /// `Name`
+  String get labelName {
+    return Intl.message('Name', name: 'labelName', desc: '', args: []);
+  }
+
+  /// `Saif Allah`
+  String get hintName {
+    return Intl.message('Saif Allah', name: 'hintName', desc: '', args: []);
+  }
+
+  /// `If you have an account`
+  String get ifYouHaveAnAccount {
+    return Intl.message(
+      'If you have an account',
+      name: 'ifYouHaveAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Required`
+  String get required {
+    return Intl.message('Required', name: 'required', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -8,5 +8,10 @@
   "doNotHaveAnAccount": "Don't have an account",
   "signup": "Sign Up",
   "emailNotValid": "email not valid",
-  "passwordValidationMsg": "Must be 8+ chars with uppercase, number & symbol"
+  "passwordValidationMsg": "Must be 8+ chars with uppercase, number & symbol",
+  "welcome": "Welcome",
+  "labelName": "Name",
+  "hintName": "Saif Allah",
+  "ifYouHaveAnAccount": "If you have an account",
+  "required": "Required"
 }

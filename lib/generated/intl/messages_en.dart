@@ -27,14 +27,21 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "emailNotValid": MessageLookupByLibrary.simpleMessage("email not valid"),
     "hintEmail": MessageLookupByLibrary.simpleMessage("example@ex.ex"),
+    "hintName": MessageLookupByLibrary.simpleMessage("Saif Allah"),
     "hintPassword": MessageLookupByLibrary.simpleMessage("************"),
+    "ifYouHaveAnAccount": MessageLookupByLibrary.simpleMessage(
+      "If you have an account",
+    ),
     "labelEmail": MessageLookupByLibrary.simpleMessage("Email"),
+    "labelName": MessageLookupByLibrary.simpleMessage("Name"),
     "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "passwordValidationMsg": MessageLookupByLibrary.simpleMessage(
       "Must be 8+ chars with uppercase, number & symbol",
     ),
+    "required": MessageLookupByLibrary.simpleMessage("Required"),
     "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
   };
 }

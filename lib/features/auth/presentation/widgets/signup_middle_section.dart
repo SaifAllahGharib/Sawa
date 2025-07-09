@@ -9,19 +9,21 @@ import 'package:intern_intelligence_social_media_application/core/utils/validato
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
 
-class LoginMiddleSection extends StatefulWidget {
-  const LoginMiddleSection({super.key});
+class SignupMiddleSection extends StatefulWidget {
+  const SignupMiddleSection({super.key});
 
   @override
-  State<LoginMiddleSection> createState() => _LoginMiddleSectionState();
+  State<SignupMiddleSection> createState() => _SignupMiddleSectionState();
 }
 
-class _LoginMiddleSectionState extends State<LoginMiddleSection> {
+class _SignupMiddleSectionState extends State<SignupMiddleSection> {
+  late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
 
   @override
   void initState() {
+    _nameController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
 
@@ -30,6 +32,7 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
 
@@ -44,6 +47,24 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        BlocSelector<ValidationCubit, ValidationState, bool?>(
+          selector: (state) => state.fieldsValidity['name'],
+          builder: (context, nameIsValid) {
+            return AppTextFormField(
+              controller: _nameController,
+              label: context.tr.labelName,
+              hint: context.tr.hintName,
+              error: _errorMsg(nameIsValid, context.tr.required),
+              onChanged: (value) {
+                context.read<ValidationCubit>().validateField(
+                  'name',
+                  value.isNotEmpty,
+                );
+              },
+            );
+          },
+        ),
+        10.verticalSpace,
         BlocSelector<ValidationCubit, ValidationState, bool?>(
           selector: (state) => state.fieldsValidity['email'],
           builder: (context, emailIsValid) {
@@ -88,7 +109,7 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
           builder: (context, enableButton) {
             return AppButton(
               onClick: () {},
-              text: context.tr.login,
+              text: context.tr.signup,
               enabled: enableButton,
             );
           },

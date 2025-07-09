@@ -1,24 +1,27 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_state.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/validators.dart';
 
 class ValidationCubit extends Cubit<ValidationState> {
-  ValidationCubit() : super(const ValidationState());
+  final Set<String> requiredFields;
 
-  void validateEmail(String email) {
-    emit(state.copyWith(isEmailValid: emailValidator(email)));
-    _enableButton();
-  }
+  ValidationCubit({required this.requiredFields})
+    : super(const ValidationState());
 
-  void validatePassword(String password) {
-    emit(state.copyWith(isPasswordValid: passwordValidator(password)));
-    _enableButton();
-  }
+  void validateField(String fieldName, bool isValid) {
+    final updatedValidity = Map<String, bool?>.from(state.fieldsValidity)
+      ..[fieldName] = isValid;
 
-  void _enableButton() {
+    final allFieldsPresent = updatedValidity.keys.toSet().containsAll(
+      requiredFields,
+    );
+    final allValid = updatedValidity.entries
+        .where((entry) => requiredFields.contains(entry.key))
+        .every((entry) => entry.value ?? false);
+
     emit(
       state.copyWith(
-        enableButton: state.isEmailValid! && state.isPasswordValid!,
+        fieldsValidity: updatedValidity,
+        enableButton: allFieldsPresent && allValid,
       ),
     );
   }

@@ -8,11 +8,13 @@ import '../../../../core/widgets/app_ink_well_button.dart';
 class DoNotOrHaveAccountWidget extends StatelessWidget {
   final String label;
   final String textButton;
+  final VoidCallback onClick;
 
   const DoNotOrHaveAccountWidget({
     super.key,
     required this.label,
     required this.textButton,
+    required this.onClick,
   });
 
   @override
@@ -23,7 +25,7 @@ class DoNotOrHaveAccountWidget extends StatelessWidget {
         Text(label, style: AppStyles.s15W500),
         4.horizontalSpace,
         AppInkWellButton(
-          onTap: () {},
+          onTap: onClick,
           child: Text(
             textButton,
             style: AppStyles.s15WB.copyWith(color: context.theme.primaryColor),

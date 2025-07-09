@@ -4,15 +4,18 @@ import 'package:intern_intelligence_social_media_application/core/routing/app_ro
 
 import 'do_not_or_have_account_widget.dart';
 
-class LoginBottomSection extends StatelessWidget {
-  const LoginBottomSection({super.key});
+class SignupBottomSection extends StatelessWidget {
+  const SignupBottomSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DoNotOrHaveAccountWidget(
-      onClick: () => context.navigator.pushNamed(AppRouteName.signup),
-      label: context.tr.doNotHaveAnAccount,
-      textButton: context.tr.signup,
+      onClick: () => context.navigator.pushNamedAndRemoveUntil(
+        AppRouteName.login,
+        (route) => false,
+      ),
+      label: context.tr.ifYouHaveAnAccount,
+      textButton: context.tr.login,
     );
   }
 }
