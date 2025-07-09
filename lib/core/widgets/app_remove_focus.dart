@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_ink_well_button.dart';
 
 class AppRemoveFocus extends StatelessWidget {
   final Widget child;
@@ -7,13 +8,7 @@ class AppRemoveFocus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      overlayColor: const WidgetStatePropertyAll(Colors.transparent),
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      focusColor: Colors.transparent,
-      enableFeedback: false,
+    return AppInkWellButton(
       onTap: () => FocusScope.of(context).unfocus(),
       child: child,
     );

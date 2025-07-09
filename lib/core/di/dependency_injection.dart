@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 import '../helpers/shared_preferences_helper.dart';
 import '../shared/cubits/locale_cubit.dart';
 import '../shared/cubits/theme_cubit.dart';
+import '../shared/cubits/validation/validation_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -18,4 +19,6 @@ void setupDependencyInjection() {
   getIt.registerLazySingleton<ThemeCubit>(
     () => ThemeCubit(getIt<SharedPreferencesHelper>()),
   );
+
+  getIt.registerFactory<ValidationCubit>(() => ValidationCubit());
 }

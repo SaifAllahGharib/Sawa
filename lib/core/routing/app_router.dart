@@ -11,12 +11,17 @@ abstract class AppRouter {
       case AppRouteName.signup:
         return MaterialPageRoute(builder: (context) => const SignupScreen());
       default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            appBar: AppBar(title: const Text('Unknown Route')),
-            body: const Center(child: Text('Page not found')),
-          ),
-        );
+        debugPrint('Unknown Route: ${settings.name}');
+        return _errorRoute();
     }
+  }
+
+  static MaterialPageRoute _errorRoute() {
+    return MaterialPageRoute(
+      builder: (_) => Scaffold(
+        appBar: AppBar(title: const Text('Unknown Route')),
+        body: const Center(child: Text('Page not found')),
+      ),
+    );
   }
 }

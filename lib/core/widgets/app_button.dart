@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
+
+class AppButton extends StatelessWidget {
+  final VoidCallback onClick;
+  final String text;
+  final Color? background;
+  final Color? textColor;
+  final double? width;
+  final bool enabled;
+
+  const AppButton({
+    super.key,
+    required this.onClick,
+    required this.text,
+    this.background,
+    this.textColor,
+    this.width,
+    this.enabled = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width ?? double.infinity,
+      child: ElevatedButton(
+        onPressed: enabled ? onClick : null,
+        style: ButtonStyle(
+          enableFeedback: false,
+          backgroundColor: WidgetStatePropertyAll(
+            enabled
+                ? (background ?? context.theme.primaryColor)
+                : context.theme.primaryColor.withValues(alpha: 0.3),
+          ),
+          padding: WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 12.r)),
+        ),
+        child: Text(
+          text,
+          style: AppStyles.s15W600.copyWith(color: textColor ?? Colors.white),
+        ),
+      ),
+    );
+  }
+}

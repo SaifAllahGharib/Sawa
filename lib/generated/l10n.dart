@@ -54,6 +54,81 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `Welcome Back`
+  String get welcomeBack {
+    return Intl.message(
+      'Welcome Back',
+      name: 'welcomeBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get labelEmail {
+    return Intl.message('Email', name: 'labelEmail', desc: '', args: []);
+  }
+
+  /// `example@ex.ex`
+  String get hintEmail {
+    return Intl.message('example@ex.ex', name: 'hintEmail', desc: '', args: []);
+  }
+
+  /// `Password`
+  String get labelPassword {
+    return Intl.message('Password', name: 'labelPassword', desc: '', args: []);
+  }
+
+  /// `************`
+  String get hintPassword {
+    return Intl.message(
+      '************',
+      name: 'hintPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login {
+    return Intl.message('Login', name: 'login', desc: '', args: []);
+  }
+
+  /// `Don't have an account`
+  String get doNotHaveAnAccount {
+    return Intl.message(
+      'Don\'t have an account',
+      name: 'doNotHaveAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Up`
+  String get signup {
+    return Intl.message('Sign Up', name: 'signup', desc: '', args: []);
+  }
+
+  /// `email not valid`
+  String get emailNotValid {
+    return Intl.message(
+      'email not valid',
+      name: 'emailNotValid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Must be 8+ chars with uppercase, number & symbol`
+  String get passwordValidationMsg {
+    return Intl.message(
+      'Must be 8+ chars with uppercase, number & symbol',
+      name: 'passwordValidationMsg',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

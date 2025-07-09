@@ -1,1 +1,12 @@
-{}
+{
+  "welcomeBack": "Welcome Back",
+  "labelEmail": "Email",
+  "hintEmail": "example@ex.ex",
+  "labelPassword": "Password",
+  "hintPassword": "************",
+  "login": "Login",
+  "doNotHaveAnAccount": "Don't have an account",
+  "signup": "Sign Up",
+  "emailNotValid": "email not valid",
+  "passwordValidationMsg": "Must be 8+ chars with uppercase, number & symbol"
+}
