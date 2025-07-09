@@ -3,6 +3,7 @@ import 'package:logger/logger.dart';
 
 import '../helpers/shared_preferences_helper.dart';
 import '../shared/cubits/locale_cubit.dart';
+import '../shared/cubits/theme_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -12,5 +13,9 @@ void setupDependencyInjection() {
   // Cubits
   getIt.registerLazySingleton<LocaleCubit>(
     () => LocaleCubit(getIt<SharedPreferencesHelper>()),
+  );
+
+  getIt.registerLazySingleton<ThemeCubit>(
+    () => ThemeCubit(getIt<SharedPreferencesHelper>()),
   );
 }

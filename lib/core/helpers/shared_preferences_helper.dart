@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,11 +19,10 @@ class SharedPreferencesHelper {
     await _prefs.setString('languageCode', code);
   }
 
-  Future<void> saveInitialLocaleIfNotSet(Locale deviceLocale) async {
-    final alreadySet = _prefs.containsKey('languageCode');
-    if (!alreadySet) {
-      await setLanguageCode(deviceLocale.languageCode);
-    }
+  String? getTheme() => _prefs.getString('themeMode');
+
+  Future<void> setTheme(String theme) async {
+    await _prefs.setString('themeMode', theme);
   }
 
   Future<void> storeUser(Map<String, dynamic> user) async {

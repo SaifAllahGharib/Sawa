@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/theme/custom_colors.dart';
 
 import '../styles/app_colors.dart';
+import 'custom_colors.dart';
 
-abstract class LightTheme {
+abstract class DarkTheme {
   static TextStyle get _textStyle =>
-      const TextStyle(color: AppColors.lightText, fontFamily: 'Cairo');
+      const TextStyle(color: AppColors.darkText, fontFamily: 'Cairo');
 
   static TextTheme get textTheme => TextTheme(
     bodyLarge: _textStyle,
@@ -26,54 +26,54 @@ abstract class LightTheme {
     headlineSmall: _textStyle,
   );
 
-  static const TextSelectionThemeData textSelectionThemeData =
-      TextSelectionThemeData(
-        cursorColor: AppColors.primaryLight,
-        selectionColor: AppColors.primaryLight,
-        selectionHandleColor: AppColors.primaryLight,
+  static TextSelectionThemeData textSelectionThemeData =
+      const TextSelectionThemeData(
+        cursorColor: AppColors.primaryDark,
+        selectionColor: AppColors.primaryDark,
+        selectionHandleColor: AppColors.primaryDark,
       );
 
-  static const ColorScheme colorScheme = ColorScheme.light(
-    primary: AppColors.primaryLight,
-    secondary: AppColors.secondaryLight,
-    error: AppColors.errorLight,
+  static ColorScheme colorScheme = const ColorScheme.light(
+    primary: AppColors.primaryDark,
+    secondary: AppColors.secondaryDark,
+    error: AppColors.errorDark,
   );
 
   static Iterable<ThemeExtension<CustomColors>> get extension =>
       <ThemeExtension<CustomColors>>[
-        const CustomColors(border: AppColors.lightBorder),
+        const CustomColors(border: AppColors.darkBorder),
       ];
 
   static InputDecorationTheme get inputDecorationTheme => InputDecorationTheme(
     filled: true,
-    fillColor: AppColors.whiteGray,
+    fillColor: AppColors.surfaceDark,
     isDense: true,
     contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 16.r),
     hintStyle: TextStyle(
-      color: AppColors.lightHint,
+      color: AppColors.darkHint,
       fontSize: 14.r,
       fontWeight: FontWeight.w400,
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12.r),
-      borderSide: const BorderSide(color: AppColors.lightBorder, width: 1.2),
+      borderSide: const BorderSide(color: AppColors.darkBorder, width: 1.2),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12.r),
-      borderSide: const BorderSide(color: AppColors.primaryLight, width: 1.6),
+      borderSide: const BorderSide(color: AppColors.primaryDark, width: 1.6),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12.r),
-      borderSide: const BorderSide(color: AppColors.errorLight, width: 1.2),
+      borderSide: const BorderSide(color: AppColors.errorDark, width: 1.2),
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12.r),
-      borderSide: const BorderSide(color: AppColors.errorLight, width: 1.5),
+      borderSide: const BorderSide(color: AppColors.errorDark, width: 1.5),
     ),
     disabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12.r),
       borderSide: BorderSide(
-        color: AppColors.lightBorder.withValues(alpha: 0.3),
+        color: AppColors.darkBorder.withValues(alpha: 0.3),
         width: 1,
       ),
     ),

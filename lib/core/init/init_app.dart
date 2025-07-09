@@ -10,8 +10,4 @@ Future<void> initializeApp() async {
   setupDependencyInjection();
 
   await getIt<SharedPreferencesHelper>().init();
-
-  await getIt<SharedPreferencesHelper>().saveInitialLocaleIfNotSet(
-    WidgetsBinding.instance.platformDispatcher.locale,
-  );
 }
