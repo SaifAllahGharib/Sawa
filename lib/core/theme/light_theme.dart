@@ -26,14 +26,14 @@ abstract class LightTheme {
     headlineSmall: _textStyle,
   );
 
-  static const TextSelectionThemeData textSelectionThemeData =
-      TextSelectionThemeData(
+  static TextSelectionThemeData textSelectionThemeData =
+      const TextSelectionThemeData(
         cursorColor: AppColors.primaryLight,
         selectionColor: AppColors.primaryLight,
         selectionHandleColor: AppColors.primaryLight,
       );
 
-  static const ColorScheme colorScheme = ColorScheme.light(
+  static ColorScheme colorScheme = const ColorScheme.light(
     primary: AppColors.primaryLight,
     secondary: AppColors.secondaryLight,
     error: AppColors.errorLight,

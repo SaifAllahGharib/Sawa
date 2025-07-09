@@ -33,7 +33,7 @@ abstract class DarkTheme {
         selectionHandleColor: AppColors.primaryDark,
       );
 
-  static ColorScheme colorScheme = const ColorScheme.light(
+  static ColorScheme colorScheme = const ColorScheme.dark(
     primary: AppColors.primaryDark,
     secondary: AppColors.secondaryDark,
     error: AppColors.errorDark,
