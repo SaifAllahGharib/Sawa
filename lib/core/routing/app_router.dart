@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/presentation/screens/login_screen.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/presentation/screens/signup_screen.dart';
+
+import '../../features/auth/presentation/screens/login_screen.dart';
+import '../../features/auth/presentation/screens/signup_screen.dart';
+import '../../features/home/presentation/screens/home_screen.dart';
+import 'app_route_name.dart';
 
 abstract class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -10,6 +12,8 @@ abstract class AppRouter {
         return MaterialPageRoute(builder: (context) => const LoginScreen());
       case AppRouteName.signup:
         return MaterialPageRoute(builder: (context) => const SignupScreen());
+      case AppRouteName.home:
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
       default:
         debugPrint('Unknown Route: ${settings.name}');
         return _errorRoute();
