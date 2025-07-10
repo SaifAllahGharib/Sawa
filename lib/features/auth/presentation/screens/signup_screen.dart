@@ -5,9 +5,11 @@ import 'package:intern_intelligence_social_media_application/core/shared/cubits/
 import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_remove_focus.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/signup/signup_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/widgets/signup_bottom_section.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/widgets/signup_middle_section.dart';
 
+import '../../../../core/di/dependency_injection.dart';
 import '../widgets/signup_top_section.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -21,6 +23,7 @@ class SignupScreen extends StatelessWidget {
           create: (context) =>
               ValidationCubit(requiredFields: {'name', 'email', 'password'}),
         ),
+        BlocProvider(create: (context) => getIt<SignupCubit>()),
       ],
       child: AppScaffold(
         child: AppRemoveFocus(

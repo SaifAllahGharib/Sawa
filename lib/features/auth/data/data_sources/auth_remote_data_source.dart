@@ -1,12 +1,12 @@
-import 'package:intern_intelligence_social_media_application/core/services/auth_service.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/login_model.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/signup_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../services/auth_service.dart';
 
 sealed class AuthRemoteDataSource {
-  Future<AuthResponse> login(LoginModel model);
+  Future<void> login(LoginModel model);
 
-  Future<AuthResponse> createAccount(SignupModel model);
+  Future<void> createAccount(SignupModel model);
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -15,12 +15,12 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this._authService);
 
   @override
-  Future<AuthResponse> createAccount(SignupModel model) async {
+  Future<void> createAccount(SignupModel model) async {
     return await _authService.createAccount(model);
   }
 
   @override
-  Future<AuthResponse> login(LoginModel model) async {
+  Future<void> login(LoginModel model) async {
     return await _authService.login(model);
   }
 }

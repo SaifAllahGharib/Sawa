@@ -1,16 +1,17 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-final class SupabaseService {
+final class SupabaseClint {
   final _supabase = Supabase.instance.client;
 
-  SupabaseService._();
+  SupabaseClint._();
 
-  static final SupabaseService _instance = SupabaseService._();
+  static final SupabaseClint _instance = SupabaseClint._();
 
-  factory SupabaseService() {
+  factory SupabaseClint() {
     return _instance;
   }
 
   GoTrueClient get auth => _instance._supabase.auth;
+
   SupabaseClient get db => _instance._supabase;
 }

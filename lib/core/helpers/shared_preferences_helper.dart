@@ -1,3 +1,6 @@
+import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
+import 'package:intern_intelligence_social_media_application/core/network/firebase_clint.dart';
+import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,9 +40,16 @@ class SharedPreferencesHelper {
 
   String? getEmailUser() => getString('email');
 
+  String getInitRoute() {
+    if (getIt<FirebaseClint>().auth.currentUser != null) {
+      return AppRouteName.home;
+    }
+    return '/';
+  }
+
   Future<bool> storeString(String key, String value) async {
     return await _safeWrite(
-      () => _prefs.setString(key, value),
+          () => _prefs.setString(key, value),
       'Error storing string',
     );
   }
@@ -50,10 +60,8 @@ class SharedPreferencesHelper {
     return await _safeWrite(() => _prefs.clear(), 'Error clearing data');
   }
 
-  Future<bool> _safeWrite(
-    Future<bool> Function() operation,
-    String errorMessage,
-  ) async {
+  Future<bool> _safeWrite(Future<bool> Function() operation,
+      String errorMessage,) async {
     try {
       return await operation();
     } catch (e, stacktrace) {

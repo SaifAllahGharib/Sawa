@@ -8,6 +8,7 @@ class AppTextFormField extends StatelessWidget {
   final String label;
   final String hint;
   final String? error;
+  final bool? enabled;
   final void Function(String value)? onChanged;
 
   const AppTextFormField({
@@ -17,6 +18,7 @@ class AppTextFormField extends StatelessWidget {
     required this.hint,
     this.error,
     this.onChanged,
+    this.enabled,
   });
 
   @override
@@ -28,6 +30,7 @@ class AppTextFormField extends StatelessWidget {
         6.verticalSpace,
         TextFormField(
           controller: controller,
+          enabled: enabled,
           decoration: InputDecoration(hintText: hint, errorText: error),
           onChanged: onChanged,
         ),

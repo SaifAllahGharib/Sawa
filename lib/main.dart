@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intern_intelligence_social_media_application/core/helpers/shared_preferences_helper.dart';
 
 import 'core/di/dependency_injection.dart';
 import 'core/init/init_app.dart';
-import 'core/routing/app_route_name.dart';
 import 'core/routing/app_router.dart';
 import 'core/shared/cubits/locale_cubit.dart';
 import 'core/shared/cubits/theme_cubit.dart';
@@ -46,7 +46,7 @@ class SocialMediaApp extends StatelessWidget {
                   theme: AppTheme.light,
                   darkTheme: AppTheme.dark,
                   themeMode: theme,
-                  initialRoute: AppRouteName.login,
+                  initialRoute: getIt<SharedPreferencesHelper>().getInitRoute(),
                   onGenerateRoute: AppRouter.generateRoute,
                 );
               },

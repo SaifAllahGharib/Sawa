@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "184541868210",
+    "project_id": "socialmedaiapp-22748",
+    "storage_bucket": "socialmedaiapp-22748.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184541868210:android:b879dc980e0d2bb88a59ab",
+        "android_client_info": {
+          "package_name": "com.example.intern_intelligence_social_media_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7oZd0Ru7gEYsAkHzPfexDOU8B8OIOHt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../firebase_options.dart';
 import '../di/dependency_injection.dart';
 import '../helpers/shared_preferences_helper.dart';
 import 'set_portrait_orientation.dart';
@@ -11,10 +12,9 @@ Future<void> initializeApp() async {
   setPortraitOrientation();
   setupDependencyInjection();
 
-  await dotenv.load();
-  await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL']!,
-    anonKey: dotenv.env['SUPABASE_KEY']!,
-  );
-  await getIt<SharedPreferencesHelper>().init();
+  await Future.wait([
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+    dotenv.load(),
+    getIt<SharedPreferencesHelper>().init(),
+  ]);
 }

@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_cubit.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_state.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/validators.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/signup/signup_cubit.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/signup/signup_state.dart';
 
+import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/app_button_loading.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
+import '../../domain/entities/signup_entity.dart';
 
 class SignupMiddleSection extends StatefulWidget {
   const SignupMiddleSection({super.key});
@@ -20,6 +26,7 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -43,6 +50,48 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
     return value != null ? (value ? null : msg) : null;
   }
 
+  void _signup() {
+    context.read<SignupCubit>().signup(
+      SignupEntity(
+        name: _nameController.text,
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      ),
+    );
+  }
+
+  void _whenLoading() {
+    _isLoading = true;
+    FocusScope.of(context).unfocus();
+  }
+
+  void _whenSuccess() {
+    _isLoading = false;
+    context.navigator.pushNamedAndRemoveUntil(
+      AppRouteName.home,
+      (route) => false,
+    );
+  }
+
+  void _whenFailure(String error) {
+    _isLoading = false;
+    if (error == 'email_in_use') {
+      AppSnackBar.showError(context, context.tr.email_already_used);
+    } else if (error == 'weak_password') {
+      AppSnackBar.showError(context, context.tr.weakPassword);
+    }
+  }
+
+  void _handleState(SignupState state) {
+    if (state is SignupLoadingState) {
+      _whenLoading();
+    } else if (state is SignupSuccessState) {
+      _whenSuccess();
+    } else if (state is SignupFailureState) {
+      _whenFailure(state.error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,6 +103,7 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
               controller: _nameController,
               label: context.tr.labelName,
               hint: context.tr.hintName,
+              enabled: !_isLoading,
               error: _errorMsg(nameIsValid, context.tr.required),
               onChanged: (value) {
                 context.read<ValidationCubit>().validateField(
@@ -72,6 +122,7 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
               controller: _emailController,
               label: context.tr.labelEmail,
               hint: context.tr.hintEmail,
+              enabled: !_isLoading,
               error: _errorMsg(emailIsValid, context.tr.emailNotValid),
               onChanged: (email) {
                 context.read<ValidationCubit>().validateField(
@@ -90,6 +141,7 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
               controller: _passwordController,
               label: context.tr.labelPassword,
               hint: context.tr.hintPassword,
+              enabled: !_isLoading,
               error: _errorMsg(
                 passwordIsValid,
                 context.tr.passwordValidationMsg,
@@ -104,13 +156,21 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
           },
         ),
         20.verticalSpace,
-        BlocSelector<ValidationCubit, ValidationState, bool>(
-          selector: (state) => state.enableButton,
-          builder: (context, enableButton) {
-            return AppButton(
-              onClick: () {},
-              text: context.tr.signup,
-              enabled: enableButton,
+        BlocBuilder<ValidationCubit, ValidationState>(
+          builder: (context, validationState) {
+            return BlocConsumer<SignupCubit, SignupState>(
+              listener: (context, state) => _handleState(state),
+              builder: (context, state) {
+                if (state is SignupLoadingState) {
+                  return const AppButtonLoading();
+                }
+
+                return AppButton(
+                  onClick: _signup,
+                  text: context.tr.signup,
+                  enabled: validationState.enableButton,
+                );
+              },
             );
           },
         ),

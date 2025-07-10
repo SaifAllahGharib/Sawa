@@ -26,6 +26,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Don\'t have an account",
     ),
     "emailNotValid": MessageLookupByLibrary.simpleMessage("email not valid"),
+    "email_already_used": MessageLookupByLibrary.simpleMessage(
+      "Email already used",
+    ),
     "hintEmail": MessageLookupByLibrary.simpleMessage("example@ex.ex"),
     "hintName": MessageLookupByLibrary.simpleMessage("Saif Allah"),
     "hintPassword": MessageLookupByLibrary.simpleMessage("************"),
@@ -41,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "required": MessageLookupByLibrary.simpleMessage("Required"),
     "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "weakPassword": MessageLookupByLibrary.simpleMessage("Password Weak"),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
   };

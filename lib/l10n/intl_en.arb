@@ -13,5 +13,7 @@
   "labelName": "Name",
   "hintName": "Saif Allah",
   "ifYouHaveAnAccount": "If you have an account",
-  "required": "Required"
+  "required": "Required",
+  "email_already_used": "Email already used",
+  "weakPassword": "Password Weak"
 }

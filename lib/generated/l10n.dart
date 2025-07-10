@@ -159,6 +159,26 @@ class S {
   String get required {
     return Intl.message('Required', name: 'required', desc: '', args: []);
   }
+
+  /// `Email already used`
+  String get email_already_used {
+    return Intl.message(
+      'Email already used',
+      name: 'email_already_used',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password Weak`
+  String get weakPassword {
+    return Intl.message(
+      'Password Weak',
+      name: 'weakPassword',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
