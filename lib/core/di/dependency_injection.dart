@@ -1,22 +1,18 @@
 import 'package:get_it/get_it.dart';
-import 'package:intern_intelligence_social_media_application/core/network/firebase_clint.dart';
-import 'package:intern_intelligence_social_media_application/core/network/supabase_clint.dart';
+import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/login_usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_cubit.dart';
 import 'package:logger/logger.dart';
 
-import '../../features/auth/data/api/auth_api.dart';
-import '../../features/auth/data/api/firebase_auth_impl.dart';
 import '../../features/auth/data/data_sources/auth_remote_data_source.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
-import '../../features/auth/data/services/auth_service.dart';
-import '../../features/auth/data/services/auth_service_impl.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
 import '../../features/auth/domain/usecases/signup_usecase.dart';
 import '../../features/auth/presentation/cubits/signup/signup_cubit.dart';
+import '../clients/dio_client.dart';
+import '../clients/supabase_clint.dart';
 import '../helpers/shared_preferences_helper.dart';
-import '../network/dio_client.dart';
-import '../network/firebase_auth_api.dart';
+import '../network/firebase_auth_client.dart';
 import '../shared/cubits/locale_cubit.dart';
 import '../shared/cubits/theme_cubit.dart';
 
@@ -27,14 +23,12 @@ void setupDependencyInjection() {
   getIt.registerLazySingleton(() => SharedPreferencesHelper(Logger()));
   getIt.registerLazySingleton(() => DioClint.create());
   getIt.registerLazySingleton(() => SupabaseClint());
-  getIt.registerLazySingleton(() => FirebaseClint());
+  getIt.registerLazySingleton(() => FirebaseClient());
 
   // APIs
-  getIt.registerLazySingleton<FirebaseAuthApi>(() => FirebaseAuthApi(getIt()));
-  getIt.registerLazySingleton<AuthApi>(() => FirebaseAuthApiImpl(getIt()));
-
-  // Services
-  getIt.registerLazySingleton<AuthService>(() => AuthServiceImpl(getIt()));
+  getIt.registerLazySingleton<FirebaseAuthClient>(
+    () => FirebaseAuthClient(getIt()),
+  );
 
   // Data Sources
   getIt.registerLazySingleton<AuthRemoteDataSource>(
