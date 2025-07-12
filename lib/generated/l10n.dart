@@ -179,6 +179,56 @@ class S {
       args: [],
     );
   }
+
+  /// `User not exists or email or password incorrect`
+  String get userNotFound {
+    return Intl.message(
+      'User not exists or email or password incorrect',
+      name: 'userNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This account is disabled`
+  String get thisAccountIsDisabled {
+    return Intl.message(
+      'This account is disabled',
+      name: 'thisAccountIsDisabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account exists with different method`
+  String get accountExistsWithDifferentMethod {
+    return Intl.message(
+      'Account exists with different method',
+      name: 'accountExistsWithDifferentMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown error`
+  String get unknownError {
+    return Intl.message(
+      'Unknown error',
+      name: 'unknownError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to connect the network`
+  String get errorToConnectTheNetwork {
+    return Intl.message(
+      'Error to connect the network',
+      name: 'errorToConnectTheNetwork',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

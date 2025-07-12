@@ -4,13 +4,13 @@ import 'package:intern_intelligence_social_media_application/core/usecases/useca
 import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/login_entity.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/repositories/auth_repository.dart';
 
-class LoginUseCase extends UseCase<Result<AppFailure, dynamic>, LoginEntity> {
+class LoginUseCase extends UseCase<Result<AppFailure, void>, LoginEntity> {
   final AuthRepository _authRepository;
 
   LoginUseCase(this._authRepository);
 
   @override
-  Future<Result<AppFailure, dynamic>> call(LoginEntity params) async {
+  Future<Result<AppFailure, void>> call(LoginEntity params) async {
     return await _authRepository.login(params);
   }
 }

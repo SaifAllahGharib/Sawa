@@ -4,9 +4,9 @@ import 'package:intern_intelligence_social_media_application/features/auth/data/
 import '../services/auth_service.dart';
 
 sealed class AuthRemoteDataSource {
-  Future<void> login(LoginModel model);
+  Future<dynamic> login(LoginModel model);
 
-  Future<void> createAccount(SignupModel model);
+  Future<dynamic> createAccount(SignupModel model);
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {

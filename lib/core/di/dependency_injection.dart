@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:intern_intelligence_social_media_application/core/network/firebase_clint.dart';
 import 'package:intern_intelligence_social_media_application/core/network/supabase_clint.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/login_usecase.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_cubit.dart';
 import 'package:logger/logger.dart';
 
 import '../../features/auth/data/api/auth_api.dart';
@@ -46,9 +48,11 @@ void setupDependencyInjection() {
 
   // UseCass
   getIt.registerLazySingleton(() => SignupUseCase(getIt()));
+  getIt.registerLazySingleton(() => LoginUseCase(getIt()));
 
   // Cubits
   getIt.registerLazySingleton<LocaleCubit>(() => LocaleCubit(getIt()));
   getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit(getIt()));
   getIt.registerFactory<SignupCubit>(() => SignupCubit(getIt()));
+  getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
 }

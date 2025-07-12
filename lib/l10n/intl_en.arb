@@ -15,5 +15,10 @@
   "ifYouHaveAnAccount": "If you have an account",
   "required": "Required",
   "email_already_used": "Email already used",
-  "weakPassword": "Password Weak"
+  "weakPassword": "Password Weak",
+  "userNotFound": "User not exists or email or password incorrect",
+  "thisAccountIsDisabled": "This account is disabled",
+  "accountExistsWithDifferentMethod": "Account exists with different method",
+  "unknownError": "Unknown error",
+  "errorToConnectTheNetwork": "Error to connect the network"
 }

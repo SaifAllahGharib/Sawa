@@ -66,19 +66,25 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
   }
 
   void _whenSuccess() {
-    _isLoading = false;
+    setState(() {
+      _isLoading = false;
+    });
     context.navigator.pushNamedAndRemoveUntil(
       AppRouteName.home,
       (route) => false,
     );
   }
 
-  void _whenFailure(String error) {
-    _isLoading = false;
-    if (error == 'email_in_use') {
+  void _whenFailure(String code) {
+    setState(() {
+      _isLoading = false;
+    });
+    if (code == 'email_in_use' || code == 'uid_exists') {
       AppSnackBar.showError(context, context.tr.email_already_used);
-    } else if (error == 'weak_password') {
-      AppSnackBar.showError(context, context.tr.weakPassword);
+    } else if (code == 'internal_error') {
+      AppSnackBar.showError(context, context.tr.errorToConnectTheNetwork);
+    } else if (code == 'auth_error') {
+      AppSnackBar.showError(context, context.tr.unknownError);
     }
   }
 
@@ -88,7 +94,7 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
     } else if (state is SignupSuccessState) {
       _whenSuccess();
     } else if (state is SignupFailureState) {
-      _whenFailure(state.error);
+      _whenFailure(state.code);
     }
   }
 

@@ -5,14 +5,26 @@ sealed class SignupState extends Equatable {
   List<Object?> get props => [];
 }
 
-final class SignupInitState extends SignupState {}
+final class SignupInitState extends SignupState {
+  @override
+  List<Object?> get props => [];
+}
 
-final class SignupLoadingState extends SignupState {}
+final class SignupLoadingState extends SignupState {
+  @override
+  List<Object?> get props => [];
+}
 
-final class SignupSuccessState extends SignupState {}
+final class SignupSuccessState extends SignupState {
+  @override
+  List<Object?> get props => [];
+}
 
 final class SignupFailureState extends SignupState {
-  final String error;
+  final String code;
 
-  SignupFailureState(this.error);
+  SignupFailureState(this.code);
+
+  @override
+  List<Object?> get props => [code];
 }

@@ -22,12 +22,18 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "accountExistsWithDifferentMethod": MessageLookupByLibrary.simpleMessage(
+      "Account exists with different method",
+    ),
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account",
     ),
     "emailNotValid": MessageLookupByLibrary.simpleMessage("email not valid"),
     "email_already_used": MessageLookupByLibrary.simpleMessage(
       "Email already used",
+    ),
+    "errorToConnectTheNetwork": MessageLookupByLibrary.simpleMessage(
+      "Error to connect the network",
     ),
     "hintEmail": MessageLookupByLibrary.simpleMessage("example@ex.ex"),
     "hintName": MessageLookupByLibrary.simpleMessage("Saif Allah"),
@@ -44,6 +50,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "required": MessageLookupByLibrary.simpleMessage("Required"),
     "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "thisAccountIsDisabled": MessageLookupByLibrary.simpleMessage(
+      "This account is disabled",
+    ),
+    "unknownError": MessageLookupByLibrary.simpleMessage("Unknown error"),
+    "userNotFound": MessageLookupByLibrary.simpleMessage(
+      "User not exists or email or password incorrect",
+    ),
     "weakPassword": MessageLookupByLibrary.simpleMessage("Password Weak"),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
