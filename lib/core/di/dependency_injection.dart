@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/data/api/auth_api.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/login_usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_cubit.dart';
 import 'package:logger/logger.dart';
@@ -26,9 +27,7 @@ void setupDependencyInjection() {
   getIt.registerLazySingleton(() => FirebaseClient());
 
   // APIs
-  getIt.registerLazySingleton<FirebaseAuthClient>(
-    () => FirebaseAuthClient(getIt()),
-  );
+  getIt.registerLazySingleton<AuthApi>(() => FirebaseAuthClient(getIt()));
 
   // Data Sources
   getIt.registerLazySingleton<AuthRemoteDataSource>(

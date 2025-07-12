@@ -28,11 +28,9 @@ class SocialMediaApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<LocaleCubit>()),
           BlocProvider(create: (context) => getIt<ThemeCubit>()),
         ],
-        child: BlocSelector<LocaleCubit, Locale, Locale>(
-          selector: (locale) => locale,
+        child: BlocBuilder<LocaleCubit, Locale>(
           builder: (context, locale) {
-            return BlocSelector<ThemeCubit, ThemeMode, ThemeMode>(
-              selector: (theme) => theme,
+            return BlocBuilder<ThemeCubit, ThemeMode>(
               builder: (context, theme) {
                 return MaterialApp(
                   locale: locale,
