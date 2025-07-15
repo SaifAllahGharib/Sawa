@@ -58,15 +58,17 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   void _startVerificationListener() {
     _timer = Timer.periodic(
-      const Duration(milliseconds: 1500),
+      const Duration(milliseconds: 2000),
       (timer) async => await _isEmailVerified(timer),
     );
   }
 
   void _whenSuccess() {
-    Future.delayed(const Duration(milliseconds: 3000), () {
+    Future.delayed(const Duration(milliseconds: 1500), () {
       context.navigator.pushNamedAndRemoveUntil(
         AppRouteName.home,
+        arguments:
+            (context.arguments as Map<String, dynamic>)['name'] as String,
         (route) => false,
       );
     });
@@ -134,7 +136,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           style: AppStyles.s16W500,
                         ),
                         Text(
-                          context.arguments as String,
+                          (context.arguments as Map<String, dynamic>)['email']
+                              as String,
                           style: AppStyles.s12W400.copyWith(
                             color: context.theme.primaryColor,
                           ),

@@ -71,7 +71,10 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
     });
     context.navigator.pushNamed(
       AppRouteName.verification,
-      arguments: _emailController.text.trim(),
+      arguments: {
+        'name': _nameController.text,
+        'email': _emailController.text.trim(),
+      },
     );
   }
 
