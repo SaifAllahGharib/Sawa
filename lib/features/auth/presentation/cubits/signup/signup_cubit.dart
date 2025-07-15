@@ -7,14 +7,14 @@ import 'signup_state.dart';
 class SignupCubit extends Cubit<SignupState> {
   final SignupUseCase _signupUseCase;
 
-  SignupCubit(this._signupUseCase) : super(SignupInitState());
+  SignupCubit(this._signupUseCase) : super(const SignupInitState());
 
   void signup(SignupEntity entity) async {
-    emit(SignupLoadingState());
+    emit(const SignupLoadingState());
     final result = await _signupUseCase.call(entity);
     result.when(
       failure: (failure) => emit(SignupFailureState(failure.code)),
-      success: (_) => emit(SignupSuccessState()),
+      success: (_) => emit(const SignupSuccessState()),
     );
   }
 }

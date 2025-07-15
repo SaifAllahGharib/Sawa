@@ -9,14 +9,23 @@ sealed class VerificationState extends Equatable {
 
 final class VerificationInitial extends VerificationState {
   const VerificationInitial();
+
+  @override
+  List<Object?> get props => [];
 }
 
 final class VerificationLoading extends VerificationState {
   const VerificationLoading();
+
+  @override
+  List<Object?> get props => [];
 }
 
 final class VerificationCodeSentSuccessOnce extends VerificationState {
   const VerificationCodeSentSuccessOnce();
+
+  @override
+  List<Object?> get props => [];
 }
 
 final class VerificationCodeSent extends VerificationState {
@@ -31,6 +40,9 @@ final class VerificationCodeSent extends VerificationState {
 
 final class VerificationSuccess extends VerificationState {
   const VerificationSuccess();
+
+  @override
+  List<Object?> get props => [];
 }
 
 final class VerificationFailure extends VerificationState {

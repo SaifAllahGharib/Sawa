@@ -7,15 +7,15 @@ import 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   final LoginUseCase _loginUseCase;
 
-  LoginCubit(this._loginUseCase) : super(LoginInitState());
+  LoginCubit(this._loginUseCase) : super(const LoginInitState());
 
   void login(LoginEntity entity) async {
-    emit(LoginLoadingState());
+    emit(const LoginLoadingState());
     final result = await _loginUseCase.call(entity);
 
     result.when(
       failure: (failure) => emit(LoginFailureState(failure.code)),
-      success: (_) => emit(LoginSuccessState()),
+      success: (_) => emit(const LoginSuccessState()),
     );
   }
 }
