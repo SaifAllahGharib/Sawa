@@ -6,6 +6,10 @@ sealed class AuthRemoteDataSource {
   Future<dynamic> login(LoginModel model);
 
   Future<dynamic> createAccount(SignupModel model);
+
+  Future<bool> emailVerified();
+
+  Future<void> sendEmailVerification();
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -21,5 +25,15 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   @override
   Future<void> login(LoginModel model) async {
     return await _authApi.login(model);
+  }
+
+  @override
+  Future<bool> emailVerified() async {
+    return await _authApi.emailVerified();
+  }
+
+  @override
+  Future<void> sendEmailVerification() async {
+    return await _authApi.sendEmailVerification();
   }
 }

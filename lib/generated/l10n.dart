@@ -229,6 +229,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Verification Link Sent to`
+  String get sendLinkVerificationYourEmailTo {
+    return Intl.message(
+      'Verification Link Sent to',
+      name: 'sendLinkVerificationYourEmailTo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend Email`
+  String get resendEmail {
+    return Intl.message(
+      'Resend Email',
+      name: 'resendEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code sent successfully`
+  String get codeSendSuccess {
+    return Intl.message(
+      'Code sent successfully',
+      name: 'codeSendSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code not sent successfully`
+  String get codeSendNotSuccess {
+    return Intl.message(
+      'Code not sent successfully',
+      name: 'codeSendNotSuccess',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

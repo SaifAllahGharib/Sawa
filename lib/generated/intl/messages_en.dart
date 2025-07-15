@@ -25,6 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "accountExistsWithDifferentMethod": MessageLookupByLibrary.simpleMessage(
       "Account exists with different method",
     ),
+    "codeSendNotSuccess": MessageLookupByLibrary.simpleMessage(
+      "Code not sent successfully",
+    ),
+    "codeSendSuccess": MessageLookupByLibrary.simpleMessage(
+      "Code sent successfully",
+    ),
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account",
     ),
@@ -49,6 +55,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Must be 8+ chars with uppercase, number & symbol",
     ),
     "required": MessageLookupByLibrary.simpleMessage("Required"),
+    "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
+    "sendLinkVerificationYourEmailTo": MessageLookupByLibrary.simpleMessage(
+      "Verification Link Sent to",
+    ),
     "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "thisAccountIsDisabled": MessageLookupByLibrary.simpleMessage(
       "This account is disabled",

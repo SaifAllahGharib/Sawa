@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
+import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_cubit.dart';
@@ -25,12 +27,14 @@ class LoginMiddleSection extends StatefulWidget {
 class _LoginMiddleSectionState extends State<LoginMiddleSection> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
+  late final FirebaseClient _firebaseClient;
   bool _isLoading = false;
 
   @override
   void initState() {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _firebaseClient = getIt<FirebaseClient>();
 
     super.initState();
   }
@@ -65,10 +69,19 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
     setState(() {
       _isLoading = false;
     });
-    context.navigator.pushNamedAndRemoveUntil(
-      AppRouteName.home,
-      (route) => false,
-    );
+
+    if (_firebaseClient.auth.currentUser!.emailVerified) {
+      context.navigator.pushNamedAndRemoveUntil(
+        AppRouteName.home,
+
+        (route) => false,
+      );
+    } else {
+      context.navigator.pushNamed(
+        AppRouteName.verification,
+        arguments: _emailController.text.trim(),
+      );
+    }
   }
 
   void _whenFailure(String code) {

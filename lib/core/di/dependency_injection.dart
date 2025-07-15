@@ -1,7 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/api/auth_api.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/email_verified_usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/login_usecase.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/send_email_verification_usercase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_cubit.dart';
 import 'package:logger/logger.dart';
 
@@ -10,6 +12,7 @@ import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
 import '../../features/auth/domain/usecases/signup_usecase.dart';
 import '../../features/auth/presentation/cubits/signup/signup_cubit.dart';
+import '../../features/auth/presentation/cubits/verification/verification/verification_cubit.dart';
 import '../clients/dio_client.dart';
 import '../clients/supabase_clint.dart';
 import '../helpers/shared_preferences_helper.dart';
@@ -42,10 +45,15 @@ void setupDependencyInjection() {
   // UseCass
   getIt.registerLazySingleton(() => SignupUseCase(getIt()));
   getIt.registerLazySingleton(() => LoginUseCase(getIt()));
+  getIt.registerLazySingleton(() => SendEmailVerificationUserCase(getIt()));
+  getIt.registerLazySingleton(() => EmailVerifiedUseCase(getIt()));
 
   // Cubits
   getIt.registerLazySingleton<LocaleCubit>(() => LocaleCubit(getIt()));
   getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit(getIt()));
   getIt.registerFactory<SignupCubit>(() => SignupCubit(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
+  getIt.registerFactory<VerificationCubit>(
+    () => VerificationCubit(getIt(), getIt()),
+  );
 }

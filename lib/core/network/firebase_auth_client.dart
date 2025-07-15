@@ -23,4 +23,20 @@ class FirebaseAuthClient extends AuthApi {
       password: model.password,
     );
   }
+
+  @override
+  Future<bool> emailVerified() async {
+    var user = _firebaseClint.auth.currentUser;
+    await user?.reload();
+    return user?.emailVerified ?? false;
+  }
+
+  @override
+  Future<void> sendEmailVerification() async {
+    var user = _firebaseClint.auth.currentUser;
+    await user?.reload();
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+    }
+  }
 }

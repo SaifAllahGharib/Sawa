@@ -69,9 +69,9 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
     setState(() {
       _isLoading = false;
     });
-    context.navigator.pushNamedAndRemoveUntil(
-      AppRouteName.home,
-      (route) => false,
+    context.navigator.pushNamed(
+      AppRouteName.verification,
+      arguments: _emailController.text.trim(),
     );
   }
 

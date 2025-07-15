@@ -20,5 +20,9 @@
   "thisAccountIsDisabled": "This account is disabled",
   "accountExistsWithDifferentMethod": "Account exists with different method",
   "unknownError": "Unknown error",
-  "errorToConnectTheNetwork": "Error to connect the network"
+  "errorToConnectTheNetwork": "Error to connect the network",
+  "sendLinkVerificationYourEmailTo": "Verification Link Sent to",
+  "resendEmail": "Resend Email",
+  "codeSendSuccess": "Code sent successfully",
+  "codeSendNotSuccess": "Code not sent successfully"
 }

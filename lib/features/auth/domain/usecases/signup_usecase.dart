@@ -5,7 +5,7 @@ import 'package:intern_intelligence_social_media_application/features/auth/domai
 
 import '../repositories/auth_repository.dart';
 
-class SignupUseCase extends UseCase<Result<AppFailure, void>, SignupEntity> {
+class SignupUseCase extends UseCase<void, SignupEntity> {
   final AuthRepository _authRepository;
 
   SignupUseCase(this._authRepository);

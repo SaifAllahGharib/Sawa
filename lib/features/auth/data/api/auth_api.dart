@@ -5,4 +5,8 @@ abstract class AuthApi {
   Future<dynamic> login(LoginModel model);
 
   Future<dynamic> createAccount(SignupModel model);
+
+  Future<bool> emailVerified();
+
+  Future<void> sendEmailVerification();
 }

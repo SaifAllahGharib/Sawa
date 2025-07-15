@@ -7,4 +7,8 @@ abstract class AuthRepository {
   Future<Result<AppFailure, dynamic>> login(LoginEntity entity);
 
   Future<Result<AppFailure, dynamic>> createAccount(SignupEntity entity);
+
+  Future<Result<AppFailure, bool>> emailVerified();
+
+  Future<Result<AppFailure, void>> sendEmailVerification();
 }

@@ -41,4 +41,22 @@ class AuthRepositoryImpl extends AuthRepository {
       return Failure(ErrorHandler.handle(e));
     }
   }
+
+  @override
+  Future<Result<AppFailure, bool>> emailVerified() async {
+    try {
+      return Success(await _authRemoteDataSource.emailVerified());
+    } catch (e) {
+      return Failure(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Result<AppFailure, void>> sendEmailVerification() async {
+    try {
+      return Success(await _authRemoteDataSource.sendEmailVerification());
+    } catch (e) {
+      return Failure(ErrorHandler.handle(e));
+    }
+  }
 }
