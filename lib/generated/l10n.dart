@@ -269,6 +269,36 @@ class S {
       args: [],
     );
   }
+
+  /// `What are you thinking?`
+  String get whateYouThinking {
+    return Intl.message(
+      'What are you thinking?',
+      name: 'whateYouThinking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error connecting to the network`
+  String get errorConnectionNetwork {
+    return Intl.message(
+      'Error connecting to the network',
+      name: 'errorConnectionNetwork',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to store user`
+  String get failedToStoreUserInDb {
+    return Intl.message(
+      'Failed to store user',
+      name: 'failedToStoreUserInDb',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

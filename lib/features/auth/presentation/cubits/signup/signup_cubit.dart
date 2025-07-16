@@ -11,7 +11,7 @@ class SignupCubit extends Cubit<SignupState> {
 
   void signup(SignupEntity entity) async {
     emit(const SignupLoadingState());
-    final result = await _signupUseCase.call(entity);
+    final result = await _signupUseCase(entity);
     result.when(
       failure: (failure) => emit(SignupFailureState(failure.code)),
       success: (_) => emit(const SignupSuccessState()),

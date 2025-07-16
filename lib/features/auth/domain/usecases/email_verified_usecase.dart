@@ -4,7 +4,7 @@ import 'package:intern_intelligence_social_media_application/core/usecases/no_pa
 import 'package:intern_intelligence_social_media_application/core/usecases/usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/repositories/auth_repository.dart';
 
-class EmailVerifiedUseCase extends UseCase<bool, NoParams> {
+class EmailVerifiedUseCase implements UseCase<bool, NoParams> {
   final AuthRepository _authRepository;
 
   EmailVerifiedUseCase(this._authRepository);

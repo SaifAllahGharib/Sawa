@@ -86,6 +86,10 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
       AppSnackBar.showError(context, context.tr.email_already_used);
     } else if (code == 'internal_error') {
       AppSnackBar.showError(context, context.tr.errorToConnectTheNetwork);
+    } else if (code == 'failed_to_store_user_in_db') {
+      AppSnackBar.showError(context, context.tr.failedToStoreUserInDb);
+    } else if (code == 'network_request_failed') {
+      AppSnackBar.showError(context, context.tr.errorConnectionNetwork);
     } else if (code == 'auth_error') {
       AppSnackBar.showError(context, context.tr.unknownError);
     }

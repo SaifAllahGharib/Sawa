@@ -6,7 +6,7 @@ import 'package:intern_intelligence_social_media_application/features/auth/domai
 abstract class AuthRepository {
   Future<Result<AppFailure, dynamic>> login(LoginEntity entity);
 
-  Future<Result<AppFailure, dynamic>> createAccount(SignupEntity entity);
+  Future<Result<AppFailure, bool>> createAccount(SignupEntity entity);
 
   Future<Result<AppFailure, bool>> emailVerified();
 

@@ -4,7 +4,7 @@ import 'package:intern_intelligence_social_media_application/core/usecases/no_pa
 import 'package:intern_intelligence_social_media_application/core/usecases/usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/repositories/auth_repository.dart';
 
-class SendEmailVerificationUserCase extends UseCase<void, NoParams> {
+class SendEmailVerificationUserCase implements UseCase<void, NoParams> {
   final AuthRepository _authRepository;
 
   SendEmailVerificationUserCase(this._authRepository);

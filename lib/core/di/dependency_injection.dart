@@ -1,10 +1,20 @@
 import 'package:get_it/get_it.dart';
+import 'package:intern_intelligence_social_media_application/core/api/db_api.dart';
 import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
+import 'package:intern_intelligence_social_media_application/core/network/supabase_db_client.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/api/auth_api.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/email_verified_usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/login_usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/send_email_verification_usercase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_cubit.dart';
+import 'package:intern_intelligence_social_media_application/features/home/data/data_sources/home_remote_data_source.dart';
+import 'package:intern_intelligence_social_media_application/features/home/data/repositories/home_repository_impl.dart';
+import 'package:intern_intelligence_social_media_application/features/home/domain/repositories/home_repository.dart';
+import 'package:intern_intelligence_social_media_application/features/home/presentation/cubits/home/home_cubit.dart';
+import 'package:intern_intelligence_social_media_application/features/user/data/data_source/user_remote_data_source.dart';
+import 'package:intern_intelligence_social_media_application/features/user/data/repository/user_repository_impl.dart';
+import 'package:intern_intelligence_social_media_application/features/user/domain/repository/user_repository.dart';
+import 'package:intern_intelligence_social_media_application/features/user/domain/usecase/get_user_use_case.dart';
 import 'package:logger/logger.dart';
 
 import '../../features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -31,15 +41,28 @@ void setupDependencyInjection() {
 
   // APIs
   getIt.registerLazySingleton<AuthApi>(() => FirebaseAuthClient(getIt()));
+  getIt.registerLazySingleton<DbApi>(() => SupabaseDbClient(getIt()));
 
   // Data Sources
   getIt.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(getIt()),
   );
+  getIt.registerLazySingleton<UserRemoteDataSource>(
+    () => UserRemoteDataSourceImpl(getIt()),
+  );
+  getIt.registerLazySingleton<HomeRemoteDataSource>(
+    () => HomeRemoteDataSourceImpl(getIt()),
+  );
 
   // Repositories
   getIt.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(getIt()),
+    () => AuthRepositoryImpl(getIt(), getIt()),
+  );
+  getIt.registerLazySingleton<UserRepository>(
+    () => UserRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImpl(getIt()),
   );
 
   // UseCass
@@ -47,6 +70,7 @@ void setupDependencyInjection() {
   getIt.registerLazySingleton(() => LoginUseCase(getIt()));
   getIt.registerLazySingleton(() => SendEmailVerificationUserCase(getIt()));
   getIt.registerLazySingleton(() => EmailVerifiedUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetUserUseCase(getIt()));
 
   // Cubits
   getIt.registerLazySingleton<LocaleCubit>(() => LocaleCubit(getIt()));
@@ -56,4 +80,5 @@ void setupDependencyInjection() {
   getIt.registerFactory<VerificationCubit>(
     () => VerificationCubit(getIt(), getIt()),
   );
+  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
 }

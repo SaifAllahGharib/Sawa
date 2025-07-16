@@ -24,5 +24,8 @@
   "sendLinkVerificationYourEmailTo": "Verification Link Sent to",
   "resendEmail": "Resend Email",
   "codeSendSuccess": "Code sent successfully",
-  "codeSendNotSuccess": "Code not sent successfully"
+  "codeSendNotSuccess": "Code not sent successfully",
+  "whateYouThinking": "What are you thinking?",
+  "errorConnectionNetwork": "Error connecting to the network",
+  "failedToStoreUserInDb": "Failed to store user"
 }

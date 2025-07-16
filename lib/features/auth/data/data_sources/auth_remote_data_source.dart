@@ -12,13 +12,13 @@ sealed class AuthRemoteDataSource {
   Future<void> sendEmailVerification();
 }
 
-class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
+class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final AuthApi _authApi;
 
   AuthRemoteDataSourceImpl(this._authApi);
 
   @override
-  Future<void> createAccount(SignupModel model) async {
+  Future<String?> createAccount(SignupModel model) async {
     return await _authApi.createAccount(model);
   }
 

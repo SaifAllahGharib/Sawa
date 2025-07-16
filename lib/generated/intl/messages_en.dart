@@ -38,8 +38,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "email_already_used": MessageLookupByLibrary.simpleMessage(
       "Email already used",
     ),
+    "errorConnectionNetwork": MessageLookupByLibrary.simpleMessage(
+      "Error connecting to the network",
+    ),
     "errorToConnectTheNetwork": MessageLookupByLibrary.simpleMessage(
       "Error to connect the network",
+    ),
+    "failedToStoreUserInDb": MessageLookupByLibrary.simpleMessage(
+      "Failed to store user",
     ),
     "hintEmail": MessageLookupByLibrary.simpleMessage("example@ex.ex"),
     "hintName": MessageLookupByLibrary.simpleMessage("Saif Allah"),
@@ -70,5 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "weakPassword": MessageLookupByLibrary.simpleMessage("Password Weak"),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
+    "whateYouThinking": MessageLookupByLibrary.simpleMessage(
+      "What are you thinking?",
+    ),
   };
 }

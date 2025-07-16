@@ -27,7 +27,7 @@ class VerificationCubit extends Cubit<VerificationState> {
   void sendEmailVerification() async {
     _startTimer();
 
-    final result = await _sendEmailVerificationUserCase.call(const NoParams());
+    final result = await _sendEmailVerificationUserCase(const NoParams());
 
     result.when(
       failure: (_) => emit(const VerificationFailure('send email failed')),
@@ -38,7 +38,7 @@ class VerificationCubit extends Cubit<VerificationState> {
   }
 
   void emailVerified() async {
-    final result = await _emailVerifiedUseCase.call(const NoParams());
+    final result = await _emailVerifiedUseCase(const NoParams());
 
     result.when(
       failure: (failure) => emit(VerificationFailure(failure.code)),

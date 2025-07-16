@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intern_intelligence_social_media_application/features/home/presentation/cubits/home/home_cubit.dart';
 
 import '../../features/auth/presentation/cubits/verification/verification/verification_cubit.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
@@ -16,8 +17,6 @@ abstract class AppRouter {
         return MaterialPageRoute(builder: (context) => const LoginScreen());
       case AppRouteName.signup:
         return MaterialPageRoute(builder: (context) => const SignupScreen());
-      case AppRouteName.home:
-        return MaterialPageRoute(builder: (context) => const HomeScreen());
       case AppRouteName.verification:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -26,6 +25,15 @@ abstract class AppRouter {
           ),
           settings: settings,
         );
+      case AppRouteName.home:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<HomeCubit>(),
+            child: const HomeScreen(),
+          ),
+          settings: settings,
+        );
+
       default:
         debugPrint('Unknown Route: ${settings.name}');
         return _errorRoute();

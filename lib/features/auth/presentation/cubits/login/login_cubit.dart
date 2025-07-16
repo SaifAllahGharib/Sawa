@@ -11,7 +11,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   void login(LoginEntity entity) async {
     emit(const LoginLoadingState());
-    final result = await _loginUseCase.call(entity);
+    final result = await _loginUseCase(entity);
 
     result.when(
       failure: (failure) => emit(LoginFailureState(failure.code)),

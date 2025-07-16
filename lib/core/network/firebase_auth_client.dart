@@ -3,17 +3,19 @@ import 'package:intern_intelligence_social_media_application/features/auth/data/
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/login_model.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/signup_model.dart';
 
-class FirebaseAuthClient extends AuthApi {
+class FirebaseAuthClient implements AuthApi {
   final FirebaseClient _firebaseClint;
 
   FirebaseAuthClient(this._firebaseClint);
 
   @override
-  Future<void> createAccount(SignupModel model) async {
-    await _firebaseClint.auth.createUserWithEmailAndPassword(
-      email: model.email,
-      password: model.password,
-    );
+  Future<String?> createAccount(SignupModel model) async {
+    return await _firebaseClint.auth
+        .createUserWithEmailAndPassword(
+          email: model.email,
+          password: model.password,
+        )
+        .then((value) => value.user?.uid);
   }
 
   @override

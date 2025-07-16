@@ -73,7 +73,6 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
     if (_firebaseClient.auth.currentUser!.emailVerified) {
       context.navigator.pushNamedAndRemoveUntil(
         AppRouteName.home,
-
         (route) => false,
       );
     } else {
@@ -92,6 +91,8 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
       AppSnackBar.showError(context, context.tr.userNotFound);
     } else if (code == 'internal_error') {
       AppSnackBar.showError(context, context.tr.errorToConnectTheNetwork);
+    } else if (code == 'network_request_failed') {
+      AppSnackBar.showError(context, context.tr.errorConnectionNetwork);
     } else if (code == 'auth_error') {
       AppSnackBar.showError(context, context.tr.unknownError);
     }
