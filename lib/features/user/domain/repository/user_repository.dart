@@ -7,6 +7,8 @@ abstract class UserRepository {
 
   Future<Result<AppFailure, UserEntity?>> getUser(String uId);
 
+  Future<Result<AppFailure, bool>> userExists(String uId);
+
   Future<Result<AppFailure, void>> updateUser(UserEntity user);
 
   Future<Result<AppFailure, void>> deleteUser(String userId);

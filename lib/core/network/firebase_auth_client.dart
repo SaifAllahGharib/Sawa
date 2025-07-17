@@ -41,4 +41,20 @@ class FirebaseAuthClient implements AuthApi {
       await user.sendEmailVerification();
     }
   }
+
+  @override
+  Future<void> deleteUser(LoginModel model) async {
+    final user = _firebaseClint.auth.currentUser;
+
+    if (user != null) {
+      await user.delete();
+    } else {
+      final userCredential = await _firebaseClint.auth
+          .signInWithEmailAndPassword(
+            email: model.email,
+            password: model.password,
+          );
+      await userCredential.user?.delete();
+    }
+  }
 }

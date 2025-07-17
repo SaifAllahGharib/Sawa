@@ -5,6 +5,8 @@ abstract class UserRemoteDataSource {
   Future<dynamic> createUser(UserModel user);
 
   Future<UserModel?> getUser(String uId);
+
+  Future<bool> userExists(String uId);
 }
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
@@ -20,5 +22,10 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<UserModel?> getUser(String uId) async {
     return await _dbApi.getUser(uId);
+  }
+
+  @override
+  Future<bool> userExists(String uId) async {
+    return await _dbApi.userExists(uId);
   }
 }

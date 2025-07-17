@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+
+import 'app_placeholder.dart';
 
 class AppNetworkImage extends StatelessWidget {
   final String image;
@@ -42,12 +46,38 @@ class AppNetworkImage extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
-        placeholder: (context, url) {
-          return Image.network(url);
-        },
-        errorWidget: (context, url, error) {
-          return const Center(child: Text("error"));
-        },
+        placeholder: (context, url) => AppPlaceholder(
+          width: width ?? double.infinity,
+          height: height ?? 200,
+          borderRadius:
+              borderRadius ??
+              BorderRadius.only(
+                bottomLeft: Radius.circular(bottomLeft ?? 16.r),
+                bottomRight: Radius.circular(bottomRight ?? 16.r),
+                topLeft: Radius.circular(topLeft ?? 0),
+                topRight: Radius.circular(topRight ?? 0),
+              ),
+        ),
+        errorWidget: (context, url, error) => Container(
+          width: width ?? double.infinity,
+          height: height ?? 200,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius:
+                borderRadius ??
+                BorderRadius.only(
+                  bottomLeft: Radius.circular(bottomLeft ?? 16.r),
+                  bottomRight: Radius.circular(bottomRight ?? 16.r),
+                  topLeft: Radius.circular(topLeft ?? 0),
+                  topRight: Radius.circular(topRight ?? 0),
+                ),
+          ),
+          child: Icon(
+            Icons.error,
+            color: Colors.red.shade700,
+            size: min(width ?? 100, height ?? 100) * 0.2,
+          ),
+        ),
       ),
     );
   }

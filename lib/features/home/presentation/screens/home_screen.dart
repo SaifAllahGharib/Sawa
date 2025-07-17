@@ -77,6 +77,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    AppNetworkImage(
+                      image: 'https://randomuser.me/api/portraits/men/75.jpg',
+                      width: 45.h,
+                      height: 45.h,
+                      borderRadius: BorderRadius.circular(100.r),
+                    ),
+                    10.horizontalSpace,
                     Expanded(
                       child: TextFormField(
                         decoration: InputDecoration(
@@ -101,19 +108,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    10.horizontalSpace,
-                    AppNetworkImage(
-                      image: 'https://randomuser.me/api/portraits/men/75.jpg',
-                      width: 45.h,
-                      height: 45.h,
-                      borderRadius: BorderRadius.circular(100.r),
-                    ),
                   ],
                 ),
               ),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
+            SliverList.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(
                     top: index == 0 ? 12.r : 16.r,
@@ -127,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
                   ),
                 );
-              }, childCount: 5),
+              },
             ),
           ],
         ),

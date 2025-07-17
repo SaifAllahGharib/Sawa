@@ -34,6 +34,10 @@ class AuthRepositoryImpl implements AuthRepository {
         return createdUser;
       }
 
+      await _authRemoteDataSource.deleteUser(
+        LoginModel(email: entity.email, password: entity.password),
+      );
+
       return const Failure(ServerFailure('failed_to_store_user_in_db'));
     } catch (e) {
       return Failure(ErrorHandler.handle(e));
@@ -46,7 +50,6 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await _authRemoteDataSource.login(
         LoginModel(email: entity.email, password: entity.password),
       );
-
       return Success(response);
     } catch (e) {
       return Failure(ErrorHandler.handle(e));

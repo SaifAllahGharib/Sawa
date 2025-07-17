@@ -10,6 +10,8 @@ sealed class AuthRemoteDataSource {
   Future<bool> emailVerified();
 
   Future<void> sendEmailVerification();
+
+  Future<void> deleteUser(LoginModel model);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -35,5 +37,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<void> sendEmailVerification() async {
     return await _authApi.sendEmailVerification();
+  }
+
+  @override
+  Future<void> deleteUser(LoginModel model) async {
+    return await _authApi.deleteUser(model);
   }
 }

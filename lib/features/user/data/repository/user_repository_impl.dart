@@ -44,6 +44,15 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<Result<AppFailure, bool>> userExists(String uId) async {
+    try {
+      return Success(await _remoteDataSource.userExists(uId));
+    } catch (e) {
+      return Failure(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
   Future<Result<AppFailure, void>> deleteUser(String userId) {
     // TODO: implement deleteUser
     throw UnimplementedError();

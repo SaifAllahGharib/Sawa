@@ -35,6 +35,21 @@ class SupabaseDbClient implements DbApi {
   }
 
   @override
+  Future<bool> userExists(String userId) async {
+    try {
+      final response = await _supabaseClint.db
+          .from('users')
+          .select('id')
+          .eq('id', userId)
+          .maybeSingle();
+
+      return response != null;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
   Future<bool> updateUser(UserModel user) async {
     try {
       await _supabaseClint.db
