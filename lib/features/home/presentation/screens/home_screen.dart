@@ -4,8 +4,10 @@ import 'package:intern_intelligence_social_media_application/core/clients/fireba
 import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_colors.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_ink_well_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_network_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_remove_focus.dart';
@@ -77,11 +79,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    AppNetworkImage(
-                      image: 'https://randomuser.me/api/portraits/men/75.jpg',
-                      width: 45.h,
-                      height: 45.h,
-                      borderRadius: BorderRadius.circular(100.r),
+                    AppInkWellButton(
+                      onTap: () =>
+                          context.navigator.pushNamed(AppRouteName.profile),
+                      child: AppNetworkImage(
+                        image: 'https://randomuser.me/api/portraits/men/75.jpg',
+                        width: 45.h,
+                        height: 45.h,
+                        borderRadius: BorderRadius.circular(100.r),
+                      ),
                     ),
                     10.horizontalSpace,
                     Expanded(

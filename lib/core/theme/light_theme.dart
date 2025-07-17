@@ -41,7 +41,11 @@ abstract class LightTheme {
 
   static Iterable<ThemeExtension<CustomColors>> get extension =>
       <ThemeExtension<CustomColors>>[
-        const CustomColors(textColor: AppColors.lightText),
+        const CustomColors(
+          textColor: AppColors.lightText,
+          border: AppColors.lightBorder,
+          icon: AppColors.darkBackground,
+        ),
       ];
 
   static InputDecorationTheme get inputDecorationTheme => InputDecorationTheme(

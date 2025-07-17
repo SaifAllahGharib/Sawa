@@ -41,7 +41,11 @@ abstract class DarkTheme {
 
   static Iterable<ThemeExtension<CustomColors>> get extension =>
       <ThemeExtension<CustomColors>>[
-        const CustomColors(textColor: AppColors.darkText),
+        const CustomColors(
+          textColor: AppColors.darkText,
+          border: AppColors.darkBorder,
+          icon: AppColors.lightBackground,
+        ),
       ];
 
   static InputDecorationTheme get inputDecorationTheme => InputDecorationTheme(
