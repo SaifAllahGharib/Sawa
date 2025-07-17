@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/features/home/presentation/cubits/home/home_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/%20presentation/screen/profile_screen.dart';
+import 'package:intern_intelligence_social_media_application/features/settings/presentation/screen/settings_screen.dart';
 
 import '../../features/auth/presentation/cubits/verification/verification/verification_cubit.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
@@ -37,6 +38,11 @@ abstract class AppRouter {
       case AppRouteName.profile:
         return MaterialPageRoute(
           builder: (context) => const ProfileScreen(),
+          settings: settings,
+        );
+      case AppRouteName.settings:
+        return MaterialPageRoute(
+          builder: (context) => const SettingsScreen(),
           settings: settings,
         );
       default:

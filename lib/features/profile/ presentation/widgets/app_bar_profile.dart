@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
 
 import '../../../../core/widgets/app_back_button.dart';
 import '../../../../core/widgets/app_ink_well_button.dart';
@@ -22,7 +23,8 @@ class AppBarProfile extends StatelessWidget {
               children: [
                 const AppBackButton(),
                 AppInkWellButton(
-                  onTap: () {},
+                  onTap: () =>
+                      context.navigator.pushNamed(AppRouteName.settings),
                   child: Icon(Icons.settings, color: context.customColor.icon),
                 ),
               ],
