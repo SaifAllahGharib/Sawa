@@ -5,7 +5,7 @@ import 'package:intern_intelligence_social_media_application/features/auth/domai
 import 'package:intern_intelligence_social_media_application/features/auth/domain/repositories/auth_repository.dart';
 
 class LoginUseCase implements UseCase<void, LoginEntity> {
-  final AuthRepository _authRepository;
+  final IAuthRepository _authRepository;
 
   LoginUseCase(this._authRepository);
 

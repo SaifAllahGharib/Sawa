@@ -6,7 +6,7 @@ import 'package:intern_intelligence_social_media_application/features/auth/domai
 import '../repositories/auth_repository.dart';
 
 class SignupUseCase implements UseCase<bool, SignupEntity> {
-  final AuthRepository _authRepository;
+  final IAuthRepository _authRepository;
 
   SignupUseCase(this._authRepository);
 

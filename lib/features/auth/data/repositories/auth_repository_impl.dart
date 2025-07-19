@@ -9,9 +9,9 @@ import 'package:intern_intelligence_social_media_application/features/auth/domai
 import 'package:intern_intelligence_social_media_application/features/user/domain/entity/user_entity.dart';
 import 'package:intern_intelligence_social_media_application/features/user/domain/repository/user_repository.dart';
 
-class AuthRepositoryImpl implements AuthRepository {
-  final AuthRemoteDataSource _authRemoteDataSource;
-  final UserRepository _userRepository;
+class AuthRepositoryImpl implements IAuthRepository {
+  final IAuthRemoteDataSource _authRemoteDataSource;
+  final IUserRepository _userRepository;
 
   AuthRepositoryImpl(this._authRemoteDataSource, this._userRepository);
 

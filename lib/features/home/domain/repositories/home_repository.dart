@@ -1,1 +1,1 @@
-abstract class HomeRepository {}
+abstract class IHomeRepository {}

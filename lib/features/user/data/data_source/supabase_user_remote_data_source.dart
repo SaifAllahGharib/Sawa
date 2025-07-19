@@ -1,11 +1,11 @@
-import 'package:intern_intelligence_social_media_application/core/api/db_api.dart';
 import 'package:intern_intelligence_social_media_application/core/clients/supabase_clint.dart';
+import 'package:intern_intelligence_social_media_application/features/user/data/data_source/user_remote_data_source.dart';
 import 'package:intern_intelligence_social_media_application/features/user/data/model/user_model.dart';
 
-class SupabaseDbClient implements DbApi {
+class SupabaseUserRemoteDataSource implements IUserRemoteDataSource {
   final SupabaseClint _supabaseClint;
 
-  SupabaseDbClient(this._supabaseClint);
+  SupabaseUserRemoteDataSource(this._supabaseClint);
 
   @override
   Future<bool> createUser(UserModel user) async {

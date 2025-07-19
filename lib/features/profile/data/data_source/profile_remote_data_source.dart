@@ -1,1 +1,1 @@
-sealed class ProfileRemoteDataSource {}
+abstract class IProfileRemoteDataSource {}

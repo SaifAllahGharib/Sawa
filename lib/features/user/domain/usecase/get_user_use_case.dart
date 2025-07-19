@@ -6,7 +6,7 @@ import 'package:intern_intelligence_social_media_application/features/user/domai
 import '../repository/user_repository.dart';
 
 class GetUserUseCase implements UseCase<UserEntity?, String> {
-  final UserRepository _userRepository;
+  final IUserRepository _userRepository;
 
   GetUserUseCase(this._userRepository);
 

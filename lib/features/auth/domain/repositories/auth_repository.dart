@@ -3,7 +3,7 @@ import 'package:intern_intelligence_social_media_application/core/shared/models/
 import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/login_entity.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/signup_entity.dart';
 
-abstract class AuthRepository {
+abstract class IAuthRepository {
   Future<Result<AppFailure, dynamic>> login(LoginEntity entity);
 
   Future<Result<AppFailure, bool>> createAccount(SignupEntity entity);

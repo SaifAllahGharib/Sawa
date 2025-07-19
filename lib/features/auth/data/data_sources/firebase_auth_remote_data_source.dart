@@ -1,12 +1,12 @@
 import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/data/api/auth_api.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/login_model.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/signup_model.dart';
 
-class FirebaseAuthClient implements AuthApi {
+class FirebaseAuthRemoteDataSource implements IAuthRemoteDataSource {
   final FirebaseClient _firebaseClint;
 
-  FirebaseAuthClient(this._firebaseClint);
+  FirebaseAuthRemoteDataSource(this._firebaseClint);
 
   @override
   Future<String?> createAccount(SignupModel model) async {
