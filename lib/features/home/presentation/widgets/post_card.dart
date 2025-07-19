@@ -8,7 +8,7 @@ import 'middle_section_post_card.dart';
 import 'top_section_post_card.dart';
 
 class PostCard extends StatelessWidget {
-  final String image;
+  final String? image;
   final String name;
   final String postedTime;
   final String? content;

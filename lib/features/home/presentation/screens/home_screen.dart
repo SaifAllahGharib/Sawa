@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     bottom: index == 4 ? 16.r : 0,
                   ),
                   child: const PostCard(
-                    image: 'https://randomuser.me/api/portraits/men/75.jpg',
+                    image: null,
                     name: 'name',
                     postedTime: '16',
                     postImage:
