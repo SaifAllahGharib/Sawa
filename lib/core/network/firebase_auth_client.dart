@@ -57,4 +57,9 @@ class FirebaseAuthClient implements AuthApi {
       await userCredential.user?.delete();
     }
   }
+
+  @override
+  Future<void> logout() async {
+    await _firebaseClint.auth.signOut();
+  }
 }

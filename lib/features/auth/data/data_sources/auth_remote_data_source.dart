@@ -12,6 +12,8 @@ sealed class AuthRemoteDataSource {
   Future<void> sendEmailVerification();
 
   Future<void> deleteUser(LoginModel model);
+
+  Future<void> logout();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -42,5 +44,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<void> deleteUser(LoginModel model) async {
     return await _authApi.deleteUser(model);
+  }
+
+  @override
+  Future<void> logout() async {
+    return await _authApi.logout();
   }
 }

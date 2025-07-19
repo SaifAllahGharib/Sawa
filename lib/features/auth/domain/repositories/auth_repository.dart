@@ -11,4 +11,6 @@ abstract class AuthRepository {
   Future<Result<AppFailure, bool>> emailVerified();
 
   Future<Result<AppFailure, void>> sendEmailVerification();
+
+  Future<Result<AppFailure, void>> logout();
 }

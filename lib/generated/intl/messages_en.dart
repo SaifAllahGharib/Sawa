@@ -25,12 +25,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "accountExistsWithDifferentMethod": MessageLookupByLibrary.simpleMessage(
       "Account exists with different method",
     ),
+    "changeName": MessageLookupByLibrary.simpleMessage("Change Name"),
+    "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
     "codeSendNotSuccess": MessageLookupByLibrary.simpleMessage(
       "Code not sent successfully",
     ),
     "codeSendSuccess": MessageLookupByLibrary.simpleMessage(
       "Code sent successfully",
     ),
+    "dark": MessageLookupByLibrary.simpleMessage("Dark"),
+    "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account",
     ),
@@ -56,7 +60,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "labelEmail": MessageLookupByLibrary.simpleMessage("Email"),
     "labelName": MessageLookupByLibrary.simpleMessage("Name"),
     "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
+    "language": MessageLookupByLibrary.simpleMessage("Language"),
+    "light": MessageLookupByLibrary.simpleMessage("Light"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "logout": MessageLookupByLibrary.simpleMessage("Logout"),
     "passwordValidationMsg": MessageLookupByLibrary.simpleMessage(
       "Must be 8+ chars with uppercase, number & symbol",
     ),
@@ -65,7 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "sendLinkVerificationYourEmailTo": MessageLookupByLibrary.simpleMessage(
       "Verification Link Sent to",
     ),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "thisAccountIsDisabled": MessageLookupByLibrary.simpleMessage(
       "This account is disabled",
     ),

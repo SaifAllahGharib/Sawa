@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_network_image.dart';
 
 import '../../../../core/extensions/number_extensions.dart';
-import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 
@@ -37,11 +37,15 @@ class TopSectionPostCard extends StatelessWidget {
             children: [
               Text(
                 name,
-                style: AppStyles.s16W600.copyWith(color: Colors.black),
+                style: AppStyles.s16W600.copyWith(
+                  color: context.customColor.textColor,
+                ),
               ),
               Text(
                 postedTime,
-                style: AppStyles.s14W400.copyWith(color: AppColors.gray),
+                style: AppStyles.s14W400.copyWith(
+                  color: context.customColor.textColor,
+                ),
               ),
             ],
           ),

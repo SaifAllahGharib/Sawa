@@ -27,5 +27,14 @@
   "codeSendNotSuccess": "Code not sent successfully",
   "whateYouThinking": "What are you thinking?",
   "errorConnectionNetwork": "Error connecting to the network",
-  "failedToStoreUserInDb": "Failed to store user"
+  "failedToStoreUserInDb": "Failed to store user",
+  "settings": "Settings",
+  "language": "Language",
+  "changeName": "Change Name",
+  "theme": "Theme",
+  "changePassword": "Change Password",
+  "logout": "Logout",
+  "deleteAccount": "Delete Account",
+  "light": "Light",
+  "dark": "Dark"
 }

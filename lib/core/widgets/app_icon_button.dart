@@ -20,18 +20,18 @@ class AppIconButton extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(8.r),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.theme.scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(12.r),
             boxShadow: [
               BoxShadow(
                 color: AppColors.gray.withValues(alpha: 0.1),
-                blurRadius: 8,
-                offset: const Offset(2, 2),
+                blurRadius: 1,
+                offset: const Offset(0.7, 0.7),
               ),
               BoxShadow(
-                color: Colors.white.withValues(alpha: 0.5),
-                blurRadius: 8,
-                offset: const Offset(-2, -2),
+                color: AppColors.gray.withValues(alpha: 0.1),
+                blurRadius: 1,
+                offset: const Offset(-0.7, -0.7),
               ),
             ],
           ),

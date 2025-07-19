@@ -11,4 +11,6 @@ abstract class AuthApi {
   Future<void> sendEmailVerification();
 
   Future<void> deleteUser(LoginModel model);
+
+  Future<void> logout();
 }

@@ -73,4 +73,13 @@ class AuthRepositoryImpl implements AuthRepository {
       return Failure(ErrorHandler.handle(e));
     }
   }
+
+  @override
+  Future<Result<AppFailure, void>> logout() async {
+    try {
+      return Success(await _authRemoteDataSource.logout());
+    } catch (e) {
+      return Failure(ErrorHandler.handle(e));
+    }
+  }
 }

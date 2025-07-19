@@ -5,7 +5,9 @@ import 'package:intern_intelligence_social_media_application/core/network/supaba
 import 'package:intern_intelligence_social_media_application/features/auth/data/api/auth_api.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/email_verified_usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/login_usecase.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/send_email_verification_usercase.dart';
+import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/auth/auth_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/repositories/home_repository_impl.dart';
@@ -71,10 +73,12 @@ void setupDependencyInjection() {
   getIt.registerLazySingleton(() => SendEmailVerificationUserCase(getIt()));
   getIt.registerLazySingleton(() => EmailVerifiedUseCase(getIt()));
   getIt.registerLazySingleton(() => GetUserUseCase(getIt()));
+  getIt.registerLazySingleton(() => LogoutUseCase(getIt()));
 
   // Cubits
   getIt.registerLazySingleton<LocaleCubit>(() => LocaleCubit(getIt()));
   getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit(getIt()));
+  getIt.registerLazySingleton<AuthCubit>(() => AuthCubit(getIt(), getIt()));
   getIt.registerFactory<SignupCubit>(() => SignupCubit(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
   getIt.registerFactory<VerificationCubit>(

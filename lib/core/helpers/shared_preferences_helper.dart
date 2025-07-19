@@ -1,6 +1,3 @@
-import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
-import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
-import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,13 +36,6 @@ class SharedPreferencesHelper {
   String? getNameUser() => getString('name');
 
   String? getEmailUser() => getString('email');
-
-  String getInitRoute() {
-    if (getIt<FirebaseClient>().auth.currentUser != null) {
-      return AppRouteName.home;
-    }
-    return '/';
-  }
 
   Future<bool> storeString(String key, String value) async {
     return await _safeWrite(

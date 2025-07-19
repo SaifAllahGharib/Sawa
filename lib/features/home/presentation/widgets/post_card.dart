@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 
 import '../../../../core/extensions/number_extensions.dart';
 import '../../../../core/styles/app_colors.dart';
@@ -27,13 +28,18 @@ class PostCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 12.r),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
             color: AppColors.gray.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            blurRadius: 1,
+            offset: const Offset(0.7, 0.7),
+          ),
+          BoxShadow(
+            color: AppColors.gray.withValues(alpha: 0.1),
+            blurRadius: 1,
+            offset: const Offset(-0.7, -0.7),
           ),
         ],
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/%20presentation/widgets/text_profile_info_widget.dart';
 
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_styles.dart';
@@ -55,18 +54,16 @@ class MiddleSectionProfile extends StatelessWidget {
               ),
             ),
             10.verticalSpace,
-            TextProfileInfoWidget(
-              onEditTap: () {},
-              name: 'Saif Allah Ghareeb',
-              textStyle: AppStyles.s29W400.copyWith(
+            Text(
+              'Saif Allah Ghareeb',
+              style: AppStyles.s29W400.copyWith(
                 color: context.customColor.textColor,
               ),
             ),
             5.verticalSpace,
-            TextProfileInfoWidget(
-              onEditTap: () {},
-              name: 'Programmer',
-              textStyle: AppStyles.s16W400.copyWith(
+            Text(
+              'Programmer',
+              style: AppStyles.s16W400.copyWith(
                 color: context.customColor.textColor,
               ),
             ),

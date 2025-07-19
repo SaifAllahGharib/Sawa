@@ -299,6 +299,61 @@ class S {
       args: [],
     );
   }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message('Language', name: 'language', desc: '', args: []);
+  }
+
+  /// `Change Name`
+  String get changeName {
+    return Intl.message('Change Name', name: 'changeName', desc: '', args: []);
+  }
+
+  /// `Theme`
+  String get theme {
+    return Intl.message('Theme', name: 'theme', desc: '', args: []);
+  }
+
+  /// `Change Password`
+  String get changePassword {
+    return Intl.message(
+      'Change Password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message('Logout', name: 'logout', desc: '', args: []);
+  }
+
+  /// `Delete Account`
+  String get deleteAccount {
+    return Intl.message(
+      'Delete Account',
+      name: 'deleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light`
+  String get light {
+    return Intl.message('Light', name: 'light', desc: '', args: []);
+  }
+
+  /// `Dark`
+  String get dark {
+    return Intl.message('Dark', name: 'dark', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
