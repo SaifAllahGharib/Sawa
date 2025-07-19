@@ -19,11 +19,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   Future<Result<AppFailure, bool>> createAccount(SignupEntity entity) async {
     try {
       final response = await _authRemoteDataSource.createAccount(
-        SignupModel(
-          name: entity.name,
-          email: entity.email,
-          password: entity.password,
-        ),
+        SignupModel.fromEntity(entity),
       );
 
       if (response != null) {
@@ -48,7 +44,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   Future<Result<AppFailure, void>> login(LoginEntity entity) async {
     try {
       final response = await _authRemoteDataSource.login(
-        LoginModel(email: entity.email, password: entity.password),
+        LoginModel.fromEntity(entity),
       );
       return Success(response);
     } catch (e) {

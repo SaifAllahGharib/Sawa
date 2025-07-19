@@ -18,20 +18,14 @@ class SupabaseUserRemoteDataSource implements IUserRemoteDataSource {
   }
 
   @override
-  Future<UserModel?> getUser(String userId) async {
-    try {
-      final response = await _supabaseClint.db
-          .from('users')
-          .select()
-          .eq('id', userId)
-          .maybeSingle();
+  Future<UserModel> getUser(String userId) async {
+    final response = await _supabaseClint.db
+        .from('users')
+        .select()
+        .eq('id', userId)
+        .maybeSingle();
 
-      if (response == null) return null;
-
-      return UserModel.fromJson(response);
-    } catch (e) {
-      return null;
-    }
+    return UserModel.fromJson(response ?? {});
   }
 
   @override

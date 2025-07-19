@@ -5,7 +5,7 @@ import 'package:intern_intelligence_social_media_application/features/user/domai
 abstract class IUserRepository {
   Future<Result<AppFailure, bool>> createUser(UserEntity user);
 
-  Future<Result<AppFailure, UserEntity?>> getUser(String uId);
+  Future<Result<AppFailure, UserEntity>> getUser(String uId);
 
   Future<Result<AppFailure, bool>> userExists(String uId);
 

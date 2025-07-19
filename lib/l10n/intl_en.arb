@@ -36,5 +36,8 @@
   "logout": "Logout",
   "deleteAccount": "Delete Account",
   "light": "Light",
-  "dark": "Dark"
+  "dark": "Dark",
+  "like": "Like",
+  "comment": "Comment",
+  "share": "Share"
 }

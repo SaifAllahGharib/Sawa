@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "codeSendSuccess": MessageLookupByLibrary.simpleMessage(
       "Code sent successfully",
     ),
+    "comment": MessageLookupByLibrary.simpleMessage("Comment"),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
@@ -62,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "light": MessageLookupByLibrary.simpleMessage("Light"),
+    "like": MessageLookupByLibrary.simpleMessage("Like"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
     "passwordValidationMsg": MessageLookupByLibrary.simpleMessage(
@@ -73,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Verification Link Sent to",
     ),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "share": MessageLookupByLibrary.simpleMessage("Share"),
     "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "thisAccountIsDisabled": MessageLookupByLibrary.simpleMessage(

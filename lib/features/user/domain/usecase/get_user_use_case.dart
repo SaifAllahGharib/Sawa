@@ -5,13 +5,13 @@ import 'package:intern_intelligence_social_media_application/features/user/domai
 
 import '../repository/user_repository.dart';
 
-class GetUserUseCase implements UseCase<UserEntity?, String> {
+class GetUserUseCase implements UseCase<UserEntity, String> {
   final IUserRepository _userRepository;
 
   GetUserUseCase(this._userRepository);
 
   @override
-  Future<Result<AppFailure, UserEntity?>> call(String uId) async {
+  Future<Result<AppFailure, UserEntity>> call(String uId) async {
     return await _userRepository.getUser(uId);
   }
 }

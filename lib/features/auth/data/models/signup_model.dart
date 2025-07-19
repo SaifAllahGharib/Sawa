@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../domain/entities/signup_entity.dart';
+
 part 'signup_model.g.dart';
 
 @JsonSerializable()
@@ -18,4 +20,16 @@ class SignupModel {
       _$SignupModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SignupModelToJson(this);
+
+  factory SignupModel.fromEntity(SignupEntity entity) {
+    return SignupModel(
+      name: entity.name,
+      email: entity.email,
+      password: entity.password,
+    );
+  }
+
+  SignupEntity toEntity() {
+    return SignupEntity(name: name, email: email, password: password);
+  }
 }

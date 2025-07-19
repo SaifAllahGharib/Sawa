@@ -13,6 +13,7 @@ import 'core/shared/cubits/theme_cubit.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/enums.dart';
 import 'core/widgets/responsive_builder.dart';
+import 'features/user/presentation/cubit/user/user_cubit.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -33,6 +34,7 @@ class SocialMediaApp extends StatelessWidget {
           BlocProvider(
             create: (context) => getIt<AuthCubit>()..checkAuthStatus(),
           ),
+          BlocProvider(create: (context) => getIt<UserCubit>()),
         ],
         child: BlocBuilder<LocaleCubit, Locale>(
           builder: (context, locale) {

@@ -15,9 +15,7 @@ class UserRepositoryImpl implements IUserRepository {
   Future<Result<AppFailure, bool>> createUser(UserEntity user) async {
     try {
       return Success(
-        await _iUserRemoteDataSource.createUser(
-          UserModel(id: user.id, name: user.name, email: user.email),
-        ),
+        await _iUserRemoteDataSource.createUser(UserModel.fromEntity(user)),
       );
     } catch (e) {
       return Failure(ErrorHandler.handle(e));
@@ -25,19 +23,11 @@ class UserRepositoryImpl implements IUserRepository {
   }
 
   @override
-  Future<Result<AppFailure, UserEntity?>> getUser(String uId) async {
+  Future<Result<AppFailure, UserEntity>> getUser(String uId) async {
     try {
       final userModel = await _iUserRemoteDataSource.getUser(uId);
 
-      return Success(
-        userModel != null
-            ? UserEntity(
-                id: userModel.id,
-                name: userModel.name,
-                email: userModel.email,
-              )
-            : null,
-      );
+      return Success(userModel.toEntity());
     } catch (e) {
       return Failure(ErrorHandler.handle(e));
     }
@@ -65,9 +55,7 @@ class UserRepositoryImpl implements IUserRepository {
   Future<Result<AppFailure, bool>> updateUser(UserEntity user) async {
     try {
       return Success(
-        await _iUserRemoteDataSource.updateUser(
-          UserModel(id: user.id, name: user.name, email: user.email),
-        ),
+        await _iUserRemoteDataSource.updateUser(UserModel.fromEntity(user)),
       );
     } catch (e) {
       return Failure(ErrorHandler.handle(e));

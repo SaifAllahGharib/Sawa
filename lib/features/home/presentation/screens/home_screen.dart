@@ -12,10 +12,13 @@ import 'package:intern_intelligence_social_media_application/core/widgets/app_ne
 import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_remove_focus.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
-import 'package:intern_intelligence_social_media_application/features/home/presentation/cubits/home/home_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/home/presentation/widgets/post_card.dart';
+import 'package:intern_intelligence_social_media_application/features/user/data/model/user_model.dart';
+import 'package:intern_intelligence_social_media_application/features/user/presentation/cubit/user/user_state.dart';
 
+import '../../../../core/helpers/shared_preferences_helper.dart';
 import '../../../../core/widgets/app_icon_button.dart';
+import '../../../user/presentation/cubit/user/user_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,10 +29,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final TextEditingController _postController;
+  late final SharedPreferencesHelper _sharedPreferencesHelper;
 
   @override
   void initState() {
     _postController = TextEditingController();
+    _sharedPreferencesHelper = getIt<SharedPreferencesHelper>();
+
+    _getUser();
     super.initState();
   }
 
@@ -39,104 +46,136 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
+  bool get _userExistsInLocalStorage {
+    final userId = _sharedPreferencesHelper.getUserId();
+    final userName = _sharedPreferencesHelper.getUserId();
+    final userEmail = _sharedPreferencesHelper.getUserId();
+
+    return userId != null &&
+        userName != null &&
+        userEmail != null &&
+        userId.isNotEmpty &&
+        userName.isNotEmpty &&
+        userEmail.isNotEmpty;
+  }
+
   void _getUser() {
-    context.read<HomeCubit>().getUser(
-      getIt<FirebaseClient>().auth.currentUser!.uid,
-    );
+    if (!_userExistsInLocalStorage) {
+      context.read<UserCubit>().getUser(
+        getIt<FirebaseClient>().auth.currentUser!.uid,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-      child: AppRemoveFocus(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              floating: true,
-              snap: true,
-              automaticallyImplyLeading: false,
-              backgroundColor: context.theme.scaffoldBackgroundColor,
-              elevation: 0,
-              surfaceTintColor: Colors.transparent,
-              title: Text(
-                'Hoki',
-                style: AppStyles.s22W600.copyWith(
-                  color: context.theme.primaryColor,
-                  letterSpacing: 15,
+    return BlocListener<UserCubit, UserState>(
+      listener: (context, state) {
+        if (state is UserSuccessState) {
+          getIt<SharedPreferencesHelper>().storeUser(
+            UserModel.fromEntity(state.user).toJson(),
+          );
+        }
+      },
+      child: AppScaffold(
+        child: AppRemoveFocus(
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                floating: true,
+                snap: true,
+                automaticallyImplyLeading: false,
+                backgroundColor: context.theme.scaffoldBackgroundColor,
+                elevation: 0,
+                surfaceTintColor: Colors.transparent,
+                title: Text(
+                  'Hoki',
+                  style: AppStyles.s22W600.copyWith(
+                    color: context.theme.primaryColor,
+                    letterSpacing: 15,
+                  ),
                 ),
+                actions: [
+                  AppIconButton(icon: Icons.chat_outlined, onPressed: () {}),
+                  10.horizontalSpace,
+                  AppIconButton(
+                    icon: Icons.add_circle_outline,
+                    onPressed: () {},
+                  ),
+                  10.horizontalSpace,
+                ],
               ),
-              actions: [
-                AppIconButton(icon: Icons.chat_outlined, onPressed: () {}),
-                10.horizontalSpace,
-                AppIconButton(icon: Icons.add_circle_outline, onPressed: () {}),
-                10.horizontalSpace,
-              ],
-            ),
-            SliverToBoxAdapter(
-              child: AppPaddingWidget(
-                top: 8.r,
-                bottom: 0,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AppInkWellButton(
-                      onTap: () =>
-                          context.navigator.pushNamed(AppRouteName.profile),
-                      child: AppNetworkImage(
-                        image: 'https://randomuser.me/api/portraits/men/75.jpg',
-                        width: 45.h,
-                        height: 45.h,
-                        borderRadius: BorderRadius.circular(100.r),
+              SliverToBoxAdapter(
+                child: AppPaddingWidget(
+                  top: 8.r,
+                  bottom: 0,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      AppInkWellButton(
+                        onTap: () =>
+                            context.navigator.pushNamed(AppRouteName.profile),
+                        child: AppNetworkImage(
+                          image:
+                              'https://randomuser.me/api/portraits/men/75.jpg',
+                          width: 45.h,
+                          height: 45.h,
+                          borderRadius: BorderRadius.circular(100.r),
+                        ),
                       ),
-                    ),
-                    10.horizontalSpace,
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          filled: false,
-                          hintText: context.tr.whateYouThinking,
-                          contentPadding: EdgeInsets.all(10.r),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(1000.r),
-                            borderSide: const BorderSide(color: AppColors.gray),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(1000.r),
-                            borderSide: const BorderSide(color: AppColors.gray),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(1000.r),
-                            borderSide: BorderSide(
-                              color: context.theme.primaryColor,
-                              width: 1.5.r,
+                      10.horizontalSpace,
+                      Expanded(
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            filled: false,
+                            hintText: context.tr.whateYouThinking,
+                            contentPadding: EdgeInsets.all(10.r),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(1000.r),
+                              borderSide: const BorderSide(
+                                color: AppColors.gray,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(1000.r),
+                              borderSide: const BorderSide(
+                                color: AppColors.gray,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(1000.r),
+                              borderSide: BorderSide(
+                                color: context.theme.primaryColor,
+                                width: 1.5.r,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SliverList.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                    top: index == 0 ? 12.r : 16.r,
-                    bottom: index == 4 ? 16.r : 0,
-                  ),
-                  child: const PostCard(
-                    image: null,
-                    name: 'name',
-                    postedTime: '16',
-                    postImage:
-                        'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
-                  ),
-                );
-              },
-            ),
-          ],
+              SliverList.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      top: index == 0 ? 12.r : 16.r,
+                      bottom: index == 4 ? 16.r : 0,
+                    ),
+                    child: const PostCard(
+                      image: 'https://randomuser.me/api/portraits/men/75.jpg',
+                      name: 'name',
+                      postedTime: '16',
+                      postImage:
+                          'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

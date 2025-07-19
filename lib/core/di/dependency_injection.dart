@@ -14,6 +14,7 @@ import 'package:intern_intelligence_social_media_application/features/user/data/
 import 'package:intern_intelligence_social_media_application/features/user/data/repository/user_repository_impl.dart';
 import 'package:intern_intelligence_social_media_application/features/user/domain/repository/user_repository.dart';
 import 'package:intern_intelligence_social_media_application/features/user/domain/usecase/get_user_use_case.dart';
+import 'package:intern_intelligence_social_media_application/features/user/presentation/cubit/user/user_cubit.dart';
 import 'package:logger/logger.dart';
 
 import '../../features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -74,5 +75,6 @@ void setupDependencyInjection() {
   getIt.registerFactory<VerificationCubit>(
     () => VerificationCubit(getIt(), getIt()),
   );
-  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
+  getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
+  getIt.registerFactory<HomeCubit>(() => HomeCubit());
 }

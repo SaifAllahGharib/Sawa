@@ -3,53 +3,113 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {
   final Logger _logger;
-  late final SharedPreferences _prefs;
+  SharedPreferences? _prefs;
 
   SharedPreferencesHelper(this._logger);
 
+  /// Call this before using the helper
   Future<void> init() async {
-    _prefs = await SharedPreferences.getInstance();
-  }
-
-  String? getLanguageCode() {
-    return _prefs.getString('languageCode');
-  }
-
-  Future<void> setLanguageCode(String code) async {
-    await _prefs.setString('languageCode', code);
-  }
-
-  String? getTheme() => _prefs.getString('themeMode');
-
-  Future<void> setTheme(String theme) async {
-    await _prefs.setString('themeMode', theme);
-  }
-
-  Future<void> storeUser(Map<String, dynamic> user) async {
-    for (var entry in user.entries) {
-      await storeString(entry.key, entry.value.toString());
+    try {
+      _prefs = await SharedPreferences.getInstance();
+    } catch (e, stacktrace) {
+      _logger.e(
+        'Failed to initialize SharedPreferences',
+        error: e,
+        stackTrace: stacktrace,
+      );
     }
   }
 
-  String? getIdUser() => getString('uid');
+  /// Ensure prefs is initialized
+  SharedPreferences get _safePrefs {
+    if (_prefs == null) {
+      throw Exception('SharedPreferences not initialized. Call init() first.');
+    }
+    return _prefs!;
+  }
 
-  String? getNameUser() => getString('name');
+  // ---------------- Language ----------------
+  String? getLanguageCode() => _safePrefs.getString('languageCode');
 
-  String? getEmailUser() => getString('email');
-
-  Future<bool> storeString(String key, String value) async {
-    return await _safeWrite(
-      () => _prefs.setString(key, value),
-      'Error storing string',
+  Future<void> setLanguageCode(String code) async {
+    await _safeWrite(
+      () => _safePrefs.setString('languageCode', code),
+      'Failed to store language code',
     );
   }
 
-  String? getString(String key) => _prefs.getString(key);
+  // ---------------- Theme ----------------
+  String? getTheme() => _safePrefs.getString('themeMode');
 
-  Future<bool> clearAllData() async {
-    return await _safeWrite(() => _prefs.clear(), 'Error clearing data');
+  Future<void> setTheme(String theme) async {
+    await _safeWrite(
+      () => _safePrefs.setString('themeMode', theme),
+      'Failed to store theme mode',
+    );
   }
 
+  // ---------------- User ----------------
+  Future<void> storeUser(Map<String, dynamic> user) async {
+    final futures = user.entries.map((entry) {
+      return storeString(entry.key, entry.value.toString());
+    }).toList();
+
+    await Future.wait(futures);
+  }
+
+  String? getUserId() => getString('id');
+
+  String? getUserImage() => getString('image');
+
+  String? getUserName() => getString('name');
+
+  String? getUserBio() => getString('bio');
+
+  String? getUserEmail() => getString('email');
+
+  // ---------------- Generic Setters/Getters ----------------
+  Future<bool> storeString(String key, String value) async {
+    return await _safeWrite(
+      () => _safePrefs.setString(key, value),
+      'Failed to store string',
+    );
+  }
+
+  Future<bool> storeBool(String key, bool value) async {
+    return await _safeWrite(
+      () => _safePrefs.setBool(key, value),
+      'Failed to store bool',
+    );
+  }
+
+  Future<bool> storeInt(String key, int value) async {
+    return await _safeWrite(
+      () => _safePrefs.setInt(key, value),
+      'Failed to store int',
+    );
+  }
+
+  Future<bool> storeDouble(String key, double value) async {
+    return await _safeWrite(
+      () => _safePrefs.setDouble(key, value),
+      'Failed to store double',
+    );
+  }
+
+  String? getString(String key) => _safePrefs.getString(key);
+
+  bool? getBool(String key) => _safePrefs.getBool(key);
+
+  int? getInt(String key) => _safePrefs.getInt(key);
+
+  double? getDouble(String key) => _safePrefs.getDouble(key);
+
+  // ---------------- Clear ----------------
+  Future<bool> clearAllData() async {
+    return await _safeWrite(() => _safePrefs.clear(), 'Failed to clear data');
+  }
+
+  // ---------------- Safe Write ----------------
   Future<bool> _safeWrite(
     Future<bool> Function() operation,
     String errorMessage,
