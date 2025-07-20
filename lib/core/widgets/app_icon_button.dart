@@ -3,7 +3,7 @@ import 'package:intern_intelligence_social_media_application/core/extensions/bui
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 
 import '../styles/app_colors.dart';
-import 'app_ink_well_button.dart';
+import 'app_gesture_detector_button.dart';
 
 class AppIconButton extends StatelessWidget {
   final IconData icon;
@@ -15,7 +15,7 @@ class AppIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: AppInkWellButton(
+      child: AppGestureDetectorButton(
         onTap: onPressed,
         child: Container(
           padding: EdgeInsets.all(8.r),

@@ -8,7 +8,7 @@ import 'package:intern_intelligence_social_media_application/features/home/prese
 
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_styles.dart';
-import '../../../../core/widgets/app_ink_well_button.dart';
+import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_network_image.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 
@@ -55,7 +55,7 @@ class _MiddleSectionProfileState extends State<MiddleSectionProfile> {
                         ),
                   Align(
                     alignment: AlignmentDirectional.bottomEnd,
-                    child: AppInkWellButton(
+                    child: AppGestureDetectorButton(
                       onTap: () {},
                       child: Container(
                         padding: EdgeInsets.all(5.r),

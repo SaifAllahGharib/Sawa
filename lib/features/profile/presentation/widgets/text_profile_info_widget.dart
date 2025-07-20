@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_colors.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_ink_well_button.dart';
+
+import '../../../../core/widgets/app_gesture_detector_button.dart';
 
 class TextProfileInfoWidget extends StatelessWidget {
   final String name;
@@ -24,7 +25,7 @@ class TextProfileInfoWidget extends StatelessWidget {
         alignment: WrapAlignment.spaceBetween,
         children: [
           Text(name, style: textStyle),
-          AppInkWellButton(
+          AppGestureDetectorButton(
             onTap: onEditTap,
             child: Container(
               padding: EdgeInsets.all(10.r),

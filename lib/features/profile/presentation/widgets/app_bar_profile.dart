@@ -4,7 +4,7 @@ import 'package:intern_intelligence_social_media_application/core/extensions/num
 import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
 
 import '../../../../core/widgets/app_back_button.dart';
-import '../../../../core/widgets/app_ink_well_button.dart';
+import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 
 class AppBarProfile extends StatelessWidget {
@@ -22,7 +22,7 @@ class AppBarProfile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const AppBackButton(),
-                AppInkWellButton(
+                AppGestureDetectorButton(
                   onTap: () =>
                       context.navigator.pushNamed(AppRouteName.settings),
                   child: Icon(Icons.settings, color: context.customColor.icon),

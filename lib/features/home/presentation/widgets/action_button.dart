@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_ink_well_button.dart';
 
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_styles.dart';
+import '../../../../core/widgets/app_gesture_detector_button.dart';
 
 class ActionButton extends StatelessWidget {
   final IconData icon;
@@ -19,7 +19,7 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppInkWellButton(
+    return AppGestureDetectorButton(
       onTap: onPressed,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 8.r, horizontal: 12.r),

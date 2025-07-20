@@ -5,12 +5,12 @@ import 'package:intern_intelligence_social_media_application/core/extensions/num
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_back_button.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_ink_well_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/auth/auth_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/settings/presentation/widgets/theme_bottom_sheet_widget.dart';
 
+import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../widgets/language_bottom_sheet_widget.dart';
 import '../widgets/setting_button.dart';
 
@@ -61,7 +61,7 @@ class SettingsScreen extends StatelessWidget {
               onTap: () => _showLanguageBottomSheet(context),
             ),
             20.verticalSpace,
-            AppInkWellButton(
+            AppGestureDetectorButton(
               onTap: () => _logout(context),
               child: Text(
                 context.tr.logout,
@@ -69,7 +69,7 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             15.verticalSpace,
-            AppInkWellButton(
+            AppGestureDetectorButton(
               onTap: () => _deleteAccount(context),
               child: Text(
                 context.tr.deleteAccount,

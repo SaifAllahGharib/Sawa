@@ -5,9 +5,7 @@ import 'package:intern_intelligence_social_media_application/core/di/dependency_
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
-import 'package:intern_intelligence_social_media_application/core/styles/app_colors.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_ink_well_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_network_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_remove_focus.dart';
@@ -17,6 +15,7 @@ import 'package:intern_intelligence_social_media_application/features/user/data/
 import 'package:intern_intelligence_social_media_application/features/user/presentation/cubit/user/user_state.dart';
 
 import '../../../../core/helpers/shared_preferences_helper.dart';
+import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_icon_button.dart';
 import '../../../user/presentation/cubit/user/user_cubit.dart';
 
@@ -67,16 +66,18 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _handleState(UserState state) {
+    if (state is UserSuccessState) {
+      getIt<SharedPreferencesHelper>().storeUser(
+        UserModel.fromEntity(state.user).toJson(),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<UserCubit, UserState>(
-      listener: (context, state) {
-        if (state is UserSuccessState) {
-          getIt<SharedPreferencesHelper>().storeUser(
-            UserModel.fromEntity(state.user).toJson(),
-          );
-        }
-      },
+      listener: (context, state) => _handleState(state),
       child: AppScaffold(
         child: AppRemoveFocus(
           child: CustomScrollView(
@@ -112,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      AppInkWellButton(
+                      AppGestureDetectorButton(
                         onTap: () =>
                             context.navigator.pushNamed(AppRouteName.profile),
                         child: AppNetworkImage(
@@ -125,29 +126,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       10.horizontalSpace,
                       Expanded(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            filled: false,
-                            hintText: context.tr.whateYouThinking,
-                            contentPadding: EdgeInsets.all(10.r),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(1000.r),
-                              borderSide: const BorderSide(
-                                color: AppColors.gray,
-                              ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.r,
+                            vertical: 8.r,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(1000.r),
+                            border: Border.all(
+                              color: context.customColor.border!,
+                              width: 1.r,
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(1000.r),
-                              borderSide: const BorderSide(
-                                color: AppColors.gray,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(1000.r),
-                              borderSide: BorderSide(
-                                color: context.theme.primaryColor,
-                                width: 1.5.r,
-                              ),
+                          ),
+                          width: double.infinity,
+                          child: AppGestureDetectorButton(
+                            onTap: () {},
+                            child: Text(
+                              context.tr.whateYouThinking,
+                              style: AppStyles.s15W400,
                             ),
                           ),
                         ),
