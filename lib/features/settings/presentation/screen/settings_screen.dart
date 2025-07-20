@@ -50,7 +50,6 @@ class SettingsScreen extends StatelessWidget {
             24.verticalSpace,
             Text(context.tr.settings, style: AppStyles.s24WB),
             24.verticalSpace,
-            SettingButton(text: context.tr.changeName, onTap: () {}),
             SettingButton(text: context.tr.changePassword, onTap: () {}),
             SettingButton(
               text: context.tr.theme,
