@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "accountExistsWithDifferentMethod": MessageLookupByLibrary.simpleMessage(
       "Account exists with different method",
     ),
+    "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "changeName": MessageLookupByLibrary.simpleMessage("Change Name"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
     "codeSendNotSuccess": MessageLookupByLibrary.simpleMessage(
@@ -39,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account",
     ),
+    "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "emailNotValid": MessageLookupByLibrary.simpleMessage("email not valid"),
     "email_already_used": MessageLookupByLibrary.simpleMessage(
       "Email already used",
@@ -52,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToStoreUserInDb": MessageLookupByLibrary.simpleMessage(
       "Failed to store user",
     ),
+    "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
     "hintEmail": MessageLookupByLibrary.simpleMessage("example@ex.ex"),
     "hintName": MessageLookupByLibrary.simpleMessage("Saif Allah"),
     "hintPassword": MessageLookupByLibrary.simpleMessage("************"),
@@ -66,11 +69,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "like": MessageLookupByLibrary.simpleMessage("Like"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "ok": MessageLookupByLibrary.simpleMessage("OK"),
     "passwordValidationMsg": MessageLookupByLibrary.simpleMessage(
       "Must be 8+ chars with uppercase, number & symbol",
     ),
+    "post": MessageLookupByLibrary.simpleMessage("Post"),
     "required": MessageLookupByLibrary.simpleMessage("Required"),
     "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
+    "selected": MessageLookupByLibrary.simpleMessage("Selected"),
     "sendLinkVerificationYourEmailTo": MessageLookupByLibrary.simpleMessage(
       "Verification Link Sent to",
     ),
@@ -82,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "This account is disabled",
     ),
     "unknownError": MessageLookupByLibrary.simpleMessage("Unknown error"),
+    "update": MessageLookupByLibrary.simpleMessage("Update"),
     "userNotFound": MessageLookupByLibrary.simpleMessage(
       "User not exists or email or password incorrect",
     ),

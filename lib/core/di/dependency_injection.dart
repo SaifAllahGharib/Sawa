@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/email_verified_usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/login_usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/logout_usecase.dart';
@@ -26,6 +28,7 @@ import '../../features/auth/presentation/cubits/signup/signup_cubit.dart';
 import '../../features/auth/presentation/cubits/verification/verification/verification_cubit.dart';
 import '../clients/dio_client.dart';
 import '../clients/supabase_clint.dart';
+import '../helpers/image_picker_helper.dart';
 import '../helpers/shared_preferences_helper.dart';
 import '../shared/cubits/locale_cubit.dart';
 import '../shared/cubits/theme_cubit.dart';
@@ -35,6 +38,7 @@ final GetIt getIt = GetIt.instance;
 void setupDependencyInjection() {
   // Helper and Clint
   getIt.registerLazySingleton(() => SharedPreferencesHelper(Logger()));
+  getIt.registerLazySingleton(() => ImagePickerHelper(ImagePicker()));
   getIt.registerLazySingleton(() => DioClint.create());
   getIt.registerLazySingleton(() => SupabaseClint());
   getIt.registerLazySingleton(() => FirebaseClient());
@@ -77,4 +81,5 @@ void setupDependencyInjection() {
   );
   getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
   getIt.registerFactory<HomeCubit>(() => HomeCubit());
+  getIt.registerFactory<MediaCubit>(() => MediaCubit(getIt()));
 }

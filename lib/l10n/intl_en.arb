@@ -39,5 +39,12 @@
   "dark": "Dark",
   "like": "Like",
   "comment": "Comment",
-  "share": "Share"
+  "share": "Share",
+  "update": "Update",
+  "post": "Post",
+  "camera": "Camera",
+  "gallery": "Gallery",
+  "edit": "Edit",
+  "ok": "OK",
+  "selected": "Selected"
 }

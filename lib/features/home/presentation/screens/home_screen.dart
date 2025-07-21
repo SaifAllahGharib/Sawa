@@ -2,22 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
 import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
-import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_network_image.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_remove_focus.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
-import 'package:intern_intelligence_social_media_application/features/home/presentation/widgets/post_card.dart';
 import 'package:intern_intelligence_social_media_application/features/user/data/model/user_model.dart';
 import 'package:intern_intelligence_social_media_application/features/user/presentation/cubit/user/user_state.dart';
 
 import '../../../../core/helpers/shared_preferences_helper.dart';
-import '../../../../core/widgets/app_gesture_detector_button.dart';
-import '../../../../core/widgets/app_icon_button.dart';
 import '../../../user/presentation/cubit/user/user_cubit.dart';
+import '../widgets/bottom_section_home.dart';
+import '../widgets/home_app_bar.dart';
+import '../widgets/top_section_home.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -78,100 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return BlocListener<UserCubit, UserState>(
       listener: (context, state) => _handleState(state),
-      child: AppScaffold(
+      child: const AppScaffold(
         child: AppRemoveFocus(
           child: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                floating: true,
-                snap: true,
-                automaticallyImplyLeading: false,
-                backgroundColor: context.theme.scaffoldBackgroundColor,
-                elevation: 0,
-                surfaceTintColor: Colors.transparent,
-                title: Text(
-                  'Hoki',
-                  style: AppStyles.s22W600.copyWith(
-                    color: context.theme.primaryColor,
-                    letterSpacing: 15,
-                  ),
-                ),
-                actions: [
-                  AppIconButton(icon: Icons.chat_outlined, onPressed: () {}),
-                  10.horizontalSpace,
-                  AppIconButton(
-                    icon: Icons.add_circle_outline,
-                    onPressed: () {},
-                  ),
-                  10.horizontalSpace,
-                ],
-              ),
-              SliverToBoxAdapter(
-                child: AppPaddingWidget(
-                  top: 8.r,
-                  bottom: 0,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AppGestureDetectorButton(
-                        onTap: () =>
-                            context.navigator.pushNamed(AppRouteName.profile),
-                        child: AppNetworkImage(
-                          image:
-                              'https://randomuser.me/api/portraits/men/75.jpg',
-                          width: 45.h,
-                          height: 45.h,
-                          borderRadius: BorderRadius.circular(100.r),
-                        ),
-                      ),
-                      10.horizontalSpace,
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12.r,
-                            vertical: 8.r,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(1000.r),
-                            border: Border.all(
-                              color: context.customColor.border!,
-                              width: 1.r,
-                            ),
-                          ),
-                          width: double.infinity,
-                          child: AppGestureDetectorButton(
-                            onTap: () {},
-                            child: Text(
-                              context.tr.whateYouThinking,
-                              style: AppStyles.s15W400,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SliverList.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      top: index == 0 ? 12.r : 16.r,
-                      bottom: index == 4 ? 16.r : 0,
-                    ),
-                    child: const PostCard(
-                      image: 'https://randomuser.me/api/portraits/men/75.jpg',
-                      name: 'name',
-                      postedTime: '16',
-                      postImage:
-                          'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
-                    ),
-                  );
-                },
-              ),
-            ],
+            slivers: [HomeAppBar(), TopSectionHome(), BottomSectionHome()],
           ),
         ),
       ),
