@@ -46,5 +46,8 @@
   "gallery": "Gallery",
   "edit": "Edit",
   "ok": "OK",
-  "selected": "Selected"
+  "selected": "Selected",
+  "postCreatedSuccessfully": "Post created successfully",
+  "postCreationFailed": "Post creation failed",
+  "failedToUploadMedia": "Failed to upload media"
 }

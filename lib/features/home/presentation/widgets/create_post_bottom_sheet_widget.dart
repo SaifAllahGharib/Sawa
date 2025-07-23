@@ -11,8 +11,29 @@ import '../../../../core/widgets/app_remove_focus.dart';
 import 'middle_section_create_post_widget.dart';
 import 'top_section_create_post_widget.dart';
 
-class CreatePostBottomSheetWidget extends StatelessWidget {
+class CreatePostBottomSheetWidget extends StatefulWidget {
   const CreatePostBottomSheetWidget({super.key});
+
+  @override
+  State<CreatePostBottomSheetWidget> createState() =>
+      _CreatePostBottomSheetWidgetState();
+}
+
+class _CreatePostBottomSheetWidgetState
+    extends State<CreatePostBottomSheetWidget> {
+  late final TextEditingController _postController;
+
+  @override
+  void initState() {
+    _postController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  dispose() {
+    _postController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +51,9 @@ class CreatePostBottomSheetWidget extends StatelessWidget {
             children: [
               const TopSectionCreatePostWidget(),
               10.verticalSpace,
-              const MiddleSectionCreatePostWidget(),
+              MiddleSectionCreatePostWidget(postController: _postController),
               20.verticalSpace,
-              const BottomSectionCreatePostWidget(),
+              BottomSectionCreatePostWidget(postController: _postController),
             ],
           ),
         ),

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:intern_intelligence_social_media_application/features/user/domain/entity/user_entity.dart';
 
 sealed class HomeState extends Equatable {
   const HomeState();
@@ -22,13 +21,29 @@ final class HomeLoadingState extends HomeState {
   List<Object?> get props => [];
 }
 
-final class HomeGetUserSuccessState extends HomeState {
-  final UserEntity? user;
-
-  const HomeGetUserSuccessState(this.user);
+final class HomeCreatePostSuccessState extends HomeState {
+  const HomeCreatePostSuccessState();
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [];
+}
+
+final class HomeUploadPostMediaSuccessState extends HomeState {
+  final List<String> mediaPaths;
+
+  const HomeUploadPostMediaSuccessState(this.mediaPaths);
+
+  @override
+  List<Object?> get props => [mediaPaths];
+}
+
+final class HomeDeletePostSuccessState extends HomeState {
+  final bool deleted;
+
+  const HomeDeletePostSuccessState(this.deleted);
+
+  @override
+  List<Object?> get props => [deleted];
 }
 
 final class HomeFailureState extends HomeState {

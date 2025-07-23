@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
+import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_cubit.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_state.dart';
+import 'package:intern_intelligence_social_media_application/core/utils/app_snack_bar.dart';
+import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
+import 'package:intern_intelligence_social_media_application/features/home/presentation/cubits/home/home_cubit.dart';
+import 'package:intern_intelligence_social_media_application/features/home/presentation/cubits/home/home_state.dart';
 
 import '../../../../core/shared/cubits/validation/validation_cubit.dart';
 import '../../../../core/shared/cubits/validation/validation_state.dart';
@@ -10,20 +17,59 @@ import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 
 class BottomSectionCreatePostWidget extends StatelessWidget {
-  const BottomSectionCreatePostWidget({super.key});
+  final TextEditingController postController;
+
+  const BottomSectionCreatePostWidget({
+    super.key,
+    required this.postController,
+  });
+
+  void _handleState(BuildContext context, HomeState state) {
+    if (state is HomeCreatePostSuccessState) {
+      AppSnackBar.showSuccess(context, context.tr.postCreatedSuccessfully);
+    } else if (state is HomeFailureState) {
+      final code = state.code;
+      if (code == 'Post creation failed' ||
+          code == 'Failed to upload media to table') {
+        AppSnackBar.showError(context, context.tr.postCreationFailed);
+      } else {
+        AppSnackBar.showError(context, code);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
-          child: BlocSelector<ValidationCubit, ValidationState, bool?>(
-            selector: (state) => state.enableButton,
-            builder: (context, state) {
-              return AppButton(
-                enabled: state ?? false,
-                onClick: () {},
-                text: context.tr.post,
+          child: BlocBuilder<ValidationCubit, ValidationState>(
+            builder: (context, enableButtonState) {
+              return BlocBuilder<MediaCubit, MediaState>(
+                builder: (context, mediaState) {
+                  return BlocConsumer<HomeCubit, HomeState>(
+                    listener: (context, state) => _handleState(context, state),
+                    builder: (context, state) {
+                      if (state is HomeLoadingState) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      return AppButton(
+                        enabled: enableButtonState.enableButton,
+                        onClick: () => context.read<HomeCubit>().createPost(
+                          PostEntity(
+                            authorId:
+                                getIt<FirebaseClient>().auth.currentUser!.uid,
+                            content: postController.text,
+                            isPublic: true,
+                          ),
+                          mediaState.pickedAssets,
+                        ),
+                        text: context.tr.post,
+                      );
+                    },
+                  );
+                },
               );
             },
           ),

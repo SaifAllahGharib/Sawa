@@ -3,8 +3,8 @@ import 'package:intern_intelligence_social_media_application/core/di/dependency_
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/helpers/shared_preferences_helper.dart';
 
-import '../../features/home/presentation/widgets/app_asset_image.dart';
 import '../constants/app_assets.dart';
+import 'app_asset_image.dart';
 import 'app_network_image.dart';
 
 class ProfileImage extends StatelessWidget {

@@ -9,38 +9,25 @@ import '../../../../core/shared/cubits/media/media_state.dart';
 import '../../../../core/shared/cubits/validation/validation_cubit.dart';
 import 'gallery_preview.dart';
 
-class MiddleSectionCreatePostWidget extends StatefulWidget {
-  const MiddleSectionCreatePostWidget({super.key});
+class MiddleSectionCreatePostWidget extends StatelessWidget {
+  final TextEditingController postController;
 
-  @override
-  State<MiddleSectionCreatePostWidget> createState() =>
-      _MiddleSectionCreatePostWidgetState();
-}
+  const MiddleSectionCreatePostWidget({
+    super.key,
+    required this.postController,
+  });
 
-class _MiddleSectionCreatePostWidgetState
-    extends State<MiddleSectionCreatePostWidget> {
-  late final TextEditingController _postController;
-
-  @override
-  void initState() {
-    _postController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  dispose() {
-    _postController.dispose();
-    super.dispose();
-  }
-
-  void _handleEnableButtonState(MediaState state) {
+  void _handleEnableButtonState(BuildContext context, MediaState state) {
     context.read<ValidationCubit>().validateField(
       'post',
-      state.pickedAssets.isNotEmpty || _postController.text.isNotEmpty,
+      state.pickedAssets.isNotEmpty || postController.text.isNotEmpty,
     );
   }
 
-  void _pushToDisplaySelectedMedia(MediaCubit mediaCubit) {
+  void _pushToDisplaySelectedMedia(
+    BuildContext context,
+    MediaCubit mediaCubit,
+  ) {
     context.navigator.push(
       PageRouteBuilder(
         opaque: false,
@@ -71,7 +58,7 @@ class _MiddleSectionCreatePostWidgetState
     return BlocListener<MediaCubit, MediaState>(
       listenWhen: (previous, current) =>
           previous.pickedAssets != current.pickedAssets,
-      listener: (context, state) => _handleEnableButtonState(state),
+      listener: (context, state) => _handleEnableButtonState(context, state),
       child: Expanded(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -82,7 +69,7 @@ class _MiddleSectionCreatePostWidgetState
                 maxHeight: (pickedAssets.isNotEmpty) ? 200.h : 600.h,
               ),
               child: TextFormField(
-                controller: _postController,
+                controller: postController,
                 expands: true,
                 maxLines: null,
                 minLines: null,
@@ -111,7 +98,7 @@ class _MiddleSectionCreatePostWidgetState
               GalleryPreview(
                 pickedAssets: pickedAssets,
                 onDelete: (index) => mediaCubit.removePickedAsset(index),
-                onClick: () => _pushToDisplaySelectedMedia(mediaCubit),
+                onClick: () => _pushToDisplaySelectedMedia(context, mediaCubit),
               ),
             ],
           ],

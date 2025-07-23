@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
 import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/cubits/main/main_cubit.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/cubits/main/main_state.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_remove_focus.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
 import 'package:intern_intelligence_social_media_application/features/user/data/model/user_model.dart';
 import 'package:intern_intelligence_social_media_application/features/user/presentation/cubit/user/user_state.dart';
 
 import '../../../../core/helpers/shared_preferences_helper.dart';
-import '../../../user/presentation/cubit/user/user_cubit.dart';
 import '../widgets/bottom_section_home.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/top_section_home.dart';
@@ -54,9 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _getUser() {
     if (!_userExistsInLocalStorage) {
-      context.read<UserCubit>().getUser(
-        getIt<FirebaseClient>().auth.currentUser!.uid,
-      );
+      context.read<MainCubit>().getUser();
     }
   }
 
@@ -70,8 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserCubit, UserState>(
-      listener: (context, state) => _handleState(state),
+    return BlocListener<MainCubit, MainState>(
+      listener: (context, state) => _handleState(state.userState),
       child: const AppScaffold(
         child: AppRemoveFocus(
           child: CustomScrollView(

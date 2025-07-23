@@ -404,6 +404,36 @@ class S {
   String get selected {
     return Intl.message('Selected', name: 'selected', desc: '', args: []);
   }
+
+  /// `Post created successfully`
+  String get postCreatedSuccessfully {
+    return Intl.message(
+      'Post created successfully',
+      name: 'postCreatedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Post creation failed`
+  String get postCreationFailed {
+    return Intl.message(
+      'Post creation failed',
+      name: 'postCreationFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to upload media`
+  String get failedToUploadMedia {
+    return Intl.message(
+      'Failed to upload media',
+      name: 'failedToUploadMedia',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

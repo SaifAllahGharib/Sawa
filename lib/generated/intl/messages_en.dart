@@ -54,6 +54,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToStoreUserInDb": MessageLookupByLibrary.simpleMessage(
       "Failed to store user",
     ),
+    "failedToUploadMedia": MessageLookupByLibrary.simpleMessage(
+      "Failed to upload media",
+    ),
     "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
     "hintEmail": MessageLookupByLibrary.simpleMessage("example@ex.ex"),
     "hintName": MessageLookupByLibrary.simpleMessage("Saif Allah"),
@@ -74,6 +77,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Must be 8+ chars with uppercase, number & symbol",
     ),
     "post": MessageLookupByLibrary.simpleMessage("Post"),
+    "postCreatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Post created successfully",
+    ),
+    "postCreationFailed": MessageLookupByLibrary.simpleMessage(
+      "Post creation failed",
+    ),
     "required": MessageLookupByLibrary.simpleMessage("Required"),
     "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
     "selected": MessageLookupByLibrary.simpleMessage("Selected"),

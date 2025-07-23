@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_asset_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_network_image.dart';
-import 'package:intern_intelligence_social_media_application/features/home/presentation/widgets/app_asset_image.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/extensions/number_extensions.dart';
