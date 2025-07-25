@@ -8,5 +8,5 @@ abstract class IHomePostRemoteDataSource {
 
   Future<void> uploadPostMedia(List<PostMediaModel> mediaModels);
 
-  Stream<List<PostModel>> getUserPosts(String uId);
+  Future<List<PostModel>> getUserPosts(String uId);
 }

@@ -7,10 +7,10 @@ import 'bottom_section_post_card.dart';
 import 'middle_section_post_card.dart';
 import 'top_section_post_card.dart';
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   final String? image;
   final String name;
-  final String postedTime;
+  final DateTime postedTime;
   final String? content;
   final String? postImage;
 
@@ -23,6 +23,11 @@ class PostCard extends StatelessWidget {
     this.postImage,
   });
 
+  @override
+  State<PostCard> createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,9 +51,16 @@ class PostCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TopSectionPostCard(image: image, name: name, postedTime: postedTime),
+          TopSectionPostCard(
+            image: widget.image,
+            name: widget.name,
+            postedTime: widget.postedTime,
+          ),
           10.verticalSpace,
-          MiddleSectionPostCard(content: content, postImage: postImage),
+          MiddleSectionPostCard(
+            content: widget.content,
+            postImage: widget.postImage,
+          ),
           const BottomSectionPostCard(),
         ],
       ),

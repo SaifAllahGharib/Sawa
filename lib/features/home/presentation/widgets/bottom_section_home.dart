@@ -15,10 +15,10 @@ class BottomSectionHome extends StatelessWidget {
             top: index == 0 ? 12.r : 16.r,
             bottom: index == 4 ? 16.r : 0,
           ),
-          child: const PostCard(
+          child: PostCard(
             image: 'https://randomuser.me/api/portraits/men/75.jpg',
             name: 'name',
-            postedTime: '16',
+            postedTime: DateTime.now(),
             postImage:
                 'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
           ),

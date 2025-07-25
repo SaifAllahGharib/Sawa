@@ -479,6 +479,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Failure to get posts`
+  String get failureToGetPosts {
+    return Intl.message(
+      'Failure to get posts',
+      name: 'failureToGetPosts',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -61,6 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToUploadMedia": MessageLookupByLibrary.simpleMessage(
       "Failed to upload media",
     ),
+    "failureToGetPosts": MessageLookupByLibrary.simpleMessage(
+      "Failure to get posts",
+    ),
     "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
     "h": MessageLookupByLibrary.simpleMessage("h"),
     "hintEmail": MessageLookupByLibrary.simpleMessage("example@ex.ex"),

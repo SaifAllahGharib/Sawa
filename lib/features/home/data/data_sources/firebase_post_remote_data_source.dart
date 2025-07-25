@@ -35,20 +35,45 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
   }
 
   @override
-  Stream<List<PostModel>> getUserPosts(String uId) async* {
+  Future<List<PostModel>> getUserPosts(String uId) async {
     final ref = _firebaseClient.db.ref().child('posts').child(uId);
+    final snapshot = await ref.get();
 
-    yield* ref.onValue.map((event) {
-      final data = event.snapshot.value;
-      if (data == null) return [];
+    if (!snapshot.exists || snapshot.value == null) return [];
 
-      final Map<dynamic, dynamic> postsMap = data as Map<dynamic, dynamic>;
+    final Map<dynamic, dynamic> postsMap =
+        snapshot.value as Map<dynamic, dynamic>;
 
-      return postsMap.entries.map((entry) {
+    final List<PostModel> posts = await Future.wait(
+      postsMap.entries.map((entry) async {
         final postData = Map<String, dynamic>.from(entry.value);
-        return PostModel.fromJson(postData);
-      }).toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-    });
+        PostModel post = PostModel.fromJson(postData);
+
+        final mediaSnapshot = await _firebaseClient.db
+            .ref()
+            .child('posts_media')
+            .child(post.id)
+            .get();
+
+        if (mediaSnapshot.exists && mediaSnapshot.value != null) {
+          final Map<dynamic, dynamic> postsMediaMap =
+              mediaSnapshot.value as Map<dynamic, dynamic>;
+
+          final mediaList = postsMediaMap.entries
+              .map((e) => Map<String, dynamic>.from(e.value))
+              .map((e) => PostMediaModel.fromJson(e))
+              .toList();
+
+          post = post.copyWith(media: mediaList);
+        }
+
+        return post;
+      }),
+    );
+
+    posts.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
+    return posts;
   }
 
   @override

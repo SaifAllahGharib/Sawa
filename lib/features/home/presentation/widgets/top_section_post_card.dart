@@ -1,15 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/profile_image.dart';
 
 import '../../../../core/extensions/number_extensions.dart';
+import '../../../../core/helpers/date_time_helper.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 
-class TopSectionPostCard extends StatelessWidget {
+class TopSectionPostCard extends StatefulWidget {
   final String? image;
   final String name;
-  final String postedTime;
+  final DateTime postedTime;
 
   const TopSectionPostCard({
     super.key,
@@ -17,6 +20,26 @@ class TopSectionPostCard extends StatelessWidget {
     required this.name,
     required this.postedTime,
   });
+
+  @override
+  State<TopSectionPostCard> createState() => _TopSectionPostCardState();
+}
+
+class _TopSectionPostCardState extends State<TopSectionPostCard> {
+  late final Stream<String> _timeStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _timeStream = Stream.periodic(
+      const Duration(microseconds: 1),
+      (_) => _getTimeAgo(),
+    );
+  }
+
+  String _getTimeAgo() {
+    return DateTimeHelper.timeAgoSinceDate(context, widget.postedTime);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +55,25 @@ class TopSectionPostCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  widget.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppStyles.s16W600.copyWith(
                     color: context.customColor.textColor,
                   ),
                 ),
-                Text(
-                  postedTime,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppStyles.s14W400.copyWith(
-                    color: context.customColor.textColor,
-                  ),
+                StreamBuilder<String>(
+                  stream: _timeStream,
+                  builder: (context, snapshot) {
+                    return Text(
+                      snapshot.data.toString(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppStyles.s14W400.copyWith(
+                        color: context.customColor.textColor,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

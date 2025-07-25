@@ -8,14 +8,14 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   ProfileCubit(this._getUserPostsUseCase) : super(const ProfileInitState());
 
-  Stream<void> getUserPosts(String uId) async* {
+  void getUserPosts(String uId) async {
     emit(const ProfileLoadingState());
 
-    await for (final result in _getUserPostsUseCase(uId)) {
-      result.when(
-        failure: (failure) => emit(ProfileFailureState(failure.code)),
-        success: (posts) => emit(ProfileGetPostsState(posts)),
-      );
-    }
+    final result = await _getUserPostsUseCase(uId);
+
+    result.when(
+      failure: (failure) => emit(ProfileFailureState(failure.code)),
+      success: (posts) => emit(ProfileGetPostsState(posts)),
+    );
   }
 }

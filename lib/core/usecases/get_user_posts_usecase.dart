@@ -1,19 +1,19 @@
 import 'dart:async';
 
 import 'package:failure_handler/src/models/app_failure.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/models/result.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/repositories/home_repository.dart';
 
-import 'stream_usecase.dart';
+import '../../features/home/domain/entities/post_entity.dart';
+import '../../features/home/domain/repositories/home_repository.dart';
+import '../shared/models/result.dart';
+import 'usecase.dart';
 
-class GetUserPostsUseCase extends StreamUseCase<List<PostEntity>, String> {
+class GetUserPostsUseCase extends UseCase<List<PostEntity>, String> {
   final IHomeRepository _iHomeRepository;
 
   GetUserPostsUseCase(this._iHomeRepository);
 
   @override
-  Stream<Result<AppFailure, List<PostEntity>>> call(String uId) async* {
-    yield* _iHomeRepository.getUserPosts(uId);
+  FutureOr<Result<AppFailure, List<PostEntity>>> call(String uId) async {
+    return await _iHomeRepository.getUserPosts(uId);
   }
 }

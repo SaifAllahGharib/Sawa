@@ -70,16 +70,14 @@ class HomeRepositoryImpl implements IHomeRepository {
   }
 
   @override
-  Stream<Result<AppFailure, List<PostEntity>>> getUserPosts(String uId) async* {
+  Future<Result<AppFailure, List<PostEntity>>> getUserPosts(String uId) async {
     try {
-      final response = _iHomePostRemoteDataSource.getUserPosts(uId);
+      final response = await _iHomePostRemoteDataSource.getUserPosts(uId);
 
-      yield* response.map((postModels) {
-        final listEntities = postModels.map((e) => e.toEntity()).toList();
-        return Success(listEntities);
-      });
+      final listEntities = response.map((e) => e.toEntity()).toList();
+      return Success(listEntities);
     } catch (e) {
-      yield Failure(ErrorHandler.handle(e));
+      return Failure(ErrorHandler.handle(e));
     }
   }
 }

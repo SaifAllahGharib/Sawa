@@ -18,5 +18,5 @@ abstract class IHomeRepository {
     List<PostMediaEntity> mediaModels,
   );
 
-  Stream<Result<AppFailure, List<PostEntity>>> getUserPosts(String uId);
+  Future<Result<AppFailure, List<PostEntity>>> getUserPosts(String uId);
 }
