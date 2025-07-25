@@ -5,13 +5,13 @@ import 'package:intern_intelligence_social_media_application/features/auth/domai
 
 import '../repositories/auth_repository.dart';
 
-class SignupUseCase implements UseCase<bool, SignupEntity> {
+class SignupUseCase implements UseCase<String?, SignupEntity> {
   final IAuthRepository _authRepository;
 
   SignupUseCase(this._authRepository);
 
   @override
-  Future<Result<AppFailure, bool>> call(SignupEntity params) async {
+  Future<Result<AppFailure, String?>> call(SignupEntity params) async {
     return await _authRepository.createAccount(params);
   }
 }

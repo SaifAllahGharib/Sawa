@@ -1,13 +1,8 @@
-import 'dart:typed_data';
+import '../../../../core/shared/models/media_item.dart';
 
 class MediaEntity {
   final String postId;
-  final List<Uint8List> files;
-  final List<String> fileNames;
+  final List<MediaItem> media;
 
-  MediaEntity({
-    required this.postId,
-    required this.files,
-    required this.fileNames,
-  });
+  MediaEntity({required this.postId, required this.media});
 }

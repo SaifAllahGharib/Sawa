@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/media_entity.dart';
+import 'package:path/path.dart' as p;
 
 class MediaModel {
   final String postId;
@@ -13,15 +15,24 @@ class MediaModel {
     required this.fileNames,
   });
 
-  factory MediaModel.fromEntity(MediaEntity postMedia) {
+  static Future<MediaModel> fromEntity(MediaEntity postMedia) async {
+    final files = <Uint8List>[];
+    final fileNames = <String>[];
+
+    for (final media in postMedia.media) {
+      final file = File(media.path);
+      if (await file.exists()) {
+        final bytes = await file.readAsBytes();
+        final name = p.basename(media.path);
+        files.add(bytes);
+        fileNames.add(name);
+      }
+    }
+
     return MediaModel(
       postId: postMedia.postId,
-      files: postMedia.files,
-      fileNames: postMedia.fileNames,
+      files: files,
+      fileNames: fileNames,
     );
-  }
-
-  MediaEntity toEntity() {
-    return MediaEntity(postId: postId, files: files, fileNames: fileNames);
   }
 }

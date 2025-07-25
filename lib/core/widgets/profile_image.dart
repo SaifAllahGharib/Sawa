@@ -14,7 +14,8 @@ class ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return getIt<SharedPreferencesHelper>().getUserImage() == null
+    return getIt<SharedPreferencesHelper>().getUserImage().isEmpty ||
+            getIt<SharedPreferencesHelper>().getUserImage() == 'null'
         ? AppAssetImage(
             image: AppAssets.profile,
             width: size?.h ?? 45.h,
@@ -22,7 +23,7 @@ class ProfileImage extends StatelessWidget {
             borderRadius: BorderRadius.circular(10000000.r),
           )
         : AppNetworkImage(
-            image: getIt<SharedPreferencesHelper>().getUserImage() ?? '',
+            image: getIt<SharedPreferencesHelper>().getUserImage(),
             width: size?.h ?? 45.h,
             height: size?.h ?? 45.h,
             borderRadius: BorderRadius.circular(10000000.r),

@@ -38,12 +38,10 @@ final class HomeUploadPostMediaSuccessState extends HomeState {
 }
 
 final class HomeDeletePostSuccessState extends HomeState {
-  final bool deleted;
-
-  const HomeDeletePostSuccessState(this.deleted);
+  const HomeDeletePostSuccessState();
 
   @override
-  List<Object?> get props => [deleted];
+  List<Object?> get props => [];
 }
 
 final class HomeFailureState extends HomeState {

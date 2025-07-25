@@ -59,7 +59,7 @@ class SharedPreferencesHelper {
 
   String? getUserId() => getString('id');
 
-  String? getUserImage() => getString('image');
+  String getUserImage() => getString('image') ?? '';
 
   String? getUserName() => getString('name');
 

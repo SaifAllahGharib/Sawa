@@ -1,10 +1,10 @@
 import 'package:failure_handler/failure_handler.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/models/result.dart';
-import 'package:intern_intelligence_social_media_application/features/user/data/model/user_model.dart';
-import 'package:intern_intelligence_social_media_application/features/user/domain/entity/user_entity.dart';
 
+import '../../../shared/models/result.dart';
+import '../../domain/entity/user_entity.dart';
 import '../../domain/repository/user_repository.dart';
 import '../data_source/user_remote_data_source.dart';
+import '../model/user_model.dart';
 
 class UserRepositoryImpl implements IUserRepository {
   final IUserRemoteDataSource _iUserRemoteDataSource;
@@ -12,7 +12,7 @@ class UserRepositoryImpl implements IUserRepository {
   UserRepositoryImpl(this._iUserRemoteDataSource);
 
   @override
-  Future<Result<AppFailure, bool>> createUser(UserEntity user) async {
+  Future<Result<AppFailure, void>> createUser(UserEntity user) async {
     try {
       return Success(
         await _iUserRemoteDataSource.createUser(UserModel.fromEntity(user)),
@@ -43,7 +43,7 @@ class UserRepositoryImpl implements IUserRepository {
   }
 
   @override
-  Future<Result<AppFailure, bool>> deleteUser(String uId) async {
+  Future<Result<AppFailure, void>> deleteUser(String uId) async {
     try {
       return Success(await _iUserRemoteDataSource.deleteUser(uId));
     } catch (e) {
@@ -52,7 +52,7 @@ class UserRepositoryImpl implements IUserRepository {
   }
 
   @override
-  Future<Result<AppFailure, bool>> updateUser(UserEntity user) async {
+  Future<Result<AppFailure, void>> updateUser(UserEntity user) async {
     try {
       return Success(
         await _iUserRemoteDataSource.updateUser(UserModel.fromEntity(user)),

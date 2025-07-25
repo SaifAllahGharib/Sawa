@@ -49,5 +49,13 @@
   "selected": "Selected",
   "postCreatedSuccessfully": "Post created successfully",
   "postCreationFailed": "Post creation failed",
-  "failedToUploadMedia": "Failed to upload media"
+  "failedToUploadMedia": "Failed to upload media",
+  "now": "now",
+  "m": "m",
+  "h": "h",
+  "day": "day",
+  "week": "week",
+  "month": "month",
+  "year": "year",
+  "failedToCreateUser": "Failed to create user"
 }

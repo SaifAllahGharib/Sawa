@@ -4,9 +4,9 @@ import 'package:intern_intelligence_social_media_application/features/auth/domai
 import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/signup_entity.dart';
 
 abstract class IAuthRepository {
-  Future<Result<AppFailure, dynamic>> login(LoginEntity entity);
+  Future<Result<AppFailure, String?>> login(LoginEntity entity);
 
-  Future<Result<AppFailure, bool>> createAccount(SignupEntity entity);
+  Future<Result<AppFailure, String?>> createAccount(SignupEntity entity);
 
   Future<Result<AppFailure, bool>> emailVerified();
 

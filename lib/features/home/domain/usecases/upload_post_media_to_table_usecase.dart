@@ -6,13 +6,13 @@ import 'package:intern_intelligence_social_media_application/features/home/domai
 import '../repositories/home_repository.dart';
 
 class UploadPostMediaToTableUseCase
-    implements UseCase<bool, List<PostMediaEntity>> {
+    implements UseCase<void, List<PostMediaEntity>> {
   final IHomeRepository _iHomeRepository;
 
   UploadPostMediaToTableUseCase(this._iHomeRepository);
 
   @override
-  Future<Result<AppFailure, bool>> call(List<PostMediaEntity> params) async {
+  Future<Result<AppFailure, void>> call(List<PostMediaEntity> params) async {
     return await _iHomeRepository.uploadPostMediaToTable(params);
   }
 }

@@ -19,11 +19,13 @@ class FirebaseAuthRemoteDataSource implements IAuthRemoteDataSource {
   }
 
   @override
-  Future<void> login(LoginModel model) async {
-    await _firebaseClint.auth.signInWithEmailAndPassword(
-      email: model.email,
-      password: model.password,
-    );
+  Future<String?> login(LoginModel model) async {
+    return await _firebaseClint.auth
+        .signInWithEmailAndPassword(
+          email: model.email,
+          password: model.password,
+        )
+        .then((value) => value.user?.uid);
   }
 
   @override

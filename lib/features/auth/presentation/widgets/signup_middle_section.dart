@@ -90,8 +90,12 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
       AppSnackBar.showError(context, context.tr.failedToStoreUserInDb);
     } else if (code == 'network_request_failed') {
       AppSnackBar.showError(context, context.tr.errorConnectionNetwork);
+    } else if (code == 'failed to create user') {
+      AppSnackBar.showError(context, context.tr.failedToCreateUser);
     } else if (code == 'auth_error') {
       AppSnackBar.showError(context, context.tr.unknownError);
+    } else {
+      AppSnackBar.showError(context, code);
     }
   }
 

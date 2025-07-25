@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/login_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/login_usecase.dart';
 
+import '../../../domain/entities/login_entity.dart';
+import '../../../domain/usecases/login_usecase.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {

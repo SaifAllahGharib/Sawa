@@ -2,9 +2,9 @@ import 'package:intern_intelligence_social_media_application/features/auth/data/
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/signup_model.dart';
 
 abstract class IAuthRemoteDataSource {
-  Future<dynamic> login(LoginModel model);
+  Future<String?> login(LoginModel model);
 
-  Future<dynamic> createAccount(SignupModel model);
+  Future<String?> createAccount(SignupModel model);
 
   Future<bool> emailVerified();
 

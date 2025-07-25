@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/locale_cubit.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/theme_cubit.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/auth/auth_cubit.dart';
-import 'package:intern_intelligence_social_media_application/features/user/presentation/cubit/user/user_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../features/auth/presentation/cubits/auth/auth_cubit.dart';
+import '../../../clients/firebase_client.dart';
+import '../../../user/presentation/cubit/user/user_cubit.dart';
+import '../locale_cubit.dart';
+import '../theme_cubit.dart';
 import 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
@@ -44,8 +44,6 @@ class MainCubit extends Cubit<MainState> {
     _userSub = _userCubit.stream.listen(
       (user) => emit(state.copyWith(userState: user)),
     );
-
-    Future.microtask(() => _authCubit.checkAuthStatus());
   }
 
   void changeTheme(ThemeMode themeMode) => _themeCubit.toggle(themeMode);

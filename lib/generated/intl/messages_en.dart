@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "comment": MessageLookupByLibrary.simpleMessage("Comment"),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
+    "day": MessageLookupByLibrary.simpleMessage("day"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account",
@@ -51,6 +52,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorToConnectTheNetwork": MessageLookupByLibrary.simpleMessage(
       "Error to connect the network",
     ),
+    "failedToCreateUser": MessageLookupByLibrary.simpleMessage(
+      "Failed to create user",
+    ),
     "failedToStoreUserInDb": MessageLookupByLibrary.simpleMessage(
       "Failed to store user",
     ),
@@ -58,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Failed to upload media",
     ),
     "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
+    "h": MessageLookupByLibrary.simpleMessage("h"),
     "hintEmail": MessageLookupByLibrary.simpleMessage("example@ex.ex"),
     "hintName": MessageLookupByLibrary.simpleMessage("Saif Allah"),
     "hintPassword": MessageLookupByLibrary.simpleMessage("************"),
@@ -72,6 +77,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "like": MessageLookupByLibrary.simpleMessage("Like"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "m": MessageLookupByLibrary.simpleMessage("m"),
+    "month": MessageLookupByLibrary.simpleMessage("month"),
+    "now": MessageLookupByLibrary.simpleMessage("now"),
     "ok": MessageLookupByLibrary.simpleMessage("OK"),
     "passwordValidationMsg": MessageLookupByLibrary.simpleMessage(
       "Must be 8+ chars with uppercase, number & symbol",
@@ -102,10 +110,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "User not exists or email or password incorrect",
     ),
     "weakPassword": MessageLookupByLibrary.simpleMessage("Password Weak"),
+    "week": MessageLookupByLibrary.simpleMessage("week"),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
     "whateYouThinking": MessageLookupByLibrary.simpleMessage(
       "What are you thinking?",
     ),
+    "year": MessageLookupByLibrary.simpleMessage("year"),
   };
 }

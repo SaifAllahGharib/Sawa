@@ -28,6 +28,15 @@ final class LoginSuccessState extends LoginState {
   List<Object?> get props => [];
 }
 
+final class LoginCreateUserState extends LoginState {
+  final bool created;
+
+  const LoginCreateUserState(this.created);
+
+  @override
+  List<Object?> get props => [created];
+}
+
 final class LoginFailureState extends LoginState {
   final String code;
 

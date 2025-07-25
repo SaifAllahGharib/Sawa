@@ -1,0 +1,83 @@
+import 'package:equatable/equatable.dart';
+import 'package:intern_intelligence_social_media_application/features/home/data/models/post_media_model.dart';
+import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'post_model.g.dart';
+
+@JsonSerializable(explicitToJson: true)
+class PostModel extends Equatable {
+  final String id;
+  @JsonKey(name: 'user_id')
+  final String authorId;
+  final String? content;
+  @JsonKey(name: 'is_public')
+  final bool isPublic;
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
+  final List<PostMediaModel>? media;
+
+  const PostModel({
+    required this.id,
+    required this.authorId,
+    this.content,
+    required this.isPublic,
+    required this.createdAt,
+    this.media,
+  });
+
+  factory PostModel.fromJson(Map<String, dynamic> json) =>
+      _$PostModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PostModelToJson(this);
+
+  factory PostModel.fromEntity(PostEntity entity) {
+    return PostModel(
+      id: entity.id ?? '',
+      authorId: entity.authorId,
+      isPublic: entity.isPublic,
+      createdAt: entity.createdAt,
+      content: entity.content,
+      media: entity.media.map((e) => PostMediaModel.fromEntity(e)).toList(),
+    );
+  }
+
+  PostModel copyWith({
+    final String? id,
+    final String? authorId,
+    final String? content,
+    final bool? isPublic,
+    final DateTime? createdAt,
+    final List<PostMediaModel>? media,
+  }) {
+    return PostModel(
+      id: id ?? this.id,
+      authorId: authorId ?? this.authorId,
+      content: content ?? this.content,
+      isPublic: isPublic ?? this.isPublic,
+      createdAt: createdAt ?? this.createdAt,
+      media: media ?? this.media,
+    );
+  }
+
+  PostEntity toEntity() {
+    return PostEntity(
+      id: id,
+      authorId: authorId,
+      content: content ?? '',
+      isPublic: isPublic,
+      createdAt: createdAt,
+      media: media?.map((e) => e.toEntity()).toList() ?? [],
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+    id,
+    content,
+    authorId,
+    isPublic,
+    createdAt,
+    media,
+  ];
+}

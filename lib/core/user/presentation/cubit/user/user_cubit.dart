@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:intern_intelligence_social_media_application/features/user/domain/usecase/get_user_use_case.dart';
 
+import '../../../domain/usecase/get_user_use_case.dart';
 import 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {

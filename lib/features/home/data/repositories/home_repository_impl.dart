@@ -1,15 +1,15 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/models/result.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/data_sources/home_post_remote_data_source.dart';
-import 'package:intern_intelligence_social_media_application/features/home/data/models/create_post_model.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/models/media_model.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/models/post_media_model.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/media_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 
+import '../../domain/entities/post_entity.dart';
 import '../../domain/entities/post_media_entity.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../data_sources/home_upload_storage_remote_data_source.dart';
+import '../models/post_model.dart';
 
 class HomeRepositoryImpl implements IHomeRepository {
   final IHomeUploadStorageRemoteDataSource _iHomeUploadStorageRemoteDataSource;
@@ -26,7 +26,7 @@ class HomeRepositoryImpl implements IHomeRepository {
   ) async {
     try {
       final response = await _iHomeUploadStorageRemoteDataSource
-          .uploadPostMedia(MediaModel.fromEntity(mediaEntity));
+          .uploadPostMedia(await MediaModel.fromEntity(mediaEntity));
       return Success(response);
     } catch (e) {
       return Failure(ErrorHandler.handle(e));
@@ -37,7 +37,7 @@ class HomeRepositoryImpl implements IHomeRepository {
   Future<Result<AppFailure, String?>> createPost(PostEntity postModel) async {
     try {
       final response = await _iHomePostRemoteDataSource.createPost(
-        CreatePostModel.fromEntity(postModel),
+        PostModel.fromEntity(postModel),
       );
       return Success(response);
     } catch (e) {
@@ -46,7 +46,7 @@ class HomeRepositoryImpl implements IHomeRepository {
   }
 
   @override
-  Future<Result<AppFailure, bool>> uploadPostMediaToTable(
+  Future<Result<AppFailure, void>> uploadPostMediaToTable(
     List<PostMediaEntity> mediaModels,
   ) async {
     try {
@@ -60,12 +60,26 @@ class HomeRepositoryImpl implements IHomeRepository {
   }
 
   @override
-  Future<Result<AppFailure, bool>> deletePost(String postId) async {
+  Future<Result<AppFailure, void>> deletePost(String uId, String postId) async {
     try {
-      final response = await _iHomePostRemoteDataSource.deletePost(postId);
+      final response = await _iHomePostRemoteDataSource.deletePost(uId, postId);
       return Success(response);
     } catch (e) {
       return Failure(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Stream<Result<AppFailure, List<PostEntity>>> getUserPosts(String uId) async* {
+    try {
+      final response = _iHomePostRemoteDataSource.getUserPosts(uId);
+
+      yield* response.map((postModels) {
+        final listEntities = postModels.map((e) => e.toEntity()).toList();
+        return Success(listEntities);
+      });
+    } catch (e) {
+      yield Failure(ErrorHandler.handle(e));
     }
   }
 }

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
-import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_cubit.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_state.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/app_snack_bar.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/models/media_item.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/home/presentation/cubits/home/home_cubit.dart';
-import 'package:intern_intelligence_social_media_application/features/home/presentation/cubits/home/home_state.dart';
 
+import '../../../../core/clients/firebase_client.dart';
+import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/shared/cubits/media/media_cubit.dart';
+import '../../../../core/shared/cubits/media/media_state.dart';
 import '../../../../core/shared/cubits/validation/validation_cubit.dart';
 import '../../../../core/shared/cubits/validation/validation_state.dart';
+import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
+import '../cubits/home/home_cubit.dart';
+import '../cubits/home/home_state.dart';
 
 class BottomSectionCreatePostWidget extends StatelessWidget {
   final TextEditingController postController;
@@ -24,8 +25,21 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
     required this.postController,
   });
 
+  void _createPost(BuildContext context, List<MediaItem> pickedAssets) {
+    context.read<HomeCubit>().createPost(
+      PostEntity(
+        authorId: getIt<FirebaseClient>().auth.currentUser!.uid,
+        content: postController.text,
+        isPublic: true,
+        createdAt: DateTime.now(),
+      ),
+      pickedAssets,
+    );
+  }
+
   void _handleState(BuildContext context, HomeState state) {
     if (state is HomeCreatePostSuccessState) {
+      context.navigator.pop();
       AppSnackBar.showSuccess(context, context.tr.postCreatedSuccessfully);
     } else if (state is HomeFailureState) {
       final code = state.code;
@@ -56,15 +70,8 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
 
                       return AppButton(
                         enabled: enableButtonState.enableButton,
-                        onClick: () => context.read<HomeCubit>().createPost(
-                          PostEntity(
-                            authorId:
-                                getIt<FirebaseClient>().auth.currentUser!.uid,
-                            content: postController.text,
-                            isPublic: true,
-                          ),
-                          mediaState.pickedAssets,
-                        ),
+                        onClick: () =>
+                            _createPost(context, mediaState.pickedAssets),
                         text: context.tr.post,
                       );
                     },

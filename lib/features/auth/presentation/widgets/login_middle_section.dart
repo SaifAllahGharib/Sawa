@@ -95,6 +95,8 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
       AppSnackBar.showError(context, context.tr.errorConnectionNetwork);
     } else if (code == 'auth_error') {
       AppSnackBar.showError(context, context.tr.unknownError);
+    } else {
+      AppSnackBar.showError(context, code);
     }
   }
 

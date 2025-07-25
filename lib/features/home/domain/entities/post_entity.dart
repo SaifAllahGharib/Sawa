@@ -3,17 +3,17 @@ import 'package:intern_intelligence_social_media_application/features/home/domai
 class PostEntity {
   final String? id;
   final String authorId;
-  final String? content;
-  final List<PostMediaEntity>? media;
+  final String content;
+  final List<PostMediaEntity> media;
   final bool isPublic;
-  final DateTime? createdAt;
+  final DateTime createdAt;
 
   PostEntity({
     this.id,
     required this.authorId,
-    this.content,
-    this.media,
+    this.content = '',
+    this.media = const [],
     required this.isPublic,
-    this.createdAt,
+    required this.createdAt,
   });
 }

@@ -434,6 +434,51 @@ class S {
       args: [],
     );
   }
+
+  /// `now`
+  String get now {
+    return Intl.message('now', name: 'now', desc: '', args: []);
+  }
+
+  /// `m`
+  String get m {
+    return Intl.message('m', name: 'm', desc: '', args: []);
+  }
+
+  /// `h`
+  String get h {
+    return Intl.message('h', name: 'h', desc: '', args: []);
+  }
+
+  /// `day`
+  String get day {
+    return Intl.message('day', name: 'day', desc: '', args: []);
+  }
+
+  /// `week`
+  String get week {
+    return Intl.message('week', name: 'week', desc: '', args: []);
+  }
+
+  /// `month`
+  String get month {
+    return Intl.message('month', name: 'month', desc: '', args: []);
+  }
+
+  /// `year`
+  String get year {
+    return Intl.message('year', name: 'year', desc: '', args: []);
+  }
+
+  /// `Failed to create user`
+  String get failedToCreateUser {
+    return Intl.message(
+      'Failed to create user',
+      name: 'failedToCreateUser',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
