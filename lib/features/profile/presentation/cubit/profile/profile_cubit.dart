@@ -24,7 +24,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   void changeName(String newName) async {
-    emit(const ProfileLoadingState());
+    emit(const ProfileLoadingUpdateProfileState());
     final result = await _updateProfileNameUseCase(newName);
 
     result.when(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 
 import '../../../../core/extensions/number_extensions.dart';
@@ -28,7 +29,7 @@ class MiddleSectionPostCard extends StatelessWidget {
             child: Text(
               content ?? '',
               style: AppStyles.s15W400.copyWith(
-                color: Colors.black87,
+                color: context.customColor.textColor,
                 height: 1.4,
               ),
             ),

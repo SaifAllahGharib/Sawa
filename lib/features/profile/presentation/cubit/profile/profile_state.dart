@@ -22,6 +22,13 @@ final class ProfileLoadingState extends ProfileState {
   List<Object?> get props => [];
 }
 
+final class ProfileLoadingUpdateProfileState extends ProfileState {
+  const ProfileLoadingUpdateProfileState();
+
+  @override
+  List<Object?> get props => [];
+}
+
 final class ProfileGetState extends ProfileState {
   final ProfileEntity profile;
 

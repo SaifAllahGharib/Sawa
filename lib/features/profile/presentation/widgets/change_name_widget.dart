@@ -80,7 +80,7 @@ class _ChangeNameWidgetState extends State<ChangeNameWidget> {
                     }
                   },
                   builder: (context, profileState) {
-                    if (profileState is ProfileLoadingState) {
+                    if (profileState is ProfileLoadingUpdateProfileState) {
                       return const AppButtonLoading();
                     }
 
