@@ -58,5 +58,6 @@
   "month": "month",
   "year": "year",
   "failedToCreateUser": "Failed to create user",
-  "failureToGetPosts": "Failure to get posts"
+  "failureToGetPosts": "Failure to get posts",
+  "updateNameSuccess": "Update name success"
 }

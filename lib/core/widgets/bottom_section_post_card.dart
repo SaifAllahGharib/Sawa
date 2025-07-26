@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 
-import '../../../../core/widgets/app_padding_widget.dart';
-import 'action_button.dart';
+import '../../features/home/presentation/widgets/action_button.dart';
+import 'app_padding_widget.dart';
 
 class BottomSectionPostCard extends StatelessWidget {
   const BottomSectionPostCard({super.key});

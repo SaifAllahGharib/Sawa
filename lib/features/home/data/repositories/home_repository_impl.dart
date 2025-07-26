@@ -5,11 +5,11 @@ import 'package:intern_intelligence_social_media_application/features/home/data/
 import 'package:intern_intelligence_social_media_application/features/home/data/models/post_media_model.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/media_entity.dart';
 
+import '../../../../core/shared/models/post_model.dart';
 import '../../domain/entities/post_entity.dart';
 import '../../domain/entities/post_media_entity.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../data_sources/home_upload_storage_remote_data_source.dart';
-import '../models/post_model.dart';
 
 class HomeRepositoryImpl implements IHomeRepository {
   final IHomeUploadStorageRemoteDataSource _iHomeUploadStorageRemoteDataSource;

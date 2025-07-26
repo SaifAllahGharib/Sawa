@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
+import 'package:intern_intelligence_social_media_application/features/profile/domain/entity/profile_entity.dart';
 
 sealed class ProfileState extends Equatable {
   const ProfileState();
@@ -22,13 +22,27 @@ final class ProfileLoadingState extends ProfileState {
   List<Object?> get props => [];
 }
 
-final class ProfileGetPostsState extends ProfileState {
-  final List<PostEntity> posts;
+final class ProfileGetState extends ProfileState {
+  final ProfileEntity profile;
 
-  const ProfileGetPostsState(this.posts);
+  const ProfileGetState(this.profile);
 
   @override
-  List<Object?> get props => [posts];
+  List<Object?> get props => [profile];
+}
+
+final class ProfileUpdateNameState extends ProfileState {
+  const ProfileUpdateNameState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+final class ProfileUpdateImageState extends ProfileState {
+  const ProfileUpdateImageState();
+
+  @override
+  List<Object?> get props => [];
 }
 
 final class ProfileFailureState extends ProfileState {

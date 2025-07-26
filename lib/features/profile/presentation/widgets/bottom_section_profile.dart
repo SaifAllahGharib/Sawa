@@ -20,13 +20,11 @@ class BottomSectionProfile extends StatelessWidget {
             bottom: index == 4 ? 16.r : 0,
           ),
           child: PostCard(
-            image: '',
-            name: 'Saif',
+            image: posts[index].author!.image,
+            name: posts[index].author!.name!,
             content: posts[index].content,
             postedTime: posts[index].createdAt,
-            postImage: posts[index].media.isNotEmpty
-                ? posts[index].media[0].mediaUrl
-                : null,
+            post: posts[index],
           ),
         );
       },

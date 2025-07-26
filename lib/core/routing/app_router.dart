@@ -10,7 +10,6 @@ import '../../features/home/presentation/cubits/home/home_cubit.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/profile/presentation/screen/profile_screen.dart';
 import '../../features/settings/presentation/screen/settings_screen.dart';
-import '../clients/firebase_client.dart';
 import '../di/dependency_injection.dart';
 import 'app_route_name.dart';
 
@@ -40,8 +39,7 @@ abstract class AppRouter {
       case AppRouteName.profile:
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
-            value: getIt<ProfileCubit>()
-              ..getUserPosts(getIt<FirebaseClient>().auth.currentUser!.uid),
+            value: getIt<ProfileCubit>()..getProfile(),
             child: const ProfileScreen(),
           ),
           settings: settings,

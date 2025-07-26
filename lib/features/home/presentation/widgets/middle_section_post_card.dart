@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_network_image.dart';
+import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 
 import '../../../../core/extensions/number_extensions.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
+import '../../../../core/widgets/post_gallery_view_widget.dart';
 
 class MiddleSectionPostCard extends StatelessWidget {
   final String? content;
-  final String? postImage;
+  final PostEntity post;
 
   const MiddleSectionPostCard({
     super.key,
     required this.content,
-    required this.postImage,
+    required this.post,
   });
 
   @override
@@ -32,8 +33,7 @@ class MiddleSectionPostCard extends StatelessWidget {
               ),
             ),
           ),
-        if (postImage != null && postImage!.isNotEmpty)
-          AppNetworkImage(image: postImage!),
+        if (post.media.isNotEmpty) PostGalleryViewWidget(post: post),
       ],
     );
   }

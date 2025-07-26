@@ -10,7 +10,6 @@ import '../../../../core/user/data/model/user_model.dart';
 import '../../../../core/user/presentation/cubit/user/user_state.dart';
 import '../../../../core/widgets/app_remove_focus.dart';
 import '../../../../core/widgets/app_scaffold.dart';
-import '../widgets/bottom_section_home.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/top_section_home.dart';
 
@@ -76,7 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
       child: const AppScaffold(
         child: AppRemoveFocus(
           child: CustomScrollView(
-            slivers: [HomeAppBar(), TopSectionHome(), BottomSectionHome()],
+            slivers: [
+              HomeAppBar(), TopSectionHome(),
+              // BottomSectionHome()
+            ],
           ),
         ),
       ),

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/profile_image.dart';
 
-import '../../../../core/extensions/number_extensions.dart';
-import '../../../../core/helpers/date_time_helper.dart';
-import '../../../../core/styles/app_styles.dart';
-import '../../../../core/widgets/app_padding_widget.dart';
+import '../extensions/number_extensions.dart';
+import '../helpers/date_time_helper.dart';
+import '../styles/app_styles.dart';
+import 'app_padding_widget.dart';
 
 class TopSectionPostCard extends StatefulWidget {
   final String? image;

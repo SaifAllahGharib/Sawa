@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/cubits/main/main_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/settings/presentation/widgets/setting_button.dart';
 
-import '../../../../core/shared/cubits/theme_cubit.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 
 class ThemeBottomSheetWidget extends StatelessWidget {
@@ -11,7 +11,7 @@ class ThemeBottomSheetWidget extends StatelessWidget {
 
   void _changeTheme(BuildContext context, ThemeMode mode) {
     context.navigator.pop();
-    context.read<ThemeCubit>().toggle(mode);
+    context.read<MainCubit>().changeTheme(mode);
   }
 
   @override

@@ -1,5 +1,6 @@
+import 'package:intern_intelligence_social_media_application/core/shared/models/post_model.dart';
+import 'package:intern_intelligence_social_media_application/core/user/data/model/user_model.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/models/post_media_model.dart';
-import 'package:intern_intelligence_social_media_application/features/home/data/models/post_model.dart';
 
 import '../../../../core/clients/firebase_client.dart';
 import 'home_post_remote_data_source.dart';
@@ -44,10 +45,24 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
     final Map<dynamic, dynamic> postsMap =
         snapshot.value as Map<dynamic, dynamic>;
 
-    final List<PostModel> posts = await Future.wait(
+    final List<PostModel?> postsWithNulls = await Future.wait(
       postsMap.entries.map((entry) async {
         final postData = Map<String, dynamic>.from(entry.value);
         PostModel post = PostModel.fromJson(postData);
+
+        final author = await _firebaseClient.db
+            .ref()
+            .child('users')
+            .child(post.authorId)
+            .get();
+
+        if (!author.exists && author.value != null) {
+          return null;
+        }
+
+        final finalAuthor = Map<String, dynamic>.from(author.value as Map);
+
+        post = post.copyWith(author: UserModel.fromJson(finalAuthor));
 
         final mediaSnapshot = await _firebaseClient.db
             .ref()
@@ -56,12 +71,16 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
             .get();
 
         if (mediaSnapshot.exists && mediaSnapshot.value != null) {
-          final Map<dynamic, dynamic> postsMediaMap =
-              mediaSnapshot.value as Map<dynamic, dynamic>;
+          final postsMediaMap = Map<String, dynamic>.from(
+            mediaSnapshot.value as Map,
+          );
 
           final mediaList = postsMediaMap.entries
-              .map((e) => Map<String, dynamic>.from(e.value))
-              .map((e) => PostMediaModel.fromJson(e))
+              .map(
+                (e) => PostMediaModel.fromJson(
+                  Map<String, dynamic>.from(e.value as Map),
+                ),
+              )
               .toList();
 
           post = post.copyWith(media: mediaList);
@@ -71,6 +90,7 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
       }),
     );
 
+    final posts = postsWithNulls.whereType<PostModel>().toList();
     posts.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     return posts;

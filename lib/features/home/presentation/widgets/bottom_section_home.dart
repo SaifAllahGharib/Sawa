@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 import 'package:intern_intelligence_social_media_application/features/home/presentation/widgets/post_card.dart';
 
 class BottomSectionHome extends StatelessWidget {
-  const BottomSectionHome({super.key});
+  final PostEntity post;
+
+  const BottomSectionHome({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +22,7 @@ class BottomSectionHome extends StatelessWidget {
             image: 'https://randomuser.me/api/portraits/men/75.jpg',
             name: 'name',
             postedTime: DateTime.now(),
-            postImage:
-                'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+            post: post,
           ),
         );
       },

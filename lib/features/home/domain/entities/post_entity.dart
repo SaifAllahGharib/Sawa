@@ -1,4 +1,5 @@
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_media_entity.dart';
+import '../../../../core/user/domain/entity/user_entity.dart';
+import 'post_media_entity.dart';
 
 class PostEntity {
   final String? id;
@@ -7,6 +8,7 @@ class PostEntity {
   final List<PostMediaEntity> media;
   final bool isPublic;
   final DateTime createdAt;
+  final UserEntity? author;
 
   PostEntity({
     this.id,
@@ -15,5 +17,6 @@ class PostEntity {
     this.media = const [],
     required this.isPublic,
     required this.createdAt,
+    this.author,
   });
 }

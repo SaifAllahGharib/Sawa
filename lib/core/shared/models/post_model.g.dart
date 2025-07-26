@@ -15,6 +15,9 @@ PostModel _$PostModelFromJson(Map<String, dynamic> json) => PostModel(
   media: (json['media'] as List<dynamic>?)
       ?.map((e) => PostMediaModel.fromJson(e as Map<String, dynamic>))
       .toList(),
+  author: json['author'] == null
+      ? null
+      : UserModel.fromJson(json['author'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$PostModelToJson(PostModel instance) => <String, dynamic>{
@@ -24,4 +27,5 @@ Map<String, dynamic> _$PostModelToJson(PostModel instance) => <String, dynamic>{
   'is_public': instance.isPublic,
   'created_at': instance.createdAt.toIso8601String(),
   'media': instance.media?.map((e) => e.toJson()).toList(),
+  'author': instance.author?.toJson(),
 };

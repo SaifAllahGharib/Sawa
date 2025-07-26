@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/locale_cubit.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/cubits/main/main_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/settings/presentation/widgets/setting_button.dart';
 
 import '../../../../core/widgets/app_padding_widget.dart';
@@ -19,7 +19,7 @@ class _LanguageBottomSheetWidgetState extends State<LanguageBottomSheetWidget> {
 
   void _changeLanguage(BuildContext context, String code) {
     context.navigator.pop();
-    context.read<LocaleCubit>().setLocale(code);
+    context.read<MainCubit>().changeLocale(code);
   }
 
   @override

@@ -1,1 +1,11 @@
-abstract class IProfileRepository {}
+import 'package:failure_handler/failure_handler.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/models/result.dart';
+import 'package:intern_intelligence_social_media_application/features/profile/domain/entity/profile_entity.dart';
+
+abstract class IProfileRepository {
+  Future<Result<AppFailure, void>> updateProfileImage(String newName);
+
+  Future<Result<AppFailure, void>> updateProfileName(String newName);
+
+  Future<Result<AppFailure, ProfileEntity>> getProfile();
+}

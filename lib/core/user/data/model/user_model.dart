@@ -25,11 +25,11 @@ class UserModel {
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
-  factory UserModel.fromEntity(UserEntity user) {
+  factory UserModel.fromEntity(UserEntity? user) {
     return UserModel(
-      id: user.id,
-      name: user.name,
-      email: user.email,
+      id: user!.id!,
+      name: user.name!,
+      email: user.email!,
       image: user.image,
       bio: user.bio,
     );

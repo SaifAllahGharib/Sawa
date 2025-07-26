@@ -3,6 +3,8 @@ import 'package:intern_intelligence_social_media_application/features/home/data/
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../user/data/model/user_model.dart';
+
 part 'post_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -16,6 +18,7 @@ class PostModel extends Equatable {
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
   final List<PostMediaModel>? media;
+  final UserModel? author;
 
   const PostModel({
     required this.id,
@@ -24,6 +27,7 @@ class PostModel extends Equatable {
     required this.isPublic,
     required this.createdAt,
     this.media,
+    this.author,
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) =>
@@ -39,6 +43,7 @@ class PostModel extends Equatable {
       createdAt: entity.createdAt,
       content: entity.content,
       media: entity.media.map((e) => PostMediaModel.fromEntity(e)).toList(),
+      author: UserModel.fromEntity(entity.author),
     );
   }
 
@@ -49,6 +54,7 @@ class PostModel extends Equatable {
     final bool? isPublic,
     final DateTime? createdAt,
     final List<PostMediaModel>? media,
+    final UserModel? author,
   }) {
     return PostModel(
       id: id ?? this.id,
@@ -57,6 +63,7 @@ class PostModel extends Equatable {
       isPublic: isPublic ?? this.isPublic,
       createdAt: createdAt ?? this.createdAt,
       media: media ?? this.media,
+      author: author ?? this.author,
     );
   }
 
@@ -68,6 +75,7 @@ class PostModel extends Equatable {
       isPublic: isPublic,
       createdAt: createdAt,
       media: media?.map((e) => e.toEntity()).toList() ?? [],
+      author: author!.toEntity(),
     );
   }
 
@@ -79,5 +87,6 @@ class PostModel extends Equatable {
     isPublic,
     createdAt,
     media,
+    author,
   ];
 }

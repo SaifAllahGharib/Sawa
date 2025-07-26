@@ -109,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unknownError": MessageLookupByLibrary.simpleMessage("Unknown error"),
     "update": MessageLookupByLibrary.simpleMessage("Update"),
+    "updateNameSuccess": MessageLookupByLibrary.simpleMessage(
+      "Update name success",
+    ),
     "userNotFound": MessageLookupByLibrary.simpleMessage(
       "User not exists or email or password incorrect",
     ),

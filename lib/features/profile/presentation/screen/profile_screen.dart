@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_cubit.dart';
+import 'package:intern_intelligence_social_media_application/core/user/domain/entity/user_entity.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
+import 'package:intern_intelligence_social_media_application/features/profile/domain/entity/profile_entity.dart';
 
+import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/helpers/shared_preferences_helper.dart';
+import '../../../../core/user/data/model/user_model.dart';
 import '../../../../core/utils/app_snack_bar.dart';
-import '../../../home/domain/entities/post_entity.dart';
 import '../cubit/profile/profile_cubit.dart';
 import '../cubit/profile/profile_state.dart';
 import '../widgets/app_bar_profile.dart';
@@ -20,11 +23,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  List<PostEntity> _posts = [];
+  ProfileEntity? _profile;
 
   void _handleState(BuildContext context, ProfileState state) {
-    if (state is ProfileGetPostsState) {
-      _posts = state.posts;
+    if (state is ProfileGetState) {
+      _profile = state.profile;
+      getIt<SharedPreferencesHelper>().storeUser(
+        UserModel.fromEntity(_profile!.user).toJson(),
+      );
     } else if (state is ProfileFailureState) {
       AppSnackBar.showError(context, context.tr.failureToGetPosts);
     }
@@ -32,39 +38,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ValidationCubit(requiredFields: {'changeName'}),
-      child: AppScaffold(
-        child: SizedBox(
-          width: double.infinity,
-          child: CustomScrollView(
-            slivers: [
-              const AppBarProfile(),
-              const MiddleSectionProfile(),
-              SliverToBoxAdapter(
-                child: Divider(height: 1, color: context.customColor.border),
-              ),
-              BlocConsumer<ProfileCubit, ProfileState>(
-                listener: (context, state) => _handleState(context, state),
-                builder: (context, state) {
-                  if (state is ProfileLoadingState) {
-                    return SliverToBoxAdapter(
-                      child: Column(
-                        children: [
-                          Center(
-                            child: CircularProgressIndicator(
-                              color: context.theme.primaryColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
+    return AppScaffold(
+      child: SizedBox(
+        width: double.infinity,
+        child: RefreshIndicator(
+          color: context.theme.primaryColor,
+          onRefresh: () async {
+            print('refreshed');
+          },
+          child: BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (context, state) => _handleState(context, state),
+            builder: (context, state) {
+              if (state is ProfileLoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-                  return BottomSectionProfile(posts: _posts);
-                },
-              ),
-            ],
+              return CustomScrollView(
+                slivers: [
+                  const AppBarProfile(),
+                  MiddleSectionProfile(
+                    user:
+                        _profile?.user ??
+                        const UserEntity(
+                          id: '',
+                          name: '',
+                          image: '',
+                          email: '',
+                          bio: '',
+                        ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Divider(
+                      height: 1,
+                      color: context.customColor.border,
+                    ),
+                  ),
+                  BottomSectionProfile(posts: _profile?.posts ?? []),
+                ],
+              );
+            },
           ),
         ),
       ),
