@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/user/domain/entity/user_entity.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/domain/entity/profile_entity.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/helpers/shared_preferences_helper.dart';
 import '../../../../core/user/data/model/user_model.dart';
+import '../../../../core/user/domain/entity/user_entity.dart';
 import '../../../../core/utils/app_snack_bar.dart';
+import '../../../../core/widgets/app_scaffold.dart';
+import '../../domain/entity/profile_entity.dart';
 import '../cubit/profile/profile_cubit.dart';
 import '../cubit/profile/profile_state.dart';
 import '../widgets/app_bar_profile.dart';
@@ -36,6 +36,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  Future<void> _getProfileOnRefresh() async {
+    context.read<ProfileCubit>().getProfile();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -43,9 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         width: double.infinity,
         child: RefreshIndicator(
           color: context.theme.primaryColor,
-          onRefresh: () async {
-            print('refreshed');
-          },
+          onRefresh: () async => await _getProfileOnRefresh(),
           child: BlocConsumer<ProfileCubit, ProfileState>(
             listener: (context, state) => _handleState(context, state),
             builder: (context, state) {
