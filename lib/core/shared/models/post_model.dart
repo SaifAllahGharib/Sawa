@@ -43,7 +43,6 @@ class PostModel extends Equatable {
       createdAt: entity.createdAt,
       content: entity.content,
       media: entity.media.map((e) => PostMediaModel.fromEntity(e)).toList(),
-      author: UserModel.fromEntity(entity.author),
     );
   }
 

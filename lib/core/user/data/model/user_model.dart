@@ -25,9 +25,9 @@ class UserModel {
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
-  factory UserModel.fromEntity(UserEntity? user) {
+  factory UserModel.fromEntity(UserEntity user) {
     return UserModel(
-      id: user!.id!,
+      id: user.id!,
       name: user.name!,
       email: user.email!,
       image: user.image,

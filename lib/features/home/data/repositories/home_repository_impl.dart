@@ -34,10 +34,10 @@ class HomeRepositoryImpl implements IHomeRepository {
   }
 
   @override
-  Future<Result<AppFailure, String?>> createPost(PostEntity postModel) async {
+  Future<Result<AppFailure, String?>> createPost(PostEntity post) async {
     try {
       final response = await _iHomePostRemoteDataSource.createPost(
-        PostModel.fromEntity(postModel),
+        PostModel.fromEntity(post),
       );
       return Success(response);
     } catch (e) {
