@@ -19,6 +19,7 @@ class MainCubit extends Cubit<MainState> {
 
   late final StreamSubscription _themeSub;
   late final StreamSubscription _localeSub;
+  late final StreamSubscription _authSub;
   late final StreamSubscription _userSub;
 
   MainCubit(
@@ -41,10 +42,15 @@ class MainCubit extends Cubit<MainState> {
     _localeSub = _localeCubit.stream.listen(
       (locale) => emit(state.copyWith(locale: locale)),
     );
+    _authSub = _authCubit.stream.listen(
+      (auth) => emit(state.copyWith(authState: auth)),
+    );
     _userSub = _userCubit.stream.listen(
       (user) => emit(state.copyWith(userState: user)),
     );
   }
+
+  void checkAuthStatus() => _authCubit.checkAuthStatus();
 
   void changeTheme(ThemeMode themeMode) => _themeCubit.toggle(themeMode);
 
@@ -57,6 +63,7 @@ class MainCubit extends Cubit<MainState> {
   Future<void> close() {
     _themeSub.cancel();
     _localeSub.cancel();
+    _authSub.cancel();
     _userSub.cancel();
     return super.close();
   }

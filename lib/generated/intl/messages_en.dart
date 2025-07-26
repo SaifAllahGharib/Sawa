@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "accountExistsWithDifferentMethod": MessageLookupByLibrary.simpleMessage(
       "Account exists with different method",
     ),
+    "appName": MessageLookupByLibrary.simpleMessage("Sawa"),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "changeName": MessageLookupByLibrary.simpleMessage("Change Name"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
@@ -63,6 +64,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "failureToGetPosts": MessageLookupByLibrary.simpleMessage(
       "Failure to get posts",
+    ),
+    "failureToGetProfile": MessageLookupByLibrary.simpleMessage(
+      "Failure to get profile",
     ),
     "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
     "h": MessageLookupByLibrary.simpleMessage("h"),

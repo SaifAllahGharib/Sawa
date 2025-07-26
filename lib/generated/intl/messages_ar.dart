@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "accountExistsWithDifferentMethod": MessageLookupByLibrary.simpleMessage(
       "يوجد حساب باستخدام طريقة تسجيل مختلفة",
     ),
+    "appName": MessageLookupByLibrary.simpleMessage("Sawa"),
     "changeName": MessageLookupByLibrary.simpleMessage("تغيير الاسم"),
     "changePassword": MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
     "codeSendNotSuccess": MessageLookupByLibrary.simpleMessage(

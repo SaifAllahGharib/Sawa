@@ -1,4 +1,5 @@
 {
+  "appName": "Sawa",
   "welcomeBack": "Welcome Back",
   "labelEmail": "Email",
   "hintEmail": "example@ex.ex",
@@ -59,5 +60,6 @@
   "year": "year",
   "failedToCreateUser": "Failed to create user",
   "failureToGetPosts": "Failure to get posts",
-  "updateNameSuccess": "Update name success"
+  "updateNameSuccess": "Update name success",
+  "failureToGetProfile": "Failure to get profile"
 }

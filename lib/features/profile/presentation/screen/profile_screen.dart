@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         UserModel.fromEntity(_profile!.user).toJson(),
       );
     } else if (state is ProfileFailureState) {
-      AppSnackBar.showError(context, context.tr.failureToGetPosts);
+      AppSnackBar.showError(context, context.tr.failureToGetProfile);
     }
   }
 

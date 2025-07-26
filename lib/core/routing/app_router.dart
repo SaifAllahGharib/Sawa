@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/presentation/cubit/profile/profile_cubit.dart';
+import 'package:intern_intelligence_social_media_application/features/splash/presentation/screen/splash_screen.dart';
 
 import '../../features/auth/presentation/cubits/verification/verification/verification_cubit.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
@@ -16,6 +17,8 @@ import 'app_route_name.dart';
 abstract class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case AppRouteName.splash:
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
       case AppRouteName.login:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
       case AppRouteName.signup:

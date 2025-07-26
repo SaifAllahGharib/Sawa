@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../features/auth/presentation/cubits/auth/auth_cubit.dart';
 import '../../firebase_options.dart';
 import '../di/dependency_injection.dart';
 import '../helpers/shared_preferences_helper.dart';
@@ -25,5 +24,5 @@ Future<void> initializeApp() async {
     getIt<SharedPreferencesHelper>().init(),
   ]);
 
-  getIt<AuthCubit>().checkAuthStatus();
+  // getIt<AuthCubit>().checkAuthStatus();
 }

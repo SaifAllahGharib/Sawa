@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/constants/strings.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 
@@ -18,10 +19,10 @@ class HomeAppBar extends StatelessWidget {
       elevation: 0,
       surfaceTintColor: Colors.transparent,
       title: Text(
-        'Hoki',
+        AppStrings.appName,
         style: AppStyles.s22W600.copyWith(
           color: context.theme.primaryColor,
-          letterSpacing: 15,
+          letterSpacing: 5,
         ),
       ),
       actions: [

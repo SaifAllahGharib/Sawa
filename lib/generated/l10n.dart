@@ -55,6 +55,11 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Sawa`
+  String get appName {
+    return Intl.message('Sawa', name: 'appName', desc: '', args: []);
+  }
+
   /// `Welcome Back`
   String get welcomeBack {
     return Intl.message(
@@ -495,6 +500,16 @@ class S {
     return Intl.message(
       'Update name success',
       name: 'updateNameSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failure to get profile`
+  String get failureToGetProfile {
+    return Intl.message(
+      'Failure to get profile',
+      name: 'failureToGetProfile',
       desc: '',
       args: [],
     );

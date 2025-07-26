@@ -9,7 +9,6 @@ import 'core/di/dependency_injection.dart';
 import 'core/init/init_app.dart';
 import 'core/routing/app_router.dart';
 import 'core/theme/app_theme.dart';
-import 'core/utils/enums.dart';
 import 'core/widgets/responsive_builder.dart';
 import 'generated/l10n.dart';
 
@@ -25,7 +24,7 @@ class SocialMediaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context) => BlocProvider(
-        create: (context) => getIt<MainCubit>(),
+        create: (context) => getIt<MainCubit>()..checkAuthStatus(),
         child: BlocBuilder<MainCubit, MainState>(
           builder: (context, state) {
             return MaterialApp(
@@ -40,9 +39,7 @@ class SocialMediaApp extends StatelessWidget {
               theme: AppTheme.light,
               darkTheme: AppTheme.dark,
               themeMode: state.themeMode,
-              initialRoute: (state.authState.status == AuthStatus.authenticated)
-                  ? AppRouteName.home
-                  : AppRouteName.login,
+              initialRoute: AppRouteName.splash,
               onGenerateRoute: AppRouter.generateRoute,
             );
           },
