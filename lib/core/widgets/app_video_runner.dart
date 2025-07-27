@@ -122,7 +122,7 @@ class _AppVideoRunnerState extends State<AppVideoRunner> {
                             onTap: () => context.navigator.pop(),
                             child: Icon(
                               Icons.close,
-                              size: 20.r,
+                              size: 25.r,
                               color: context.customColor.icon,
                             ),
                           ),
