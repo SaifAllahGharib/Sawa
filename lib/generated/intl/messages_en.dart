@@ -76,6 +76,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "ifYouHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "If you have an account",
     ),
+    "imageFromCamera": MessageLookupByLibrary.simpleMessage(
+      "Image From Camera",
+    ),
+    "imageFromGallery": MessageLookupByLibrary.simpleMessage(
+      "Image From Gallery",
+    ),
     "labelEmail": MessageLookupByLibrary.simpleMessage("Email"),
     "labelName": MessageLookupByLibrary.simpleMessage("Name"),
     "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
@@ -119,6 +125,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "userNotFound": MessageLookupByLibrary.simpleMessage(
       "User not exists or email or password incorrect",
+    ),
+    "videoFromCamera": MessageLookupByLibrary.simpleMessage(
+      "Video From Camera",
+    ),
+    "videoFromGallery": MessageLookupByLibrary.simpleMessage(
+      "Video From Gallery",
     ),
     "viewProfilePicture": MessageLookupByLibrary.simpleMessage(
       "View profile picture",

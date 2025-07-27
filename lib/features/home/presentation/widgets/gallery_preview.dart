@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/models/media_item.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
+import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_file_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
 
+import '../../../../core/widgets/app_video_preview.dart';
 import 'delete_button.dart';
 
 class GalleryPreview extends StatelessWidget {
@@ -30,14 +32,18 @@ class GalleryPreview extends StatelessWidget {
       child: SizedBox(
         height: 500.h,
         child: switch (count) {
-          1 => _buildSingleImage(pickedAssets[0].path, 0),
+          1 => _buildSingleMedia(pickedAssets[0].path, 0, pickedAssets[0].type),
           2 || 3 => Row(
             children: List.generate(
               count,
               (i) => Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(4.r),
-                  child: _buildImageCard(pickedAssets[i].path, i),
+                  child: _buildMediaCard(
+                    pickedAssets[i].path,
+                    i,
+                    pickedAssets[i].type,
+                  ),
                 ),
               ),
             ),
@@ -52,7 +58,7 @@ class GalleryPreview extends StatelessWidget {
             itemBuilder: (_, i) => Stack(
               fit: StackFit.expand,
               children: [
-                _buildImageCard(pickedAssets[i].path, i),
+                _buildMediaCard(pickedAssets[i].path, i, pickedAssets[i].type),
                 if (i == 3 && count > 4) _buildOverlayMore(context, count - 4),
               ],
             ),
@@ -62,14 +68,14 @@ class GalleryPreview extends StatelessWidget {
     );
   }
 
-  Widget _buildSingleImage(String path, int index) {
+  Widget _buildSingleMedia(String path, int index, MediaType type) {
     return Padding(
       padding: EdgeInsets.all(6.r),
-      child: _buildImageCard(path, index),
+      child: _buildMediaCard(path, index, type),
     );
   }
 
-  Widget _buildImageCard(String path, int index) {
+  Widget _buildMediaCard(String path, int index, MediaType type) {
     if (path.isEmpty) return const SizedBox.shrink();
 
     return Stack(
@@ -86,11 +92,13 @@ class GalleryPreview extends StatelessWidget {
                 ),
               ],
             ),
-            child: AppFileImage(
-              image: path,
-              width: double.infinity,
-              height: double.infinity,
-            ),
+            child: type == MediaType.image
+                ? AppFileImage(
+                    image: path,
+                    width: double.infinity,
+                    height: double.infinity,
+                  )
+                : AppVideoPreview(path: path, videoType: VideoType.file),
           ),
         ),
         Positioned(

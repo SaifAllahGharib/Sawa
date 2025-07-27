@@ -529,6 +529,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Video From Camera`
+  String get videoFromCamera {
+    return Intl.message(
+      'Video From Camera',
+      name: 'videoFromCamera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Video From Gallery`
+  String get videoFromGallery {
+    return Intl.message(
+      'Video From Gallery',
+      name: 'videoFromGallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image From Camera`
+  String get imageFromCamera {
+    return Intl.message(
+      'Image From Camera',
+      name: 'imageFromCamera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image From Gallery`
+  String get imageFromGallery {
+    return Intl.message(
+      'Image From Gallery',
+      name: 'imageFromGallery',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -5,11 +5,14 @@ import 'package:intern_intelligence_social_media_application/core/extensions/num
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_cubit.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_state.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
+import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_back_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_file_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_video_preview.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_video_runner.dart';
 
 import '../widgets/delete_button.dart';
 
@@ -56,10 +59,31 @@ class DisplaySelectedMedia extends StatelessWidget {
                         Stack(
                           children: [
                             if (mediaItem.path.isNotEmpty)
-                              AppFileImage(
-                                image: mediaItem.path,
-                                width: double.infinity,
-                              ),
+                              if (mediaItem.type == MediaType.image)
+                                AppFileImage(
+                                  image: mediaItem.path,
+                                  width: double.infinity,
+                                )
+                              else
+                                SizedBox(
+                                  height: 400.r,
+                                  child: AppGestureDetectorButton(
+                                    onTap: () {
+                                      context.navigator.push(
+                                        MaterialPageRoute(
+                                          builder: (context) => AppVideoRunner(
+                                            path: mediaItem.path,
+                                            videoType: VideoType.file,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: AppVideoPreview(
+                                      path: mediaItem.path,
+                                      videoType: VideoType.file,
+                                    ),
+                                  ),
+                                ),
                             DeleteButton(
                               onClick: () => context
                                   .read<MediaCubit>()

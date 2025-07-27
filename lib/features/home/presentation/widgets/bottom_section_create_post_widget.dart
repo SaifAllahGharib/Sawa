@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/models/media_item.dart';
+import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_loading_widget.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
+import 'package:intern_intelligence_social_media_application/features/home/presentation/widgets/image_and_video_from_camera_or_gallery_widget_bottom_sheet.dart';
 
 import '../../../../core/clients/firebase_client.dart';
 import '../../../../core/di/dependency_injection.dart';
@@ -37,6 +40,16 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
     );
   }
 
+  void _onTapSelectMedia(BuildContext context) {
+    final mediaCubit = context.read<MediaCubit>();
+    AppBottomSheet.showModal(context, (context) {
+      return BlocProvider.value(
+        value: mediaCubit,
+        child: const ImageAndVideoFromCameraOrGalleryWidgetBottomSheet(),
+      );
+    });
+  }
+
   void _handleState(BuildContext context, HomeState state) {
     if (state is HomeCreatePostSuccessState) {
       context.navigator.pop();
@@ -65,7 +78,7 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
                     listener: (context, state) => _handleState(context, state),
                     builder: (context, state) {
                       if (state is HomeLoadingState) {
-                        return const Center(child: CircularProgressIndicator());
+                        return const AppLoadingWidget();
                       }
 
                       return AppButton(
@@ -83,7 +96,7 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
         ),
         10.horizontalSpace,
         AppGestureDetectorButton(
-          onTap: () => context.read<MediaCubit>().pickMultipleImages(),
+          onTap: () => _onTapSelectMedia(context),
           child: Icon(
             Icons.image_outlined,
             size: 30.r,

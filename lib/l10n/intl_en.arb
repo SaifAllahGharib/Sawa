@@ -63,5 +63,9 @@
   "updateNameSuccess": "Update name success",
   "failureToGetProfile": "Failure to get profile",
   "save": "Save",
-  "viewProfilePicture": "View profile picture"
+  "viewProfilePicture": "View profile picture",
+  "videoFromCamera": "Video From Camera",
+  "videoFromGallery": "Video From Gallery",
+  "imageFromCamera": "Image From Camera",
+  "imageFromGallery": "Image From Gallery"
 }
