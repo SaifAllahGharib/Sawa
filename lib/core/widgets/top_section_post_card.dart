@@ -13,12 +13,14 @@ class TopSectionPostCard extends StatefulWidget {
   final String? image;
   final String name;
   final DateTime postedTime;
+  final String? authorImage;
 
   const TopSectionPostCard({
     super.key,
     required this.image,
     required this.name,
     required this.postedTime,
+    this.authorImage,
   });
 
   @override
@@ -48,7 +50,7 @@ class _TopSectionPostCardState extends State<TopSectionPostCard> {
       bottom: 8.r,
       child: Row(
         children: [
-          const ProfileImage(size: 45),
+          ProfileImage(url: widget.authorImage, size: 45),
           12.horizontalSpace,
           Expanded(
             child: Column(

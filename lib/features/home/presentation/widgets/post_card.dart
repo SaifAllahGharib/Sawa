@@ -56,6 +56,7 @@ class _PostCardState extends State<PostCard> {
             image: widget.image,
             name: widget.name,
             postedTime: widget.postedTime,
+            authorImage: widget.post.author!.image,
           ),
           10.verticalSpace,
           MiddleSectionPostCard(content: widget.content, post: widget.post),

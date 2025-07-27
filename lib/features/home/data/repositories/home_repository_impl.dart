@@ -1,7 +1,7 @@
 import 'package:failure_handler/failure_handler.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/models/media_model.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/models/result.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/data_sources/home_post_remote_data_source.dart';
-import 'package:intern_intelligence_social_media_application/features/home/data/models/media_model.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/models/post_media_model.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/media_entity.dart';
 

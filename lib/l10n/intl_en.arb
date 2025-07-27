@@ -61,5 +61,7 @@
   "failedToCreateUser": "Failed to create user",
   "failureToGetPosts": "Failure to get posts",
   "updateNameSuccess": "Update name success",
-  "failureToGetProfile": "Failure to get profile"
+  "failureToGetProfile": "Failure to get profile",
+  "save": "Save",
+  "viewProfilePicture": "View profile picture"
 }

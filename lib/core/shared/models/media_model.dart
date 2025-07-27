@@ -5,15 +5,11 @@ import 'package:intern_intelligence_social_media_application/features/home/domai
 import 'package:path/path.dart' as p;
 
 class MediaModel {
-  final String postId;
+  final String id;
   final List<Uint8List> files;
   final List<String> fileNames;
 
-  MediaModel({
-    required this.postId,
-    required this.files,
-    required this.fileNames,
-  });
+  MediaModel({required this.id, required this.files, required this.fileNames});
 
   static Future<MediaModel> fromEntity(MediaEntity postMedia) async {
     final files = <Uint8List>[];
@@ -29,10 +25,6 @@ class MediaModel {
       }
     }
 
-    return MediaModel(
-      postId: postMedia.postId,
-      files: files,
-      fileNames: fileNames,
-    );
+    return MediaModel(id: postMedia.id, files: files, fileNames: fileNames);
   }
 }

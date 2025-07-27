@@ -44,7 +44,7 @@ class HomeCubit extends Cubit<HomeState> {
         }
 
         await _uploadPostMedia(
-          MediaEntity(postId: postId, media: pickedAssets),
+          MediaEntity(id: postId, media: pickedAssets),
           postId,
         );
       },

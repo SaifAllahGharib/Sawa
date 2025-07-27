@@ -1,4 +1,4 @@
-import 'package:intern_intelligence_social_media_application/features/home/data/models/media_model.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/models/media_model.dart';
 import 'package:mime/mime.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -18,7 +18,7 @@ class SupabaseHomeUploadStorageRemoteDataSource
     for (int i = 0; i < mediaModel.files.length; i++) {
       final file = mediaModel.files[i];
       final fileName = mediaModel.fileNames[i];
-      final path = 'post_media/${mediaModel.postId}/$fileName';
+      final path = 'post_media/${mediaModel.id}/$fileName';
       final contentType =
           lookupMimeType(fileName) ?? 'application/octet-stream';
 

@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/models/media_item.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_file_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
 
 import 'delete_button.dart';
@@ -87,9 +86,8 @@ class GalleryPreview extends StatelessWidget {
                 ),
               ],
             ),
-            child: Image.file(
-              File(path),
-              fit: BoxFit.cover,
+            child: AppFileImage(
+              image: path,
               width: double.infinity,
               height: double.infinity,
             ),

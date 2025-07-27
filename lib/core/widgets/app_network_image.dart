@@ -48,7 +48,7 @@ class AppNetworkImage extends StatelessWidget {
         fit: fit,
         placeholder: (context, url) => AppPlaceholder(
           width: width ?? double.infinity,
-          height: height ?? 200,
+          height: height ?? 200.r,
           borderRadius:
               borderRadius ??
               BorderRadius.only(
@@ -60,7 +60,7 @@ class AppNetworkImage extends StatelessWidget {
         ),
         errorWidget: (context, url, error) => Container(
           width: width ?? double.infinity,
-          height: height ?? 200,
+          height: height ?? 200.r,
           decoration: BoxDecoration(
             color: Colors.grey.shade300,
             borderRadius:
@@ -75,7 +75,7 @@ class AppNetworkImage extends StatelessWidget {
           child: Icon(
             Icons.error,
             color: Colors.red.shade700,
-            size: min(width ?? 100, height ?? 100) * 0.2,
+            size: min(width ?? 100.r, height ?? 100.r) * 0.2,
           ),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/domain/usecases/get_profile_usecase.dart';
+import 'package:intern_intelligence_social_media_application/features/profile/domain/usecases/upload_profile_image_usecase.dart';
 import 'package:logger/logger.dart';
 
 import '../../features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -29,8 +29,11 @@ import '../../features/home/domain/usecases/upload_post_media_usecase.dart';
 import '../../features/home/presentation/cubits/home/home_cubit.dart';
 import '../../features/profile/data/data_source/firebase_profile_remote_data_source.dart';
 import '../../features/profile/data/data_source/profile_remote_data_source.dart';
+import '../../features/profile/data/data_source/profile_upload_storage_remote_data_source.dart';
+import '../../features/profile/data/data_source/supabase_profile_upload_storage_remote_data_source.dart';
 import '../../features/profile/data/repository/profile_repository_impl.dart';
 import '../../features/profile/domain/repository/profile_repository.dart';
+import '../../features/profile/domain/usecases/get_profile_usecase.dart';
 import '../../features/profile/domain/usecases/update_profile_name_usecase.dart';
 import '../../features/profile/presentation/cubit/profile/profile_cubit.dart';
 import '../clients/dio_client.dart';
@@ -78,6 +81,9 @@ void setupDependencyInjection() {
   getIt.registerLazySingleton<IProfileRemoteDataSource>(
     () => FirebaseProfileRemoteDataSource(getIt()),
   );
+  getIt.registerLazySingleton<IProfileUploadStorageRemoteDataSource>(
+    () => SupabaseProfileUploadStorageRemoteDataSource(getIt()),
+  );
 
   // Repositories
   getIt.registerLazySingleton<IAuthRepository>(
@@ -90,7 +96,7 @@ void setupDependencyInjection() {
     () => HomeRepositoryImpl(getIt(), getIt()),
   );
   getIt.registerLazySingleton<IProfileRepository>(
-    () => ProfileRepositoryImpl(getIt()),
+    () => ProfileRepositoryImpl(getIt(), getIt()),
   );
 
   // UseCass
@@ -109,6 +115,7 @@ void setupDependencyInjection() {
   getIt.registerLazySingleton(() => CreateUserUseCase(getIt()));
   getIt.registerLazySingleton(() => UpdateProfileNameUseCase(getIt()));
   getIt.registerLazySingleton(() => GetProfileUseCase(getIt()));
+  getIt.registerLazySingleton(() => UploadProfileImageUseCase(getIt()));
 
   // Cubits
   getIt.registerLazySingleton(() => LocaleCubit(getIt()));
@@ -125,5 +132,5 @@ void setupDependencyInjection() {
   getIt.registerLazySingleton(
     () => MainCubit(getIt(), getIt(), getIt(), getIt(), getIt()),
   );
-  getIt.registerLazySingleton(() => ProfileCubit(getIt(), getIt()));
+  getIt.registerLazySingleton(() => ProfileCubit(getIt(), getIt(), getIt()));
 }

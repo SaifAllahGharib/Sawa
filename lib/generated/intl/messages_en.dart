@@ -100,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "required": MessageLookupByLibrary.simpleMessage("Required"),
     "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
+    "save": MessageLookupByLibrary.simpleMessage("Save"),
     "selected": MessageLookupByLibrary.simpleMessage("Selected"),
     "sendLinkVerificationYourEmailTo": MessageLookupByLibrary.simpleMessage(
       "Verification Link Sent to",
@@ -118,6 +119,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "userNotFound": MessageLookupByLibrary.simpleMessage(
       "User not exists or email or password incorrect",
+    ),
+    "viewProfilePicture": MessageLookupByLibrary.simpleMessage(
+      "View profile picture",
     ),
     "weakPassword": MessageLookupByLibrary.simpleMessage("Password Weak"),
     "week": MessageLookupByLibrary.simpleMessage("week"),

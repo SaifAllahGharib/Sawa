@@ -1,8 +1,8 @@
 import '../../../../core/shared/models/media_item.dart';
 
 class MediaEntity {
-  final String postId;
+  final String id;
   final List<MediaItem> media;
 
-  MediaEntity({required this.postId, required this.media});
+  MediaEntity({required this.id, required this.media});
 }

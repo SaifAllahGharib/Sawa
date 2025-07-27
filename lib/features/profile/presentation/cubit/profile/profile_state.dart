@@ -38,8 +38,8 @@ final class ProfileGetState extends ProfileState {
   List<Object?> get props => [profile];
 }
 
-final class ProfileUpdateNameState extends ProfileState {
-  const ProfileUpdateNameState();
+final class ProfileUpdateProfileState extends ProfileState {
+  const ProfileUpdateProfileState();
 
   @override
   List<Object?> get props => [];

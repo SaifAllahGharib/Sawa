@@ -66,4 +66,10 @@ class SupabaseUserRemoteDataSource implements IUserRemoteDataSource {
       return false;
     }
   }
+
+  @override
+  Future<void> uploadProfileImage(String path) {
+    // TODO: implement uploadProfileImage
+    throw UnimplementedError();
+  }
 }

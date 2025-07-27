@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:intern_intelligence_social_media_application/core/extensions/num
 
 import 'app_placeholder.dart';
 
-class AppAssetImage extends StatelessWidget {
+class AppFileImage extends StatelessWidget {
   final String image;
   final double? width;
   final double? height;
@@ -16,7 +17,7 @@ class AppAssetImage extends StatelessWidget {
   final double? topLeft;
   final double? topRight;
 
-  const AppAssetImage({
+  const AppFileImage({
     super.key,
     required this.image,
     this.width = double.infinity,
@@ -42,8 +43,8 @@ class AppAssetImage extends StatelessWidget {
 
     return ClipRRect(
       borderRadius: resolvedRadius,
-      child: Image.asset(
-        image,
+      child: Image.file(
+        File(image),
         width: width,
         height: height,
         fit: fit,
@@ -67,7 +68,7 @@ class AppAssetImage extends StatelessWidget {
         },
         errorBuilder: (context, error, stackTrace) => Container(
           width: width ?? double.infinity,
-          height: height ?? 200.r,
+          height: height ?? 200,
           decoration: BoxDecoration(
             color: Colors.grey.shade300,
             borderRadius: resolvedRadius,

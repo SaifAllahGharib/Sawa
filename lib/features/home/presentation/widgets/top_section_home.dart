@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/helpers/shared_preferences_helper.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/profile_image.dart';
 import 'package:intern_intelligence_social_media_application/features/home/presentation/widgets/create_post_bottom_sheet_widget.dart';
@@ -30,7 +32,15 @@ class TopSectionHome extends StatelessWidget {
           children: [
             AppGestureDetectorButton(
               onTap: () => context.navigator.pushNamed(AppRouteName.profile),
-              child: const ProfileImage(),
+              child: ProfileImage(
+                url:
+                    getIt<SharedPreferencesHelper>().getUserImage() != 'null' &&
+                        getIt<SharedPreferencesHelper>()
+                            .getUserImage()
+                            .isNotEmpty
+                    ? getIt<SharedPreferencesHelper>().getUserImage()
+                    : '',
+              ),
             ),
             10.horizontalSpace,
             Expanded(

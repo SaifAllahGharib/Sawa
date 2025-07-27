@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_cubit.dart';
 import 'package:intern_intelligence_social_media_application/core/user/domain/entity/user_entity.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/profile_image.dart';
@@ -12,11 +14,31 @@ import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
+import 'camera_or_gallery_widget.dart';
 
 class MiddleSectionProfile extends StatelessWidget {
   final UserEntity user;
 
   const MiddleSectionProfile({super.key, required this.user});
+
+  void _onTapOnCamera(BuildContext context) {
+    AppBottomSheet.showModal(context, (context) {
+      return BlocProvider(
+        create: (context) => getIt<MediaCubit>(),
+        child: const CameraOrGalleryWidget(),
+      );
+    });
+  }
+
+  void _onTapOnName(BuildContext context) {
+    AppBottomSheet.showModal(
+      context,
+      (context) => BlocProvider(
+        create: (context) => ValidationCubit(requiredFields: {'changeName'}),
+        child: const ChangeNameWidget(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +56,7 @@ class MiddleSectionProfile extends StatelessWidget {
                   Align(
                     alignment: AlignmentDirectional.bottomEnd,
                     child: AppGestureDetectorButton(
-                      onTap: () {},
+                      onTap: () => _onTapOnCamera(context),
                       child: Container(
                         padding: EdgeInsets.all(5.r),
                         decoration: BoxDecoration(
@@ -57,14 +79,7 @@ class MiddleSectionProfile extends StatelessWidget {
             ),
             10.verticalSpace,
             AppGestureDetectorButton(
-              onTap: () => AppBottomSheet.showModal(
-                context,
-                (context) => BlocProvider(
-                  create: (context) =>
-                      ValidationCubit(requiredFields: {'changeName'}),
-                  child: const ChangeNameWidget(),
-                ),
-              ),
+              onTap: () => _onTapOnName(context),
               child: Text(
                 user.name ?? '',
                 style: AppStyles.s29W400.copyWith(

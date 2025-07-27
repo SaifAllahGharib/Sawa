@@ -10,6 +10,8 @@ class AppButton extends StatelessWidget {
   final Color? textColor;
   final double? width;
   final bool enabled;
+  final BorderRadiusGeometry? borderRadius;
+  final EdgeInsets? padding;
 
   const AppButton({
     super.key,
@@ -19,6 +21,8 @@ class AppButton extends StatelessWidget {
     this.textColor,
     this.width,
     this.enabled = false,
+    this.borderRadius,
+    this.padding,
   });
 
   @override
@@ -29,12 +33,19 @@ class AppButton extends StatelessWidget {
         onPressed: enabled ? onClick : null,
         style: ButtonStyle(
           enableFeedback: false,
+          shape: WidgetStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: borderRadius ?? BorderRadius.circular(1000.r),
+            ),
+          ),
           backgroundColor: WidgetStatePropertyAll(
             enabled
                 ? (background ?? context.theme.primaryColor)
                 : context.theme.primaryColor.withValues(alpha: 0.3),
           ),
-          padding: WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 12.r)),
+          padding: WidgetStatePropertyAll(
+            padding ?? EdgeInsets.symmetric(vertical: 12.r),
+          ),
         ),
         child: Text(
           text,

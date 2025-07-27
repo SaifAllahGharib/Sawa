@@ -12,12 +12,6 @@ class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
   FirebaseProfileRemoteDataSource(this._firebaseClient);
 
   @override
-  Future<void> updateProfileImage(String url) async {
-    // TODO: implement updateProfileImage
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> updateProfileName(String newName) async {
     return await _firebaseClient.db
         .ref()
@@ -83,5 +77,14 @@ class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
     ProfileModel profile = ProfileModel(user: user, posts: finalPosts);
 
     return profile;
+  }
+
+  @override
+  Future<void> uploadProfileImage(String path) async {
+    return _firebaseClient.db
+        .ref()
+        .child('users')
+        .child(_firebaseClient.auth.currentUser!.uid)
+        .update({'image': path});
   }
 }

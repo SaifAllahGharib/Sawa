@@ -71,7 +71,7 @@ class _ChangeNameWidgetState extends State<ChangeNameWidget> {
                     if (state is ProfileFailureState) {
                       context.navigator.pop();
                       AppSnackBar.showError(context, state.code);
-                    } else if (state is ProfileUpdateNameState) {
+                    } else if (state is ProfileUpdateProfileState) {
                       context.navigator.pop();
                       AppSnackBar.showSuccess(
                         context,

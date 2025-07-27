@@ -514,6 +514,21 @@ class S {
       args: [],
     );
   }
+
+  /// `Save`
+  String get save {
+    return Intl.message('Save', name: 'save', desc: '', args: []);
+  }
+
+  /// `View profile picture`
+  String get viewProfilePicture {
+    return Intl.message(
+      'View profile picture',
+      name: 'viewProfilePicture',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

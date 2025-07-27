@@ -1,20 +1,22 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/models/result.dart';
+import 'package:intern_intelligence_social_media_application/features/home/domain/entities/media_entity.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/data/data_source/profile_remote_data_source.dart';
+import 'package:intern_intelligence_social_media_application/features/profile/data/data_source/profile_upload_storage_remote_data_source.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/domain/entity/profile_entity.dart';
 
+import '../../../../core/shared/models/media_model.dart';
 import '../../domain/repository/profile_repository.dart';
 
 class ProfileRepositoryImpl implements IProfileRepository {
   final IProfileRemoteDataSource _iProfileRemoteDataSource;
+  final IProfileUploadStorageRemoteDataSource
+  _iProfileUploadStorageRemoteDataSource;
 
-  ProfileRepositoryImpl(this._iProfileRemoteDataSource);
-
-  @override
-  Future<Result<AppFailure, void>> updateProfileImage(String newName) async {
-    // TODO: implement updateProfileImage
-    throw UnimplementedError();
-  }
+  ProfileRepositoryImpl(
+    this._iProfileRemoteDataSource,
+    this._iProfileUploadStorageRemoteDataSource,
+  );
 
   @override
   Future<Result<AppFailure, void>> updateProfileName(String newName) async {
@@ -33,6 +35,19 @@ class ProfileRepositoryImpl implements IProfileRepository {
     try {
       final response = await _iProfileRemoteDataSource.getProfile();
       return Success(response.toEntity());
+    } catch (e) {
+      return Failure(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Result<AppFailure, void>> uploadProfileImage(MediaEntity media) async {
+    try {
+      final path = await _iProfileUploadStorageRemoteDataSource
+          .uploadProfileImage(await MediaModel.fromEntity(media));
+
+      final response = await _iProfileRemoteDataSource.uploadProfileImage(path);
+      return Success(response);
     } catch (e) {
       return Failure(ErrorHandler.handle(e));
     }
