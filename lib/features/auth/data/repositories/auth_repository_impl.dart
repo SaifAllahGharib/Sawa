@@ -1,5 +1,4 @@
 import 'package:failure_handler/failure_handler.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/models/result.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/login_model.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/signup_model.dart';
@@ -9,58 +8,45 @@ import 'package:intern_intelligence_social_media_application/features/auth/domai
 
 class AuthRepositoryImpl implements IAuthRepository {
   final IAuthRemoteDataSource _authRemoteDataSource;
+  final ErrorHandler _errorHandler;
 
-  AuthRepositoryImpl(this._authRemoteDataSource);
+  AuthRepositoryImpl(this._authRemoteDataSource, this._errorHandler);
 
   @override
   Future<Result<AppFailure, String?>> createAccount(SignupEntity entity) async {
-    try {
-      final response = await _authRemoteDataSource.createAccount(
+    return _errorHandler.handleFutureWithTryCatch<String?>(
+      () async => await _authRemoteDataSource.createAccount(
         SignupModel.fromEntity(entity),
-      );
-
-      return Success(response);
-    } catch (e) {
-      return Failure(ErrorHandler.handle(e));
-    }
+      ),
+    );
   }
 
   @override
   Future<Result<AppFailure, String?>> login(LoginEntity entity) async {
-    try {
-      final response = await _authRemoteDataSource.login(
-        LoginModel.fromEntity(entity),
-      );
-      return Success(response);
-    } catch (e) {
-      return Failure(ErrorHandler.handle(e));
-    }
+    return _errorHandler.handleFutureWithTryCatch<String?>(
+      () async =>
+          await _authRemoteDataSource.login(LoginModel.fromEntity(entity)),
+    );
   }
 
   @override
   Future<Result<AppFailure, bool>> emailVerified() async {
-    try {
-      return Success(await _authRemoteDataSource.emailVerified());
-    } catch (e) {
-      return Failure(ErrorHandler.handle(e));
-    }
+    return _errorHandler.handleFutureWithTryCatch<bool>(
+      () async => await _authRemoteDataSource.emailVerified(),
+    );
   }
 
   @override
   Future<Result<AppFailure, void>> sendEmailVerification() async {
-    try {
-      return Success(await _authRemoteDataSource.sendEmailVerification());
-    } catch (e) {
-      return Failure(ErrorHandler.handle(e));
-    }
+    return _errorHandler.handleFutureWithTryCatch<void>(
+      () async => await _authRemoteDataSource.sendEmailVerification(),
+    );
   }
 
   @override
   Future<Result<AppFailure, void>> logout() async {
-    try {
-      return Success(await _authRemoteDataSource.logout());
-    } catch (e) {
-      return Failure(ErrorHandler.handle(e));
-    }
+    return _errorHandler.handleFutureWithTryCatch<void>(
+      () async => await _authRemoteDataSource.logout(),
+    );
   }
 }

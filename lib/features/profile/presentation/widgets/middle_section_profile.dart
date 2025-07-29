@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_cubit.dart';
@@ -9,6 +8,7 @@ import 'package:intern_intelligence_social_media_application/core/utils/app_bott
 import 'package:intern_intelligence_social_media_application/core/widgets/profile_image.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/presentation/widgets/change_name_widget.dart';
 
+import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/shared/cubits/validation/validation_cubit.dart';
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_styles.dart';

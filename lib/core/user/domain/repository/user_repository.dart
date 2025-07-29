@@ -1,6 +1,5 @@
 import 'package:failure_handler/failure_handler.dart';
 
-import '../../../shared/models/result.dart';
 import '../entity/user_entity.dart';
 
 abstract class IUserRepository {

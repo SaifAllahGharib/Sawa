@@ -1,6 +1,5 @@
 import 'package:failure_handler/failure_handler.dart';
 
-import '../../../../core/shared/models/result.dart';
 import '../entities/media_entity.dart';
 import '../entities/post_entity.dart';
 import '../entities/post_media_entity.dart';

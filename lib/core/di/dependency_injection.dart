@@ -1,3 +1,4 @@
+import 'package:failure_handler/failure_handler.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/domain/usecases/upload_profile_image_usecase.dart';
@@ -58,7 +59,11 @@ import '../user/presentation/cubit/user/user_cubit.dart';
 final GetIt getIt = GetIt.instance;
 
 void setupDependencyInjection() {
+  // Instance
+  final errorHandler = errorHandlerGetIt<ErrorHandler>();
+
   // Helper and Clint
+  getIt.registerLazySingleton(() => getIt<ErrorHandler>());
   getIt.registerLazySingleton(() => SharedPreferencesHelper(Logger()));
   getIt.registerLazySingleton(() => ImagePickerHelper(ImagePicker()));
   getIt.registerLazySingleton(() => DioClint.create());
@@ -87,16 +92,16 @@ void setupDependencyInjection() {
 
   // Repositories
   getIt.registerLazySingleton<IAuthRepository>(
-    () => AuthRepositoryImpl(getIt()),
+    () => AuthRepositoryImpl(getIt(), errorHandler),
   );
   getIt.registerLazySingleton<IUserRepository>(
-    () => UserRepositoryImpl(getIt()),
+    () => UserRepositoryImpl(getIt(), errorHandler),
   );
   getIt.registerLazySingleton<IHomeRepository>(
-    () => HomeRepositoryImpl(getIt(), getIt()),
+    () => HomeRepositoryImpl(getIt(), getIt(), errorHandler),
   );
   getIt.registerLazySingleton<IProfileRepository>(
-    () => ProfileRepositoryImpl(getIt(), getIt()),
+    () => ProfileRepositoryImpl(getIt(), getIt(), errorHandler),
   );
 
   // UseCass

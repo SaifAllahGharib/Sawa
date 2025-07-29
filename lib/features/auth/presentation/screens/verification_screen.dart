@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
-import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
@@ -13,6 +12,7 @@ import 'package:intern_intelligence_social_media_application/core/widgets/app_sc
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/verification/verification/verification_state.dart';
 
 import '../../../../core/constants/app_assets.dart';
+import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/routing/app_route_name.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../cubits/verification/verification/verification_cubit.dart';

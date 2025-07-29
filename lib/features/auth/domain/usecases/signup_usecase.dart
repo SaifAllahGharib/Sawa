@@ -1,5 +1,4 @@
 import 'package:failure_handler/failure_handler.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/models/result.dart';
 import 'package:intern_intelligence_social_media_application/core/usecases/usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/signup_entity.dart';
 

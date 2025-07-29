@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:failure_handler/src/models/app_failure.dart';
+import 'package:failure_handler/failure_handler.dart';
 
-import '../../../../core/shared/models/result.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../repository/profile_repository.dart';
 

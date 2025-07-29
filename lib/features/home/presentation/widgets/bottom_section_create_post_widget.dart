@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/models/media_item.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_loading_widget.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/home/presentation/widgets/image_and_video_from_camera_or_gallery_widget_bottom_sheet.dart';
 
 import '../../../../core/clients/firebase_client.dart';
 import '../../../../core/di/dependency_injection.dart';
@@ -14,11 +9,16 @@ import '../../../../core/shared/cubits/media/media_cubit.dart';
 import '../../../../core/shared/cubits/media/media_state.dart';
 import '../../../../core/shared/cubits/validation/validation_cubit.dart';
 import '../../../../core/shared/cubits/validation/validation_state.dart';
+import '../../../../core/shared/models/media_item.dart';
+import '../../../../core/utils/app_bottom_sheet.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
+import '../../../../core/widgets/app_loading_widget.dart';
+import '../../domain/entities/post_entity.dart';
 import '../cubits/home/home_cubit.dart';
 import '../cubits/home/home_state.dart';
+import 'image_and_video_from_camera_or_gallery_widget_bottom_sheet.dart';
 
 class BottomSectionCreatePostWidget extends StatelessWidget {
   final TextEditingController postController;

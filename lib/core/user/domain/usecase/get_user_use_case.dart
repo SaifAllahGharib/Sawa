@@ -1,6 +1,5 @@
-import 'package:failure_handler/src/models/app_failure.dart';
+import 'package:failure_handler/failure_handler.dart';
 
-import '../../../shared/models/result.dart';
 import '../../../usecases/usecase.dart';
 import '../entity/user_entity.dart';
 import '../repository/user_repository.dart';
