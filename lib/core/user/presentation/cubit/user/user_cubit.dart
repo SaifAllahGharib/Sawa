@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../domain/usecase/get_user_use_case.dart';
 import 'user_state.dart';
 
+@injectable
 class UserCubit extends Cubit<UserState> {
   final GetUserUseCase _getUserUseCase;
 

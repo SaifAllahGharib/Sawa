@@ -1,8 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/login_model.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/data/models/signup_model.dart';
 
+@LazySingleton(as: IAuthRemoteDataSource)
 class FirebaseAuthRemoteDataSource implements IAuthRemoteDataSource {
   final FirebaseClient _firebaseClint;
 

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:intern_intelligence_social_media_application/core/usecases/no_params.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/media_entity.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/domain/usecases/upload_profile_image_usecase.dart';
@@ -7,6 +8,7 @@ import '../../../domain/usecases/get_profile_usecase.dart';
 import '../../../domain/usecases/update_profile_name_usecase.dart';
 import 'profile_state.dart';
 
+@injectable
 class ProfileCubit extends Cubit<ProfileState> {
   final UpdateProfileNameUseCase _updateProfileNameUseCase;
   final GetProfileUseCase _getProfileUseCase;

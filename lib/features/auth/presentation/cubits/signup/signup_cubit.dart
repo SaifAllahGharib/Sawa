@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:intern_intelligence_social_media_application/core/user/domain/entity/user_entity.dart';
 import 'package:intern_intelligence_social_media_application/core/user/domain/usecase/create_user_usecase.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/signup_entity.dart';
@@ -6,6 +7,7 @@ import 'package:intern_intelligence_social_media_application/features/auth/domai
 
 import 'signup_state.dart';
 
+@injectable
 class SignupCubit extends Cubit<SignupState> {
   final SignupUseCase _signupUseCase;
   final CreateUserUseCase _createUserUseCase;

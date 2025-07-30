@@ -1,7 +1,10 @@
+import 'package:injectable/injectable.dart';
+
 import '../../../clients/firebase_client.dart';
 import '../model/user_model.dart';
 import 'user_remote_data_source.dart';
 
+@LazySingleton(as: IUserRemoteDataSource)
 class FirebaseUserRemoteDataSource implements IUserRemoteDataSource {
   final FirebaseClient _firebaseClient;
 

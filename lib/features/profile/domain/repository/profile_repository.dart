@@ -4,9 +4,9 @@ import 'package:intern_intelligence_social_media_application/features/profile/do
 import '../../../home/domain/entities/media_entity.dart';
 
 abstract class IProfileRepository {
-  Future<Result<AppFailure, void>> uploadProfileImage(MediaEntity media);
+  FutureResult<void> uploadProfileImage(MediaEntity media);
 
-  Future<Result<AppFailure, void>> updateProfileName(String newName);
+  FutureResult<void> updateProfileName(String newName);
 
-  Future<Result<AppFailure, ProfileEntity>> getProfile();
+  FutureResult<ProfileEntity> getProfile();
 }

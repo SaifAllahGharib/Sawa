@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:intern_intelligence_social_media_application/core/helpers/image_picker_helper.dart';
 
 import '../../models/media_item.dart';
 import 'media_state.dart';
 
+@injectable
 class MediaCubit extends Cubit<MediaState> {
   final ImagePickerHelper _imagePickerHelper;
 

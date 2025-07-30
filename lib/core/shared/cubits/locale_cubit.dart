@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../helpers/shared_preferences_helper.dart';
 
+@singleton
 class LocaleCubit extends Cubit<Locale> {
   final SharedPreferencesHelper _prefs;
 

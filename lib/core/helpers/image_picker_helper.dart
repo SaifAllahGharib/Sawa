@@ -1,7 +1,9 @@
 import 'package:image_picker/image_picker.dart';
+import 'package:injectable/injectable.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/models/media_item.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 
+@LazySingleton()
 class ImagePickerHelper {
   final ImagePicker _picker;
 

@@ -1,17 +1,11 @@
+import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-final class SupabaseClint {
-  final _supabase = Supabase.instance.client;
+@lazySingleton
+class SupabaseClint {
+  final SupabaseClient _client = Supabase.instance.client;
 
-  SupabaseClint._();
+  GoTrueClient get auth => _client.auth;
 
-  static final SupabaseClint _instance = SupabaseClint._();
-
-  factory SupabaseClint() {
-    return _instance;
-  }
-
-  GoTrueClient get auth => _instance._supabase.auth;
-
-  SupabaseClient get db => _instance._supabase;
+  SupabaseClient get db => _client;
 }

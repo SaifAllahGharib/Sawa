@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../features/auth/presentation/cubits/auth/auth_cubit.dart';
 import '../../../clients/firebase_client.dart';
@@ -10,6 +11,7 @@ import '../locale_cubit.dart';
 import '../theme_cubit.dart';
 import 'main_state.dart';
 
+@singleton
 class MainCubit extends Cubit<MainState> {
   final ThemeCubit _themeCubit;
   final LocaleCubit _localeCubit;

@@ -3,13 +3,13 @@ import 'package:intern_intelligence_social_media_application/features/auth/domai
 import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/signup_entity.dart';
 
 abstract class IAuthRepository {
-  Future<Result<AppFailure, String?>> login(LoginEntity entity);
+  FutureResult<String?> login(LoginEntity entity);
 
-  Future<Result<AppFailure, String?>> createAccount(SignupEntity entity);
+  FutureResult<String?> createAccount(SignupEntity entity);
 
-  Future<Result<AppFailure, bool>> emailVerified();
+  FutureResult<bool> emailVerified();
 
-  Future<Result<AppFailure, void>> sendEmailVerification();
+  FutureResult<void> sendEmailVerification();
 
-  Future<Result<AppFailure, void>> logout();
+  FutureResult<void> logout();
 }

@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/models/post_model.dart';
 import 'package:intern_intelligence_social_media_application/core/user/data/model/user_model.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/models/post_media_model.dart';
@@ -5,6 +6,7 @@ import 'package:intern_intelligence_social_media_application/features/home/data/
 import '../../../../core/clients/firebase_client.dart';
 import 'home_post_remote_data_source.dart';
 
+@LazySingleton(as: IHomePostRemoteDataSource)
 class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
   final FirebaseClient _firebaseClient;
 

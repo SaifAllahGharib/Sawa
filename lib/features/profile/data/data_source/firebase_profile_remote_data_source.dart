@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/models/post_model.dart';
 import 'package:intern_intelligence_social_media_application/core/user/data/model/user_model.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/data/models/profile_model.dart';
@@ -6,6 +7,7 @@ import '../../../../core/clients/firebase_client.dart';
 import '../../../home/data/models/post_media_model.dart';
 import 'profile_remote_data_source.dart';
 
+@LazySingleton(as: IProfileRemoteDataSource)
 class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
   final FirebaseClient _firebaseClient;
 
