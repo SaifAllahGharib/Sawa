@@ -13,7 +13,7 @@ class ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return url == null
+    return url == null || url!.isEmpty
         ? AppAssetImage(
             image: AppAssets.profile,
             width: size?.h ?? 45.h,
