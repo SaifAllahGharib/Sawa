@@ -85,6 +85,7 @@ import '../shared/cubits/locale_cubit.dart' as _i3;
 import '../shared/cubits/main/main_cubit.dart' as _i302;
 import '../shared/cubits/media/media_cubit.dart' as _i814;
 import '../shared/cubits/theme_cubit.dart' as _i128;
+import '../shared/cubits/video_player/video_player_cubit.dart' as _i182;
 import '../user/data/data_source/firebase_user_remote_data_source.dart' as _i10;
 import '../user/data/data_source/user_remote_data_source.dart' as _i386;
 import '../user/data/repository/user_repository_impl.dart' as _i456;
@@ -103,6 +104,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final appModule = _$AppModule();
+    gh.factory<_i182.VideoPlayerCubit>(() => _i182.VideoPlayerCubit());
     gh.singleton<_i59.FirebaseAuth>(() => appModule.firebaseAuth);
     gh.singleton<_i345.FirebaseDatabase>(() => appModule.firebaseDatabase);
     gh.lazySingleton<_i207.SupabaseClint>(() => _i207.SupabaseClint());

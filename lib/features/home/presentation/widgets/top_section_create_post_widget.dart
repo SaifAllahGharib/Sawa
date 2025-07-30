@@ -32,7 +32,10 @@ class _TopSectionCreatePostWidgetState
       children: [
         Row(
           children: [
-            const ProfileImage(size: 40),
+            ProfileImage(
+              url: _sharedPreferencesHelper.getUserImage(),
+              size: 40,
+            ),
             10.horizontalSpace,
             Text(
               _sharedPreferencesHelper.getUserName() ?? '',

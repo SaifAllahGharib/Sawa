@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_loading_widget.dart';
 import 'package:video_player/video_player.dart';
 
 import '../utils/enums.dart';
@@ -68,9 +69,7 @@ class _AppVideoPreviewState extends State<AppVideoPreview> {
                   ),
                 ],
               ),
-              child: const SizedBox(
-                child: Center(child: Icon(Icons.videocam_outlined)),
-              ),
+              child: const AppLoadingWidget(),
             ),
           );
   }
