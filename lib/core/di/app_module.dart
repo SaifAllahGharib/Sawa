@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:failure_handler/failure_handler.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -23,9 +25,35 @@ abstract class AppModule {
   @lazySingleton
   ImagePicker get imagePicker => ImagePicker();
 
+  @singleton
+  FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
+
+  @singleton
+  FirebaseDatabase get firebaseDatabase => FirebaseDatabase.instance;
+
   @lazySingleton
   Dio get dio => DioClint.create();
 
   @lazySingleton
-  ErrorHandler get errorHandler => errorHandlerGetIt<ErrorHandler>();
+  DioErrorMapper get dioErrorMapper => const DioErrorMapper();
+
+  @lazySingleton
+  FirebaseErrorMapper get firebaseErrorMapper => const FirebaseErrorMapper();
+
+  @lazySingleton
+  SupabaseErrorMapper get supabaseErrorMapper => const SupabaseErrorMapper();
+
+  @lazySingleton
+  DefaultErrorMapper get defaultErrorMapper => const DefaultErrorMapper();
+
+  @lazySingleton
+  ErrorLogger get errorLogger => const ErrorLogger();
+
+  @lazySingleton
+  ErrorHandler get errorHandler => ErrorHandler([
+    dioErrorMapper,
+    firebaseErrorMapper,
+    supabaseErrorMapper,
+    defaultErrorMapper,
+  ], errorLogger);
 }

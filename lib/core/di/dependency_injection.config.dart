@@ -11,6 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
 import 'package:failure_handler/failure_handler.dart' as _i281;
+import 'package:firebase_auth/firebase_auth.dart' as _i59;
+import 'package:firebase_database/firebase_database.dart' as _i345;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:image_picker/image_picker.dart' as _i183;
 import 'package:injectable/injectable.dart' as _i526;
@@ -101,11 +103,23 @@ extension GetItInjectableX on _i174.GetIt {
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final appModule = _$AppModule();
-    gh.lazySingleton<_i244.FirebaseClient>(() => _i244.FirebaseClient());
+    gh.singleton<_i59.FirebaseAuth>(() => appModule.firebaseAuth);
+    gh.singleton<_i345.FirebaseDatabase>(() => appModule.firebaseDatabase);
     gh.lazySingleton<_i207.SupabaseClint>(() => _i207.SupabaseClint());
     gh.lazySingleton<_i974.Logger>(() => appModule.logger);
     gh.lazySingleton<_i183.ImagePicker>(() => appModule.imagePicker);
     gh.lazySingleton<_i361.Dio>(() => appModule.dio);
+    gh.lazySingleton<_i281.DioErrorMapper>(() => appModule.dioErrorMapper);
+    gh.lazySingleton<_i281.FirebaseErrorMapper>(
+      () => appModule.firebaseErrorMapper,
+    );
+    gh.lazySingleton<_i281.SupabaseErrorMapper>(
+      () => appModule.supabaseErrorMapper,
+    );
+    gh.lazySingleton<_i281.DefaultErrorMapper>(
+      () => appModule.defaultErrorMapper,
+    );
+    gh.lazySingleton<_i281.ErrorLogger>(() => appModule.errorLogger);
     gh.lazySingleton<_i281.ErrorHandler>(() => appModule.errorHandler);
     gh.lazySingleton<_i65.IHomeUploadStorageRemoteDataSource>(
       () => _i167.SupabaseHomeUploadStorageRemoteDataSource(
@@ -116,8 +130,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => appModule.providePrefsHelper(gh<_i974.Logger>()),
       preResolve: true,
     );
-    gh.lazySingleton<_i25.IAuthRemoteDataSource>(
-      () => _i992.FirebaseAuthRemoteDataSource(gh<_i244.FirebaseClient>()),
+    gh.singleton<_i244.FirebaseClient>(
+      () => _i244.FirebaseClient(
+        gh<_i59.FirebaseAuth>(),
+        gh<_i345.FirebaseDatabase>(),
+      ),
     );
     gh.lazySingleton<_i184.IProfileUploadStorageRemoteDataSource>(
       () => _i56.SupabaseProfileUploadStorageRemoteDataSource(
@@ -145,18 +162,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i814.MediaCubit>(
       () => _i814.MediaCubit(gh<_i753.ImagePickerHelper>()),
     );
-    gh.lazySingleton<_i787.IAuthRepository>(
-      () => _i153.AuthRepositoryImpl(
-        gh<_i25.IAuthRemoteDataSource>(),
-        gh<_i281.ErrorHandler>(),
-      ),
-    );
     gh.lazySingleton<_i364.IProfileRepository>(
       () => _i309.ProfileRepositoryImpl(
         gh<_i998.IProfileRemoteDataSource>(),
         gh<_i184.IProfileUploadStorageRemoteDataSource>(),
         gh<_i281.ErrorHandler>(),
       ),
+    );
+    gh.lazySingleton<_i25.IAuthRemoteDataSource>(
+      () => _i992.FirebaseAuthRemoteDataSource(gh<_i244.FirebaseClient>()),
     );
     gh.lazySingleton<_i329.IUserRepository>(
       () => _i456.UserRepositoryImpl(
@@ -171,20 +185,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i281.ErrorHandler>(),
       ),
     );
-    gh.factory<_i104.EmailVerifiedUseCase>(
-      () => _i104.EmailVerifiedUseCase(gh<_i787.IAuthRepository>()),
-    );
-    gh.factory<_i188.LoginUseCase>(
-      () => _i188.LoginUseCase(gh<_i787.IAuthRepository>()),
-    );
-    gh.factory<_i48.LogoutUseCase>(
-      () => _i48.LogoutUseCase(gh<_i787.IAuthRepository>()),
-    );
-    gh.factory<_i699.SendEmailVerificationUserCase>(
-      () => _i699.SendEmailVerificationUserCase(gh<_i787.IAuthRepository>()),
-    );
-    gh.factory<_i57.SignupUseCase>(
-      () => _i57.SignupUseCase(gh<_i787.IAuthRepository>()),
+    gh.lazySingleton<_i787.IAuthRepository>(
+      () => _i153.AuthRepositoryImpl(
+        gh<_i25.IAuthRemoteDataSource>(),
+        gh<_i281.ErrorHandler>(),
+      ),
     );
     gh.factory<_i965.GetProfileUseCase>(
       () => _i965.GetProfileUseCase(gh<_i364.IProfileRepository>()),
@@ -197,10 +202,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i629.GetUserUseCase>(
       () => _i629.GetUserUseCase(gh<_i329.IUserRepository>()),
-    );
-    gh.singleton<_i235.AuthCubit>(
-      () =>
-          _i235.AuthCubit(gh<_i244.FirebaseClient>(), gh<_i48.LogoutUseCase>()),
     );
     gh.factory<_i992.CreatePostUseCase>(
       () => _i992.CreatePostUseCase(gh<_i0.IHomeRepository>()),
@@ -238,6 +239,25 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i965.GetProfileUseCase>(),
         gh<_i813.UploadProfileImageUseCase>(),
       ),
+    );
+    gh.factory<_i104.EmailVerifiedUseCase>(
+      () => _i104.EmailVerifiedUseCase(gh<_i787.IAuthRepository>()),
+    );
+    gh.factory<_i188.LoginUseCase>(
+      () => _i188.LoginUseCase(gh<_i787.IAuthRepository>()),
+    );
+    gh.factory<_i48.LogoutUseCase>(
+      () => _i48.LogoutUseCase(gh<_i787.IAuthRepository>()),
+    );
+    gh.factory<_i699.SendEmailVerificationUserCase>(
+      () => _i699.SendEmailVerificationUserCase(gh<_i787.IAuthRepository>()),
+    );
+    gh.factory<_i57.SignupUseCase>(
+      () => _i57.SignupUseCase(gh<_i787.IAuthRepository>()),
+    );
+    gh.singleton<_i235.AuthCubit>(
+      () =>
+          _i235.AuthCubit(gh<_i244.FirebaseClient>(), gh<_i48.LogoutUseCase>()),
     );
     gh.factory<_i1019.LoginCubit>(
       () => _i1019.LoginCubit(gh<_i188.LoginUseCase>()),

@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
+@singleton
 class FirebaseClient {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseDatabase _db = FirebaseDatabase.instance;
+  final FirebaseAuth _auth;
+  final FirebaseDatabase _db;
+
+  FirebaseClient(this._auth, this._db);
 
   FirebaseAuth get auth => _auth;
 

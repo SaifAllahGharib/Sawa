@@ -5,22 +5,22 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../firebase_options.dart';
 import '../di/dependency_injection.dart';
-import '../helpers/shared_preferences_helper.dart';
 import 'set_portrait_orientation.dart';
 
 Future<void> initializeApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPortraitOrientation();
-  configureDependencies();
-
-  await dotenv.load();
 
   await Future.wait([
+    dotenv.load(),
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+  ]);
+
+  await Future.wait([
+    configureDependencies(),
     Supabase.initialize(
       url: dotenv.get('SUPABASE_URL'),
       anonKey: dotenv.get('SUPABASE_KEY'),
     ),
-    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
-    getIt<SharedPreferencesHelper>().init(),
   ]);
 }

@@ -318,7 +318,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "85f42c11de6adc14da0a95c5e770cabfa9d4edd6"
+      resolved-ref: "3edaadca61aed889282732c16cfba665bb87eaf5"
       url: "https://github.com/SaifAllahGharib/failure_handler.git"
     source: git
     version: "0.0.1"
