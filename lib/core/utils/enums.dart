@@ -3,6 +3,7 @@ enum AuthStatus { authenticated, unauthenticated, error }
 enum MediaType {
   image('Image'),
   video('Video'),
+  media('Media'),
   unknown('Unknown');
 
   final String _value;

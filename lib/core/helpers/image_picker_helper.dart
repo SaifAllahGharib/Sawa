@@ -9,6 +9,13 @@ class ImagePickerHelper {
 
   const ImagePickerHelper(this._picker);
 
+  Future<MediaItem> pickMedia() async {
+    return await _safePick(() async {
+      final picked = await _picker.pickMedia();
+      return MediaItem(path: picked?.path ?? '', type: MediaType.media);
+    });
+  }
+
   Future<MediaItem> pickImageFromCamera() async {
     return await _safePick(() async {
       final picked = await _picker.pickImage(source: ImageSource.camera);

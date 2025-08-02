@@ -21,86 +21,92 @@ class DisplaySelectedMedia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MediaCubit, MediaState>(
-      builder: (context, state) {
-        return AppScaffold(
-          child: Column(
-            children: [
-              AppPaddingWidget(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return AppScaffold(
+      child: Column(
+        children: [
+          AppPaddingWidget(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        const AppBackButton(),
-                        10.horizontalSpace,
-                        Text(
-                          context.tr.edit,
-                          style: AppStyles.s17W500.copyWith(
-                            color: context.customColor.textColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    AppGestureDetectorButton(
-                      onTap: () => context.navigator.pop(),
-                      child: Text(context.tr.ok, style: AppStyles.s17W500),
+                    const AppBackButton(),
+                    10.horizontalSpace,
+                    Text(
+                      context.tr.edit,
+                      style: AppStyles.s17W500.copyWith(
+                        color: context.customColor.textColor,
+                      ),
                     ),
                   ],
                 ),
-              ),
-              Expanded(
-                child: ListView.builder(
+                AppGestureDetectorButton(
+                  onTap: () => context.navigator.pop(),
+                  child: Text(context.tr.ok, style: AppStyles.s17W500),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: BlocBuilder<MediaCubit, MediaState>(
+              builder: (context, state) {
+                return ListView.builder(
                   itemCount: state.pickedAssets.length,
                   itemBuilder: (context, index) {
-                    final mediaItem = state.pickedAssets[index];
-                    return Column(
-                      children: [
-                        Stack(
-                          children: [
-                            if (mediaItem.path.isNotEmpty)
-                              if (mediaItem.type == MediaType.image)
-                                AppFileImage(
-                                  image: mediaItem.path,
-                                  width: double.infinity,
-                                )
-                              else
-                                SizedBox(
-                                  height: 400.r,
-                                  child: AppGestureDetectorButton(
-                                    onTap: () {
-                                      context.navigator.push(
-                                        MaterialPageRoute(
-                                          builder: (context) => AppVideoRunner(
-                                            path: mediaItem.path,
-                                            videoType: VideoType.file,
+                    final mediaItemPath = state.pickedAssets[index].path;
+                    final mediaItemType = state.pickedAssets[index].type;
+
+                    return KeyedSubtree(
+                      key: ValueKey(mediaItemPath),
+                      child: Column(
+                        children: [
+                          Stack(
+                            children: [
+                              if (mediaItemPath.isNotEmpty)
+                                if (mediaItemType == MediaType.image)
+                                  AppFileImage(
+                                    image: mediaItemPath,
+                                    width: double.infinity,
+                                  )
+                                else
+                                  SizedBox(
+                                    height: 400.r,
+                                    child: AppGestureDetectorButton(
+                                      onTap: () async {
+                                        await context.navigator.push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                AppVideoRunner(
+                                                  path: mediaItemPath,
+                                                  videoType: VideoType.file,
+                                                ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    child: AppVideoPreview(
-                                      path: mediaItem.path,
-                                      videoType: VideoType.file,
+                                        );
+                                      },
+                                      child: AppVideoPreview(
+                                        path: mediaItemPath,
+                                        videoType: VideoType.file,
+                                      ),
                                     ),
                                   ),
-                                ),
-                            DeleteButton(
-                              onClick: () => context
-                                  .read<MediaCubit>()
-                                  .removePickedAsset(index),
-                            ),
-                          ],
-                        ),
-                        20.verticalSpace,
-                      ],
+                              DeleteButton(
+                                onClick: () => context
+                                    .read<MediaCubit>()
+                                    .removePickedAsset(index),
+                              ),
+                            ],
+                          ),
+                          20.verticalSpace,
+                        ],
+                      ),
                     );
                   },
-                ),
-              ),
-            ],
+                );
+              },
+            ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

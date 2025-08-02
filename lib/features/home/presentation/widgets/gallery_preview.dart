@@ -5,8 +5,8 @@ import 'package:intern_intelligence_social_media_application/core/styles/app_sty
 import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_file_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_video_preview.dart';
 
-import '../../../../core/widgets/app_video_preview.dart';
 import 'delete_button.dart';
 
 class GalleryPreview extends StatelessWidget {
@@ -36,13 +36,17 @@ class GalleryPreview extends StatelessWidget {
           2 || 3 => Row(
             children: List.generate(
               count,
-              (i) => Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(4.r),
-                  child: _buildMediaCard(
-                    pickedAssets[i].path,
-                    i,
-                    pickedAssets[i].type,
+              (i) => KeyedSubtree(
+                key: ValueKey(pickedAssets[i].path),
+                child: Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(4.r),
+                    child: _buildMediaCard(
+                      pickedAssets[i].path,
+                      i,
+                      pickedAssets[i].type,
+                      showOverlay: false,
+                    ),
                   ),
                 ),
               ),
@@ -55,12 +59,15 @@ class GalleryPreview extends StatelessWidget {
               crossAxisSpacing: 4.r,
               mainAxisSpacing: 4.r,
             ),
-            itemBuilder: (_, i) => Stack(
-              fit: StackFit.expand,
-              children: [
-                _buildMediaCard(pickedAssets[i].path, i, pickedAssets[i].type),
-                if (i == 3 && count > 4) _buildOverlayMore(context, count - 4),
-              ],
+            itemBuilder: (_, i) => KeyedSubtree(
+              key: ValueKey(pickedAssets[i].path),
+              child: _buildMediaCard(
+                pickedAssets[i].path,
+                i,
+                pickedAssets[i].type,
+                showOverlay: i == 3 && count > 4,
+                extraCount: count - 4,
+              ),
             ),
           ),
         },
@@ -71,14 +78,21 @@ class GalleryPreview extends StatelessWidget {
   Widget _buildSingleMedia(String path, int index, MediaType type) {
     return Padding(
       padding: EdgeInsets.all(6.r),
-      child: _buildMediaCard(path, index, type),
+      child: _buildMediaCard(path, index, type, showOverlay: false),
     );
   }
 
-  Widget _buildMediaCard(String path, int index, MediaType type) {
+  Widget _buildMediaCard(
+    String path,
+    int index,
+    MediaType type, {
+    required bool showOverlay,
+    int extraCount = 0,
+  }) {
     if (path.isEmpty) return const SizedBox.shrink();
 
     return Stack(
+      fit: StackFit.expand,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(16.r),
@@ -101,26 +115,20 @@ class GalleryPreview extends StatelessWidget {
                 : AppVideoPreview(path: path, videoType: VideoType.file),
           ),
         ),
-        Positioned(
-          top: 8.r,
-          right: 8.r,
-          child: DeleteButton(onClick: () => onDelete(index)),
-        ),
+        DeleteButton(onClick: () => onDelete(index)),
+        if (showOverlay)
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.6),
+              borderRadius: BorderRadius.circular(16.r),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              '+$extraCount',
+              style: AppStyles.s28WB.copyWith(color: Colors.white),
+            ),
+          ),
       ],
-    );
-  }
-
-  Widget _buildOverlayMore(BuildContext context, int extraCount) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(16.r),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        '+$extraCount',
-        style: AppStyles.s28WB.copyWith(color: Colors.white),
-      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
 import 'package:video_player/video_player.dart';
 
 import '../shared/cubits/video_player/video_player_cubit.dart';
@@ -15,73 +16,86 @@ import 'app_loading_widget.dart';
 import 'app_padding_widget.dart';
 import 'play_pause_icon_widget.dart';
 
-class OnInitVideoWidget extends StatefulWidget {
+class InitVideoWidget extends StatefulWidget {
   final String path;
   final VideoType videoType;
 
-  const OnInitVideoWidget({
+  const InitVideoWidget({
     super.key,
     required this.path,
     required this.videoType,
   });
 
   @override
-  State<OnInitVideoWidget> createState() => _OnInitVideoWidgetState();
+  State<InitVideoWidget> createState() => _InitVideoWidgetState();
 }
 
-class _OnInitVideoWidgetState extends State<OnInitVideoWidget> {
+class _InitVideoWidgetState extends State<InitVideoWidget> {
   late final VideoPlayerController _controller;
   late final ValueNotifier<double> _sliderProgress;
+  late final ValueNotifier<int> _timeController;
   bool _wasPlaying = false;
-  Timer? _progressUpdater;
+  bool _isUserInteracting = false;
+  double? _lastSeekValue;
   Timer? _showHideVideoControllers;
 
   @override
   void initState() {
-    super.initState();
+    _initControllers();
 
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _showHideVideoControllers?.cancel();
+    _sliderProgress.dispose();
+    _controller.removeListener(_videoControllerListener);
+    _controller.dispose();
+    _timeController.dispose();
+    super.dispose();
+  }
+
+  void _initControllers() {
     if (widget.videoType == VideoType.file) {
       _controller = VideoPlayerController.file(File(widget.path));
     } else {
       _controller = VideoPlayerController.networkUrl(Uri.parse(widget.path));
     }
 
-    _sliderProgress = ValueNotifier(0);
+    _controller.initialize().then((_) => _afterInitControllers());
 
-    _controller.initialize().then((_) {
-      if (mounted) {
-        context.read<VideoPlayerCubit>().setIsInitialized(
-          _controller.value.isInitialized,
-        );
-        context.read<VideoPlayerCubit>().setIsPlaying(
-          _controller.value.isPlaying,
-        );
-        _startProgressUpdates();
-        _controller.addListener(_handleVideoStateChanged);
-      }
-    });
+    _sliderProgress = ValueNotifier(0);
+    _timeController = ValueNotifier(0);
   }
 
-  @override
-  void dispose() {
-    _progressUpdater?.cancel();
-    _showHideVideoControllers?.cancel();
-    _sliderProgress.dispose();
-    _controller.removeListener(_handleVideoStateChanged);
-    _controller.dispose();
-    super.dispose();
+  void _afterInitControllers() {
+    if (mounted) {
+      context.read<VideoPlayerCubit>().setIsInitialized(
+        _controller.value.isInitialized,
+      );
+      context.read<VideoPlayerCubit>().setIsPlaying(
+        _controller.value.isPlaying,
+      );
+      _controller.addListener(_videoControllerListener);
+    }
+  }
+
+  void _videoControllerListener() {
+    _handleVideoTime();
+    _startProgressUpdates();
+    _handleVideoStateChanged();
   }
 
   void _startProgressUpdates() {
-    _progressUpdater = Timer.periodic(const Duration(milliseconds: 50), (_) {
-      if (_controller.value.isInitialized &&
-          _controller.value.duration.inMilliseconds > 0) {
-        final position = _controller.value.position.inMilliseconds.toDouble();
-        final duration = _controller.value.duration.inMilliseconds.toDouble();
-        final percent = (position / duration) * 100;
-        _sliderProgress.value = percent.clamp(0.0, 100.0);
-      }
-    });
+    if (!_isUserInteracting &&
+        _controller.value.isInitialized &&
+        _controller.value.duration.inMilliseconds > 0) {
+      final position = _controller.value.position.inMilliseconds.toDouble();
+      final duration = _controller.value.duration.inMilliseconds.toDouble();
+      final percent = (position / duration) * 100;
+      _sliderProgress.value = percent.clamp(0, 100);
+    }
   }
 
   void _handleVideoStateChanged() {
@@ -103,6 +117,13 @@ class _OnInitVideoWidgetState extends State<OnInitVideoWidget> {
     }
 
     _wasPlaying = isPlaying;
+  }
+
+  void _handleVideoTime() {
+    final pos =
+        (_controller.value.position.inSeconds /
+        _controller.value.duration.inSeconds);
+    _timeController.value = pos.toInt();
   }
 
   void _restartHideControlsTimer() {
@@ -145,6 +166,39 @@ class _OnInitVideoWidgetState extends State<OnInitVideoWidget> {
     }
   }
 
+  Duration safeClamp(Duration value, Duration min, Duration max) {
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+  }
+
+  void _seekForward() {
+    final currentPosition = _controller.value.position;
+    final videoDuration = _controller.value.duration;
+    const skip = Duration(seconds: 10);
+
+    final newPosition = safeClamp(
+      currentPosition + skip,
+      Duration.zero,
+      videoDuration,
+    );
+
+    _controller.seekTo(newPosition);
+  }
+
+  void _seekBackward() {
+    final currentPosition = _controller.value.position;
+    const skip = Duration(seconds: 5);
+
+    final newPosition = safeClamp(
+      currentPosition - skip,
+      Duration.zero,
+      _controller.value.duration,
+    );
+
+    _controller.seekTo(newPosition);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -174,8 +228,8 @@ class _OnInitVideoWidgetState extends State<OnInitVideoWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 _buildButtonSeekTo(
-                                  onClick: () {},
-                                  icon: Icons.replay_10_rounded,
+                                  onClick: _seekBackward,
+                                  icon: Icons.replay_5_rounded,
                                 ),
                                 20.horizontalSpace,
                                 AppGestureDetectorButton(
@@ -189,14 +243,23 @@ class _OnInitVideoWidgetState extends State<OnInitVideoWidget> {
                                 ),
                                 20.horizontalSpace,
                                 _buildButtonSeekTo(
-                                  onClick: () {},
-                                  icon: Icons.forward_10_rounded,
+                                  onClick: _seekForward,
+                                  icon: Icons.forward_5_rounded,
                                 ),
                               ],
                             ),
                           ),
                           const Spacer(),
-                          _buildSeekBar(context: context, state: state),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              AppPaddingWidget(
+                                bottom: 0,
+                                child: _buildVideoDuration(),
+                              ),
+                              _buildSeekBar(context: context, state: state),
+                            ],
+                          ),
                         ],
                       ),
                   ],
@@ -223,20 +286,42 @@ class _OnInitVideoWidgetState extends State<OnInitVideoWidget> {
     );
   }
 
+  Widget _buildVideoDuration() {
+    final duration = _controller.value.duration;
+    final hours = duration.inHours;
+    final minute = duration.inMinutes - (hours * 60);
+    final secondes = duration.inSeconds - (minute * 60);
+
+    String time = '0:0:0';
+
+    if (hours > 0) {
+      time = '$hours:$minute:$secondes';
+    } else if (minute > 0) {
+      time = '$minute:$secondes';
+    } else if (secondes > 0) {
+      time = '0:$secondes';
+    }
+
+    return Text(time, style: AppStyles.s15WB.copyWith(color: Colors.white));
+  }
+
   Widget _buildButtonSeekTo({
     required VoidCallback onClick,
     required IconData icon,
   }) {
-    return Align(
-      alignment: Alignment.center,
-      child: Container(
-        height: 50.h,
-        width: 50.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(1000.r),
-          color: Colors.black.withValues(alpha: 0.3),
+    return AppGestureDetectorButton(
+      onTap: onClick,
+      child: Align(
+        alignment: Alignment.center,
+        child: Container(
+          height: 50.h,
+          width: 50.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(1000.r),
+            color: Colors.black.withValues(alpha: 0.3),
+          ),
+          child: Icon(icon, size: 35.r, color: Colors.white),
         ),
-        child: Icon(icon, size: 35.r, color: Colors.white),
       ),
     );
   }
@@ -252,14 +337,32 @@ class _OnInitVideoWidgetState extends State<OnInitVideoWidget> {
           value: value,
           min: 0,
           max: 100,
+          onChangeStart: (_) {
+            _isUserInteracting = true;
+          },
           onChanged: (newValue) {
+            _sliderProgress.value = newValue;
+            if (_lastSeekValue == null ||
+                (newValue - _lastSeekValue!).abs() > 0.5) {
+              final newPosition = Duration(
+                milliseconds:
+                    (_controller.value.duration.inMilliseconds *
+                            (newValue / 100))
+                        .round(),
+              );
+              _controller.seekTo(newPosition);
+              _lastSeekValue = newValue;
+            }
+          },
+          onChangeEnd: (newValue) {
             final newPosition = Duration(
               milliseconds:
                   (_controller.value.duration.inMilliseconds * (newValue / 100))
                       .round(),
             );
             _controller.seekTo(newPosition);
-            _sliderProgress.value = newValue;
+            _isUserInteracting = false;
+            _lastSeekValue = null;
           },
         );
       },

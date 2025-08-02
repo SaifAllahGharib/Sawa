@@ -78,6 +78,13 @@ class MediaCubit extends Cubit<MediaState> {
     emit(state.copyWith(pickedAssets: updated));
   }
 
+  void removePickedAssetByPath(String path) {
+    final updated = state.pickedAssets
+        .where((item) => item.path != path)
+        .toList();
+    emit(state.copyWith(pickedAssets: updated));
+  }
+
   void clearPickedAssets() {
     emit(state.copyWith(pickedAssets: []));
   }

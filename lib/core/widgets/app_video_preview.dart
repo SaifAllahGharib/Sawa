@@ -1,9 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_file_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_loading_widget.dart';
-import 'package:video_player/video_player.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../utils/enums.dart';
 import 'play_pause_icon_widget.dart';
@@ -22,38 +22,55 @@ class AppVideoPreview extends StatefulWidget {
   State<AppVideoPreview> createState() => _AppVideoPreviewState();
 }
 
-class _AppVideoPreviewState extends State<AppVideoPreview> {
-  late VideoPlayerController _controller;
+class _AppVideoPreviewState extends State<AppVideoPreview>
+    with AutomaticKeepAliveClientMixin {
+  String? _thumbnailFile;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
-    if (widget.videoType == VideoType.file) {
-      _controller = VideoPlayerController.file(File(widget.path))
-        ..initialize().then((value) {
-          setState(() {});
-        });
-    } else {
-      _controller = VideoPlayerController.networkUrl(Uri.parse(widget.path))
-        ..initialize().then((value) {
-          setState(() {});
-        });
-    }
+    generateVideoThumbnail();
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _thumbnailFile = null;
     super.dispose();
+  }
+
+  void generateVideoThumbnail() async {
+    try {
+      _thumbnailFile = await VideoThumbnail.thumbnailFile(
+        video: widget.path,
+        quality: 75,
+        thumbnailPath: (await getTemporaryDirectory()).path,
+        imageFormat: ImageFormat.PNG,
+      );
+
+      setState(() {});
+    } catch (e) {
+      debugPrint('Thumbnail generation error: $e');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return _controller.value.isInitialized
+    super.build(context);
+    return _thumbnailFile != null
         ? SizedBox(
             height: double.infinity,
             child: Stack(
-              children: [VideoPlayer(_controller), const PlayPauseIconWidget()],
+              children: [
+                AppFileImage(
+                  image: _thumbnailFile!,
+                  height: double.infinity,
+                  borderRadius: BorderRadius.zero,
+                ),
+                const PlayPauseIconWidget(),
+              ],
             ),
           )
         : ClipRRect(

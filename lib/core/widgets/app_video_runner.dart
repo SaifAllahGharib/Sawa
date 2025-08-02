@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/on_init_video_widget.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/init_video_widget.dart';
 
 import '../di/dependency_injection.dart';
 import '../shared/cubits/video_player/video_player_cubit.dart';
@@ -26,7 +26,7 @@ class AppVideoRunner extends StatelessWidget {
         child: AppPaddingWidget(
           left: 0,
           right: 0,
-          child: OnInitVideoWidget(path: path, videoType: videoType),
+          child: InitVideoWidget(path: path, videoType: videoType),
         ),
       ),
     );
