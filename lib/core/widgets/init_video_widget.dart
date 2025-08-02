@@ -31,7 +31,7 @@ class InitVideoWidget extends StatefulWidget {
 }
 
 class _InitVideoWidgetState extends State<InitVideoWidget> {
-  late final VideoPlayerController _controller;
+  late final VideoPlayerController _videoPlayerController;
   late final ValueNotifier<double> _sliderProgress;
   late final ValueNotifier<int> _timeController;
   bool _wasPlaying = false;
@@ -50,20 +50,22 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
   void dispose() {
     _showHideVideoControllers?.cancel();
     _sliderProgress.dispose();
-    _controller.removeListener(_videoControllerListener);
-    _controller.dispose();
+    _videoPlayerController.removeListener(_videoControllerListener);
+    _videoPlayerController.dispose();
     _timeController.dispose();
     super.dispose();
   }
 
   void _initControllers() {
     if (widget.videoType == VideoType.file) {
-      _controller = VideoPlayerController.file(File(widget.path));
+      _videoPlayerController = VideoPlayerController.file(File(widget.path));
     } else {
-      _controller = VideoPlayerController.networkUrl(Uri.parse(widget.path));
+      _videoPlayerController = VideoPlayerController.networkUrl(
+        Uri.parse(widget.path),
+      );
     }
 
-    _controller.initialize().then((_) => _afterInitControllers());
+    _videoPlayerController.initialize().then((_) => _afterInitControllers());
 
     _sliderProgress = ValueNotifier(0);
     _timeController = ValueNotifier(0);
@@ -72,12 +74,12 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
   void _afterInitControllers() {
     if (mounted) {
       context.read<VideoPlayerCubit>().setIsInitialized(
-        _controller.value.isInitialized,
+        _videoPlayerController.value.isInitialized,
       );
       context.read<VideoPlayerCubit>().setIsPlaying(
-        _controller.value.isPlaying,
+        _videoPlayerController.value.isPlaying,
       );
-      _controller.addListener(_videoControllerListener);
+      _videoPlayerController.addListener(_videoControllerListener);
     }
   }
 
@@ -89,24 +91,26 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
 
   void _startProgressUpdates() {
     if (!_isUserInteracting &&
-        _controller.value.isInitialized &&
-        _controller.value.duration.inMilliseconds > 0) {
-      final position = _controller.value.position.inMilliseconds.toDouble();
-      final duration = _controller.value.duration.inMilliseconds.toDouble();
+        _videoPlayerController.value.isInitialized &&
+        _videoPlayerController.value.duration.inMilliseconds > 0) {
+      final position = _videoPlayerController.value.position.inMilliseconds
+          .toDouble();
+      final duration = _videoPlayerController.value.duration.inMilliseconds
+          .toDouble();
       final percent = (position / duration) * 100;
       _sliderProgress.value = percent.clamp(0, 100);
     }
   }
 
   void _handleVideoStateChanged() {
-    if (!mounted || !_controller.value.isInitialized) return;
+    if (!mounted || !_videoPlayerController.value.isInitialized) return;
 
     final videoCubit = context.read<VideoPlayerCubit>();
-    final isPlaying = _controller.value.isPlaying;
+    final isPlaying = _videoPlayerController.value.isPlaying;
 
     videoCubit.setIsPlaying(isPlaying);
 
-    if (_controller.value.isCompleted) {
+    if (_videoPlayerController.value.isCompleted) {
       _showHideVideoControllers?.cancel();
       videoCubit.setShowControls(true);
       return;
@@ -120,10 +124,7 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
   }
 
   void _handleVideoTime() {
-    final pos =
-        (_controller.value.position.inSeconds /
-        _controller.value.duration.inSeconds);
-    _timeController.value = pos.toInt();
+    _timeController.value = _videoPlayerController.value.position.inSeconds;
   }
 
   void _restartHideControlsTimer() {
@@ -154,14 +155,14 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
     required VideoPlayerState state,
   }) {
     if (state.isInitialized) {
-      if (_controller.value.isPlaying) {
-        _controller.pause();
+      if (_videoPlayerController.value.isPlaying) {
+        _videoPlayerController.pause();
       } else {
-        _controller.play();
+        _videoPlayerController.play();
       }
 
       context.read<VideoPlayerCubit>().setIsPlaying(
-        _controller.value.isPlaying,
+        _videoPlayerController.value.isPlaying,
       );
     }
   }
@@ -173,8 +174,8 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
   }
 
   void _seekForward() {
-    final currentPosition = _controller.value.position;
-    final videoDuration = _controller.value.duration;
+    final currentPosition = _videoPlayerController.value.position;
+    final videoDuration = _videoPlayerController.value.duration;
     const skip = Duration(seconds: 10);
 
     final newPosition = safeClamp(
@@ -183,20 +184,20 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
       videoDuration,
     );
 
-    _controller.seekTo(newPosition);
+    _videoPlayerController.seekTo(newPosition);
   }
 
   void _seekBackward() {
-    final currentPosition = _controller.value.position;
+    final currentPosition = _videoPlayerController.value.position;
     const skip = Duration(seconds: 5);
 
     final newPosition = safeClamp(
       currentPosition - skip,
       Duration.zero,
-      _controller.value.duration,
+      _videoPlayerController.value.duration,
     );
 
-    _controller.seekTo(newPosition);
+    _videoPlayerController.seekTo(newPosition);
   }
 
   @override
@@ -212,12 +213,12 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
               }
 
               return AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
+                aspectRatio: _videoPlayerController.value.aspectRatio,
                 child: Stack(
                   children: [
                     AppGestureDetectorButton(
                       onTap: () => _toggleControls(context),
-                      child: VideoPlayer(_controller),
+                      child: VideoPlayer(_videoPlayerController),
                     ),
                     if (state.showControls)
                       Column(
@@ -287,22 +288,62 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
   }
 
   Widget _buildVideoDuration() {
-    final duration = _controller.value.duration;
+    final duration = _videoPlayerController.value.duration;
     final hours = duration.inHours;
     final minute = duration.inMinutes - (hours * 60);
     final secondes = duration.inSeconds - (minute * 60);
+    String videoIsSorMorH = 's';
 
     String time = '0:0:0';
 
     if (hours > 0) {
       time = '$hours:$minute:$secondes';
+      videoIsSorMorH = 'h';
     } else if (minute > 0) {
       time = '$minute:$secondes';
+      videoIsSorMorH = 'm';
     } else if (secondes > 0) {
       time = '0:$secondes';
+      videoIsSorMorH = 's';
     }
 
-    return Text(time, style: AppStyles.s15WB.copyWith(color: Colors.white));
+    return Row(
+      children: [
+        Text('$time / ', style: AppStyles.s15WB.copyWith(color: Colors.white)),
+        ValueListenableBuilder(
+          valueListenable: _timeController,
+          builder: (context, value, child) {
+            int totalSeconds = value.toInt();
+            int h = totalSeconds ~/ 3600;
+            int m = (totalSeconds % 3600) ~/ 60;
+            int s = totalSeconds % 60;
+
+            String fH = h.toString().padLeft(2, '0');
+            String fM = m.toString().padLeft(2, '0');
+            String fS = s.toString().padLeft(2, '0');
+
+            String time = '00:00:00';
+
+            switch (videoIsSorMorH) {
+              case 'h':
+                time = '$fH:$fM:$fS';
+                break;
+              case 'm':
+                time = '$fM:$fS';
+                break;
+              case 's':
+                time = fS;
+                break;
+            }
+
+            return Text(
+              time,
+              style: AppStyles.s15WB.copyWith(color: Colors.red),
+            );
+          },
+        ),
+      ],
+    );
   }
 
   Widget _buildButtonSeekTo({
@@ -346,21 +387,22 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
                 (newValue - _lastSeekValue!).abs() > 0.5) {
               final newPosition = Duration(
                 milliseconds:
-                    (_controller.value.duration.inMilliseconds *
+                    (_videoPlayerController.value.duration.inMilliseconds *
                             (newValue / 100))
                         .round(),
               );
-              _controller.seekTo(newPosition);
+              _videoPlayerController.seekTo(newPosition);
               _lastSeekValue = newValue;
             }
           },
           onChangeEnd: (newValue) {
             final newPosition = Duration(
               milliseconds:
-                  (_controller.value.duration.inMilliseconds * (newValue / 100))
+                  (_videoPlayerController.value.duration.inMilliseconds *
+                          (newValue / 100))
                       .round(),
             );
-            _controller.seekTo(newPosition);
+            _videoPlayerController.seekTo(newPosition);
             _isUserInteracting = false;
             _lastSeekValue = null;
           },
