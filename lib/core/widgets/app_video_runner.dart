@@ -11,11 +11,13 @@ import 'app_padding_widget.dart';
 class AppVideoRunner extends StatelessWidget {
   final String path;
   final VideoType videoType;
+  final bool showTopSec;
 
   const AppVideoRunner({
     super.key,
     required this.path,
     required this.videoType,
+    this.showTopSec = true,
   });
 
   @override
@@ -26,7 +28,11 @@ class AppVideoRunner extends StatelessWidget {
         child: AppPaddingWidget(
           left: 0,
           right: 0,
-          child: InitVideoWidget(path: path, videoType: videoType),
+          child: InitVideoWidget(
+            path: path,
+            videoType: videoType,
+            showTopSec: showTopSec,
+          ),
         ),
       ),
     );

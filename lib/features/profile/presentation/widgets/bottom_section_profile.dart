@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 
-import '../../../home/presentation/widgets/post_card.dart';
+import '../../../../core/widgets/post_card.dart';
 
 class BottomSectionProfile extends StatelessWidget {
   final List<PostEntity> posts;
@@ -11,6 +13,18 @@ class BottomSectionProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (posts.isEmpty) {
+      return SliverToBoxAdapter(
+        child: Expanded(
+          child: Container(
+            height: 400.h,
+            alignment: Alignment.center,
+            child: Text(context.tr.noPosts, style: AppStyles.s20W600),
+          ),
+        ),
+      );
+    }
+
     return SliverList.builder(
       itemCount: posts.length,
       itemBuilder: (context, index) {

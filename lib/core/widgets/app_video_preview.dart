@@ -5,18 +5,12 @@ import 'package:intern_intelligence_social_media_application/core/widgets/app_lo
 import 'package:path_provider/path_provider.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
-import '../utils/enums.dart';
 import 'play_pause_icon_widget.dart';
 
 class AppVideoPreview extends StatefulWidget {
   final String path;
-  final VideoType videoType;
 
-  const AppVideoPreview({
-    super.key,
-    required this.path,
-    required this.videoType,
-  });
+  const AppVideoPreview({super.key, required this.path});
 
   @override
   State<AppVideoPreview> createState() => _AppVideoPreviewState();
@@ -45,14 +39,14 @@ class _AppVideoPreviewState extends State<AppVideoPreview>
     try {
       _thumbnailFile = await VideoThumbnail.thumbnailFile(
         video: widget.path,
-        quality: 75,
         thumbnailPath: (await getTemporaryDirectory()).path,
-        imageFormat: ImageFormat.PNG,
+        imageFormat: ImageFormat.JPEG,
+        quality: 100,
       );
 
       setState(() {});
     } catch (e) {
-      debugPrint('Thumbnail generation error: $e');
+      print('Thumbnail generation error: $e');
     }
   }
 

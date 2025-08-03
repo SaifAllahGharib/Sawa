@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 
-import '../../../../core/widgets/app_gesture_detector_button.dart';
+import 'app_gesture_detector_button.dart';
 
-class DeleteButton extends StatelessWidget {
+class MediaDeleteButton extends StatelessWidget {
   final VoidCallback onClick;
 
-  const DeleteButton({super.key, required this.onClick});
+  const MediaDeleteButton({super.key, required this.onClick});
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ import 'core/di/dependency_injection.dart';
 import 'core/init/init_app.dart';
 import 'core/routing/app_router.dart';
 import 'core/theme/app_theme.dart';
-import 'core/widgets/responsive_builder.dart';
+import 'core/widgets/app_responsive_builder.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -22,7 +22,7 @@ class SocialMediaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
+    return AppResponsiveBuilder(
       builder: (context) => BlocProvider(
         create: (context) => getIt<MainCubit>()..checkAuthStatus(),
         child: BlocBuilder<MainCubit, MainState>(

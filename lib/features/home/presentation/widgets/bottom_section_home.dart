@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/post_card.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/home/presentation/widgets/post_card.dart';
 
 class BottomSectionHome extends StatelessWidget {
   final PostEntity post;

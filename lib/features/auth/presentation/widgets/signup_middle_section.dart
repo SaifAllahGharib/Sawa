@@ -5,6 +5,7 @@ import 'package:intern_intelligence_social_media_application/core/extensions/num
 import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_cubit.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_state.dart';
+import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/validators.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/signup/signup_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/signup/signup_state.dart';
@@ -139,6 +140,7 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
               controller: _emailController,
               label: context.tr.labelEmail,
               hint: context.tr.hintEmail,
+              keyboardType: TextInputType.emailAddress,
               enabled: !_isLoading,
               error: _errorMsg(emailIsValid, context.tr.emailNotValid),
               onChanged: (email) {
@@ -158,6 +160,7 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
               controller: _passwordController,
               label: context.tr.labelPassword,
               hint: context.tr.hintPassword,
+              textFormType: TextFormType.password,
               enabled: !_isLoading,
               error: _errorMsg(
                 passwordIsValid,

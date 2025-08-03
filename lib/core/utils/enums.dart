@@ -1,3 +1,5 @@
+enum TextFormType { password, text }
+
 enum AuthStatus { authenticated, unauthenticated, error }
 
 enum MediaType {

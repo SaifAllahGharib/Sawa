@@ -2,12 +2,12 @@ import 'package:flutter/widgets.dart';
 
 import '../responsive/app_responsive.dart';
 
-class ResponsiveBuilder extends StatelessWidget {
+class AppResponsiveBuilder extends StatelessWidget {
   final double designWidth;
   final double designHeight;
   final Widget Function(BuildContext context) builder;
 
-  const ResponsiveBuilder({
+  const AppResponsiveBuilder({
     super.key,
     required this.builder,
     this.designWidth = 375,

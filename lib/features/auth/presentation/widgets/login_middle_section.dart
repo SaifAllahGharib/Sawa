@@ -14,6 +14,7 @@ import 'package:intern_intelligence_social_media_application/features/auth/prese
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/routing/app_route_name.dart';
 import '../../../../core/utils/app_snack_bar.dart';
+import '../../../../core/utils/enums.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
 
@@ -122,6 +123,7 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
               label: context.tr.labelEmail,
               hint: context.tr.hintEmail,
               enabled: !_isLoading,
+              keyboardType: TextInputType.emailAddress,
               error: _errorMsg(emailIsValid, context.tr.emailNotValid),
               onChanged: (email) {
                 context.read<ValidationCubit>().validateField(
@@ -140,6 +142,7 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
               controller: _passwordController,
               label: context.tr.labelPassword,
               hint: context.tr.hintPassword,
+              textFormType: TextFormType.password,
               enabled: !_isLoading,
               error: _errorMsg(
                 passwordIsValid,

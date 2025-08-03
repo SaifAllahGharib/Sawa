@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/styles/app_colors.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
 import 'package:video_player/video_player.dart';
 
@@ -19,11 +20,13 @@ import 'play_pause_icon_widget.dart';
 class InitVideoWidget extends StatefulWidget {
   final String path;
   final VideoType videoType;
+  final bool showTopSec;
 
   const InitVideoWidget({
     super.key,
     required this.path,
     required this.videoType,
+    required this.showTopSec,
   });
 
   @override
@@ -73,12 +76,8 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
 
   void _afterInitControllers() {
     if (mounted) {
-      context.read<VideoPlayerCubit>().setIsInitialized(
-        _videoPlayerController.value.isInitialized,
-      );
-      context.read<VideoPlayerCubit>().setIsPlaying(
-        _videoPlayerController.value.isPlaying,
-      );
+      context.read<VideoPlayerCubit>().setIsInitialized(_videoPlayerController);
+      context.read<VideoPlayerCubit>().setIsPlaying(_videoPlayerController);
       _videoPlayerController.addListener(_videoControllerListener);
     }
   }
@@ -108,7 +107,7 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
     final videoCubit = context.read<VideoPlayerCubit>();
     final isPlaying = _videoPlayerController.value.isPlaying;
 
-    videoCubit.setIsPlaying(isPlaying);
+    videoCubit.setIsPlaying(_videoPlayerController);
 
     if (_videoPlayerController.value.isCompleted) {
       _showHideVideoControllers?.cancel();
@@ -131,7 +130,7 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
     final videoCubit = context.read<VideoPlayerCubit>();
 
     _showHideVideoControllers?.cancel();
-    _showHideVideoControllers = Timer(const Duration(milliseconds: 1500), () {
+    _showHideVideoControllers = Timer(const Duration(milliseconds: 2100), () {
       if (videoCubit.state.isPlaying && videoCubit.state.showControls) {
         videoCubit.setShowControls(false);
       }
@@ -150,54 +149,44 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
     }
   }
 
-  void _playPauseVideo({
-    required BuildContext context,
-    required VideoPlayerState state,
-  }) {
-    if (state.isInitialized) {
-      if (_videoPlayerController.value.isPlaying) {
-        _videoPlayerController.pause();
-      } else {
-        _videoPlayerController.play();
-      }
+  void _playVideo(BuildContext context) {
+    context.read<VideoPlayerCubit>().play(_videoPlayerController);
+  }
 
-      context.read<VideoPlayerCubit>().setIsPlaying(
-        _videoPlayerController.value.isPlaying,
-      );
+  void _pauseVideo(BuildContext context) {
+    context.read<VideoPlayerCubit>().pause(_videoPlayerController);
+  }
+
+  void _handleClickPlayPause(BuildContext context, VideoPlayerState state) {
+    if (state.isPlaying) {
+      _pauseVideo(context);
+    } else {
+      _playVideo(context);
     }
   }
 
-  Duration safeClamp(Duration value, Duration min, Duration max) {
-    if (value < min) return min;
-    if (value > max) return max;
-    return value;
+  void _onSound(BuildContext context) {
+    context.read<VideoPlayerCubit>().onSound(_videoPlayerController);
   }
 
-  void _seekForward() {
-    final currentPosition = _videoPlayerController.value.position;
-    final videoDuration = _videoPlayerController.value.duration;
-    const skip = Duration(seconds: 10);
+  void _offSound(BuildContext context) {
+    context.read<VideoPlayerCubit>().offSound(_videoPlayerController);
+  }
 
-    final newPosition = safeClamp(
-      currentPosition + skip,
-      Duration.zero,
-      videoDuration,
-    );
-
-    _videoPlayerController.seekTo(newPosition);
+  void _handleClickOnOffSound(BuildContext context, VideoPlayerState state) {
+    if (state.sound) {
+      _offSound(context);
+    } else {
+      _onSound(context);
+    }
   }
 
   void _seekBackward() {
-    final currentPosition = _videoPlayerController.value.position;
-    const skip = Duration(seconds: 5);
+    context.read<VideoPlayerCubit>().seekBackward(_videoPlayerController);
+  }
 
-    final newPosition = safeClamp(
-      currentPosition - skip,
-      Duration.zero,
-      _videoPlayerController.value.duration,
-    );
-
-    _videoPlayerController.seekTo(newPosition);
+  void _seekForward() {
+    context.read<VideoPlayerCubit>().seekForward(_videoPlayerController);
   }
 
   @override
@@ -234,10 +223,8 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
                                 ),
                                 20.horizontalSpace,
                                 AppGestureDetectorButton(
-                                  onTap: () => _playPauseVideo(
-                                    context: context,
-                                    state: state,
-                                  ),
+                                  onTap: () =>
+                                      _handleClickPlayPause(context, state),
                                   child: PlayPauseIconWidget(
                                     isPlay: state.isPlaying,
                                   ),
@@ -256,7 +243,7 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
                             children: [
                               AppPaddingWidget(
                                 bottom: 0,
-                                child: _buildVideoDuration(),
+                                child: _buildVideoDurationAndVolume(state),
                               ),
                               _buildSeekBar(context: context, state: state),
                             ],
@@ -269,78 +256,113 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
             },
           ),
         ),
-        AppPaddingWidget(
-          child: Column(
-            children: [
-              AppGestureDetectorButton(
-                onTap: () => context.navigator.pop(),
-                child: Icon(
-                  Icons.close,
-                  size: 25.r,
-                  color: context.customColor.icon,
+        if (widget.showTopSec)
+          AppPaddingWidget(
+            child: Column(
+              children: [
+                AppGestureDetectorButton(
+                  onTap: () => context.navigator.pop(),
+                  child: Icon(
+                    Icons.close,
+                    size: 25.r,
+                    color: context.customColor.icon,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
       ],
     );
   }
 
-  Widget _buildVideoDuration() {
+  Widget _buildVideoDurationAndVolume(VideoPlayerState state) {
     final duration = _videoPlayerController.value.duration;
-    final hours = duration.inHours;
-    final minute = duration.inMinutes - (hours * 60);
-    final secondes = duration.inSeconds - (minute * 60);
+    final int hours = duration.inHours;
+    final int minute = duration.inMinutes - (hours * 60);
+    final int secondes = duration.inSeconds - (minute * 60);
     String videoIsSorMorH = 's';
 
-    String time = '0:0:0';
+    final String fH = hours.toString().padLeft(2, '0');
+    final String fM = minute.toString().padLeft(2, '0');
+    final String fS = secondes.toString().padLeft(2, '0');
+
+    String time = '00:00:00';
 
     if (hours > 0) {
-      time = '$hours:$minute:$secondes';
+      time = '$fH:$fM:$fS';
       videoIsSorMorH = 'h';
     } else if (minute > 0) {
-      time = '$minute:$secondes';
+      time = '$fM:$fS';
       videoIsSorMorH = 'm';
     } else if (secondes > 0) {
-      time = '0:$secondes';
+      time = fS;
       videoIsSorMorH = 's';
     }
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('$time / ', style: AppStyles.s15WB.copyWith(color: Colors.white)),
-        ValueListenableBuilder(
-          valueListenable: _timeController,
-          builder: (context, value, child) {
-            int totalSeconds = value.toInt();
-            int h = totalSeconds ~/ 3600;
-            int m = (totalSeconds % 3600) ~/ 60;
-            int s = totalSeconds % 60;
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 2.r, horizontal: 8.r),
+          decoration: BoxDecoration(
+            color: AppColors.gray.withValues(alpha: 0.4),
+            borderRadius: BorderRadius.circular(20.r),
+          ),
+          child: Row(
+            children: [
+              Text(
+                '$time / ',
+                style: AppStyles.s15WB.copyWith(color: Colors.white),
+              ),
+              ValueListenableBuilder(
+                valueListenable: _timeController,
+                builder: (context, value, child) {
+                  final int totalSeconds = value.toInt();
+                  final int h = totalSeconds ~/ 3600;
+                  final int m = (totalSeconds % 3600) ~/ 60;
+                  final int s = totalSeconds % 60;
 
-            String fH = h.toString().padLeft(2, '0');
-            String fM = m.toString().padLeft(2, '0');
-            String fS = s.toString().padLeft(2, '0');
+                  final String fH = h.toString().padLeft(2, '0');
+                  final String fM = m.toString().padLeft(2, '0');
+                  final String fS = s.toString().padLeft(2, '0');
 
-            String time = '00:00:00';
+                  String time = '00:00:00';
 
-            switch (videoIsSorMorH) {
-              case 'h':
-                time = '$fH:$fM:$fS';
-                break;
-              case 'm':
-                time = '$fM:$fS';
-                break;
-              case 's':
-                time = fS;
-                break;
-            }
+                  switch (videoIsSorMorH) {
+                    case 'h':
+                      time = '$fH:$fM:$fS';
+                      break;
+                    case 'm':
+                      time = '$fM:$fS';
+                      break;
+                    case 's':
+                      time = fS;
+                      break;
+                  }
 
-            return Text(
-              time,
-              style: AppStyles.s15WB.copyWith(color: Colors.red),
-            );
-          },
+                  return Text(
+                    time,
+                    style: AppStyles.s15WB.copyWith(color: Colors.white),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+        AppGestureDetectorButton(
+          onTap: () => _handleClickOnOffSound(context, state),
+          child: Container(
+            padding: EdgeInsets.all(5.r),
+            decoration: BoxDecoration(
+              color: AppColors.gray.withValues(alpha: 0.4),
+              borderRadius: BorderRadius.circular(1000.r),
+            ),
+            child: Icon(
+              state.sound ? Icons.volume_up_rounded : Icons.volume_off_outlined,
+              size: 26.r,
+              color: Colors.white,
+            ),
+          ),
         ),
       ],
     );

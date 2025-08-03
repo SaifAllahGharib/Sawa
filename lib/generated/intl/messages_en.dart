@@ -72,7 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "h": MessageLookupByLibrary.simpleMessage("h"),
     "hintEmail": MessageLookupByLibrary.simpleMessage("example@ex.ex"),
     "hintName": MessageLookupByLibrary.simpleMessage("Saif Allah"),
-    "hintPassword": MessageLookupByLibrary.simpleMessage("************"),
+    "hintPassword": MessageLookupByLibrary.simpleMessage("SaIf@01K"),
     "ifYouHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "If you have an account",
     ),
@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
     "m": MessageLookupByLibrary.simpleMessage("m"),
     "month": MessageLookupByLibrary.simpleMessage("month"),
+    "noPosts": MessageLookupByLibrary.simpleMessage("No Posts"),
     "now": MessageLookupByLibrary.simpleMessage("now"),
     "ok": MessageLookupByLibrary.simpleMessage("OK"),
     "passwordValidationMsg": MessageLookupByLibrary.simpleMessage(

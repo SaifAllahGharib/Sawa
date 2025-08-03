@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_video_preview.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/full_screen_gallery_widget.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 
 import '../styles/app_styles.dart';
@@ -16,40 +19,51 @@ class PostGalleryViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final count = post.media.length;
-    final imagePaths = post.media.map((e) => e.mediaUrl).toList();
+    final mediaPaths = post.media.map((e) => e.mediaUrl).toList();
+    final mediaTypes = post.media.map((e) => e.mediaType).toList();
 
     switch (count) {
       case 0:
         return const SizedBox();
       case 1:
-        return _buildSingleImage(
+        return _buildSingleMedia(
           context: context,
           post: post,
-          path: imagePaths.first,
+          path: mediaPaths.first,
+          mediaType: mediaTypes.first,
         );
       case 2:
         return Row(
-          children: imagePaths.map((path) {
+          children: List.generate(mediaPaths.length, (index) {
             return Expanded(
               child: Padding(
                 padding: EdgeInsets.all(4.r),
-                child: _buildImage(context: context, path: path, post: post),
+                child: _buildMedia(
+                  context: context,
+                  path: mediaPaths[index],
+                  post: post,
+                  index: index,
+                  mediaTypes: mediaTypes,
+                ),
               ),
             );
-          }).toList(),
+          }),
         );
       case 3 || 4:
         return AppGestureDetectorButton(
-          onTap: () => _openImageViewer(context: context, post: post),
+          onTap: () => _openMediaViewer(context: context, post: post),
           child: Row(
             children: List.generate(count, (index) {
               return Expanded(
                 child: Container(
                   height: index % 2 == 1 ? 350.h : 280.h,
                   padding: EdgeInsets.all(4.r),
-                  child: AppNetworkImage(
-                    image: imagePaths[index],
-                    borderRadius: BorderRadius.circular(12.r),
+                  child: _buildMedia(
+                    context: context,
+                    index: index,
+                    mediaTypes: mediaTypes,
+                    post: post,
+                    path: mediaPaths[index],
                   ),
                 ),
               );
@@ -68,10 +82,16 @@ class PostGalleryViewWidget extends StatelessWidget {
             crossAxisSpacing: 4.r,
           ),
           itemBuilder: (_, i) {
-            final path = imagePaths[i];
+            final path = mediaPaths[i];
             return Stack(
               children: [
-                _buildImage(context: context, path: path, post: post),
+                _buildMedia(
+                  context: context,
+                  path: path,
+                  post: post,
+                  index: i,
+                  mediaTypes: mediaTypes,
+                ),
                 if (i == 3)
                   _buildOverlayMore(
                     context: context,
@@ -85,34 +105,48 @@ class PostGalleryViewWidget extends StatelessWidget {
     }
   }
 
-  Widget _buildSingleImage({
+  Widget _buildSingleMedia({
     required BuildContext context,
     required PostEntity post,
     required String path,
+    required String mediaType,
   }) {
     return AppGestureDetectorButton(
-      onTap: () => _openImageViewer(context: context, post: post),
+      onTap: () => _openSingleMediaViewer(
+        context: context,
+        media: path,
+        mediaType: mediaType,
+      ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: AppNetworkImage(image: path, width: double.infinity),
+        borderRadius: BorderRadius.circular(16.r),
+        child: mediaType == MediaType.image.toString()
+            ? AppNetworkImage(image: path, width: double.infinity)
+            : SizedBox(
+                height: 400.r,
+                child: AppVideoPreview(path: path),
+              ),
       ),
     );
   }
 
-  Widget _buildImage({
+  Widget _buildMedia({
     required BuildContext context,
     required String path,
     required PostEntity post,
+    required int index,
+    required List<String> mediaTypes,
   }) {
     return AppGestureDetectorButton(
-      onTap: () => _openImageViewer(context: context, post: post),
+      onTap: () => _openMediaViewer(context: context, post: post),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
-        child: AppNetworkImage(
-          image: path,
-          width: double.infinity,
-          height: double.infinity,
-        ),
+        child: mediaTypes[index] == MediaType.image.toString()
+            ? AppNetworkImage(
+                image: path,
+                width: double.infinity,
+                height: double.infinity,
+              )
+            : AppVideoPreview(path: path),
       ),
     );
   }
@@ -124,7 +158,7 @@ class PostGalleryViewWidget extends StatelessWidget {
   }) {
     return Positioned.fill(
       child: AppGestureDetectorButton(
-        onTap: () => _openImageViewer(context: context, post: post),
+        onTap: () => _openMediaViewer(context: context, post: post),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.black.withValues(alpha: 0.6),
@@ -140,12 +174,28 @@ class PostGalleryViewWidget extends StatelessWidget {
     );
   }
 
-  void _openImageViewer({
+  void _openSingleMediaViewer({
+    required BuildContext context,
+    required String media,
+    required String mediaType,
+  }) {
+    context.navigator.push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            FullScreenGalleryWidget(media: media, mediaType: mediaType),
+      ),
+    );
+  }
+
+  void _openMediaViewer({
     required BuildContext context,
     required PostEntity post,
   }) {
     context.navigator.push(
-      MaterialPageRoute(builder: (_) => PostFullScreen(post: post)),
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            PostFullScreen(post: post),
+      ),
     );
   }
 }

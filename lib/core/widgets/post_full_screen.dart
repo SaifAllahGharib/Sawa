@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_video_preview.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/bottom_section_post_card.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 
@@ -18,7 +20,8 @@ class PostFullScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final images = post.media.map((e) => e.mediaUrl).toList();
+    final media = post.media.map((e) => e.mediaUrl).toList();
+    final mediaTypes = post.media.map((e) => e.mediaType).toList();
 
     return AppScaffold(
       child: CustomScrollView(
@@ -46,21 +49,30 @@ class PostFullScreen extends StatelessWidget {
             ),
           ),
           SliverList.builder(
-            itemCount: images.length,
+            itemCount: media.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: EdgeInsets.only(top: 15.r),
                 child: AppGestureDetectorButton(
                   onTap: () => context.navigator.push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          FullScreenGalleryWidget(image: images[index]),
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return FullScreenGalleryWidget(
+                          media: media[index],
+                          mediaType: mediaTypes[index],
+                        );
+                      },
                     ),
                   ),
-                  child: AppNetworkImage(
-                    image: images[index],
-                    borderRadius: BorderRadius.zero,
-                  ),
+                  child: mediaTypes[index] == MediaType.image.toString()
+                      ? AppNetworkImage(
+                          image: media[index],
+                          borderRadius: BorderRadius.zero,
+                        )
+                      : SizedBox(
+                          height: 400.h,
+                          child: AppVideoPreview(path: media[index]),
+                        ),
                 ),
               );
             },

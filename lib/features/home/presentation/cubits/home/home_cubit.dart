@@ -71,15 +71,13 @@ class HomeCubit extends Cubit<HomeState> {
         emit(const HomeFailureState('Failed to upload media to storage'));
       },
       success: (mediaPaths) async {
-        final media = mediaPaths
-            .map(
-              (e) => PostMediaEntity(
-                postId: postId,
-                mediaUrl: e,
-                mediaType: 'image',
-              ),
-            )
-            .toList();
+        final media = List.generate(mediaPaths.length, (i) {
+          return PostMediaEntity(
+            postId: postId,
+            mediaUrl: mediaPaths[i],
+            mediaType: mediaEntity.media[i].type.toString(),
+          );
+        });
 
         _uploadPostMediaToTable(media, postId);
       },

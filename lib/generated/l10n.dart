@@ -85,14 +85,9 @@ class S {
     return Intl.message('Password', name: 'labelPassword', desc: '', args: []);
   }
 
-  /// `************`
+  /// `SaIf@01K`
   String get hintPassword {
-    return Intl.message(
-      '************',
-      name: 'hintPassword',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('SaIf@01K', name: 'hintPassword', desc: '', args: []);
   }
 
   /// `Login`
@@ -568,6 +563,11 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `No Posts`
+  String get noPosts {
+    return Intl.message('No Posts', name: 'noPosts', desc: '', args: []);
   }
 }
 

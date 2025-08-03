@@ -4,7 +4,7 @@
   "labelEmail": "Email",
   "hintEmail": "example@ex.ex",
   "labelPassword": "Password",
-  "hintPassword": "************",
+  "hintPassword": "SaIf@01K",
   "login": "Login",
   "doNotHaveAnAccount": "Don't have an account",
   "signup": "Sign Up",
@@ -67,5 +67,6 @@
   "videoFromCamera": "Video From Camera",
   "videoFromGallery": "Video From Gallery",
   "imageFromCamera": "Image From Camera",
-  "imageFromGallery": "Image From Gallery"
+  "imageFromGallery": "Image From Gallery",
+  "noPosts": "No Posts"
 }

@@ -38,8 +38,13 @@ class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
     ]);
 
     final userSnapshot = refs[0].value as Map;
-    final postsSnapshot = refs[1].value as Map;
     final user = UserModel.fromJson(Map<String, dynamic>.from(userSnapshot));
+
+    if (refs[1].value == null) {
+      return ProfileModel(user: user, posts: []);
+    }
+
+    final postsSnapshot = refs[1].value as Map;
 
     final List<PostModel?> posts = await Future.wait(
       postsSnapshot.entries.map((e) async {

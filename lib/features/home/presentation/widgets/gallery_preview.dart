@@ -6,8 +6,7 @@ import 'package:intern_intelligence_social_media_application/core/utils/enums.da
 import 'package:intern_intelligence_social_media_application/core/widgets/app_file_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_video_preview.dart';
-
-import 'delete_button.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/media_delete_button.dart';
 
 class GalleryPreview extends StatelessWidget {
   final List<MediaItem> pickedAssets;
@@ -112,10 +111,10 @@ class GalleryPreview extends StatelessWidget {
                     width: double.infinity,
                     height: double.infinity,
                   )
-                : AppVideoPreview(path: path, videoType: VideoType.file),
+                : AppVideoPreview(path: path),
           ),
         ),
-        DeleteButton(onClick: () => onDelete(index)),
+        MediaDeleteButton(onClick: () => onDelete(index)),
         if (showOverlay)
           Container(
             decoration: BoxDecoration(

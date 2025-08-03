@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 
-import '../../../../core/styles/app_colors.dart';
-import '../../../../core/styles/app_styles.dart';
-import '../../../../core/widgets/app_gesture_detector_button.dart';
+import '../styles/app_colors.dart';
+import '../styles/app_styles.dart';
+import 'app_gesture_detector_button.dart';
 
-class ActionButton extends StatelessWidget {
+class PostActionButton extends StatelessWidget {
   final IconData icon;
   final String? label;
   final VoidCallback onPressed;
 
-  const ActionButton({
+  const PostActionButton({
     super.key,
     required this.icon,
     this.label,

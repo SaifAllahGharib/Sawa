@@ -14,7 +14,7 @@ import 'package:intern_intelligence_social_media_application/core/widgets/app_sc
 import 'package:intern_intelligence_social_media_application/core/widgets/app_video_preview.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_video_runner.dart';
 
-import '../widgets/delete_button.dart';
+import '../../../../core/widgets/media_delete_button.dart';
 
 class DisplaySelectedMedia extends StatelessWidget {
   const DisplaySelectedMedia({super.key});
@@ -85,11 +85,10 @@ class DisplaySelectedMedia extends StatelessWidget {
                                       },
                                       child: AppVideoPreview(
                                         path: mediaItemPath,
-                                        videoType: VideoType.file,
                                       ),
                                     ),
                                   ),
-                              DeleteButton(
+                              MediaDeleteButton(
                                 onClick: () => context
                                     .read<MediaCubit>()
                                     .removePickedAsset(index),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_loading_widget.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/helpers/shared_preferences_helper.dart';
@@ -22,8 +23,12 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen>
+    with AutomaticKeepAliveClientMixin {
   ProfileEntity? _profile;
+
+  @override
+  bool get wantKeepAlive => true;
 
   void _handleState(BuildContext context, ProfileState state) {
     if (state is ProfileGetState) {
@@ -42,6 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return AppScaffold(
       child: SizedBox(
         width: double.infinity,
@@ -52,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             listener: (context, state) => _handleState(context, state),
             builder: (context, state) {
               if (state is ProfileLoadingState) {
-                return const Center(child: CircularProgressIndicator());
+                return const AppLoadingWidget();
               }
 
               return CustomScrollView(

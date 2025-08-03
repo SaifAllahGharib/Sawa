@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 
-import '../../../../core/extensions/number_extensions.dart';
-import '../../../../core/styles/app_colors.dart';
-import '../../../../core/widgets/bottom_section_post_card.dart';
-import '../../../../core/widgets/top_section_post_card.dart';
+import '../../features/home/domain/entities/post_entity.dart';
+import '../extensions/number_extensions.dart';
+import '../styles/app_colors.dart';
+import 'bottom_section_post_card.dart';
 import 'middle_section_post_card.dart';
+import 'top_section_post_card.dart';
 
 class PostCard extends StatefulWidget {
   final String? image;

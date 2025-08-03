@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_button_loading.dart';
 
 import '../../../../core/clients/firebase_client.dart';
 import '../../../../core/di/dependency_injection.dart';
@@ -14,7 +15,6 @@ import '../../../../core/utils/app_bottom_sheet.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
-import '../../../../core/widgets/app_loading_widget.dart';
 import '../../domain/entities/post_entity.dart';
 import '../cubits/home/home_cubit.dart';
 import '../cubits/home/home_state.dart';
@@ -78,7 +78,7 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
                     listener: (context, state) => _handleState(context, state),
                     builder: (context, state) {
                       if (state is HomeLoadingState) {
-                        return const AppLoadingWidget();
+                        return const AppButtonLoading();
                       }
 
                       return AppButton(
