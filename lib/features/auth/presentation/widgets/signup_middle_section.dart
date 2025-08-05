@@ -6,10 +6,10 @@ import 'package:intern_intelligence_social_media_application/core/routing/app_ro
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_cubit.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_state.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/validators.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/signup/signup_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/signup/signup_state.dart';
 
+import '../../../../core/utils/app_reg_exp.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_button_loading.dart';
@@ -146,7 +146,7 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
               onChanged: (email) {
                 context.read<ValidationCubit>().validateField(
                   'email',
-                  emailValidator(email),
+                  AppRegExp.emailValidator(email),
                 );
               },
             );
@@ -169,7 +169,7 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
               onChanged: (password) {
                 context.read<ValidationCubit>().validateField(
                   'password',
-                  passwordValidator(password),
+                  AppRegExp.passwordValidator(password),
                 );
               },
             );

@@ -5,7 +5,7 @@ import 'package:intern_intelligence_social_media_application/core/extensions/bui
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_cubit.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_state.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/validators.dart';
+import 'package:intern_intelligence_social_media_application/core/utils/app_reg_exp.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_button_loading.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/login_entity.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_cubit.dart';
@@ -128,7 +128,7 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
               onChanged: (email) {
                 context.read<ValidationCubit>().validateField(
                   'email',
-                  emailValidator(email),
+                  AppRegExp.emailValidator(email),
                 );
               },
             );
@@ -151,7 +151,7 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
               onChanged: (password) {
                 context.read<ValidationCubit>().validateField(
                   'password',
-                  passwordValidator(password),
+                  AppRegExp.passwordValidator(password),
                 );
               },
             );
