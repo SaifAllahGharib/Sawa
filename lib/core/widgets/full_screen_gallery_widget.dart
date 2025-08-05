@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/constants/app_assets.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_asset_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
@@ -10,7 +12,7 @@ import 'package:intern_intelligence_social_media_application/core/widgets/app_vi
 import 'app_network_image.dart';
 
 class FullScreenGalleryWidget extends StatelessWidget {
-  final String media;
+  final String? media;
   final String mediaType;
 
   const FullScreenGalleryWidget({
@@ -49,9 +51,11 @@ class FullScreenGalleryWidget extends StatelessWidget {
             child: InteractiveViewer(
               child: Center(
                 child: mediaType == MediaType.image.toString()
-                    ? AppNetworkImage(image: media)
+                    ? media != null
+                          ? AppNetworkImage(image: media!)
+                          : const AppAssetImage(image: AppAssets.profile)
                     : AppVideoRunner(
-                        path: media,
+                        path: media!,
                         videoType: VideoType.network,
                         showTopSec: false,
                       ),

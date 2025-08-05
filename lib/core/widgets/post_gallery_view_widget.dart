@@ -4,6 +4,7 @@ import 'package:intern_intelligence_social_media_application/core/extensions/num
 import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_video_preview.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_video_runner.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/full_screen_gallery_widget.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 
@@ -111,21 +112,26 @@ class PostGalleryViewWidget extends StatelessWidget {
     required String path,
     required String mediaType,
   }) {
-    return AppGestureDetectorButton(
-      onTap: () => _openSingleMediaViewer(
-        context: context,
-        media: path,
-        mediaType: mediaType,
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16.r),
-        child: mediaType == MediaType.image.toString()
-            ? AppNetworkImage(image: path, width: double.infinity)
-            : SizedBox(
-                height: 400.r,
-                child: AppVideoPreview(path: path),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16.r),
+      child: mediaType == MediaType.image.toString()
+          ? AppGestureDetectorButton(
+              onTap: () => _openSingleMediaViewer(
+                context: context,
+                media: path,
+                mediaType: mediaType,
               ),
-      ),
+              child: AppNetworkImage(image: path, width: double.infinity),
+            )
+          : SizedBox(
+              width: double.infinity,
+              height: 600.h,
+              child: AppVideoRunner(
+                path: path,
+                videoType: VideoType.network,
+                showTopSec: false,
+              ),
+            ),
     );
   }
 

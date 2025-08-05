@@ -5,6 +5,8 @@ import 'package:intern_intelligence_social_media_application/core/extensions/num
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_cubit.dart';
 import 'package:intern_intelligence_social_media_application/core/user/domain/entity/user_entity.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
+import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/full_screen_gallery_widget.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/profile_image.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/presentation/widgets/change_name_widget.dart';
 
@@ -40,6 +42,18 @@ class MiddleSectionProfile extends StatelessWidget {
     );
   }
 
+  void _onTapImage(BuildContext context) {
+    context.navigator.push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            FullScreenGalleryWidget(
+              media: user.image,
+              mediaType: MediaType.image.toString(),
+            ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -52,7 +66,10 @@ class MiddleSectionProfile extends StatelessWidget {
               height: 135.h,
               child: Stack(
                 children: [
-                  ProfileImage(url: user.image, size: 135),
+                  AppGestureDetectorButton(
+                    onTap: () => _onTapImage(context),
+                    child: ProfileImage(url: user.image, size: 135),
+                  ),
                   Align(
                     alignment: AlignmentDirectional.bottomEnd,
                     child: AppGestureDetectorButton(
