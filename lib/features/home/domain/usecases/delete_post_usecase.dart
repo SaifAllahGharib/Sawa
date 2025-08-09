@@ -4,13 +4,13 @@ import 'package:intern_intelligence_social_media_application/core/usecases/useca
 import 'package:intern_intelligence_social_media_application/features/home/domain/repositories/home_repository.dart';
 
 @injectable
-class DeletePostUseCase implements UseCase<void, List<String>> {
+class DeletePostUseCase implements UseCase<void, String> {
   final IHomeRepository _iHomeRepository;
 
   DeletePostUseCase(this._iHomeRepository);
 
   @override
-  FutureResult<void> call(List<String> params) async {
-    return await _iHomeRepository.deletePost(params[0], params[1]);
+  FutureResult<void> call(String postId) async {
+    return await _iHomeRepository.deletePost(postId);
   }
 }

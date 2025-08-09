@@ -16,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void checkAuthStatus() {
     final user = _firebaseClient.auth.currentUser;
-    if (user != null) {
+    if (user != null && user.emailVerified) {
       emit(AuthState.authenticated());
     } else {
       emit(AuthState.unauthenticated());

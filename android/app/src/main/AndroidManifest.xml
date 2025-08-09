@@ -27,7 +27,7 @@
         tools:targetApi="5" />
 
     <application
-        android:label="intern_intelligence_social_media_application"
+        android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

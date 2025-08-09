@@ -28,11 +28,11 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
   }
 
   @override
-  Future<void> deletePost(String uId, String postId) async {
+  Future<void> deletePost(String postId) async {
     await _firebaseClient.db
         .ref()
         .child('posts')
-        .child(uId)
+        .child(_firebaseClient.auth.currentUser!.uid)
         .child(postId)
         .remove();
   }
@@ -110,5 +110,72 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
     }).toList();
 
     await Future.wait(media);
+  }
+
+  @override
+  Future<List<PostModel>> getDefaultPosts() async {
+    final postsRef = _firebaseClient.db.ref().child('posts');
+
+    final postsSnapshot = await postsRef.get();
+
+    if (!postsSnapshot.exists || postsSnapshot.value == null) return [];
+
+    final Map<dynamic, dynamic> usersPostsMap =
+        postsSnapshot.value as Map<dynamic, dynamic>;
+
+    final List<PostModel?> postsWithNulls = [];
+
+    for (final userEntry in usersPostsMap.entries) {
+      final Map<dynamic, dynamic> postsMap =
+          userEntry.value as Map<dynamic, dynamic>;
+
+      for (final postEntry in postsMap.entries) {
+        final postData = Map<String, dynamic>.from(postEntry.value);
+        PostModel post = PostModel.fromJson(postData);
+
+        final authorSnapshot = await _firebaseClient.db
+            .ref()
+            .child('users')
+            .child(post.authorId)
+            .get();
+
+        if (!authorSnapshot.exists || authorSnapshot.value == null) {
+          continue;
+        }
+
+        final authorData = Map<String, dynamic>.from(
+          authorSnapshot.value as Map<dynamic, dynamic>,
+        );
+        post = post.copyWith(author: UserModel.fromJson(authorData));
+
+        final mediaSnapshot = await _firebaseClient.db
+            .ref()
+            .child('posts_media')
+            .child(post.id)
+            .get();
+
+        if (mediaSnapshot.exists && mediaSnapshot.value != null) {
+          final mediaMap = Map<String, dynamic>.from(
+            mediaSnapshot.value as Map<dynamic, dynamic>,
+          );
+
+          final mediaList = mediaMap.entries
+              .map(
+                (e) =>
+                    PostMediaModel.fromJson(Map<String, dynamic>.from(e.value)),
+              )
+              .toList();
+
+          post = post.copyWith(media: mediaList);
+        }
+
+        postsWithNulls.add(post);
+      }
+    }
+
+    final posts = postsWithNulls.whereType<PostModel>().toList();
+    posts.shuffle();
+
+    return posts;
   }
 }

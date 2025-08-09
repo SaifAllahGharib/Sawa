@@ -50,19 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA7oZd0Ru7gEYsAkHzPfexDOU8B8OIOHt8',
-    appId: '1:184541868210:android:b879dc980e0d2bb88a59ab',
-    messagingSenderId: '184541868210',
-    projectId: 'socialmedaiapp-22748',
-    storageBucket: 'socialmedaiapp-22748.firebasestorage.app',
+    apiKey: 'AIzaSyBUlBFmwEHJuM-n2ntRRdmhYJlF1hj85DM',
+    appId: '1:945776404692:android:1cb30bd4d64f2de5757341',
+    messagingSenderId: '945776404692',
+    projectId: 'sawa-f6460',
+    databaseURL: 'https://sawa-f6460-default-rtdb.firebaseio.com',
+    storageBucket: 'sawa-f6460.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAidqewa27GSoix7eHGMltj0ZT-iK_jCRA',
-    appId: '1:184541868210:ios:d647a5b71e48ed858a59ab',
-    messagingSenderId: '184541868210',
-    projectId: 'socialmedaiapp-22748',
-    storageBucket: 'socialmedaiapp-22748.firebasestorage.app',
-    iosBundleId: 'com.example.internIntelligenceSocialMediaApplication',
+    apiKey: 'AIzaSyBf8-gWE_UKz-MuM1fjffrqhgT01roX3D8',
+    appId: '1:945776404692:ios:d1ebf266b86465ad757341',
+    messagingSenderId: '945776404692',
+    projectId: 'sawa-f6460',
+    databaseURL: 'https://sawa-f6460-default-rtdb.firebaseio.com',
+    storageBucket: 'sawa-f6460.firebasestorage.app',
+    iosBundleId: 'com.sawa.app',
   );
+
 }

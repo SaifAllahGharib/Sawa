@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/post_card.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 
 class BottomSectionHome extends StatelessWidget {
-  final PostEntity post;
+  final List<PostEntity> posts;
 
-  const BottomSectionHome({super.key, required this.post});
+  const BottomSectionHome({super.key, required this.posts});
 
   @override
   Widget build(BuildContext context) {
+    if (posts.isEmpty) {
+      return SliverToBoxAdapter(
+        child: SizedBox(
+          height: 500.h,
+          child: Center(
+            child: Text(context.tr.noPosts, style: AppStyles.s20W600),
+          ),
+        ),
+      );
+    }
+
     return SliverList.builder(
-      itemCount: 5,
+      itemCount: posts.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: EdgeInsets.only(
@@ -19,10 +32,11 @@ class BottomSectionHome extends StatelessWidget {
             bottom: index == 4 ? 16.r : 0,
           ),
           child: PostCard(
-            image: 'https://randomuser.me/api/portraits/men/75.jpg',
-            name: 'name',
-            postedTime: DateTime.now(),
-            post: post,
+            image: posts[index].author!.image,
+            name: posts[index].author!.name!,
+            postedTime: posts[index].createdAt,
+            content: posts[index].content,
+            post: posts[index],
           ),
         );
       },

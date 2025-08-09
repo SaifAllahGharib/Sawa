@@ -5,7 +5,16 @@ import 'app_padding_widget.dart';
 import 'post_action_button.dart';
 
 class BottomSectionPostCard extends StatelessWidget {
-  const BottomSectionPostCard({super.key});
+  final VoidCallback onClickLike;
+  final VoidCallback onClickComment;
+  final VoidCallback onClickShare;
+
+  const BottomSectionPostCard({
+    super.key,
+    required this.onClickLike,
+    required this.onClickComment,
+    required this.onClickShare,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +25,17 @@ class BottomSectionPostCard extends StatelessWidget {
           PostActionButton(
             icon: Icons.favorite_border,
             label: context.tr.like,
-            onPressed: () {},
+            onPressed: onClickLike,
           ),
           PostActionButton(
             icon: Icons.comment_outlined,
             label: context.tr.comment,
-            onPressed: () {},
+            onPressed: onClickComment,
           ),
           PostActionButton(
             icon: Icons.share_outlined,
             label: context.tr.share,
-            onPressed: () {},
+            onPressed: onClickShare,
           ),
         ],
       ),

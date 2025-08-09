@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_file_image.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_loading_widget.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_placeholder.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
@@ -61,6 +61,7 @@ class _AppVideoPreviewState extends State<AppVideoPreview>
                 AppFileImage(
                   image: _thumbnailFile!,
                   height: double.infinity,
+                  width: double.infinity,
                   borderRadius: BorderRadius.zero,
                 ),
                 const PlayPauseIconWidget(),
@@ -80,7 +81,10 @@ class _AppVideoPreviewState extends State<AppVideoPreview>
                   ),
                 ],
               ),
-              child: const AppLoadingWidget(),
+              child: const AppPlaceholder(
+                width: double.infinity,
+                height: double.infinity,
+              ),
             ),
           );
   }

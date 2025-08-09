@@ -52,6 +52,8 @@ import '../../features/home/data/repositories/home_repository_impl.dart'
 import '../../features/home/domain/repositories/home_repository.dart' as _i0;
 import '../../features/home/domain/usecases/create_post_usecase.dart' as _i992;
 import '../../features/home/domain/usecases/delete_post_usecase.dart' as _i1006;
+import '../../features/home/domain/usecases/get_default_posts_usecase.dart'
+    as _i994;
 import '../../features/home/domain/usecases/upload_post_media_to_table_usecase.dart'
     as _i457;
 import '../../features/home/domain/usecases/upload_post_media_usecase.dart'
@@ -71,6 +73,8 @@ import '../../features/profile/domain/repository/profile_repository.dart'
     as _i364;
 import '../../features/profile/domain/usecases/get_profile_usecase.dart'
     as _i965;
+import '../../features/profile/domain/usecases/profile_delete_post_usecase.dart'
+    as _i727;
 import '../../features/profile/domain/usecases/update_profile_name_usecase.dart'
     as _i643;
 import '../../features/profile/domain/usecases/upload_profile_image_usecase.dart'
@@ -202,6 +206,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i813.UploadProfileImageUseCase>(
       () => _i813.UploadProfileImageUseCase(gh<_i364.IProfileRepository>()),
     );
+    gh.factory<_i727.ProfileDeletePostUseCase>(
+      () => _i727.ProfileDeletePostUseCase(gh<_i364.IProfileRepository>()),
+    );
     gh.factory<_i629.GetUserUseCase>(
       () => _i629.GetUserUseCase(gh<_i329.IUserRepository>()),
     );
@@ -210,6 +217,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1006.DeletePostUseCase>(
       () => _i1006.DeletePostUseCase(gh<_i0.IHomeRepository>()),
+    );
+    gh.factory<_i994.GetDefaultPostsUseCase>(
+      () => _i994.GetDefaultPostsUseCase(gh<_i0.IHomeRepository>()),
     );
     gh.factory<_i457.UploadPostMediaToTableUseCase>(
       () => _i457.UploadPostMediaToTableUseCase(gh<_i0.IHomeRepository>()),
@@ -232,7 +242,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i992.CreatePostUseCase>(),
         gh<_i457.UploadPostMediaToTableUseCase>(),
         gh<_i1006.DeletePostUseCase>(),
-        gh<_i244.FirebaseClient>(),
+        gh<_i994.GetDefaultPostsUseCase>(),
       ),
     );
     gh.factory<_i771.ProfileCubit>(
@@ -240,6 +250,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i643.UpdateProfileNameUseCase>(),
         gh<_i965.GetProfileUseCase>(),
         gh<_i813.UploadProfileImageUseCase>(),
+        gh<_i727.ProfileDeletePostUseCase>(),
       ),
     );
     gh.factory<_i104.EmailVerifiedUseCase>(

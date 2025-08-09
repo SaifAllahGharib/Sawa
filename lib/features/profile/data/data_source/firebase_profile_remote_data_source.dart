@@ -94,4 +94,16 @@ class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
         .child(_firebaseClient.auth.currentUser!.uid)
         .update({'image': path});
   }
+
+  @override
+  Future<void> deletePost(String postId) async {
+    await _firebaseClient.db
+        .ref()
+        .child('posts')
+        .child(_firebaseClient.auth.currentUser!.uid)
+        .child(postId)
+        .remove();
+
+    await _firebaseClient.db.ref().child('posts_media').child(postId).remove();
+  }
 }

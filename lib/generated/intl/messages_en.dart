@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "comment": MessageLookupByLibrary.simpleMessage("Comment"),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "day": MessageLookupByLibrary.simpleMessage("day"),
+    "delete": MessageLookupByLibrary.simpleMessage("Delete"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account",
@@ -105,6 +106,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "postCreationFailed": MessageLookupByLibrary.simpleMessage(
       "Post creation failed",
     ),
+    "postDeleteSuccess": MessageLookupByLibrary.simpleMessage(
+      "Post Delete Successfully",
+    ),
     "required": MessageLookupByLibrary.simpleMessage("Required"),
     "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
@@ -115,6 +119,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "share": MessageLookupByLibrary.simpleMessage("Share"),
     "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong, but we’re on it!",
+    ),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "thisAccountIsDisabled": MessageLookupByLibrary.simpleMessage(
       "This account is disabled",

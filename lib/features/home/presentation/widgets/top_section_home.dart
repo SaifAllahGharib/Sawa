@@ -15,7 +15,7 @@ import '../../../../core/widgets/app_padding_widget.dart';
 class TopSectionHome extends StatelessWidget {
   const TopSectionHome({super.key});
 
-  void _onCreatePostTap(BuildContext context) {
+  void _onTapCreatePost(BuildContext context) {
     AppBottomSheet.show(context, (_) {
       return const CreatePostBottomSheetWidget();
     });
@@ -45,7 +45,7 @@ class TopSectionHome extends StatelessWidget {
             10.horizontalSpace,
             Expanded(
               child: AppGestureDetectorButton(
-                onTap: () => _onCreatePostTap(context),
+                onTap: () => _onTapCreatePost(context),
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: 12.r,

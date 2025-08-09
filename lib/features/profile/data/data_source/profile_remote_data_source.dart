@@ -6,4 +6,6 @@ abstract class IProfileRemoteDataSource {
   Future<void> updateProfileName(String newName);
 
   Future<ProfileModel> getProfile();
+
+  Future<void> deletePost(String postId);
 }

@@ -9,9 +9,11 @@ abstract class IHomeRepository {
 
   FutureResult<String?> createPost(PostEntity postModel);
 
-  FutureResult<void> deletePost(String uId, String postId);
+  FutureResult<void> deletePost(String postId);
 
   FutureResult<void> uploadPostMediaToTable(List<PostMediaEntity> mediaModels);
 
   FutureResult<List<PostEntity>> getUserPosts(String uId);
+
+  FutureResult<List<PostEntity>> getDefaultPosts();
 }

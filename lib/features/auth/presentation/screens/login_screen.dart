@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_remove_focus.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_cubit.dart';
 
@@ -27,17 +26,15 @@ class LoginScreen extends StatelessWidget {
       ],
       child: AppScaffold(
         child: AppPaddingWidget(
-          child: AppRemoveFocus(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const LoginTopSection(),
-                  20.verticalSpace,
-                  const LoginMiddleSection(),
-                  10.verticalSpace,
-                  const LoginBottomSection(),
-                ],
-              ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const LoginTopSection(),
+                20.verticalSpace,
+                const LoginMiddleSection(),
+                10.verticalSpace,
+                const LoginBottomSection(),
+              ],
             ),
           ),
         ),

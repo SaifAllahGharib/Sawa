@@ -569,6 +569,31 @@ class S {
   String get noPosts {
     return Intl.message('No Posts', name: 'noPosts', desc: '', args: []);
   }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message('Delete', name: 'delete', desc: '', args: []);
+  }
+
+  /// `Post Delete Successfully`
+  String get postDeleteSuccess {
+    return Intl.message(
+      'Post Delete Successfully',
+      name: 'postDeleteSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong, but we’re on it!`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Something went wrong, but we’re on it!',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

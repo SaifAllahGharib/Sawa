@@ -2,25 +2,32 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/profile_image.dart';
 
 import '../extensions/number_extensions.dart';
 import '../helpers/date_time_helper.dart';
 import '../styles/app_styles.dart';
 import 'app_padding_widget.dart';
+import 'more_post_widget.dart';
 
 class TopSectionPostCard extends StatefulWidget {
-  final String? image;
   final String name;
   final DateTime postedTime;
   final String? authorImage;
+  final bool isProfile;
+  final VoidCallback? onClickDelete;
+  final VoidCallback? onClickEdit;
 
   const TopSectionPostCard({
     super.key,
-    required this.image,
     required this.name,
     required this.postedTime,
     this.authorImage,
+    this.isProfile = false,
+    this.onClickDelete,
+    this.onClickEdit,
   });
 
   @override
@@ -41,6 +48,15 @@ class _TopSectionPostCardState extends State<TopSectionPostCard> {
 
   String _getTimeAgo() {
     return DateTimeHelper.timeAgoSinceDate(context, widget.postedTime);
+  }
+
+  void _onTapMoreIcon() {
+    AppBottomSheet.showModal(context, (context) {
+      return MorePostWidget(
+        onClickDelete: widget.onClickDelete,
+        onClickEdit: widget.onClickEdit,
+      );
+    });
   }
 
   @override
@@ -80,6 +96,16 @@ class _TopSectionPostCardState extends State<TopSectionPostCard> {
               ],
             ),
           ),
+          const Spacer(),
+          if (widget.isProfile)
+            AppGestureDetectorButton(
+              onTap: _onTapMoreIcon,
+              child: Icon(
+                Icons.more_horiz_rounded,
+                color: context.customColor.icon,
+                size: 25.r,
+              ),
+            ),
         ],
       ),
     );

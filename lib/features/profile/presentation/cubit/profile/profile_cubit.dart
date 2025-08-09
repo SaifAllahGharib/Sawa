@@ -5,6 +5,7 @@ import 'package:intern_intelligence_social_media_application/features/home/domai
 import 'package:intern_intelligence_social_media_application/features/profile/domain/usecases/upload_profile_image_usecase.dart';
 
 import '../../../domain/usecases/get_profile_usecase.dart';
+import '../../../domain/usecases/profile_delete_post_usecase.dart';
 import '../../../domain/usecases/update_profile_name_usecase.dart';
 import 'profile_state.dart';
 
@@ -13,11 +14,13 @@ class ProfileCubit extends Cubit<ProfileState> {
   final UpdateProfileNameUseCase _updateProfileNameUseCase;
   final GetProfileUseCase _getProfileUseCase;
   final UploadProfileImageUseCase _uploadProfileImageUseCase;
+  final ProfileDeletePostUseCase _profileDeletePostUseCase;
 
   ProfileCubit(
     this._updateProfileNameUseCase,
     this._getProfileUseCase,
     this._uploadProfileImageUseCase,
+    this._profileDeletePostUseCase,
   ) : super(const ProfileInitState());
 
   void getProfile() async {
@@ -48,6 +51,20 @@ class ProfileCubit extends Cubit<ProfileState> {
     result.when(
       failure: (failure) => emit(ProfileFailureState(failure.code)),
       success: (_) => emit(const ProfileUpdateProfileState()),
+    );
+  }
+
+  void deletePost(String postId) async {
+    emit(const ProfileLoadingActionPostState());
+
+    final result = await _profileDeletePostUseCase(postId);
+
+    result.when(
+      failure: (failure) => emit(ProfileFailureState(failure.code)),
+      success: (success) {
+        emit(const ProfileDeletePostState());
+        getProfile();
+      },
     );
   }
 }

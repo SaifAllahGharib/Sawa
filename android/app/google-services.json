@@ -1,21 +1,41 @@
 {
   "project_info": {
-    "project_number": "184541868210",
-    "project_id": "socialmedaiapp-22748",
-    "storage_bucket": "socialmedaiapp-22748.firebasestorage.app"
+    "project_number": "945776404692",
+    "firebase_url": "https://sawa-f6460-default-rtdb.firebaseio.com",
+    "project_id": "sawa-f6460",
+    "storage_bucket": "sawa-f6460.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:184541868210:android:b879dc980e0d2bb88a59ab",
+        "mobilesdk_app_id": "1:945776404692:android:1cb30bd4d64f2de5757341",
         "android_client_info": {
-          "package_name": "com.example.intern_intelligence_social_media_application"
+          "package_name": "com.sawa.app"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA7oZd0Ru7gEYsAkHzPfexDOU8B8OIOHt8"
+          "current_key": "AIzaSyBUlBFmwEHJuM-n2ntRRdmhYJlF1hj85DM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945776404692:android:1cb30bd4d64f2de5757341",
+        "android_client_info": {
+          "package_name": "com.sawa.app.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUlBFmwEHJuM-n2ntRRdmhYJlF1hj85DM"
         }
       ],
       "services": {

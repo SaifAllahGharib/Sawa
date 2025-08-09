@@ -85,6 +85,8 @@ class MiddleSectionCreatePostWidget extends StatelessWidget {
                   filled: false,
                 ),
                 keyboardType: TextInputType.multiline,
+                onTapOutside: (event) =>
+                    FocusManager.instance.primaryFocus?.unfocus(),
                 onChanged: (value) {
                   context.read<ValidationCubit>().validateField(
                     'post',

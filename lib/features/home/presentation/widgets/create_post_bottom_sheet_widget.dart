@@ -7,7 +7,6 @@ import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/shared/cubits/media/media_cubit.dart';
 import '../../../../core/shared/cubits/validation/validation_cubit.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
-import '../../../../core/widgets/app_remove_focus.dart';
 import 'middle_section_create_post_widget.dart';
 import 'top_section_create_post_widget.dart';
 
@@ -44,18 +43,16 @@ class _CreatePostBottomSheetWidgetState
         ),
         BlocProvider(create: (context) => getIt<MediaCubit>()),
       ],
-      child: AppRemoveFocus(
-        child: AppPaddingWidget(
-          top: 0,
-          child: Column(
-            children: [
-              const TopSectionCreatePostWidget(),
-              10.verticalSpace,
-              MiddleSectionCreatePostWidget(postController: _postController),
-              20.verticalSpace,
-              BottomSectionCreatePostWidget(postController: _postController),
-            ],
-          ),
+      child: AppPaddingWidget(
+        top: 0,
+        child: Column(
+          children: [
+            const TopSectionCreatePostWidget(),
+            10.verticalSpace,
+            MiddleSectionCreatePostWidget(postController: _postController),
+            20.verticalSpace,
+            BottomSectionCreatePostWidget(postController: _postController),
+          ],
         ),
       ),
     );

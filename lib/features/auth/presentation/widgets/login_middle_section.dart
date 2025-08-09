@@ -79,7 +79,7 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
     } else {
       context.navigator.pushNamed(
         AppRouteName.verification,
-        arguments: _emailController.text.trim(),
+        arguments: {'name': '', 'email': _emailController.text.trim()},
       );
     }
   }

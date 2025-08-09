@@ -1,4 +1,4 @@
-package com.example.intern_intelligence_social_media_application
+package com.sawa.app
 
 import io.flutter.embedding.android.FlutterActivity
 

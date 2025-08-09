@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intern_intelligence_social_media_application/core/usecases/no_params.dart';
+import 'package:intern_intelligence_social_media_application/features/home/domain/usecases/get_default_posts_usecase.dart';
 
-import '../../../../../core/clients/firebase_client.dart';
 import '../../../../../core/shared/models/media_item.dart';
 import '../../../domain/entities/media_entity.dart';
 import '../../../domain/entities/post_entity.dart';
@@ -18,14 +19,14 @@ class HomeCubit extends Cubit<HomeState> {
   final UploadPostMediaUseCase _uploadPostMediaUseCase;
   final UploadPostMediaToTableUseCase _uploadPostMediaToTableUseCase;
   final DeletePostUseCase _deletePostUseCase;
-  final FirebaseClient _firebaseClient;
+  final GetDefaultPostsUseCase _getDefaultPostsUseCase;
 
   HomeCubit(
     this._uploadPostMediaUseCase,
     this._createPostUseCase,
     this._uploadPostMediaToTableUseCase,
     this._deletePostUseCase,
-    this._firebaseClient,
+    this._getDefaultPostsUseCase,
   ) : super(const HomeInitState());
 
   void createPost(PostEntity postEntity, List<MediaItem> pickedAssets) async {
@@ -53,8 +54,8 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  void deletePost(String uId, String postId) async {
-    final result = await _deletePostUseCase([uId, postId]);
+  void deletePost(String postId) async {
+    final result = await _deletePostUseCase(postId);
 
     result.when(
       failure: (failure) => emit(HomeFailureState(failure.code)),
@@ -67,7 +68,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     result.when(
       failure: (failure) {
-        deletePost(_firebaseClient.auth.currentUser!.uid, postId);
+        deletePost(postId);
         emit(const HomeFailureState('Failed to upload media to storage'));
       },
       success: (mediaPaths) async {
@@ -93,10 +94,20 @@ class HomeCubit extends Cubit<HomeState> {
 
     result.when(
       failure: (failure) {
-        deletePost(_firebaseClient.auth.currentUser!.uid, postId);
+        deletePost(postId);
         emit(const HomeFailureState('Failed to upload media to table'));
       },
       success: (_) => emit(const HomeCreatePostSuccessState()),
+    );
+  }
+
+  void getDefaultPosts() async {
+    emit(const HomeLoadingState());
+    final result = await _getDefaultPostsUseCase(const NoParams());
+
+    result.when(
+      failure: (failure) => emit(HomeFailureState(failure.code)),
+      success: (posts) => emit(HomeGetDefaultPostsState(posts)),
     );
   }
 }

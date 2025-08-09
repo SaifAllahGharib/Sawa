@@ -4,10 +4,18 @@ import 'package:intern_intelligence_social_media_application/core/extensions/bui
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 
 import '../../../../core/styles/app_styles.dart';
+import '../../../../core/utils/app_bottom_sheet.dart';
 import '../../../../core/widgets/app_icon_button.dart';
+import 'create_post_bottom_sheet_widget.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
+
+  void _onTapCreatePost(BuildContext context) {
+    AppBottomSheet.show(context, (_) {
+      return const CreatePostBottomSheetWidget();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +36,10 @@ class HomeAppBar extends StatelessWidget {
       actions: [
         AppIconButton(icon: Icons.chat_outlined, onPressed: () {}),
         10.horizontalSpace,
-        AppIconButton(icon: Icons.add_circle_outline, onPressed: () {}),
+        AppIconButton(
+          icon: Icons.add_circle_outline,
+          onPressed: () => _onTapCreatePost(context),
+        ),
         10.horizontalSpace,
       ],
     );

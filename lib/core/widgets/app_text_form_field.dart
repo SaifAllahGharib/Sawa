@@ -76,6 +76,8 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                     : null,
               ),
               onChanged: widget.onChanged,
+              onTapOutside: (event) =>
+                  FocusManager.instance.primaryFocus?.unfocus(),
             );
           },
         ),

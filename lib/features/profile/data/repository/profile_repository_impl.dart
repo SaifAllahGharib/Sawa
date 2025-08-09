@@ -44,4 +44,11 @@ class ProfileRepositoryImpl implements IProfileRepository {
       return await _iProfileRemoteDataSource.uploadProfileImage(path);
     });
   }
+
+  @override
+  FutureResult<void> deletePost(String postId) async {
+    return _errorHandler.handleFutureWithTryCatch(() async {
+      return await _iProfileRemoteDataSource.deletePost(postId);
+    });
+  }
 }

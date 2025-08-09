@@ -53,9 +53,9 @@ class HomeRepositoryImpl implements IHomeRepository {
   }
 
   @override
-  FutureResult<void> deletePost(String uId, String postId) async {
+  FutureResult<void> deletePost(String postId) async {
     return _errorHandler.handleFutureWithTryCatch(
-      () async => await _iHomePostRemoteDataSource.deletePost(uId, postId),
+      () async => await _iHomePostRemoteDataSource.deletePost(postId),
     );
   }
 
@@ -63,6 +63,14 @@ class HomeRepositoryImpl implements IHomeRepository {
   FutureResult<List<PostEntity>> getUserPosts(String uId) async {
     return _errorHandler.handleFutureWithTryCatch(() async {
       final response = await _iHomePostRemoteDataSource.getUserPosts(uId);
+      return response.map((e) => e.toEntity()).toList();
+    });
+  }
+
+  @override
+  FutureResult<List<PostEntity>> getDefaultPosts() async {
+    return _errorHandler.handleFutureWithTryCatch(() async {
+      final response = await _iHomePostRemoteDataSource.getDefaultPosts();
       return response.map((e) => e.toEntity()).toList();
     });
   }

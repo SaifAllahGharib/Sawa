@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_loading_widget.dart';
+import 'package:intern_intelligence_social_media_application/features/profile/presentation/widgets/profile_loading.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/helpers/shared_preferences_helper.dart';
@@ -36,6 +36,10 @@ class _ProfileScreenState extends State<ProfileScreen>
       getIt<SharedPreferencesHelper>().storeUser(
         UserModel.fromEntity(_profile!.user).toJson(),
       );
+    } else if (state is ProfileLoadingActionPostState) {
+      context.navigator.pop();
+    } else if (state is ProfileDeletePostState) {
+      AppSnackBar.showSuccess(context, context.tr.postDeleteSuccess);
     } else if (state is ProfileFailureState) {
       AppSnackBar.showError(context, context.tr.failureToGetProfile);
     }
@@ -57,8 +61,9 @@ class _ProfileScreenState extends State<ProfileScreen>
           child: BlocConsumer<ProfileCubit, ProfileState>(
             listener: (context, state) => _handleState(context, state),
             builder: (context, state) {
-              if (state is ProfileLoadingState) {
-                return const AppLoadingWidget();
+              if (state is ProfileLoadingState ||
+                  state is ProfileLoadingActionPostState) {
+                return const ProfileLoading();
               }
 
               return CustomScrollView(

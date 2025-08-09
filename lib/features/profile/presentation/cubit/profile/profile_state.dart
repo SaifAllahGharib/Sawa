@@ -52,6 +52,20 @@ final class ProfileUpdateImageState extends ProfileState {
   List<Object?> get props => [];
 }
 
+final class ProfileLoadingActionPostState extends ProfileState {
+  const ProfileLoadingActionPostState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+final class ProfileDeletePostState extends ProfileState {
+  const ProfileDeletePostState();
+
+  @override
+  List<Object?> get props => [];
+}
+
 final class ProfileFailureState extends ProfileState {
   final String code;
 

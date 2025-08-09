@@ -31,7 +31,7 @@ class PostFullScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TopSectionPostCard(
-                  image: post.author!.image,
+                  authorImage: post.author!.image,
                   name: post.author!.name!,
                   postedTime: post.createdAt,
                 ),
@@ -44,7 +44,11 @@ class PostFullScreen extends StatelessWidget {
                   ),
                   10.verticalSpace,
                 ],
-                const BottomSectionPostCard(),
+                BottomSectionPostCard(
+                  onClickLike: () {},
+                  onClickComment: () {},
+                  onClickShare: () {},
+                ),
               ],
             ),
           ),

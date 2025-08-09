@@ -14,6 +14,9 @@ class PostCard extends StatefulWidget {
   final DateTime postedTime;
   final String? content;
   final PostEntity post;
+  final bool isProfile;
+  final VoidCallback? onClickDelete;
+  final VoidCallback? onClickEdit;
 
   const PostCard({
     super.key,
@@ -22,6 +25,9 @@ class PostCard extends StatefulWidget {
     required this.postedTime,
     this.content,
     required this.post,
+    this.isProfile = false,
+    this.onClickDelete,
+    this.onClickEdit,
   });
 
   @override
@@ -53,14 +59,20 @@ class _PostCardState extends State<PostCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TopSectionPostCard(
-            image: widget.image,
             name: widget.name,
             postedTime: widget.postedTime,
             authorImage: widget.post.author!.image,
+            isProfile: widget.isProfile,
+            onClickDelete: widget.onClickDelete,
+            onClickEdit: widget.onClickEdit,
           ),
           10.verticalSpace,
           MiddleSectionPostCard(content: widget.content, post: widget.post),
-          const BottomSectionPostCard(),
+          BottomSectionPostCard(
+            onClickLike: () {},
+            onClickComment: () {},
+            onClickShare: () {},
+          ),
         ],
       ),
     );

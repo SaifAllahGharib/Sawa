@@ -68,5 +68,8 @@
   "videoFromGallery": "Video From Gallery",
   "imageFromCamera": "Image From Camera",
   "imageFromGallery": "Image From Gallery",
-  "noPosts": "No Posts"
+  "noPosts": "No Posts",
+  "delete": "Delete",
+  "postDeleteSuccess": "Post Delete Successfully",
+  "somethingWentWrong": "Something went wrong, but we’re on it!"
 }

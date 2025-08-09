@@ -21,7 +21,7 @@ class SplashScreen extends StatelessWidget {
         : AppRouteName.login;
 
     await Future.delayed(
-      const Duration(milliseconds: 2300),
+      const Duration(milliseconds: 2000),
       () => context.navigator.pushNamedAndRemoveUntil(route, (route) => false),
     );
   }

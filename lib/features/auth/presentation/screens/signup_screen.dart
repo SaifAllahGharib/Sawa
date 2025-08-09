@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_cubit.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_remove_focus.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/signup/signup_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/widgets/signup_bottom_section.dart';
@@ -26,18 +25,16 @@ class SignupScreen extends StatelessWidget {
         BlocProvider(create: (context) => getIt<SignupCubit>()),
       ],
       child: AppScaffold(
-        child: AppRemoveFocus(
-          child: AppPaddingWidget(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SignupTopSection(),
-                  20.verticalSpace,
-                  const SignupMiddleSection(),
-                  10.verticalSpace,
-                  const SignupBottomSection(),
-                ],
-              ),
+        child: AppPaddingWidget(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SignupTopSection(),
+                20.verticalSpace,
+                const SignupMiddleSection(),
+                10.verticalSpace,
+                const SignupBottomSection(),
+              ],
             ),
           ),
         ),

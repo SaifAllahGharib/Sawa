@@ -29,6 +29,7 @@ class SocialMediaApp extends StatelessWidget {
           builder: (context, state) {
             return MaterialApp(
               locale: state.locale,
+              debugShowCheckedModeBanner: true,
               localizationsDelegates: const [
                 S.delegate,
                 GlobalMaterialLocalizations.delegate,

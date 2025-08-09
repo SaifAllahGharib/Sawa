@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 
 sealed class HomeState extends Equatable {
   const HomeState();
@@ -26,6 +27,15 @@ final class HomeCreatePostSuccessState extends HomeState {
 
   @override
   List<Object?> get props => [];
+}
+
+final class HomeGetDefaultPostsState extends HomeState {
+  final List<PostEntity> posts;
+
+  const HomeGetDefaultPostsState(this.posts);
+
+  @override
+  List<Object?> get props => [posts];
 }
 
 final class HomeUploadPostMediaSuccessState extends HomeState {
