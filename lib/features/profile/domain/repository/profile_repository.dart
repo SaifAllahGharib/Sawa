@@ -8,7 +8,9 @@ abstract class IProfileRepository {
 
   FutureResult<void> updateProfileName(String newName);
 
-  FutureResult<ProfileEntity> getProfile();
+  FutureResult<void> updateProfileBio(String newBio);
+
+  FutureResult<ProfileEntity> getProfile(String uId);
 
   FutureResult<void> deletePost(String postId);
 }

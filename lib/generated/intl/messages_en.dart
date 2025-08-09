@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "changeName": MessageLookupByLibrary.simpleMessage("Change Name"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
+    "close": MessageLookupByLibrary.simpleMessage("Close"),
     "codeSendNotSuccess": MessageLookupByLibrary.simpleMessage(
       "Code not sent successfully",
     ),
@@ -36,12 +37,19 @@ class MessageLookup extends MessageLookupByLibrary {
       "Code sent successfully",
     ),
     "comment": MessageLookupByLibrary.simpleMessage("Comment"),
+    "copiedToClipboard": MessageLookupByLibrary.simpleMessage(
+      "Copied to Clipboard",
+    ),
+    "copy": MessageLookupByLibrary.simpleMessage("Copy"),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "day": MessageLookupByLibrary.simpleMessage("day"),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account",
+    ),
+    "doYouWantToOpenOrCopyTheLink": MessageLookupByLibrary.simpleMessage(
+      "Do you want to open or copy the link?",
     ),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "emailNotValid": MessageLookupByLibrary.simpleMessage("email not valid"),
@@ -89,13 +97,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "light": MessageLookupByLibrary.simpleMessage("Light"),
     "like": MessageLookupByLibrary.simpleMessage("Like"),
+    "link": MessageLookupByLibrary.simpleMessage("Link"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
     "m": MessageLookupByLibrary.simpleMessage("m"),
     "month": MessageLookupByLibrary.simpleMessage("month"),
+    "noBio": MessageLookupByLibrary.simpleMessage("No Bio"),
     "noPosts": MessageLookupByLibrary.simpleMessage("No Posts"),
     "now": MessageLookupByLibrary.simpleMessage("now"),
     "ok": MessageLookupByLibrary.simpleMessage("OK"),
+    "open": MessageLookupByLibrary.simpleMessage("Open"),
     "passwordValidationMsg": MessageLookupByLibrary.simpleMessage(
       "Must be 8+ chars with uppercase, number & symbol",
     ),
@@ -118,6 +129,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "share": MessageLookupByLibrary.simpleMessage("Share"),
+    "showLess": MessageLookupByLibrary.simpleMessage("Show Less"),
+    "showMore": MessageLookupByLibrary.simpleMessage("Show More"),
     "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong, but we’re on it!",
@@ -128,6 +141,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unknownError": MessageLookupByLibrary.simpleMessage("Unknown error"),
     "update": MessageLookupByLibrary.simpleMessage("Update"),
+    "updateBioSuccess": MessageLookupByLibrary.simpleMessage(
+      "Update bio success",
+    ),
     "updateNameSuccess": MessageLookupByLibrary.simpleMessage(
       "Update name success",
     ),

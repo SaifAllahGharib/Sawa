@@ -29,7 +29,7 @@ class SharedPreferencesHelper {
   }
 
   // ---------------- Language ----------------
-  String? getLanguageCode() => _safePrefs.getString('languageCode');
+  String getLanguageCode() => _safePrefs.getString('languageCode') ?? 'en';
 
   Future<void> setLanguageCode(String code) async {
     await _safeWrite(

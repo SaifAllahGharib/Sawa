@@ -23,18 +23,10 @@ class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
   }
 
   @override
-  Future<ProfileModel> getProfile() async {
+  Future<ProfileModel> getProfile(String uId) async {
     final refs = await Future.wait([
-      _firebaseClient.db
-          .ref()
-          .child('users')
-          .child(_firebaseClient.auth.currentUser!.uid)
-          .get(),
-      _firebaseClient.db
-          .ref()
-          .child('posts')
-          .child(_firebaseClient.auth.currentUser!.uid)
-          .get(),
+      _firebaseClient.db.ref().child('users').child(uId).get(),
+      _firebaseClient.db.ref().child('posts').child(uId).get(),
     ]);
 
     final userSnapshot = refs[0].value as Map;
@@ -105,5 +97,14 @@ class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
         .remove();
 
     await _firebaseClient.db.ref().child('posts_media').child(postId).remove();
+  }
+
+  @override
+  Future<void> updateProfileBio(String newBio) async {
+    return await _firebaseClient.db
+        .ref()
+        .child('users')
+        .child(_firebaseClient.auth.currentUser!.uid)
+        .update({'bio': newBio});
   }
 }

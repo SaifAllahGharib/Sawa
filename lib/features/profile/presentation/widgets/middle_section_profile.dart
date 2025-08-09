@@ -16,12 +16,18 @@ import '../../../user/domain/entity/user_entity.dart';
 import './../../../../core/extensions/build_context_extensions.dart';
 import './../../../../core/extensions/number_extensions.dart';
 import 'camera_or_gallery_widget.dart';
+import 'change_bio_widget.dart';
 import 'change_name_widget.dart';
 
 class MiddleSectionProfile extends StatelessWidget {
   final UserEntity user;
+  final bool isMyProfile;
 
-  const MiddleSectionProfile({super.key, required this.user});
+  const MiddleSectionProfile({
+    super.key,
+    required this.user,
+    required this.isMyProfile,
+  });
 
   void _onTapOnCamera(BuildContext context) {
     AppBottomSheet.showModal(context, (context) {
@@ -38,6 +44,16 @@ class MiddleSectionProfile extends StatelessWidget {
       (context) => BlocProvider(
         create: (context) => ValidationCubit(requiredFields: {'changeName'}),
         child: const ChangeNameWidget(),
+      ),
+    );
+  }
+
+  void _onTapOnBio(BuildContext context) {
+    AppBottomSheet.showModal(
+      context,
+      (context) => BlocProvider(
+        create: (context) => ValidationCubit(requiredFields: {'changeBio'}),
+        child: const ChangeBioWidget(),
       ),
     );
   }
@@ -70,33 +86,35 @@ class MiddleSectionProfile extends StatelessWidget {
                     onTap: () => _onTapImage(context),
                     child: ProfileImage(url: user.image, size: 135),
                   ),
-                  Align(
-                    alignment: AlignmentDirectional.bottomEnd,
-                    child: AppGestureDetectorButton(
-                      onTap: () => _onTapOnCamera(context),
-                      child: Container(
-                        padding: EdgeInsets.all(5.r),
-                        decoration: BoxDecoration(
-                          color: context.theme.scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(3000.r),
-                          border: Border.all(
-                            color: context.customColor.border ?? AppColors.gray,
+                  if (isMyProfile)
+                    Align(
+                      alignment: AlignmentDirectional.bottomEnd,
+                      child: AppGestureDetectorButton(
+                        onTap: () => _onTapOnCamera(context),
+                        child: Container(
+                          padding: EdgeInsets.all(5.r),
+                          decoration: BoxDecoration(
+                            color: context.theme.scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(3000.r),
+                            border: Border.all(
+                              color:
+                                  context.customColor.border ?? AppColors.gray,
+                            ),
                           ),
-                        ),
-                        child: Icon(
-                          Icons.camera_alt_outlined,
-                          color: context.customColor.icon,
-                          size: 18.r,
+                          child: Icon(
+                            Icons.camera_alt_outlined,
+                            color: context.customColor.icon,
+                            size: 18.r,
+                          ),
                         ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ),
             10.verticalSpace,
             AppGestureDetectorButton(
-              onTap: () => _onTapOnName(context),
+              onTap: () => isMyProfile ? _onTapOnName(context) : null,
               child: Text(
                 user.name ?? '',
                 style: AppStyles.s29W400.copyWith(
@@ -104,15 +122,16 @@ class MiddleSectionProfile extends StatelessWidget {
                 ),
               ),
             ),
-            if (user.bio != null) ...[
-              5.verticalSpace,
-              Text(
-                user.bio.toString(),
+            5.verticalSpace,
+            AppGestureDetectorButton(
+              onTap: () => isMyProfile ? _onTapOnBio(context) : null,
+              child: Text(
+                user.bio != null ? user.bio.toString() : context.tr.noBio,
                 style: AppStyles.s16W400.copyWith(
                   color: context.customColor.textColor,
                 ),
               ),
-            ],
+            ),
           ],
         ),
       ),

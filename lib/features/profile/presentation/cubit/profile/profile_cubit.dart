@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intern_intelligence_social_media_application/core/usecases/no_params.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/media_entity.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/domain/usecases/upload_profile_image_usecase.dart';
 
 import '../../../domain/usecases/get_profile_usecase.dart';
 import '../../../domain/usecases/profile_delete_post_usecase.dart';
+import '../../../domain/usecases/update_profile_bio_usecase.dart';
 import '../../../domain/usecases/update_profile_name_usecase.dart';
 import 'profile_state.dart';
 
@@ -15,18 +15,20 @@ class ProfileCubit extends Cubit<ProfileState> {
   final GetProfileUseCase _getProfileUseCase;
   final UploadProfileImageUseCase _uploadProfileImageUseCase;
   final ProfileDeletePostUseCase _profileDeletePostUseCase;
+  final UpdateProfileBioUseCase _updateProfileBioUseCase;
 
   ProfileCubit(
     this._updateProfileNameUseCase,
     this._getProfileUseCase,
     this._uploadProfileImageUseCase,
     this._profileDeletePostUseCase,
+    this._updateProfileBioUseCase,
   ) : super(const ProfileInitState());
 
-  void getProfile() async {
+  void getProfile(String uId) async {
     emit(const ProfileLoadingState());
 
-    final result = await _getProfileUseCase(const NoParams());
+    final result = await _getProfileUseCase(uId);
 
     result.when(
       failure: (failure) => emit(ProfileFailureState(failure.code)),
@@ -40,7 +42,17 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     result.when(
       failure: (failure) => emit(ProfileFailureState(failure.code)),
-      success: (_) => emit(const ProfileUpdateProfileState()),
+      success: (_) => emit(const ProfileUpdatedState()),
+    );
+  }
+
+  void changeBio(String newBio) async {
+    emit(const ProfileLoadingUpdateProfileState());
+    final result = await _updateProfileBioUseCase(newBio);
+
+    result.when(
+      failure: (failure) => emit(ProfileFailureState(failure.code)),
+      success: (_) => emit(const ProfileUpdatedState()),
     );
   }
 
@@ -50,11 +62,11 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     result.when(
       failure: (failure) => emit(ProfileFailureState(failure.code)),
-      success: (_) => emit(const ProfileUpdateProfileState()),
+      success: (_) => emit(const ProfileUpdatedState()),
     );
   }
 
-  void deletePost(String postId) async {
+  void deletePost(String uId, String postId) async {
     emit(const ProfileLoadingActionPostState());
 
     final result = await _profileDeletePostUseCase(postId);
@@ -63,7 +75,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       failure: (failure) => emit(ProfileFailureState(failure.code)),
       success: (success) {
         emit(const ProfileDeletePostState());
-        getProfile();
+        getProfile(uId);
       },
     );
   }

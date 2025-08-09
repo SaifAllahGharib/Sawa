@@ -17,7 +17,9 @@ import '../widgets/bottom_section_profile.dart';
 import '../widgets/middle_section_profile.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  final String uId;
+
+  const ProfileScreen({super.key, required this.uId});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -25,17 +27,27 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen>
     with AutomaticKeepAliveClientMixin {
+  late final SharedPreferencesHelper _sharedPreferencesHelper;
   ProfileEntity? _profile;
 
   @override
   bool get wantKeepAlive => true;
 
+  @override
+  void initState() {
+    _getProfile();
+    _sharedPreferencesHelper = getIt<SharedPreferencesHelper>();
+    super.initState();
+  }
+
   void _handleState(BuildContext context, ProfileState state) {
     if (state is ProfileGetState) {
       _profile = state.profile;
-      getIt<SharedPreferencesHelper>().storeUser(
-        UserModel.fromEntity(_profile!.user).toJson(),
-      );
+      if (context.arguments as String == _sharedPreferencesHelper.getUserId()) {
+        getIt<SharedPreferencesHelper>().storeUser(
+          UserModel.fromEntity(_profile!.user).toJson(),
+        );
+      }
     } else if (state is ProfileLoadingActionPostState) {
       context.navigator.pop();
     } else if (state is ProfileDeletePostState) {
@@ -45,8 +57,8 @@ class _ProfileScreenState extends State<ProfileScreen>
     }
   }
 
-  Future<void> _getProfileOnRefresh() async {
-    context.read<ProfileCubit>().getProfile();
+  void _getProfile() {
+    context.read<ProfileCubit>().getProfile(widget.uId);
   }
 
   @override
@@ -57,19 +69,23 @@ class _ProfileScreenState extends State<ProfileScreen>
         width: double.infinity,
         child: RefreshIndicator(
           color: context.theme.primaryColor,
-          onRefresh: () async => await _getProfileOnRefresh(),
+          onRefresh: () async => _getProfile(),
           child: BlocConsumer<ProfileCubit, ProfileState>(
             listener: (context, state) => _handleState(context, state),
             builder: (context, state) {
+              final String uId = widget.uId;
+              final String logUId = _sharedPreferencesHelper.getUserId() ?? '';
+
               if (state is ProfileLoadingState ||
                   state is ProfileLoadingActionPostState) {
-                return const ProfileLoading();
+                return ProfileLoading(isMyProfile: uId == logUId);
               }
 
               return CustomScrollView(
                 slivers: [
-                  const AppBarProfile(),
+                  if (uId == logUId) const AppBarProfile(),
                   MiddleSectionProfile(
+                    isMyProfile: uId == logUId,
                     user:
                         _profile?.user ??
                         const UserEntity(
@@ -86,7 +102,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                       color: context.customColor.border,
                     ),
                   ),
-                  BottomSectionProfile(posts: _profile?.posts ?? []),
+                  BottomSectionProfile(
+                    posts: _profile?.posts ?? [],
+                    isMyProfile: uId == logUId,
+                  ),
                 ],
               );
             },

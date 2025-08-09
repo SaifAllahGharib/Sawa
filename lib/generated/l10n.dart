@@ -28,10 +28,9 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -593,6 +592,71 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `No Bio`
+  String get noBio {
+    return Intl.message('No Bio', name: 'noBio', desc: '', args: []);
+  }
+
+  /// `Update bio success`
+  String get updateBioSuccess {
+    return Intl.message(
+      'Update bio success',
+      name: 'updateBioSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show More`
+  String get showMore {
+    return Intl.message('Show More', name: 'showMore', desc: '', args: []);
+  }
+
+  /// `Show Less`
+  String get showLess {
+    return Intl.message('Show Less', name: 'showLess', desc: '', args: []);
+  }
+
+  /// `Copied to Clipboard`
+  String get copiedToClipboard {
+    return Intl.message(
+      'Copied to Clipboard',
+      name: 'copiedToClipboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Link`
+  String get link {
+    return Intl.message('Link', name: 'link', desc: '', args: []);
+  }
+
+  /// `Do you want to open or copy the link?`
+  String get doYouWantToOpenOrCopyTheLink {
+    return Intl.message(
+      'Do you want to open or copy the link?',
+      name: 'doYouWantToOpenOrCopyTheLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open`
+  String get open {
+    return Intl.message('Open', name: 'open', desc: '', args: []);
+  }
+
+  /// `Close`
+  String get close {
+    return Intl.message('Close', name: 'close', desc: '', args: []);
+  }
+
+  /// `Copy`
+  String get copy {
+    return Intl.message('Copy', name: 'copy', desc: '', args: []);
   }
 }
 

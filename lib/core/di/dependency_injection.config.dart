@@ -75,6 +75,8 @@ import '../../features/profile/domain/usecases/get_profile_usecase.dart'
     as _i965;
 import '../../features/profile/domain/usecases/profile_delete_post_usecase.dart'
     as _i727;
+import '../../features/profile/domain/usecases/update_profile_bio_usecase.dart'
+    as _i182;
 import '../../features/profile/domain/usecases/update_profile_name_usecase.dart'
     as _i643;
 import '../../features/profile/domain/usecases/upload_profile_image_usecase.dart'
@@ -82,20 +84,20 @@ import '../../features/profile/domain/usecases/upload_profile_image_usecase.dart
 import '../../features/profile/presentation/cubit/profile/profile_cubit.dart'
     as _i771;
 import '../../features/user/data/data_source/firebase_user_remote_data_source.dart'
-    as _i10;
+    as _i300;
 import '../../features/user/data/data_source/user_remote_data_source.dart'
-    as _i386;
-import '../../features/user/data/repository/user_repository_impl.dart' as _i456;
-import '../../features/user/domain/repository/user_repository.dart' as _i329;
-import '../../features/user/domain/usecase/create_user_usecase.dart' as _i443;
-import '../../features/user/domain/usecase/get_user_use_case.dart' as _i629;
-import '../../features/user/domain/usecase/user_exists_usecase.dart' as _i940;
-import '../../features/user/presentation/cubit/user/user_cubit.dart' as _i372;
-import '../../shared/cubits/locale_cubit.dart' as _i3;
-import '../../shared/cubits/main/main_cubit.dart' as _i302;
-import '../../shared/cubits/media/media_cubit.dart' as _i814;
-import '../../shared/cubits/theme_cubit.dart' as _i128;
-import '../../shared/cubits/video_player/video_player_cubit.dart' as _i182;
+    as _i677;
+import '../../features/user/data/repository/user_repository_impl.dart' as _i733;
+import '../../features/user/domain/repository/user_repository.dart' as _i450;
+import '../../features/user/domain/usecase/create_user_usecase.dart' as _i892;
+import '../../features/user/domain/usecase/get_user_use_case.dart' as _i91;
+import '../../features/user/domain/usecase/user_exists_usecase.dart' as _i214;
+import '../../features/user/presentation/cubit/user/user_cubit.dart' as _i430;
+import '../../shared/cubits/locale_cubit.dart' as _i223;
+import '../../shared/cubits/main/main_cubit.dart' as _i997;
+import '../../shared/cubits/media/media_cubit.dart' as _i556;
+import '../../shared/cubits/theme_cubit.dart' as _i253;
+import '../../shared/cubits/video_player/video_player_cubit.dart' as _i52;
 import '../clients/firebase_client.dart' as _i244;
 import '../clients/supabase_clint.dart' as _i207;
 import '../helpers/image_picker_helper.dart' as _i753;
@@ -110,7 +112,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final appModule = _$AppModule();
-    gh.factory<_i182.VideoPlayerCubit>(() => _i182.VideoPlayerCubit());
+    gh.factory<_i52.VideoPlayerCubit>(() => _i52.VideoPlayerCubit());
     gh.singleton<_i59.FirebaseAuth>(() => appModule.firebaseAuth);
     gh.singleton<_i345.FirebaseDatabase>(() => appModule.firebaseDatabase);
     gh.lazySingleton<_i207.SupabaseClint>(() => _i207.SupabaseClint());
@@ -149,11 +151,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i207.SupabaseClint>(),
       ),
     );
-    gh.singleton<_i3.LocaleCubit>(
-      () => _i3.LocaleCubit(gh<_i285.SharedPreferencesHelper>()),
+    gh.singleton<_i223.LocaleCubit>(
+      () => _i223.LocaleCubit(gh<_i285.SharedPreferencesHelper>()),
     );
-    gh.singleton<_i128.ThemeCubit>(
-      () => _i128.ThemeCubit(gh<_i285.SharedPreferencesHelper>()),
+    gh.singleton<_i253.ThemeCubit>(
+      () => _i253.ThemeCubit(gh<_i285.SharedPreferencesHelper>()),
+    );
+    gh.lazySingleton<_i677.IUserRemoteDataSource>(
+      () => _i300.FirebaseUserRemoteDataSource(gh<_i244.FirebaseClient>()),
     );
     gh.lazySingleton<_i998.IProfileRemoteDataSource>(
       () => _i74.FirebaseProfileRemoteDataSource(gh<_i244.FirebaseClient>()),
@@ -161,14 +166,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1070.IHomePostRemoteDataSource>(
       () => _i49.FirebasePostRemoteDataSource(gh<_i244.FirebaseClient>()),
     );
-    gh.lazySingleton<_i386.IUserRemoteDataSource>(
-      () => _i10.FirebaseUserRemoteDataSource(gh<_i244.FirebaseClient>()),
-    );
     gh.lazySingleton<_i753.ImagePickerHelper>(
       () => _i753.ImagePickerHelper(gh<_i183.ImagePicker>()),
     );
-    gh.factory<_i814.MediaCubit>(
-      () => _i814.MediaCubit(gh<_i753.ImagePickerHelper>()),
+    gh.factory<_i556.MediaCubit>(
+      () => _i556.MediaCubit(gh<_i753.ImagePickerHelper>()),
+    );
+    gh.lazySingleton<_i450.IUserRepository>(
+      () => _i733.UserRepositoryImpl(
+        gh<_i677.IUserRemoteDataSource>(),
+        gh<_i281.ErrorHandler>(),
+      ),
     );
     gh.lazySingleton<_i364.IProfileRepository>(
       () => _i309.ProfileRepositoryImpl(
@@ -180,11 +188,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i25.IAuthRemoteDataSource>(
       () => _i992.FirebaseAuthRemoteDataSource(gh<_i244.FirebaseClient>()),
     );
-    gh.lazySingleton<_i329.IUserRepository>(
-      () => _i456.UserRepositoryImpl(
-        gh<_i386.IUserRemoteDataSource>(),
-        gh<_i281.ErrorHandler>(),
-      ),
+    gh.factory<_i892.CreateUserUseCase>(
+      () => _i892.CreateUserUseCase(gh<_i450.IUserRepository>()),
+    );
+    gh.factory<_i214.UserExistsUseCase>(
+      () => _i214.UserExistsUseCase(gh<_i450.IUserRepository>()),
+    );
+    gh.factory<_i91.GetUserUseCase>(
+      () => _i91.GetUserUseCase(gh<_i450.IUserRepository>()),
     );
     gh.lazySingleton<_i0.IHomeRepository>(
       () => _i76.HomeRepositoryImpl(
@@ -199,20 +210,23 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i281.ErrorHandler>(),
       ),
     );
+    gh.factory<_i430.UserCubit>(
+      () => _i430.UserCubit(gh<_i91.GetUserUseCase>()),
+    );
     gh.factory<_i965.GetProfileUseCase>(
       () => _i965.GetProfileUseCase(gh<_i364.IProfileRepository>()),
+    );
+    gh.factory<_i727.ProfileDeletePostUseCase>(
+      () => _i727.ProfileDeletePostUseCase(gh<_i364.IProfileRepository>()),
+    );
+    gh.factory<_i182.UpdateProfileBioUseCase>(
+      () => _i182.UpdateProfileBioUseCase(gh<_i364.IProfileRepository>()),
     );
     gh.factory<_i643.UpdateProfileNameUseCase>(
       () => _i643.UpdateProfileNameUseCase(gh<_i364.IProfileRepository>()),
     );
     gh.factory<_i813.UploadProfileImageUseCase>(
       () => _i813.UploadProfileImageUseCase(gh<_i364.IProfileRepository>()),
-    );
-    gh.factory<_i727.ProfileDeletePostUseCase>(
-      () => _i727.ProfileDeletePostUseCase(gh<_i364.IProfileRepository>()),
-    );
-    gh.factory<_i629.GetUserUseCase>(
-      () => _i629.GetUserUseCase(gh<_i329.IUserRepository>()),
     );
     gh.factory<_i992.CreatePostUseCase>(
       () => _i992.CreatePostUseCase(gh<_i0.IHomeRepository>()),
@@ -229,15 +243,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i251.UploadPostMediaUseCase>(
       () => _i251.UploadPostMediaUseCase(gh<_i0.IHomeRepository>()),
     );
-    gh.factory<_i372.UserCubit>(
-      () => _i372.UserCubit(gh<_i629.GetUserUseCase>()),
-    );
-    gh.factory<_i443.CreateUserUseCase>(
-      () => _i443.CreateUserUseCase(gh<_i329.IUserRepository>()),
-    );
-    gh.factory<_i940.UserExistsUseCase>(
-      () => _i940.UserExistsUseCase(gh<_i329.IUserRepository>()),
-    );
     gh.factory<_i715.HomeCubit>(
       () => _i715.HomeCubit(
         gh<_i251.UploadPostMediaUseCase>(),
@@ -253,6 +258,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i965.GetProfileUseCase>(),
         gh<_i813.UploadProfileImageUseCase>(),
         gh<_i727.ProfileDeletePostUseCase>(),
+        gh<_i182.UpdateProfileBioUseCase>(),
       ),
     );
     gh.factory<_i104.EmailVerifiedUseCase>(
@@ -274,28 +280,28 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i235.AuthCubit(gh<_i244.FirebaseClient>(), gh<_i48.LogoutUseCase>()),
     );
-    gh.factory<_i1019.LoginCubit>(
-      () => _i1019.LoginCubit(gh<_i188.LoginUseCase>()),
-    );
     gh.factory<_i24.SignupCubit>(
       () => _i24.SignupCubit(
         gh<_i57.SignupUseCase>(),
-        gh<_i443.CreateUserUseCase>(),
+        gh<_i892.CreateUserUseCase>(),
+      ),
+    );
+    gh.factory<_i1019.LoginCubit>(
+      () => _i1019.LoginCubit(gh<_i188.LoginUseCase>()),
+    );
+    gh.singleton<_i997.MainCubit>(
+      () => _i997.MainCubit(
+        gh<_i253.ThemeCubit>(),
+        gh<_i223.LocaleCubit>(),
+        gh<_i235.AuthCubit>(),
+        gh<_i430.UserCubit>(),
+        gh<_i244.FirebaseClient>(),
       ),
     );
     gh.factory<_i739.VerificationCubit>(
       () => _i739.VerificationCubit(
         gh<_i104.EmailVerifiedUseCase>(),
         gh<_i699.SendEmailVerificationUserCase>(),
-      ),
-    );
-    gh.singleton<_i302.MainCubit>(
-      () => _i302.MainCubit(
-        gh<_i128.ThemeCubit>(),
-        gh<_i3.LocaleCubit>(),
-        gh<_i235.AuthCubit>(),
-        gh<_i372.UserCubit>(),
-        gh<_i244.FirebaseClient>(),
       ),
     );
     return this;

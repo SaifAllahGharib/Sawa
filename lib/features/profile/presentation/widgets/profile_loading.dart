@@ -8,13 +8,15 @@ import 'package:intern_intelligence_social_media_application/core/widgets/posts_
 import 'app_bar_profile.dart';
 
 class ProfileLoading extends StatelessWidget {
-  const ProfileLoading({super.key});
+  final bool isMyProfile;
+
+  const ProfileLoading({super.key, this.isMyProfile = false});
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        const AppBarProfile(),
+        if (isMyProfile) const AppBarProfile(),
         SliverToBoxAdapter(
           child: AppPaddingWidget(
             child: Column(

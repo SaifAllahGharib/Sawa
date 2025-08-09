@@ -71,5 +71,15 @@
   "noPosts": "No Posts",
   "delete": "Delete",
   "postDeleteSuccess": "Post Delete Successfully",
-  "somethingWentWrong": "Something went wrong, but we’re on it!"
+  "somethingWentWrong": "Something went wrong, but we’re on it!",
+  "noBio": "No Bio",
+  "updateBioSuccess": "Update bio success",
+  "showMore": "Show More",
+  "showLess": "Show Less",
+  "copiedToClipboard": "Copied to Clipboard",
+  "link": "Link",
+  "doYouWantToOpenOrCopyTheLink": "Do you want to open or copy the link?",
+  "open": "Open",
+  "close": "Close",
+  "copy": "Copy"
 }

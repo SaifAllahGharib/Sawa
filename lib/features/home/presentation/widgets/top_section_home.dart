@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
 import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
@@ -31,7 +32,10 @@ class TopSectionHome extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AppGestureDetectorButton(
-              onTap: () => context.navigator.pushNamed(AppRouteName.profile),
+              onTap: () => context.navigator.pushNamed(
+                AppRouteName.profile,
+                arguments: getIt<FirebaseClient>().auth.currentUser!.uid,
+              ),
               child: ProfileImage(
                 url:
                     getIt<SharedPreferencesHelper>().getUserImage() != 'null' &&

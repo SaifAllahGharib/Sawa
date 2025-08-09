@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/constants/strings.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
 
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/utils/app_bottom_sheet.dart';
-import '../../../../core/widgets/app_icon_button.dart';
 import 'create_post_bottom_sheet_widget.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -34,13 +34,29 @@ class HomeAppBar extends StatelessWidget {
         ),
       ),
       actions: [
-        AppIconButton(icon: Icons.chat_outlined, onPressed: () {}),
-        10.horizontalSpace,
-        AppIconButton(
-          icon: Icons.add_circle_outline,
-          onPressed: () => _onTapCreatePost(context),
+        AppGestureDetectorButton(
+          child: Icon(Icons.add, color: context.theme.primaryColor, size: 26.r),
+          onTap: () => _onTapCreatePost(context),
         ),
-        10.horizontalSpace,
+        15.horizontalSpace,
+        AppGestureDetectorButton(
+          child: Icon(
+            Icons.search_outlined,
+            color: context.theme.primaryColor,
+            size: 26.r,
+          ),
+          onTap: () {},
+        ),
+        15.horizontalSpace,
+        AppGestureDetectorButton(
+          child: Icon(
+            Icons.chat_outlined,
+            color: context.theme.primaryColor,
+            size: 26.r,
+          ),
+          onTap: () {},
+        ),
+        15.horizontalSpace,
       ],
     );
   }

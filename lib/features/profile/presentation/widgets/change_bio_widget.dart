@@ -15,29 +15,38 @@ import '../../../../core/widgets/app_text_form_field.dart';
 import '../../../../shared/cubits/validation/validation_cubit.dart';
 import '../../../../shared/cubits/validation/validation_state.dart';
 
-class ChangeNameWidget extends StatefulWidget {
-  const ChangeNameWidget({super.key});
+class ChangeBioWidget extends StatefulWidget {
+  const ChangeBioWidget({super.key});
 
   @override
-  State<ChangeNameWidget> createState() => _ChangeNameWidgetState();
+  State<ChangeBioWidget> createState() => _ChangeBioWidgetState();
 }
 
-class _ChangeNameWidgetState extends State<ChangeNameWidget> {
-  late final TextEditingController _changeNameController;
+class _ChangeBioWidgetState extends State<ChangeBioWidget> {
+  late final TextEditingController _changeBioController;
   late final SharedPreferencesHelper _sharedPreferencesHelper;
 
   @override
   void initState() {
     _sharedPreferencesHelper = getIt<SharedPreferencesHelper>();
-    _changeNameController = TextEditingController(
-      text: _sharedPreferencesHelper.getUserName(),
-    );
+    _changeBioController = TextEditingController();
     super.initState();
   }
 
   @override
+  void didChangeDependencies() {
+    _changeBioController.text =
+        _sharedPreferencesHelper.getUserBio() == null ||
+            _sharedPreferencesHelper.getUserBio() == 'null'
+        ? context.tr.noBio
+        : _sharedPreferencesHelper.getUserBio()!;
+
+    super.didChangeDependencies();
+  }
+
+  @override
   void dispose() {
-    _changeNameController.dispose();
+    _changeBioController.dispose();
     super.dispose();
   }
 
@@ -49,15 +58,15 @@ class _ChangeNameWidgetState extends State<ChangeNameWidget> {
         child: Column(
           children: [
             AppTextFormField(
-              controller: _changeNameController,
+              controller: _changeBioController,
               hint: context.tr.hintName,
               onChanged: (value) {
                 context.read<ValidationCubit>().validateField(
-                  'changeName',
+                  'changeBio',
                   value.trimLeft().trimRight().isNotEmpty &&
                       value.trimLeft().trimRight() !=
                           _sharedPreferencesHelper
-                              .getUserName()!
+                              .getUserBio()!
                               .trimLeft()
                               .trimRight(),
                 );
@@ -75,7 +84,7 @@ class _ChangeNameWidgetState extends State<ChangeNameWidget> {
                       context.navigator.pop();
                       AppSnackBar.showSuccess(
                         context,
-                        context.tr.updateNameSuccess,
+                        context.tr.updateBioSuccess,
                       );
                     }
                   },
@@ -85,8 +94,8 @@ class _ChangeNameWidgetState extends State<ChangeNameWidget> {
                     }
 
                     return AppButton(
-                      onClick: () => context.read<ProfileCubit>().changeName(
-                        _changeNameController.text.trimLeft().trimRight(),
+                      onClick: () => context.read<ProfileCubit>().changeBio(
+                        _changeBioController.text.trimLeft().trimRight(),
                       ),
                       enabled: validationState.enableButton,
                       text: context.tr.update,

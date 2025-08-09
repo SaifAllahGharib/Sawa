@@ -30,7 +30,7 @@ class DisplayImageProfile extends StatelessWidget {
       builder: (context, mediaState) {
         return BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
-            if (state is ProfileUpdateProfileState) {
+            if (state is ProfileUpdatedState) {
               context.navigator.pop();
             }
           },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/presentation/cubit/profile/profile_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/splash/presentation/screen/splash_screen.dart';
 
@@ -41,9 +42,9 @@ abstract class AppRouter {
         );
       case AppRouteName.profile:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: getIt<ProfileCubit>()..getProfile(),
-            child: const ProfileScreen(),
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<ProfileCubit>(),
+            child: ProfileScreen(uId: context.arguments as String),
           ),
           settings: settings,
         );

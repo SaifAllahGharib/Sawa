@@ -10,11 +10,19 @@ import '../../../../core/widgets/post_card.dart';
 
 class BottomSectionProfile extends StatelessWidget {
   final List<PostEntity> posts;
+  final bool isMyProfile;
 
-  const BottomSectionProfile({super.key, required this.posts});
+  const BottomSectionProfile({
+    super.key,
+    required this.posts,
+    required this.isMyProfile,
+  });
 
   void _deletePost(BuildContext context, String postId) {
-    context.read<ProfileCubit>().deletePost(postId);
+    context.read<ProfileCubit>().deletePost(
+      context.arguments as String,
+      postId,
+    );
   }
 
   @override
@@ -43,6 +51,7 @@ class BottomSectionProfile extends StatelessWidget {
             content: posts[index].content,
             postedTime: posts[index].createdAt,
             post: posts[index],
+            isMyProfile: isMyProfile,
             isProfile: true,
             onClickDelete: () => _deletePost(context, posts[index].id!),
             onClickEdit: () {},

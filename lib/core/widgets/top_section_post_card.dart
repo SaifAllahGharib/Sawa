@@ -16,7 +16,7 @@ class TopSectionPostCard extends StatefulWidget {
   final String name;
   final DateTime postedTime;
   final String? authorImage;
-  final bool isProfile;
+  final bool isMyProfile;
   final VoidCallback? onClickDelete;
   final VoidCallback? onClickEdit;
 
@@ -25,7 +25,7 @@ class TopSectionPostCard extends StatefulWidget {
     required this.name,
     required this.postedTime,
     this.authorImage,
-    this.isProfile = false,
+    this.isMyProfile = false,
     this.onClickDelete,
     this.onClickEdit,
   });
@@ -97,7 +97,7 @@ class _TopSectionPostCardState extends State<TopSectionPostCard> {
             ),
           ),
           const Spacer(),
-          if (widget.isProfile)
+          if (widget.isMyProfile)
             AppGestureDetectorButton(
               onTap: _onTapMoreIcon,
               child: Icon(

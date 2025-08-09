@@ -29,9 +29,9 @@ class ProfileRepositoryImpl implements IProfileRepository {
   }
 
   @override
-  FutureResult<ProfileEntity> getProfile() async {
+  FutureResult<ProfileEntity> getProfile(String uId) async {
     return _errorHandler.handleFutureWithTryCatch(() async {
-      final response = await _iProfileRemoteDataSource.getProfile();
+      final response = await _iProfileRemoteDataSource.getProfile(uId);
       return response.toEntity();
     });
   }
@@ -49,6 +49,13 @@ class ProfileRepositoryImpl implements IProfileRepository {
   FutureResult<void> deletePost(String postId) async {
     return _errorHandler.handleFutureWithTryCatch(() async {
       return await _iProfileRemoteDataSource.deletePost(postId);
+    });
+  }
+
+  @override
+  FutureResult<void> updateProfileBio(String newBio) async {
+    return _errorHandler.handleFutureWithTryCatch(() async {
+      return await _iProfileRemoteDataSource.updateProfileBio(newBio);
     });
   }
 }
