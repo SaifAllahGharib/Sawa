@@ -4,6 +4,8 @@
 *.pyc
 *.swp
 .DS_Store
+.fvm/
+.fvm/flutter_sdk
 .atom/
 .build/
 .env
