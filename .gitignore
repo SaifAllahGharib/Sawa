@@ -6,6 +6,7 @@
 .DS_Store
 .fvm/
 .fvm/flutter_sdk
+.run/
 .atom/
 .build/
 .env
