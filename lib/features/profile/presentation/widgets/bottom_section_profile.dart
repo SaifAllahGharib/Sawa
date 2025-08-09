@@ -21,12 +21,10 @@ class BottomSectionProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     if (posts.isEmpty) {
       return SliverToBoxAdapter(
-        child: Expanded(
-          child: Container(
-            height: 400.h,
-            alignment: Alignment.center,
-            child: Text(context.tr.noPosts, style: AppStyles.s20W600),
-          ),
+        child: Container(
+          height: 400.h,
+          alignment: Alignment.center,
+          child: Text(context.tr.noPosts, style: AppStyles.s20W600),
         ),
       );
     }
