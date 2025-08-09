@@ -10,12 +10,12 @@ import 'core/di/dependency_injection.dart';
 import 'core/init/init_app.dart';
 import 'core/routing/app_route_name.dart';
 import 'core/routing/app_router.dart';
-import 'core/shared/cubits/main/main_cubit.dart';
-import 'core/shared/cubits/main/main_state.dart';
 import 'core/theme/app_theme.dart';
 import 'core/widgets/app_error_listener.dart';
 import 'core/widgets/app_responsive_builder.dart';
 import 'generated/l10n.dart';
+import 'shared/cubits/main/main_cubit.dart';
+import 'shared/cubits/main/main_state.dart';
 
 void main() async {
   await initializeApp();

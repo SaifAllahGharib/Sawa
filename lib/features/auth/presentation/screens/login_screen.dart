@@ -6,7 +6,7 @@ import 'package:intern_intelligence_social_media_application/core/widgets/app_sc
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_cubit.dart';
 
 import '../../../../core/di/dependency_injection.dart';
-import '../../../../core/shared/cubits/validation/validation_cubit.dart';
+import '../../../../shared/cubits/validation/validation_cubit.dart';
 import '../widgets/login_bottom_section.dart';
 import '../widgets/login_middle_section.dart';
 import '../widgets/login_top_section.dart';

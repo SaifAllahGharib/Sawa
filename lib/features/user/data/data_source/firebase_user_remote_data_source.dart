@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../../clients/firebase_client.dart';
+import '../../../../core/clients/firebase_client.dart';
 import '../model/user_model.dart';
 import 'user_remote_data_source.dart';
 

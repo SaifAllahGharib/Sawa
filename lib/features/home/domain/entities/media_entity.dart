@@ -1,4 +1,4 @@
-import '../../../../core/shared/models/media_item.dart';
+import '../../../../shared/models/media_item.dart';
 
 class MediaEntity {
   final String id;

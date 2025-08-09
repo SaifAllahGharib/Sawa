@@ -1,9 +1,9 @@
 import 'package:injectable/injectable.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/models/post_model.dart';
-import 'package:intern_intelligence_social_media_application/core/user/data/model/user_model.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/models/post_media_model.dart';
 
 import '../../../../core/clients/firebase_client.dart';
+import '../../../../shared/models/post_model.dart';
+import '../../../user/data/model/user_model.dart';
 import 'home_post_remote_data_source.dart';
 
 @LazySingleton(as: IHomePostRemoteDataSource)
@@ -177,5 +177,23 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
     posts.shuffle();
 
     return posts;
+  }
+
+  @override
+  Future<void> commentToPost(String postId) async {
+    // TODO: implement commentToPost
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> reactToPost(String postId) async {
+    // TODO: implement reactToPost
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> sharePost(String postId) async {
+    // TODO: implement sharePost
+    throw UnimplementedError();
   }
 }

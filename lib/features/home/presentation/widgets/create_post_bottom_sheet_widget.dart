@@ -4,9 +4,9 @@ import 'package:intern_intelligence_social_media_application/core/extensions/num
 import 'package:intern_intelligence_social_media_application/features/home/presentation/widgets/bottom_section_create_post_widget.dart';
 
 import '../../../../core/di/dependency_injection.dart';
-import '../../../../core/shared/cubits/media/media_cubit.dart';
-import '../../../../core/shared/cubits/validation/validation_cubit.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
+import '../../../../shared/cubits/media/media_cubit.dart';
+import '../../../../shared/cubits/validation/validation_cubit.dart';
 import 'middle_section_create_post_widget.dart';
 import 'top_section_create_post_widget.dart';
 

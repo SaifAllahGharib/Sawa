@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_cubit.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_state.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/app_reg_exp.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_button_loading.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/login_entity.dart';
@@ -17,6 +15,8 @@ import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/utils/enums.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
+import '../../../../shared/cubits/validation/validation_cubit.dart';
+import '../../../../shared/cubits/validation/validation_state.dart';
 
 class LoginMiddleSection extends StatefulWidget {
   const LoginMiddleSection({super.key});

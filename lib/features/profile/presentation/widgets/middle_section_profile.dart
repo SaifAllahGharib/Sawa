@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_cubit.dart';
-import 'package:intern_intelligence_social_media_application/core/user/domain/entity/user_entity.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/full_screen_gallery_widget.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/profile_image.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/presentation/widgets/change_name_widget.dart';
 
 import '../../../../core/di/dependency_injection.dart';
-import '../../../../core/shared/cubits/validation/validation_cubit.dart';
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_styles.dart';
+import '../../../../core/utils/app_bottom_sheet.dart';
+import '../../../../core/utils/enums.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
+import '../../../../core/widgets/full_screen_gallery_widget.dart';
+import '../../../../core/widgets/profile_image.dart';
+import '../../../../shared/cubits/media/media_cubit.dart';
+import '../../../../shared/cubits/validation/validation_cubit.dart';
+import '../../../user/domain/entity/user_entity.dart';
+import './../../../../core/extensions/build_context_extensions.dart';
+import './../../../../core/extensions/number_extensions.dart';
 import 'camera_or_gallery_widget.dart';
+import 'change_name_widget.dart';
 
 class MiddleSectionProfile extends StatelessWidget {
   final UserEntity user;

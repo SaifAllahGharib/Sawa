@@ -4,9 +4,9 @@ import 'package:intern_intelligence_social_media_application/core/extensions/bui
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/features/home/presentation/screens/display_selected_media.dart';
 
-import '../../../../core/shared/cubits/media/media_cubit.dart';
-import '../../../../core/shared/cubits/media/media_state.dart';
-import '../../../../core/shared/cubits/validation/validation_cubit.dart';
+import '../../../../shared/cubits/media/media_cubit.dart';
+import '../../../../shared/cubits/media/media_state.dart';
+import '../../../../shared/cubits/validation/validation_cubit.dart';
 import 'gallery_preview.dart';
 
 class MiddleSectionCreatePostWidget extends StatelessWidget {

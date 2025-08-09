@@ -3,9 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_cubit.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_state.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/models/media_item.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_colors.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
@@ -20,6 +17,9 @@ import 'package:intern_intelligence_social_media_application/features/profile/pr
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/widgets/app_loading_widget.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
+import '../../../../shared/cubits/media/media_cubit.dart';
+import '../../../../shared/cubits/media/media_state.dart';
+import '../../../../shared/models/media_item.dart';
 
 class DisplayImageProfile extends StatelessWidget {
   const DisplayImageProfile({super.key});

@@ -1,7 +1,7 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../usecases/usecase.dart';
+import '../../../../core/usecases/usecase.dart';
 import '../repository/user_repository.dart';
 
 @injectable

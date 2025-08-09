@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:intern_intelligence_social_media_application/features/home/data/models/post_media_model.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../user/data/model/user_model.dart';
+import '../../features/home/data/models/post_media_model.dart';
+import '../../features/home/domain/entities/post_entity.dart';
+import '../../features/user/data/model/user_model.dart';
 
 part 'post_model.g.dart';
 

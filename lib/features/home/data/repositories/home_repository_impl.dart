@@ -1,15 +1,15 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/models/media_model.dart';
-import 'package:intern_intelligence_social_media_application/features/home/data/data_sources/home_post_remote_data_source.dart';
-import 'package:intern_intelligence_social_media_application/features/home/data/models/post_media_model.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/media_entity.dart';
 
-import '../../../../core/shared/models/post_model.dart';
+import '../../../../shared/models/media_model.dart';
+import '../../../../shared/models/post_model.dart';
+import '../../domain/entities/media_entity.dart';
 import '../../domain/entities/post_entity.dart';
 import '../../domain/entities/post_media_entity.dart';
 import '../../domain/repositories/home_repository.dart';
+import '../data_sources/home_post_remote_data_source.dart';
 import '../data_sources/home_upload_storage_remote_data_source.dart';
+import '../models/post_media_model.dart';
 
 @LazySingleton(as: IHomeRepository)
 class HomeRepositoryImpl implements IHomeRepository {

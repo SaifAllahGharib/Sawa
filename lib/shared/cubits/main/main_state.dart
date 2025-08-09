@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../features/auth/presentation/cubits/auth/auth_state.dart';
-import '../../../user/presentation/cubit/user/user_state.dart';
+import '../../../features/user/presentation/cubit/user/user_state.dart';
 
 class MainState extends Equatable {
   final ThemeMode themeMode;

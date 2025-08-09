@@ -3,7 +3,7 @@ import 'package:mime/mime.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/clients/supabase_clint.dart';
-import '../../../../core/shared/models/media_model.dart';
+import '../../../../shared/models/media_model.dart';
 import 'profile_upload_storage_remote_data_source.dart';
 
 @LazySingleton(as: IProfileUploadStorageRemoteDataSource)

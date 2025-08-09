@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_cubit.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_state.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_back_button.dart';
@@ -15,6 +13,8 @@ import 'package:intern_intelligence_social_media_application/core/widgets/app_vi
 import 'package:intern_intelligence_social_media_application/core/widgets/app_video_runner.dart';
 
 import '../../../../core/widgets/media_delete_button.dart';
+import '../../../../shared/cubits/media/media_cubit.dart';
+import '../../../../shared/cubits/media/media_state.dart';
 
 class DisplaySelectedMedia extends StatelessWidget {
   const DisplaySelectedMedia({super.key});

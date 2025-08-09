@@ -45,6 +45,7 @@ class BottomSectionProfile extends StatelessWidget {
             post: posts[index],
             isProfile: true,
             onClickDelete: () => _deletePost(context, posts[index].id!),
+            onClickEdit: () {},
           ),
         );
       },

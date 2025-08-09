@@ -3,18 +3,18 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/styles/app_colors.dart';
-import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_placeholder.dart';
 import 'package:video_player/video_player.dart';
 
-import '../shared/cubits/video_player/video_player_cubit.dart';
-import '../shared/cubits/video_player/video_player_state.dart';
+import '../../../../../../core/extensions/build_context_extensions.dart';
+import '../../../../../../core/extensions/number_extensions.dart';
+import '../../shared/cubits/video_player/video_player_cubit.dart';
+import '../../shared/cubits/video_player/video_player_state.dart';
+import '../styles/app_colors.dart';
+import '../styles/app_styles.dart';
 import '../utils/enums.dart';
 import 'app_gesture_detector_button.dart';
 import 'app_padding_widget.dart';
+import 'app_placeholder.dart';
 import 'play_pause_icon_widget.dart';
 
 class InitVideoWidget extends StatefulWidget {

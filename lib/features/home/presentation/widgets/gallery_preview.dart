@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/models/media_item.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_file_image.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_video_preview.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/media_delete_button.dart';
+
+import '../../../../shared/models/media_item.dart';
 
 class GalleryPreview extends StatelessWidget {
   final List<MediaItem> pickedAssets;

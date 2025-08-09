@@ -81,23 +81,25 @@ import '../../features/profile/domain/usecases/upload_profile_image_usecase.dart
     as _i813;
 import '../../features/profile/presentation/cubit/profile/profile_cubit.dart'
     as _i771;
+import '../../features/user/data/data_source/firebase_user_remote_data_source.dart'
+    as _i10;
+import '../../features/user/data/data_source/user_remote_data_source.dart'
+    as _i386;
+import '../../features/user/data/repository/user_repository_impl.dart' as _i456;
+import '../../features/user/domain/repository/user_repository.dart' as _i329;
+import '../../features/user/domain/usecase/create_user_usecase.dart' as _i443;
+import '../../features/user/domain/usecase/get_user_use_case.dart' as _i629;
+import '../../features/user/domain/usecase/user_exists_usecase.dart' as _i940;
+import '../../features/user/presentation/cubit/user/user_cubit.dart' as _i372;
+import '../../shared/cubits/locale_cubit.dart' as _i3;
+import '../../shared/cubits/main/main_cubit.dart' as _i302;
+import '../../shared/cubits/media/media_cubit.dart' as _i814;
+import '../../shared/cubits/theme_cubit.dart' as _i128;
+import '../../shared/cubits/video_player/video_player_cubit.dart' as _i182;
 import '../clients/firebase_client.dart' as _i244;
 import '../clients/supabase_clint.dart' as _i207;
 import '../helpers/image_picker_helper.dart' as _i753;
 import '../helpers/shared_preferences_helper.dart' as _i285;
-import '../shared/cubits/locale_cubit.dart' as _i3;
-import '../shared/cubits/main/main_cubit.dart' as _i302;
-import '../shared/cubits/media/media_cubit.dart' as _i814;
-import '../shared/cubits/theme_cubit.dart' as _i128;
-import '../shared/cubits/video_player/video_player_cubit.dart' as _i182;
-import '../user/data/data_source/firebase_user_remote_data_source.dart' as _i10;
-import '../user/data/data_source/user_remote_data_source.dart' as _i386;
-import '../user/data/repository/user_repository_impl.dart' as _i456;
-import '../user/domain/repository/user_repository.dart' as _i329;
-import '../user/domain/usecase/create_user_usecase.dart' as _i443;
-import '../user/domain/usecase/get_user_use_case.dart' as _i629;
-import '../user/domain/usecase/user_exists_usecase.dart' as _i940;
-import '../user/presentation/cubit/user/user_cubit.dart' as _i372;
 import 'app_module.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {

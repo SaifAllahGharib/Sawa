@@ -5,10 +5,10 @@ import 'package:intern_intelligence_social_media_application/features/profile/pr
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/helpers/shared_preferences_helper.dart';
-import '../../../../core/user/data/model/user_model.dart';
-import '../../../../core/user/domain/entity/user_entity.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_scaffold.dart';
+import '../../../user/data/model/user_model.dart';
+import '../../../user/domain/entity/user_entity.dart';
 import '../../domain/entity/profile_entity.dart';
 import '../cubit/profile/profile_cubit.dart';
 import '../cubit/profile/profile_state.dart';

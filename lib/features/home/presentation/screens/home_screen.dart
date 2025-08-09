@@ -8,11 +8,11 @@ import 'package:intern_intelligence_social_media_application/features/home/prese
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/helpers/shared_preferences_helper.dart';
-import '../../../../core/shared/cubits/main/main_cubit.dart';
-import '../../../../core/shared/cubits/main/main_state.dart';
-import '../../../../core/user/data/model/user_model.dart';
-import '../../../../core/user/presentation/cubit/user/user_state.dart';
 import '../../../../core/widgets/app_scaffold.dart';
+import '../../../../shared/cubits/main/main_cubit.dart';
+import '../../../../shared/cubits/main/main_state.dart';
+import '../../../user/data/model/user_model.dart';
+import '../../../user/presentation/cubit/user/user_state.dart';
 import '../widgets/bottom_section_home.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/top_section_home.dart';

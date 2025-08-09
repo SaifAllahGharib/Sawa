@@ -9,11 +9,11 @@ import 'package:intern_intelligence_social_media_application/features/profile/pr
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/helpers/shared_preferences_helper.dart';
-import '../../../../core/shared/cubits/validation/validation_cubit.dart';
-import '../../../../core/shared/cubits/validation/validation_state.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
+import '../../../../shared/cubits/validation/validation_cubit.dart';
+import '../../../../shared/cubits/validation/validation_state.dart';
 
 class ChangeNameWidget extends StatefulWidget {
   const ChangeNameWidget({super.key});

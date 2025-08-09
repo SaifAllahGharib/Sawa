@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/media/media_state.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/presentation/widgets/display_image_profile.dart';
 
 import '../../../../core/di/dependency_injection.dart';
-import '../../../../core/shared/cubits/media/media_cubit.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
+import '../../../../shared/cubits/media/media_cubit.dart';
+import '../../../../shared/cubits/media/media_state.dart';
 import '../cubit/profile/profile_cubit.dart';
 
 class CameraOrGalleryWidget extends StatelessWidget {

@@ -1,4 +1,4 @@
-import '../../../../core/shared/models/post_model.dart';
+import '../../../../shared/models/post_model.dart';
 import '../models/post_media_model.dart';
 
 abstract class IHomePostRemoteDataSource {
@@ -11,4 +11,10 @@ abstract class IHomePostRemoteDataSource {
   Future<List<PostModel>> getUserPosts(String uId);
 
   Future<List<PostModel>> getDefaultPosts();
+
+  Future<void> reactToPost(String postId);
+
+  Future<void> commentToPost(String postId);
+
+  Future<void> sharePost(String postId);
 }

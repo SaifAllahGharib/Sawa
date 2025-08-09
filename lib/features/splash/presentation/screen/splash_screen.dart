@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/constants/strings.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/main/main_cubit.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/main/main_state.dart';
 import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
 
 import '../../../../core/routing/app_route_name.dart';
 import '../../../../core/utils/enums.dart';
+import '../../../../shared/cubits/main/main_cubit.dart';
+import '../../../../shared/cubits/main/main_state.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

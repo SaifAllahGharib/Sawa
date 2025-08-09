@@ -1,4 +1,4 @@
-import '../../../../core/user/domain/entity/user_entity.dart';
+import '../../../user/domain/entity/user_entity.dart';
 import 'post_media_entity.dart';
 
 class PostEntity {

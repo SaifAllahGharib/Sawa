@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_state.dart';
+
+import 'validation_state.dart';
 
 class ValidationCubit extends Cubit<ValidationState> {
   final Set<String> requiredFields;

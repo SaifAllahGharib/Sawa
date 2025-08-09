@@ -1,14 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intern_intelligence_social_media_application/core/usecases/no_params.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/usecases/get_default_posts_usecase.dart';
 
-import '../../../../../core/shared/models/media_item.dart';
+import '../../../../../core/usecases/no_params.dart';
+import '../../../../../shared/models/media_item.dart';
 import '../../../domain/entities/media_entity.dart';
 import '../../../domain/entities/post_entity.dart';
 import '../../../domain/entities/post_media_entity.dart';
 import '../../../domain/usecases/create_post_usecase.dart';
 import '../../../domain/usecases/delete_post_usecase.dart';
+import '../../../domain/usecases/get_default_posts_usecase.dart';
 import '../../../domain/usecases/upload_post_media_to_table_usecase.dart';
 import '../../../domain/usecases/upload_post_media_usecase.dart';
 import 'home_state.dart';

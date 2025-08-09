@@ -1,4 +1,4 @@
-import '../../../clients/supabase_clint.dart';
+import '../../../../core/clients/supabase_clint.dart';
 import '../model/user_model.dart';
 import 'user_remote_data_source.dart';
 

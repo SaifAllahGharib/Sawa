@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../features/auth/presentation/cubits/auth/auth_cubit.dart';
-import '../../../clients/firebase_client.dart';
-import '../../../user/presentation/cubit/user/user_cubit.dart';
+import '../../../core/clients/firebase_client.dart';
+import '../../../features/user/presentation/cubit/user/user_cubit.dart';
 import '../locale_cubit.dart';
 import '../theme_cubit.dart';
 import 'main_state.dart';

@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 
-import '../../../../core/shared/cubits/media/media_cubit.dart';
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
+import '../../../../shared/cubits/media/media_cubit.dart';
 
 class ImageAndVideoFromCameraOrGalleryWidgetBottomSheet
     extends StatelessWidget {

@@ -1,8 +1,8 @@
-import 'package:intern_intelligence_social_media_application/core/shared/models/post_model.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/domain/entity/profile_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../core/user/data/model/user_model.dart';
+import '../../../../shared/models/post_model.dart';
+import '../../../user/data/model/user_model.dart';
 
 part 'profile_model.g.dart';
 

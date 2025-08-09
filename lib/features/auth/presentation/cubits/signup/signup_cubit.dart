@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intern_intelligence_social_media_application/core/user/domain/entity/user_entity.dart';
-import 'package:intern_intelligence_social_media_application/core/user/domain/usecase/create_user_usecase.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/signup_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/signup_usecase.dart';
 
+import '../../../../user/domain/entity/user_entity.dart';
+import '../../../../user/domain/usecase/create_user_usecase.dart';
+import '../../../domain/entities/signup_entity.dart';
+import '../../../domain/usecases/signup_usecase.dart';
 import 'signup_state.dart';
 
 @injectable

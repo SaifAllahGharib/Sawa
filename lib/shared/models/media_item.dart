@@ -1,4 +1,4 @@
-import '../../utils/enums.dart';
+import '../../core/utils/enums.dart';
 
 class MediaItem {
   final String path;

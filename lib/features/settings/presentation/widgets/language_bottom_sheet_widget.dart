@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/main/main_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/settings/presentation/widgets/setting_button.dart';
 
 import '../../../../core/widgets/app_padding_widget.dart';
+import '../../../../shared/cubits/main/main_cubit.dart';
 
 class LanguageBottomSheetWidget extends StatefulWidget {
   const LanguageBottomSheetWidget({super.key});

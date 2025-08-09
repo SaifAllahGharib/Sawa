@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
 import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_cubit.dart';
-import 'package:intern_intelligence_social_media_application/core/shared/cubits/validation/validation_state.dart';
 import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/signup/signup_cubit.dart';
 import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/signup/signup_state.dart';
@@ -14,6 +12,8 @@ import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_button_loading.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
+import '../../../../shared/cubits/validation/validation_cubit.dart';
+import '../../../../shared/cubits/validation/validation_state.dart';
 import '../../domain/entities/signup_entity.dart';
 
 class SignupMiddleSection extends StatefulWidget {

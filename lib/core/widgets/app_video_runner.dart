@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/init_video_widget.dart';
 
+import '../../shared/cubits/video_player/video_player_cubit.dart';
 import '../di/dependency_injection.dart';
-import '../shared/cubits/video_player/video_player_cubit.dart';
+import '../utils/enums.dart';
 import 'app_padding_widget.dart';
+import 'app_scaffold.dart';
+import 'init_video_widget.dart';
 
 class AppVideoRunner extends StatelessWidget {
   final String path;
