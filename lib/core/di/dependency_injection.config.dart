@@ -69,10 +69,14 @@ import '../../features/home/domain/usecases/upload_post_media_usecase.dart'
 import '../../features/home/presentation/cubits/home/home_cubit.dart' as _i715;
 import '../../features/profile/data/data_source/firebase_profile_remote_data_source.dart'
     as _i74;
+import '../../features/profile/data/data_source/profile_local_data_source.dart'
+    as _i693;
 import '../../features/profile/data/data_source/profile_remote_data_source.dart'
     as _i998;
 import '../../features/profile/data/data_source/profile_upload_storage_remote_data_source.dart'
     as _i184;
+import '../../features/profile/data/data_source/shared_pref_profile_local_data_source.dart'
+    as _i370;
 import '../../features/profile/data/data_source/supabase_profile_upload_storage_remote_data_source.dart'
     as _i56;
 import '../../features/profile/data/repository/profile_repository_impl.dart'
@@ -93,6 +97,10 @@ import '../../features/profile/presentation/cubit/profile/profile_cubit.dart'
     as _i771;
 import '../../features/user/data/data_source/firebase_user_remote_data_source.dart'
     as _i300;
+import '../../features/user/data/data_source/shared_pref_user_local_data_source.dart'
+    as _i917;
+import '../../features/user/data/data_source/user_local_data_source.dart'
+    as _i989;
 import '../../features/user/data/data_source/user_remote_data_source.dart'
     as _i677;
 import '../../features/user/data/repository/user_repository_impl.dart' as _i733;
@@ -159,6 +167,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i207.SupabaseClint>(),
       ),
     );
+    gh.lazySingleton<_i989.IUserLocalDataSource>(
+      () => _i917.SharedPrefUserLocalDataSource(
+        gh<_i285.SharedPreferencesHelper>(),
+      ),
+    );
     gh.singleton<_i223.LocaleCubit>(
       () => _i223.LocaleCubit(gh<_i285.SharedPreferencesHelper>()),
     );
@@ -183,12 +196,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i450.IUserRepository>(
       () => _i733.UserRepositoryImpl(
         gh<_i677.IUserRemoteDataSource>(),
+        gh<_i989.IUserLocalDataSource>(),
         gh<_i281.ErrorHandler>(),
+      ),
+    );
+    gh.lazySingleton<_i693.IProfileLocalDataSource>(
+      () => _i370.SharedPrefProfileLocalDataSource(
+        gh<_i285.SharedPreferencesHelper>(),
       ),
     );
     gh.lazySingleton<_i364.IProfileRepository>(
       () => _i309.ProfileRepositoryImpl(
         gh<_i998.IProfileRemoteDataSource>(),
+        gh<_i693.IProfileLocalDataSource>(),
         gh<_i184.IProfileUploadStorageRemoteDataSource>(),
         gh<_i281.ErrorHandler>(),
       ),
@@ -202,7 +222,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i214.UserExistsUseCase>(
       () => _i214.UserExistsUseCase(gh<_i450.IUserRepository>()),
     );
-    gh.factory<_i91.GetUserUseCase>(
+    gh.singleton<_i91.GetUserUseCase>(
       () => _i91.GetUserUseCase(gh<_i450.IUserRepository>()),
     );
     gh.lazySingleton<_i0.IHomeRepository>(
@@ -218,7 +238,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i281.ErrorHandler>(),
       ),
     );
-    gh.factory<_i430.UserCubit>(
+    gh.singleton<_i430.UserCubit>(
       () => _i430.UserCubit(gh<_i91.GetUserUseCase>()),
     );
     gh.factory<_i965.GetProfileUseCase>(

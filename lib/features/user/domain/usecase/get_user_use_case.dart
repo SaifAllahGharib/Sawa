@@ -5,7 +5,7 @@ import '../../../../core/usecases/usecase.dart';
 import '../entity/user_entity.dart';
 import '../repository/user_repository.dart';
 
-@injectable
+@singleton
 class GetUserUseCase implements UseCase<UserEntity, String> {
   final IUserRepository _userRepository;
 

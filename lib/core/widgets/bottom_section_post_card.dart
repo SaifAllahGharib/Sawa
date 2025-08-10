@@ -51,49 +51,44 @@ class BottomSectionPostCard extends StatelessWidget {
           if (isPost)
             StreamBuilder<Result<AppFailure, List<ReactionEntity>>>(
               stream: getIt<GetReactionUseCase>().call(postId!),
-              builder:
-                  (
-                    BuildContext context,
-                    AsyncSnapshot<Result<AppFailure, List<ReactionEntity>>>
-                    snapshot,
-                  ) {
-                    if (!snapshot.hasData) {
-                      return const SizedBox.shrink();
-                    }
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const SizedBox.shrink();
+                }
 
-                    final result = snapshot.data!;
+                final result = snapshot.data!;
 
-                    return result.when(
-                      failure: (failure) => const SizedBox.shrink(),
-                      success: (reactions) {
-                        if (reactions.isEmpty) return const SizedBox.shrink();
+                return result.when(
+                  failure: (failure) => const SizedBox.shrink(),
+                  success: (reactions) {
+                    if (reactions.isEmpty) return const SizedBox.shrink();
 
-                        ;
+                    ;
 
-                        return AppGestureDetectorButton(
-                          onTap: () => _getReaction(
-                            context,
-                            reactions.map((e) => e.userId).toList(),
+                    return AppGestureDetectorButton(
+                      onTap: () => _getReaction(
+                        context,
+                        reactions.map((e) => e.userId).toList(),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.thumb_up_alt_rounded,
+                            color: Colors.blue,
+                            size: 20.r,
                           ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.thumb_up_alt_rounded,
-                                color: Colors.blue,
-                                size: 20.r,
-                              ),
-                              2.horizontalSpace,
-                              if (reactions.length != 1)
-                                Text(
-                                  '+${reactions.length - 1}',
-                                  style: AppStyles.s14W400,
-                                ),
-                            ],
-                          ),
-                        );
-                      },
+                          2.horizontalSpace,
+                          if (reactions.length != 1)
+                            Text(
+                              '+${reactions.length - 1}',
+                              style: AppStyles.s14W400,
+                            ),
+                        ],
+                      ),
                     );
                   },
+                );
+              },
             ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

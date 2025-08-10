@@ -17,6 +17,7 @@ import 'package:intern_intelligence_social_media_application/features/profile/pr
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/widgets/app_loading_widget.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
+import '../../../../shared/cubits/main/main_cubit.dart';
 import '../../../../shared/cubits/media/media_cubit.dart';
 import '../../../../shared/cubits/media/media_state.dart';
 import '../../../../shared/data/models/media_item.dart';
@@ -31,6 +32,7 @@ class DisplayImageProfile extends StatelessWidget {
         return BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
             if (state is ProfileUpdatedState) {
+              context.read<MainCubit>().getUser();
               context.navigator.pop();
             }
           },

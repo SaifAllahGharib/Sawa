@@ -116,7 +116,7 @@ class MiddleSectionProfile extends StatelessWidget {
             AppGestureDetectorButton(
               onTap: () => isMyProfile ? _onTapOnName(context) : null,
               child: Text(
-                user.name ?? '',
+                user.name.toString(),
                 style: AppStyles.s29W400.copyWith(
                   color: context.customColor.textColor,
                 ),

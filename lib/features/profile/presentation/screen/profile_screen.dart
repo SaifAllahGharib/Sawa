@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/presentation/widgets/profile_loading.dart';
 
-import '../../../../core/di/dependency_injection.dart';
-import '../../../../core/helpers/shared_preferences_helper.dart';
+import '../../../../core/extensions/build_context_extensions.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_scaffold.dart';
-import '../../../user/data/model/user_model.dart';
+import '../../../../core/widgets/posts_loading.dart';
+import '../../../../shared/cubits/main/main_cubit.dart';
 import '../../../user/domain/entity/user_entity.dart';
+import '../../../user/presentation/cubit/user/user_state.dart';
 import '../../domain/entity/profile_entity.dart';
 import '../cubit/profile/profile_cubit.dart';
 import '../cubit/profile/profile_state.dart';
@@ -27,7 +26,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen>
     with AutomaticKeepAliveClientMixin {
-  late final SharedPreferencesHelper _sharedPreferencesHelper;
+  UserEntity? user;
   ProfileEntity? _profile;
 
   @override
@@ -36,18 +35,12 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   void initState() {
     _getProfile();
-    _sharedPreferencesHelper = getIt<SharedPreferencesHelper>();
     super.initState();
   }
 
   void _handleState(BuildContext context, ProfileState state) {
     if (state is ProfileGetState) {
       _profile = state.profile;
-      if (context.arguments as String == _sharedPreferencesHelper.getUserId()) {
-        getIt<SharedPreferencesHelper>().storeUser(
-          UserModel.fromEntity(_profile!.user).toJson(),
-        );
-      }
     } else if (state is ProfileLoadingActionPostState) {
       context.navigator.pop();
     } else if (state is ProfileDeletePostState) {
@@ -64,51 +57,51 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
+    final mainState = context.watch<MainCubit>().state;
+    final userState = mainState.userState;
+    UserEntity? user;
+    if (userState is UserSuccessState) {
+      user = userState.user;
+    }
+
     return AppScaffold(
       child: SizedBox(
         width: double.infinity,
         child: RefreshIndicator(
           color: context.theme.primaryColor,
           onRefresh: () async => _getProfile(),
-          child: BlocConsumer<ProfileCubit, ProfileState>(
-            listener: (context, state) => _handleState(context, state),
-            builder: (context, state) {
-              final String uId = widget.uId;
-              final String logUId = _sharedPreferencesHelper.getUserId() ?? '';
+          child: CustomScrollView(
+            slivers: [
+              if (user != null && widget.uId == user.id!) const AppBarProfile(),
+              if (user != null)
+                MiddleSectionProfile(
+                  isMyProfile: widget.uId == user.id!,
+                  user: user,
+                ),
+              if (user != null)
+                SliverToBoxAdapter(
+                  child: Divider(height: 1, color: context.customColor.border),
+                ),
+              if (user != null)
+                BlocConsumer<ProfileCubit, ProfileState>(
+                  listener: (context, state) => _handleState(context, state),
+                  builder: (context, state) {
+                    final String uId = widget.uId;
+                    final String logUId = user!.id!;
 
-              if (state is ProfileLoadingState ||
-                  state is ProfileLoadingActionPostState) {
-                return ProfileLoading(isMyProfile: uId == logUId);
-              }
+                    if (state is ProfileLoadingState ||
+                        state is ProfileLoadingActionPostState) {
+                      return const PostsLoading();
+                    }
 
-              return CustomScrollView(
-                slivers: [
-                  if (uId == logUId) const AppBarProfile(),
-                  MiddleSectionProfile(
-                    isMyProfile: uId == logUId,
-                    user:
-                        _profile?.user ??
-                        const UserEntity(
-                          id: '',
-                          name: '',
-                          image: '',
-                          email: '',
-                          bio: '',
-                        ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Divider(
-                      height: 1,
-                      color: context.customColor.border,
-                    ),
-                  ),
-                  BottomSectionProfile(
-                    posts: _profile?.posts ?? [],
-                    isMyProfile: uId == logUId,
-                  ),
-                ],
-              );
-            },
+                    return BottomSectionProfile(
+                      posts: _profile?.posts ?? [],
+                      isMyProfile: uId == logUId,
+                    );
+                  },
+                ),
+            ],
           ),
         ),
       ),

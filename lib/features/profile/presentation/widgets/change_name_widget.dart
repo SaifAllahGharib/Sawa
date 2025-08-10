@@ -12,6 +12,7 @@ import '../../../../core/helpers/shared_preferences_helper.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
+import '../../../../shared/cubits/main/main_cubit.dart';
 import '../../../../shared/cubits/validation/validation_cubit.dart';
 import '../../../../shared/cubits/validation/validation_state.dart';
 
@@ -72,6 +73,7 @@ class _ChangeNameWidgetState extends State<ChangeNameWidget> {
                       context.navigator.pop();
                       AppSnackBar.showError(context, state.code);
                     } else if (state is ProfileUpdatedState) {
+                      context.read<MainCubit>().getUser();
                       context.navigator.pop();
                       AppSnackBar.showSuccess(
                         context,

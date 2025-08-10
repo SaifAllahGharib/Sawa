@@ -7,25 +7,29 @@ import 'package:intern_intelligence_social_media_application/features/profile/do
 
 import '../../../../shared/data/models/media_model.dart';
 import '../../domain/repository/profile_repository.dart';
+import '../data_source/profile_local_data_source.dart';
 
 @LazySingleton(as: IProfileRepository)
 class ProfileRepositoryImpl implements IProfileRepository {
   final IProfileRemoteDataSource _iProfileRemoteDataSource;
+  final IProfileLocalDataSource _iProfileLocalDataSource;
   final IProfileUploadStorageRemoteDataSource
   _iProfileUploadStorageRemoteDataSource;
   final ErrorHandler _errorHandler;
 
   ProfileRepositoryImpl(
     this._iProfileRemoteDataSource,
+    this._iProfileLocalDataSource,
     this._iProfileUploadStorageRemoteDataSource,
     this._errorHandler,
   );
 
   @override
   FutureResult<void> updateProfileName(String newName) async {
-    return _errorHandler.handleFutureWithTryCatch(
-      () async => await _iProfileRemoteDataSource.updateProfileName(newName),
-    );
+    return _errorHandler.handleFutureWithTryCatch(() async {
+      await _iProfileRemoteDataSource.updateProfileName(newName);
+      await _iProfileLocalDataSource.updateProfileName(newName);
+    });
   }
 
   @override
@@ -41,21 +45,23 @@ class ProfileRepositoryImpl implements IProfileRepository {
     return _errorHandler.handleFutureWithTryCatch(() async {
       final path = await _iProfileUploadStorageRemoteDataSource
           .uploadProfileImage(await MediaModel.fromEntity(media));
-      return await _iProfileRemoteDataSource.uploadProfileImage(path);
+      await _iProfileRemoteDataSource.uploadProfileImage(path);
+      await _iProfileLocalDataSource.uploadProfileImage(path);
     });
   }
 
   @override
   FutureResult<void> deletePost(String postId) async {
-    return _errorHandler.handleFutureWithTryCatch(() async {
-      return await _iProfileRemoteDataSource.deletePost(postId);
-    });
+    return _errorHandler.handleFutureWithTryCatch(
+      () async => await _iProfileRemoteDataSource.deletePost(postId),
+    );
   }
 
   @override
   FutureResult<void> updateProfileBio(String newBio) async {
     return _errorHandler.handleFutureWithTryCatch(() async {
-      return await _iProfileRemoteDataSource.updateProfileBio(newBio);
+      await _iProfileRemoteDataSource.updateProfileBio(newBio);
+      await _iProfileLocalDataSource.updateProfileBio(newBio);
     });
   }
 }

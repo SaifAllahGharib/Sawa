@@ -1,6 +1,9 @@
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/user/data/model/user_model.dart';
+import '../utils/enums.dart';
+
 class SharedPreferencesHelper {
   final Logger _logger;
   SharedPreferences? _prefs;
@@ -57,15 +60,42 @@ class SharedPreferencesHelper {
     await Future.wait(futures);
   }
 
-  String? getUserId() => getString('id');
+  UserModel? getUser() {
+    try {
+      final id = getUserId();
+      final name = getUserName();
+      final email = getUserEmail();
 
-  String getUserImage() => getString('image') ?? '';
+      if (id == null || name == null || email == null) {
+        return null;
+      }
 
-  String? getUserName() => getString('name');
+      return UserModel(
+        id: id,
+        name: name,
+        email: email,
+        image: getUserImage(),
+        bio: getUserBio(),
+      );
+    } catch (e, stacktrace) {
+      _logger.e(
+        'Failed to get user from SharedPreferences',
+        error: e,
+        stackTrace: stacktrace,
+      );
+      return null;
+    }
+  }
 
-  String? getUserBio() => getString('bio');
+  String? getUserId() => getString(UserInfo.id.asString);
 
-  String? getUserEmail() => getString('email');
+  String? getUserName() => getString(UserInfo.name.asString);
+
+  String? getUserEmail() => getString(UserInfo.email.asString);
+
+  String getUserImage() => getString(UserInfo.image.asString) ?? '';
+
+  String? getUserBio() => getString(UserInfo.bio.asString);
 
   // ---------------- Generic Setters/Getters ----------------
   Future<bool> storeString(String key, String value) async {
