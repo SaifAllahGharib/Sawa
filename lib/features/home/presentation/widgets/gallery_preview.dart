@@ -7,7 +7,7 @@ import 'package:intern_intelligence_social_media_application/core/widgets/app_ge
 import 'package:intern_intelligence_social_media_application/core/widgets/app_video_preview.dart';
 import 'package:intern_intelligence_social_media_application/core/widgets/media_delete_button.dart';
 
-import '../../../../shared/models/media_item.dart';
+import '../../../../shared/data/models/media_item.dart';
 
 class GalleryPreview extends StatelessWidget {
   final List<MediaItem> pickedAssets;

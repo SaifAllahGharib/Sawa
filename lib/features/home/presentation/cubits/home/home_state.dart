@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
+import 'package:intern_intelligence_social_media_application/features/home/domain/entities/reaction_entity.dart';
 
 sealed class HomeState extends Equatable {
   const HomeState();
@@ -52,6 +53,29 @@ final class HomeDeletePostSuccessState extends HomeState {
 
   @override
   List<Object?> get props => [];
+}
+
+final class HomeAddReactionState extends HomeState {
+  const HomeAddReactionState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+final class HomeRemoveReactionState extends HomeState {
+  const HomeRemoveReactionState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+final class HomeGetUserReactionState extends HomeState {
+  final ReactionEntity? reaction;
+
+  const HomeGetUserReactionState(this.reaction);
+
+  @override
+  List<Object?> get props => [reaction];
 }
 
 final class HomeFailureState extends HomeState {

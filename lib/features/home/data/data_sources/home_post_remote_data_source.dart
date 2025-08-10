@@ -1,5 +1,7 @@
-import '../../../../shared/models/post_model.dart';
+import '../../../../core/utils/enums.dart';
+import '../../../../shared/data/models/post_model.dart';
 import '../models/post_media_model.dart';
+import '../models/reactio_model.dart';
 
 abstract class IHomePostRemoteDataSource {
   Future<String?> createPost(PostModel postModel);
@@ -12,9 +14,14 @@ abstract class IHomePostRemoteDataSource {
 
   Future<List<PostModel>> getDefaultPosts();
 
-  Future<void> reactToPost(String postId);
+  Future<void> addReaction({
+    required String postId,
+    required ReactionType type,
+  });
 
-  Future<void> commentToPost(String postId);
+  Future<void> removeReaction({required String postId});
 
-  Future<void> sharePost(String postId);
+  Stream<List<ReactionModel>> getReactions({required String postId});
+
+  Stream<ReactionModel?> getUserReaction({required String postId});
 }

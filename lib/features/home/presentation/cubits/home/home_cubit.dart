@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../core/usecases/no_params.dart';
-import '../../../../../shared/models/media_item.dart';
+import '../../../../../shared/data/models/media_item.dart';
 import '../../../domain/entities/media_entity.dart';
 import '../../../domain/entities/post_entity.dart';
 import '../../../domain/entities/post_media_entity.dart';

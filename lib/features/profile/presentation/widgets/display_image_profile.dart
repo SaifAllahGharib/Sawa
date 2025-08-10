@@ -19,7 +19,7 @@ import '../../../../core/widgets/app_loading_widget.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 import '../../../../shared/cubits/media/media_cubit.dart';
 import '../../../../shared/cubits/media/media_state.dart';
-import '../../../../shared/models/media_item.dart';
+import '../../../../shared/data/models/media_item.dart';
 
 class DisplayImageProfile extends StatelessWidget {
   const DisplayImageProfile({super.key});

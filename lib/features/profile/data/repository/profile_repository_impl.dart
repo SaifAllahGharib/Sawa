@@ -5,7 +5,7 @@ import 'package:intern_intelligence_social_media_application/features/profile/da
 import 'package:intern_intelligence_social_media_application/features/profile/data/data_source/profile_upload_storage_remote_data_source.dart';
 import 'package:intern_intelligence_social_media_application/features/profile/domain/entity/profile_entity.dart';
 
-import '../../../../shared/models/media_model.dart';
+import '../../../../shared/data/models/media_model.dart';
 import '../../domain/repository/profile_repository.dart';
 
 @LazySingleton(as: IProfileRepository)

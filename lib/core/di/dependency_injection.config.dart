@@ -50,10 +50,18 @@ import '../../features/home/data/data_sources/supabase_home_upload_storage_remot
 import '../../features/home/data/repositories/home_repository_impl.dart'
     as _i76;
 import '../../features/home/domain/repositories/home_repository.dart' as _i0;
+import '../../features/home/domain/usecases/add_reaction_use_case.dart'
+    as _i444;
 import '../../features/home/domain/usecases/create_post_usecase.dart' as _i992;
 import '../../features/home/domain/usecases/delete_post_usecase.dart' as _i1006;
 import '../../features/home/domain/usecases/get_default_posts_usecase.dart'
     as _i994;
+import '../../features/home/domain/usecases/get_reaction_use_case.dart'
+    as _i724;
+import '../../features/home/domain/usecases/get_user_reaction_use_case.dart'
+    as _i761;
+import '../../features/home/domain/usecases/remove_reaction_use_case.dart'
+    as _i948;
 import '../../features/home/domain/usecases/upload_post_media_to_table_usecase.dart'
     as _i457;
 import '../../features/home/domain/usecases/upload_post_media_usecase.dart'
@@ -242,6 +250,18 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i251.UploadPostMediaUseCase>(
       () => _i251.UploadPostMediaUseCase(gh<_i0.IHomeRepository>()),
+    );
+    gh.factory<_i444.AddReactionUseCase>(
+      () => _i444.AddReactionUseCase(gh<_i0.IHomeRepository>()),
+    );
+    gh.factory<_i761.GetUserReactionUseCase>(
+      () => _i761.GetUserReactionUseCase(gh<_i0.IHomeRepository>()),
+    );
+    gh.factory<_i948.RemoveReactionUseCase>(
+      () => _i948.RemoveReactionUseCase(gh<_i0.IHomeRepository>()),
+    );
+    gh.factory<_i724.GetReactionUseCase>(
+      () => _i724.GetReactionUseCase(gh<_i0.IHomeRepository>()),
     );
     gh.factory<_i715.HomeCubit>(
       () => _i715.HomeCubit(

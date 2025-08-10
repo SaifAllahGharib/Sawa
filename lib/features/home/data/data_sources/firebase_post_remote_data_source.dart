@@ -2,8 +2,10 @@ import 'package:injectable/injectable.dart';
 import 'package:intern_intelligence_social_media_application/features/home/data/models/post_media_model.dart';
 
 import '../../../../core/clients/firebase_client.dart';
-import '../../../../shared/models/post_model.dart';
+import '../../../../core/utils/enums.dart';
+import '../../../../shared/data/models/post_model.dart';
 import '../../../user/data/model/user_model.dart';
+import '../models/reactio_model.dart';
 import 'home_post_remote_data_source.dart';
 
 @LazySingleton(as: IHomePostRemoteDataSource)
@@ -180,20 +182,69 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
   }
 
   @override
-  Future<void> commentToPost(String postId) async {
-    // TODO: implement commentToPost
-    throw UnimplementedError();
+  Future<void> addReaction({
+    required String postId,
+    required ReactionType type,
+  }) async {
+    final ref = _firebaseClient.db
+        .ref()
+        .child('reactions')
+        .child(postId)
+        .child(_firebaseClient.auth.currentUser!.uid);
+
+    final reactionModel = ReactionModel(
+      id: ref.key!,
+      postId: postId,
+      userId: _firebaseClient.auth.currentUser!.uid,
+      type: type.toValue(),
+    );
+
+    await ref.set(reactionModel.toJson());
   }
 
   @override
-  Future<void> reactToPost(String postId) async {
-    // TODO: implement reactToPost
-    throw UnimplementedError();
+  Future<void> removeReaction({required String postId}) async {
+    final ref = _firebaseClient.db
+        .ref()
+        .child('reactions')
+        .child(postId)
+        .child(_firebaseClient.auth.currentUser!.uid);
+
+    await ref.remove();
   }
 
   @override
-  Future<void> sharePost(String postId) async {
-    // TODO: implement sharePost
-    throw UnimplementedError();
+  Stream<List<ReactionModel>> getReactions({required String postId}) {
+    final ref = _firebaseClient.db.ref().child('reactions').child(postId);
+
+    return ref.onValue.map((event) {
+      final data = event.snapshot.value;
+
+      if (data == null) {
+        return <ReactionModel>[];
+      }
+
+      final map = Map<String, dynamic>.from(data as Map);
+
+      return map.entries.map((entry) {
+        final value = Map<String, dynamic>.from(entry.value as Map);
+        return ReactionModel.fromJson(value);
+      }).toList();
+    });
+  }
+
+  @override
+  Stream<ReactionModel?> getUserReaction({required String postId}) {
+    final ref = _firebaseClient.db
+        .ref()
+        .child('reactions')
+        .child(postId)
+        .child(_firebaseClient.auth.currentUser!.uid);
+
+    return ref.onValue.map((event) {
+      if (!event.snapshot.exists) return null;
+      final data = Map<String, dynamic>.from(event.snapshot.value as Map);
+      return ReactionModel.fromJson(data);
+    });
   }
 }

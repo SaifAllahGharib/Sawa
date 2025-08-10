@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../features/home/data/models/post_media_model.dart';
-import '../../features/home/domain/entities/post_entity.dart';
-import '../../features/user/data/model/user_model.dart';
+import '../../../features/home/data/models/post_media_model.dart';
+import '../../../features/home/domain/entities/post_entity.dart';
+import '../../../features/user/data/model/user_model.dart';
 
 part 'post_model.g.dart';
 

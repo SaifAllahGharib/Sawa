@@ -10,7 +10,7 @@ import 'bottom_section_post_card.dart';
 import 'middle_section_post_card.dart';
 import 'top_section_post_card.dart';
 
-class PostCard extends StatefulWidget {
+class PostCard extends StatelessWidget {
   final String? image;
   final String name;
   final DateTime postedTime;
@@ -35,11 +35,6 @@ class PostCard extends StatefulWidget {
   });
 
   @override
-  State<PostCard> createState() => _PostCardState();
-}
-
-class _PostCardState extends State<PostCard> {
-  @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 12.r),
@@ -63,28 +58,24 @@ class _PostCardState extends State<PostCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppGestureDetectorButton(
-            onTap: () => !widget.isProfile
+            onTap: () => !isProfile
                 ? context.navigator.pushNamed(
                     AppRouteName.profile,
-                    arguments: widget.post.authorId,
+                    arguments: post.authorId,
                   )
                 : null,
             child: TopSectionPostCard(
-              name: widget.name,
-              postedTime: widget.postedTime,
-              authorImage: widget.post.author!.image,
-              isMyProfile: widget.isMyProfile,
-              onClickDelete: widget.onClickDelete,
-              onClickEdit: widget.onClickEdit,
+              name: name,
+              postedTime: postedTime,
+              authorImage: post.author!.image,
+              isMyProfile: isMyProfile,
+              onClickDelete: onClickDelete,
+              onClickEdit: onClickEdit,
             ),
           ),
           10.verticalSpace,
-          MiddleSectionPostCard(content: widget.content, post: widget.post),
-          BottomSectionPostCard(
-            onClickLike: () {},
-            onClickComment: () {},
-            onClickShare: () {},
-          ),
+          MiddleSectionPostCard(content: content, post: post),
+          BottomSectionPostCard(isPost: true, postId: post.id),
         ],
       ),
     );

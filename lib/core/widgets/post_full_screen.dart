@@ -44,11 +44,7 @@ class PostFullScreen extends StatelessWidget {
                   ),
                   10.verticalSpace,
                 ],
-                BottomSectionPostCard(
-                  onClickLike: () {},
-                  onClickComment: () {},
-                  onClickShare: () {},
-                ),
+                const BottomSectionPostCard(),
               ],
             ),
           ),

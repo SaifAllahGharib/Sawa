@@ -1,11 +1,13 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../shared/models/media_model.dart';
-import '../../../../shared/models/post_model.dart';
+import '../../../../core/utils/enums.dart';
+import '../../../../shared/data/models/media_model.dart';
+import '../../../../shared/data/models/post_model.dart';
 import '../../domain/entities/media_entity.dart';
 import '../../domain/entities/post_entity.dart';
 import '../../domain/entities/post_media_entity.dart';
+import '../../domain/entities/reaction_entity.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../data_sources/home_post_remote_data_source.dart';
 import '../data_sources/home_upload_storage_remote_data_source.dart';
@@ -73,5 +75,39 @@ class HomeRepositoryImpl implements IHomeRepository {
       final response = await _iHomePostRemoteDataSource.getDefaultPosts();
       return response.map((e) => e.toEntity()).toList();
     });
+  }
+
+  @override
+  FutureResult<void> addReaction({
+    required String postId,
+    required ReactionType type,
+  }) async {
+    return _errorHandler.handleFutureWithTryCatch(
+      () async => await _iHomePostRemoteDataSource.addReaction(
+        postId: postId,
+        type: type,
+      ),
+    );
+  }
+
+  @override
+  StreamResult<List<ReactionEntity>> getReactions({required String postId}) {
+    return _errorHandler.handleStreamWithTryCatch(
+      () => _iHomePostRemoteDataSource.getReactions(postId: postId),
+    );
+  }
+
+  @override
+  StreamResult<ReactionEntity?> getUserReaction({required String postId}) {
+    return _errorHandler.handleStreamWithTryCatch(
+      () => _iHomePostRemoteDataSource.getUserReaction(postId: postId),
+    );
+  }
+
+  @override
+  FutureResult<void> removeReaction({required String postId}) {
+    return _errorHandler.handleFutureWithTryCatch(
+      () => _iHomePostRemoteDataSource.removeReaction(postId: postId),
+    );
   }
 }

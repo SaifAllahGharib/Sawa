@@ -14,7 +14,7 @@ import '../../../../shared/cubits/media/media_cubit.dart';
 import '../../../../shared/cubits/media/media_state.dart';
 import '../../../../shared/cubits/validation/validation_cubit.dart';
 import '../../../../shared/cubits/validation/validation_state.dart';
-import '../../../../shared/models/media_item.dart';
+import '../../../../shared/data/models/media_item.dart';
 import '../../domain/entities/post_entity.dart';
 import '../cubits/home/home_cubit.dart';
 import '../cubits/home/home_state.dart';
