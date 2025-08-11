@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/features/user/domain/entity/user_entity.dart';
 
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_scaffold.dart';
 import '../../../../core/widgets/posts_loading.dart';
 import '../../../../shared/cubits/main/main_cubit.dart';
 import '../../../../shared/cubits/main/main_state.dart';
+import '../../../user/domain/entity/user_entity.dart';
 import '../../../user/presentation/cubit/user/user_state.dart';
 import '../../domain/entities/post_entity.dart';
 import '../cubits/home/home_cubit.dart';
@@ -65,37 +65,38 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocConsumer<MainCubit, MainState>(
-      listener: (context, state) => _handleState(state.userState),
-      builder: (context, state) {
-        return AppScaffold(
-          child: RefreshIndicator(
-            onRefresh: () async => _getDefaultPosts(),
-            child: CustomScrollView(
-              slivers: [
-                const HomeAppBar(),
-                TopSectionHome(user: _user),
-                BlocConsumer<HomeCubit, HomeState>(
-                  listener: (context, state) {
-                    if (state is HomeGetDefaultPostsState) {
-                      _posts = state.posts;
-                    } else if (state is HomeFailureState) {
-                      AppSnackBar.showError(context, state.code);
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is HomeLoadingState) {
-                      return const PostsLoading();
-                    }
-
-                    return BottomSectionHome(posts: _posts);
-                  },
-                ),
-              ],
+    return AppScaffold(
+      child: RefreshIndicator(
+        onRefresh: () async => _getDefaultPosts(),
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            const HomeAppBar(),
+            BlocConsumer<MainCubit, MainState>(
+              listener: (context, state) => _handleState(state.userState),
+              builder: (context, state) {
+                return TopSectionHome(user: _user);
+              },
             ),
-          ),
-        );
-      },
+            BlocConsumer<HomeCubit, HomeState>(
+              listener: (context, state) {
+                if (state is HomeGetDefaultPostsState) {
+                  _posts = state.posts;
+                } else if (state is HomeFailureState) {
+                  AppSnackBar.showError(context, state.code);
+                }
+              },
+              builder: (context, state) {
+                if (state is HomeLoadingState) {
+                  return const PostsLoading();
+                }
+
+                return BottomSectionHome(posts: _posts);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

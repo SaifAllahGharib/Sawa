@@ -26,7 +26,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen>
     with AutomaticKeepAliveClientMixin {
-  UserEntity? user;
   ProfileEntity? _profile;
 
   @override
@@ -72,6 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen>
           color: context.theme.primaryColor,
           onRefresh: () async => _getProfile(),
           child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
             slivers: [
               if (user != null && widget.uId == user.id!) const AppBarProfile(),
               if (user != null)

@@ -19,17 +19,22 @@ class SupabaseProfileUploadStorageRemoteDataSource
     final fileName = mediaModel.fileNames[0];
     final path = 'profile_media/${mediaModel.id}/$fileName';
     final contentType = lookupMimeType(fileName) ?? 'application/octet-stream';
-    final String image = await _supabaseClint.db.storage
-        .from('media')
-        .uploadBinary(
-          path,
-          file,
-          fileOptions: FileOptions(contentType: contentType),
-        )
-        .then(
-          (_) => _supabaseClint.db.storage.from('media').getPublicUrl(path),
-        );
 
-    return image;
+    try {
+      await _supabaseClint.db.storage
+          .from('media')
+          .uploadBinary(
+            path,
+            file,
+            fileOptions: FileOptions(contentType: contentType),
+          );
+    } on StorageException catch (e) {
+      if (e.message.contains('The resource already exists')) {
+        return _supabaseClint.db.storage.from('media').getPublicUrl(path);
+      }
+      rethrow;
+    }
+
+    return _supabaseClint.db.storage.from('media').getPublicUrl(path);
   }
 }

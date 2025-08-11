@@ -8,13 +8,14 @@ import 'package:intern_intelligence_social_media_application/features/profile/pr
 import 'package:intern_intelligence_social_media_application/features/profile/presentation/cubit/profile/profile_state.dart';
 
 import '../../../../core/di/dependency_injection.dart';
-import '../../../../core/helpers/shared_preferences_helper.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
 import '../../../../shared/cubits/main/main_cubit.dart';
 import '../../../../shared/cubits/validation/validation_cubit.dart';
 import '../../../../shared/cubits/validation/validation_state.dart';
+import '../../../user/domain/entity/user_entity.dart';
+import '../../../user/presentation/cubit/user/user_state.dart';
 
 class ChangeNameWidget extends StatefulWidget {
   const ChangeNameWidget({super.key});
@@ -25,14 +26,13 @@ class ChangeNameWidget extends StatefulWidget {
 
 class _ChangeNameWidgetState extends State<ChangeNameWidget> {
   late final TextEditingController _changeNameController;
-  late final SharedPreferencesHelper _sharedPreferencesHelper;
+
+  // late final SharedPreferencesHelper _sharedPreferencesHelper;
 
   @override
   void initState() {
-    _sharedPreferencesHelper = getIt<SharedPreferencesHelper>();
-    _changeNameController = TextEditingController(
-      text: _sharedPreferencesHelper.getUserName(),
-    );
+    // _sharedPreferencesHelper = getIt<SharedPreferencesHelper>();
+    _changeNameController = TextEditingController();
     super.initState();
   }
 
@@ -44,26 +44,32 @@ class _ChangeNameWidgetState extends State<ChangeNameWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final mainState = context.watch<MainCubit>().state;
+    final userState = mainState.userState;
+    UserEntity? user;
+
+    if (userState is UserSuccessState) {
+      user = userState.user;
+    }
+
     return BlocProvider.value(
       value: getIt<ProfileCubit>(),
       child: AppPaddingWidget(
         child: Column(
           children: [
-            AppTextFormField(
-              controller: _changeNameController,
-              hint: context.tr.hintName,
-              onChanged: (value) {
-                context.read<ValidationCubit>().validateField(
-                  'changeName',
-                  value.trimLeft().trimRight().isNotEmpty &&
-                      value.trimLeft().trimRight() !=
-                          _sharedPreferencesHelper
-                              .getUserName()!
-                              .trimLeft()
-                              .trimRight(),
-                );
-              },
-            ),
+            if (user != null)
+              AppTextFormField(
+                controller: _changeNameController,
+                hint: context.tr.hintName,
+                onChanged: (value) {
+                  context.read<ValidationCubit>().validateField(
+                    'changeName',
+                    value.trimLeft().trimRight().isNotEmpty &&
+                        value.trimLeft().trimRight() !=
+                            user?.name.toString().trimLeft().trimRight(),
+                  );
+                },
+              ),
             20.verticalSpace,
             BlocBuilder<ValidationCubit, ValidationState>(
               builder: (context, validationState) {

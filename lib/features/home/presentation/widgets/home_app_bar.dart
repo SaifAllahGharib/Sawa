@@ -35,11 +35,7 @@ class HomeAppBar extends StatelessWidget {
       ),
       actions: [
         AppGestureDetectorButton(
-          child: Icon(
-            Icons.sentiment_very_dissatisfied,
-            color: context.theme.primaryColor,
-            size: 26.r,
-          ),
+          child: Icon(Icons.add, color: context.theme.primaryColor, size: 26.r),
           onTap: () => _onTapCreatePost(context),
         ),
         15.horizontalSpace,
