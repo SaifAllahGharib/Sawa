@@ -14,9 +14,9 @@ class UserModel {
 
   const UserModel({
     required this.id,
-    this.image,
     required this.name,
     required this.email,
+    this.image,
     this.bio,
   });
 
@@ -24,16 +24,6 @@ class UserModel {
       _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
-
-  factory UserModel.fromEntity(UserEntity user) {
-    return UserModel(
-      id: user.id!,
-      name: user.name!,
-      email: user.email!,
-      image: user.image,
-      bio: user.bio,
-    );
-  }
 
   UserEntity toEntity() {
     return UserEntity(id: id, name: name, email: email, image: image, bio: bio);

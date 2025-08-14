@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
-import 'package:intern_intelligence_social_media_application/core/di/dependency_injection.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/profile_image.dart';
-import 'package:intern_intelligence_social_media_application/features/home/presentation/widgets/create_post_bottom_sheet_widget.dart';
-import 'package:intern_intelligence_social_media_application/features/user/domain/entity/user_entity.dart';
+import 'package:sawa/core/clients/firebase_client.dart';
+import 'package:sawa/core/di/dependency_injection.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/utils/app_bottom_sheet.dart';
+import 'package:sawa/core/widgets/profile_image.dart';
+import 'package:sawa/features/home/presentation/widgets/create_post_bottom_sheet_widget.dart';
+import 'package:sawa/features/user/domain/entity/user_entity.dart';
 
 import '../../../../core/routing/app_route_name.dart';
 import '../../../../core/styles/app_styles.dart';

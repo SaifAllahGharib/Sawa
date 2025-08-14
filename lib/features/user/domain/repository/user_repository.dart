@@ -1,13 +1,14 @@
 import 'package:failure_handler/failure_handler.dart';
+import 'package:sawa/features/user/data/model/user_model.dart';
 
 import '../entity/user_entity.dart';
 
 abstract class IUserRepository {
-  FutureResult<void> createUser(UserEntity user);
+  FutureResult<void> createUser({required UserModel user});
 
-  FutureResult<UserEntity> getUser(String uId);
+  FutureResult<UserEntity> getUser({required String uId});
 
-  FutureResult<bool> userExists(String uId);
+  FutureResult<bool> userExists({required String uId});
 
-  FutureResult<void> deleteUser(String userId);
+  FutureResult<void> deleteUser({required String uId});
 }

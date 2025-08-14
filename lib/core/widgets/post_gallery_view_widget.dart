@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_video_preview.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/full_screen_gallery_widget.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/utils/enums.dart';
+import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
+import 'package:sawa/core/widgets/app_video_preview.dart';
+import 'package:sawa/core/widgets/full_screen_gallery_widget.dart';
+import 'package:sawa/features/home/domain/entities/post_entity.dart';
 
 import '../styles/app_styles.dart';
 import 'app_network_image.dart';
@@ -141,12 +141,18 @@ class PostGalleryViewWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: mediaTypes[index] == MediaType.image.toString()
-            ? AppNetworkImage(
-                image: path,
-                width: double.infinity,
-                height: double.infinity,
+            ? SizedBox(
+                height: 400.h,
+                child: AppNetworkImage(
+                  image: path,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
               )
-            : AppVideoPreview(path: path),
+            : SizedBox(
+                height: 400.h,
+                child: AppVideoPreview(path: path),
+              ),
       ),
     );
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/post_card.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/styles/app_styles.dart';
+import 'package:sawa/core/widgets/post_card.dart';
+import 'package:sawa/features/home/domain/entities/post_entity.dart';
 
 class BottomSectionHome extends StatelessWidget {
   final List<PostEntity> posts;
@@ -32,8 +32,8 @@ class BottomSectionHome extends StatelessWidget {
             bottom: index == 4 ? 16.r : 0,
           ),
           child: PostCard(
-            image: posts[index].author!.image,
-            name: posts[index].author!.name!,
+            image: posts[index].author.image,
+            name: posts[index].author.name,
             postedTime: posts[index].createdAt,
             content: posts[index].content,
             post: posts[index],

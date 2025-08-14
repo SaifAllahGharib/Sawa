@@ -3,8 +3,8 @@ import 'package:injectable/injectable.dart';
 
 import '../../domain/entity/user_entity.dart';
 import '../../domain/repository/user_repository.dart';
-import '../data_source/user_local_data_source.dart';
-import '../data_source/user_remote_data_source.dart';
+import '../data_source/local/interface/i_user_local_data_source.dart';
+import '../data_source/remote/interface/i_user_remote_data_source.dart';
 import '../model/user_model.dart';
 
 @LazySingleton(as: IUserRepository)
@@ -20,22 +20,21 @@ class UserRepositoryImpl implements IUserRepository {
   );
 
   @override
-  FutureResult<void> createUser(UserEntity user) async {
+  FutureResult<void> createUser({required UserModel user}) async {
     return _errorHandler.handleFutureWithTryCatch(
-      () async =>
-          await _iUserRemoteDataSource.createUser(UserModel.fromEntity(user)),
+      () async => await _iUserRemoteDataSource.createUser(user: user),
     );
   }
 
   @override
-  FutureResult<UserEntity> getUser(String uId) async {
+  FutureResult<UserEntity> getUser({required String uId}) async {
     return _errorHandler.handleFutureWithTryCatch(() async {
       final localUser = _iUserLocalDataSource.getUser();
       if (localUser != null) {
         return localUser.toEntity();
       }
 
-      final remoteUser = await _iUserRemoteDataSource.getUser(uId);
+      final remoteUser = await _iUserRemoteDataSource.getUser(uId: uId);
 
       await _iUserLocalDataSource.saveUser(remoteUser);
 
@@ -44,16 +43,16 @@ class UserRepositoryImpl implements IUserRepository {
   }
 
   @override
-  FutureResult<bool> userExists(String uId) async {
+  FutureResult<bool> userExists({required String uId}) async {
     return _errorHandler.handleFutureWithTryCatch(
-      () async => await _iUserRemoteDataSource.userExists(uId),
+      () async => await _iUserRemoteDataSource.userExists(uId: uId),
     );
   }
 
   @override
-  FutureResult<void> deleteUser(String uId) async {
+  FutureResult<void> deleteUser({required String uId}) async {
     return _errorHandler.handleFutureWithTryCatch(
-      () async => await _iUserRemoteDataSource.deleteUser(uId),
+      () async => await _iUserRemoteDataSource.deleteUser(uId: uId),
     );
   }
 }

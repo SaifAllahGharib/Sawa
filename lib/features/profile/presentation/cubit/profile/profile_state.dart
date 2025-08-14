@@ -1,76 +1,16 @@
-import 'package:equatable/equatable.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/domain/entity/profile_entity.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sawa/features/profile/domain/entity/profile_entity.dart';
 
-sealed class ProfileState extends Equatable {
-  const ProfileState();
+import '../../../../../core/utils/enums.dart';
 
-  @override
-  List<Object?> get props => [];
-}
+part 'profile_state.freezed.dart';
 
-final class ProfileInitState extends ProfileState {
-  const ProfileInitState();
-
-  @override
-  List<Object?> get props => [];
-}
-
-final class ProfileLoadingState extends ProfileState {
-  const ProfileLoadingState();
-
-  @override
-  List<Object?> get props => [];
-}
-
-final class ProfileLoadingUpdateProfileState extends ProfileState {
-  const ProfileLoadingUpdateProfileState();
-
-  @override
-  List<Object?> get props => [];
-}
-
-final class ProfileGetState extends ProfileState {
-  final ProfileEntity profile;
-
-  const ProfileGetState(this.profile);
-
-  @override
-  List<Object?> get props => [profile];
-}
-
-final class ProfileUpdatedState extends ProfileState {
-  const ProfileUpdatedState();
-
-  @override
-  List<Object?> get props => [];
-}
-
-final class ProfileUpdateImageState extends ProfileState {
-  const ProfileUpdateImageState();
-
-  @override
-  List<Object?> get props => [];
-}
-
-final class ProfileLoadingActionPostState extends ProfileState {
-  const ProfileLoadingActionPostState();
-
-  @override
-  List<Object?> get props => [];
-}
-
-final class ProfileDeletePostState extends ProfileState {
-  const ProfileDeletePostState();
-
-  @override
-  List<Object?> get props => [];
-}
-
-final class ProfileFailureState extends ProfileState {
-  final String code;
-
-  const ProfileFailureState(this.code);
-
-  @override
-  List<Object?> get props => [code];
+@freezed
+sealed class ProfileState with _$ProfileState {
+  const factory ProfileState({
+    @Default(false) bool isLoading,
+    ProfileEntity? profile,
+    String? errorCode,
+    @Default(ProfileUpdateType.none) ProfileUpdateType updateType,
+  }) = _ProfileState;
 }

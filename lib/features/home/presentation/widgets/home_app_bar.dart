@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/constants/strings.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
+import 'package:sawa/core/constants/strings.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/utils/app_bottom_sheet.dart';
@@ -35,7 +35,7 @@ class HomeAppBar extends StatelessWidget {
       ),
       actions: [
         AppGestureDetectorButton(
-          child: Icon(Icons.add, color: context.theme.primaryColor, size: 26.r),
+          child: Icon(Icons.add, color: context.customColor.icon!, size: 26.r),
           onTap: () => _onTapCreatePost(context),
         ),
         15.horizontalSpace,

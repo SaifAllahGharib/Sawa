@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_back_button.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/auth/auth_cubit.dart';
-import 'package:intern_intelligence_social_media_application/features/settings/presentation/widgets/theme_bottom_sheet_widget.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/styles/app_styles.dart';
+import 'package:sawa/core/utils/app_bottom_sheet.dart';
+import 'package:sawa/core/widgets/app_back_button.dart';
+import 'package:sawa/core/widgets/app_padding_widget.dart';
+import 'package:sawa/core/widgets/app_scaffold.dart';
+import 'package:sawa/features/auth/presentation/cubits/auth/auth_cubit.dart';
+import 'package:sawa/features/settings/presentation/widgets/theme_bottom_sheet_widget.dart';
 
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../widgets/language_bottom_sheet_widget.dart';

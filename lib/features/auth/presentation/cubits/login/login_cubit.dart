@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../domain/entities/login_entity.dart';
+import '../../../data/models/login_model.dart';
 import '../../../domain/usecases/login_usecase.dart';
 import 'login_state.dart';
 
@@ -11,9 +11,9 @@ class LoginCubit extends Cubit<LoginState> {
 
   LoginCubit(this._loginUseCase) : super(const LoginInitState());
 
-  void login(LoginEntity entity) async {
+  void login(LoginModel loginModel) async {
     emit(const LoginLoadingState());
-    final result = await _loginUseCase(entity);
+    final result = await _loginUseCase(loginModel);
 
     result.when(
       failure: (failure) => emit(LoginFailureState(failure.code)),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/app_reg_exp.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_button_loading.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/login_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_cubit.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/login/login_state.dart';
+import 'package:sawa/core/clients/firebase_client.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/utils/app_reg_exp.dart';
+import 'package:sawa/core/widgets/app_button_loading.dart';
+import 'package:sawa/features/auth/data/models/login_model.dart';
+import 'package:sawa/features/auth/presentation/cubits/login/login_cubit.dart';
+import 'package:sawa/features/auth/presentation/cubits/login/login_state.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/routing/app_route_name.dart';
@@ -54,8 +54,8 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
 
   void _login() {
     context.read<LoginCubit>().login(
-      LoginEntity(
-        email: _emailController.text.trim(),
+      LoginModel(
+        identifier: _emailController.text.trim(),
         password: _passwordController.text,
       ),
     );

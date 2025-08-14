@@ -32,35 +32,4 @@ enum MediaType {
 
 enum VideoType { file, network }
 
-enum ReactionType {
-  like,
-  love,
-  haha,
-  wow,
-  sad,
-  angry;
-
-  String toValue() {
-    switch (this) {
-      case ReactionType.like:
-        return 'like';
-      case ReactionType.love:
-        return 'love';
-      case ReactionType.haha:
-        return 'haha';
-      case ReactionType.wow:
-        return 'wow';
-      case ReactionType.sad:
-        return 'sad';
-      case ReactionType.angry:
-        return 'angry';
-    }
-  }
-
-  static ReactionType fromValue(String value) {
-    return ReactionType.values.firstWhere(
-      (type) => type.toValue() == value,
-      orElse: () => ReactionType.like,
-    );
-  }
-}
+enum ProfileUpdateType { none, image, name, bio, deletePost }

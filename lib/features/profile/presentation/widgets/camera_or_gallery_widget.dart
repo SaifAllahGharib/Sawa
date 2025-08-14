@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/presentation/widgets/display_image_profile.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/features/profile/presentation/widgets/display_image_profile.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/styles/app_styles.dart';
@@ -22,17 +22,19 @@ class CameraOrGalleryWidget extends StatelessWidget {
   void _pickedFromGallery(BuildContext context) {
     _clearAssets(context);
     context.read<MediaCubit>().pickImageFromGallery();
+    context.navigator.pop();
   }
 
   void _pickedFromCamera(BuildContext context) {
     _clearAssets(context);
     context.read<MediaCubit>().pickImageFromCamera();
+    context.navigator.pop();
   }
 
   void _handleState(BuildContext context, MediaState state) {
     if (state.pickedAssets.isNotEmpty) {
       final mediaCubit = context.read<MediaCubit>();
-      final profileCubit = getIt<ProfileCubit>();
+
       context.navigator.push(
         PageRouteBuilder(
           opaque: false,
@@ -42,7 +44,7 @@ class CameraOrGalleryWidget extends StatelessWidget {
             return MultiBlocProvider(
               providers: [
                 BlocProvider.value(value: mediaCubit),
-                BlocProvider.value(value: profileCubit),
+                BlocProvider.value(value: getIt<ProfileCubit>()),
               ],
               child: const DisplayImageProfile(),
             );
@@ -85,14 +87,17 @@ class CameraOrGalleryWidget extends StatelessWidget {
               ),
             ),
             15.verticalSpace,
-            AppGestureDetectorButton(
-              child: Text(
-                context.tr.camera,
-                style: AppStyles.s20W600.copyWith(
-                  color: context.customColor.textColor,
+            SizedBox(
+              width: double.infinity,
+              child: AppGestureDetectorButton(
+                child: Text(
+                  context.tr.camera,
+                  style: AppStyles.s20W600.copyWith(
+                    color: context.customColor.textColor,
+                  ),
                 ),
+                onTap: () => _pickedFromCamera(context),
               ),
-              onTap: () => _pickedFromCamera(context),
             ),
           ],
         ),

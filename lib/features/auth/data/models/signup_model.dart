@@ -7,12 +7,12 @@ part 'signup_model.g.dart';
 @JsonSerializable()
 class SignupModel {
   final String name;
-  final String email;
+  final String identifier;
   final String password;
 
   const SignupModel({
     required this.name,
-    required this.email,
+    required this.identifier,
     required this.password,
   });
 
@@ -21,15 +21,7 @@ class SignupModel {
 
   Map<String, dynamic> toJson() => _$SignupModelToJson(this);
 
-  factory SignupModel.fromEntity(SignupEntity entity) {
-    return SignupModel(
-      name: entity.name,
-      email: entity.email,
-      password: entity.password,
-    );
-  }
-
   SignupEntity toEntity() {
-    return SignupEntity(name: name, email: email, password: password);
+    return SignupEntity(name: name, identifier: identifier, password: password);
   }
 }

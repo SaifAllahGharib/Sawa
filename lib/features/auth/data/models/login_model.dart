@@ -6,21 +6,17 @@ part 'login_model.g.dart';
 
 @JsonSerializable()
 class LoginModel {
-  final String email;
+  final String identifier;
   final String password;
 
-  const LoginModel({required this.email, required this.password});
+  const LoginModel({required this.identifier, required this.password});
 
   factory LoginModel.fromJson(Map<String, dynamic> json) =>
       _$LoginModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginModelToJson(this);
 
-  factory LoginModel.fromEntity(LoginEntity entity) {
-    return LoginModel(email: entity.email, password: entity.password);
-  }
-
   LoginEntity toEntity() {
-    return LoginEntity(email: email, password: password);
+    return LoginEntity(identifier: identifier, password: password);
   }
 }

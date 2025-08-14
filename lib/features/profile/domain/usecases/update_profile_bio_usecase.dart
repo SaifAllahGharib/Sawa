@@ -11,7 +11,7 @@ class UpdateProfileBioUseCase extends UseCase<void, String> {
   UpdateProfileBioUseCase(this._iProfileRepository);
 
   @override
-  FutureResult<void> call(String newBio) async {
-    return await _iProfileRepository.updateProfileBio(newBio);
+  FutureResult<void> call([String? newBio]) async {
+    return await _iProfileRepository.updateProfileBio(newBio: newBio!);
   }
 }

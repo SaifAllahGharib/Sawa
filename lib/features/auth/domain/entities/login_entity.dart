@@ -1,6 +1,6 @@
 class LoginEntity {
-  final String email;
+  final String identifier;
   final String password;
 
-  const LoginEntity({required this.email, required this.password});
+  const LoginEntity({required this.identifier, required this.password});
 }

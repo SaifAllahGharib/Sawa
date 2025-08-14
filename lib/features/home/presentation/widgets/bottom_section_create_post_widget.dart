@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sawa/features/home/data/models/create_post_model.dart';
+import 'package:sawa/shared/models/media_model.dart';
 
 import '../../../../../../core/extensions/build_context_extensions.dart';
 import '../../../../../../core/extensions/number_extensions.dart';
@@ -14,8 +16,7 @@ import '../../../../shared/cubits/media/media_cubit.dart';
 import '../../../../shared/cubits/media/media_state.dart';
 import '../../../../shared/cubits/validation/validation_cubit.dart';
 import '../../../../shared/cubits/validation/validation_state.dart';
-import '../../../../shared/data/models/media_item.dart';
-import '../../domain/entities/post_entity.dart';
+import '../../../../shared/entities/media_item.dart';
 import '../cubits/home/home_cubit.dart';
 import '../cubits/home/home_state.dart';
 import 'image_and_video_from_camera_or_gallery_widget_bottom_sheet.dart';
@@ -29,15 +30,17 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
   });
 
   void _createPost(BuildContext context, List<MediaItem> pickedAssets) {
-    context.read<HomeCubit>().createPost(
-      PostEntity(
-        authorId: getIt<FirebaseClient>().auth.currentUser!.uid,
-        content: postController.text,
-        isPublic: true,
-        createdAt: DateTime.now(),
-      ),
-      pickedAssets,
+    final createPostModel = CreatePostModel(
+      authorId: getIt<FirebaseClient>().auth.currentUser!.uid,
+      content: postController.text,
+      isPublic: true,
+      createdAt: DateTime.now(),
+      media: pickedAssets
+          .map((e) => MediaModel(path: e.path, type: e.type.toString()))
+          .toList(),
     );
+
+    context.read<HomeCubit>().createPost(createPostModel: createPostModel);
   }
 
   void _onTapSelectMedia(BuildContext context) {

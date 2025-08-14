@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/theme/dark_theme.dart';
+import 'package:sawa/core/theme/dark_theme.dart';
 
 import '../styles/app_colors.dart';
 import 'light_theme.dart';

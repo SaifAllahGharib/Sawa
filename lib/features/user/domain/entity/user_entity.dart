@@ -1,9 +1,15 @@
 class UserEntity {
-  final String? id;
+  final String id;
+  final String name;
+  final String email;
   final String? image;
-  final String? name;
-  final String? email;
   final String? bio;
 
-  const UserEntity({this.id, this.image, this.name, this.email, this.bio});
+  const UserEntity({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.image,
+    required this.bio,
+  });
 }

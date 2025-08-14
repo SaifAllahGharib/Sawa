@@ -1,70 +1,42 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sawa/features/home/data/models/create_post_model.dart';
 
-import '../../../../core/utils/enums.dart';
-import '../../../../shared/data/models/media_model.dart';
-import '../../../../shared/data/models/post_model.dart';
-import '../../domain/entities/media_entity.dart';
+import '../../../../core/constants/reaction_type.dart';
 import '../../domain/entities/post_entity.dart';
-import '../../domain/entities/post_media_entity.dart';
 import '../../domain/entities/reaction_entity.dart';
 import '../../domain/repositories/home_repository.dart';
-import '../data_sources/home_post_remote_data_source.dart';
-import '../data_sources/home_upload_storage_remote_data_source.dart';
-import '../models/post_media_model.dart';
+import '../data_sources/interfaces/i_home_post_remote_data_source.dart';
 
 @LazySingleton(as: IHomeRepository)
 class HomeRepositoryImpl implements IHomeRepository {
-  final IHomeUploadStorageRemoteDataSource _iHomeUploadStorageRemoteDataSource;
   final IHomePostRemoteDataSource _iHomePostRemoteDataSource;
   final ErrorHandler _errorHandler;
 
-  HomeRepositoryImpl(
-    this._iHomeUploadStorageRemoteDataSource,
-    this._iHomePostRemoteDataSource,
-    this._errorHandler,
-  );
+  HomeRepositoryImpl(this._iHomePostRemoteDataSource, this._errorHandler);
 
   @override
-  FutureResult<List<String>> uploadPostMedia(MediaEntity mediaEntity) async {
-    return _errorHandler.handleFutureWithTryCatch(
-      () async => await _iHomeUploadStorageRemoteDataSource.uploadPostMedia(
-        await MediaModel.fromEntity(mediaEntity),
-      ),
-    );
-  }
-
-  @override
-  FutureResult<String?> createPost(PostEntity post) async {
+  FutureResult<void> createPost({
+    required CreatePostModel createPostModel,
+  }) async {
     return _errorHandler.handleFutureWithTryCatch(
       () async => await _iHomePostRemoteDataSource.createPost(
-        PostModel.fromEntity(post),
+        createPostModel: createPostModel,
       ),
     );
   }
 
   @override
-  FutureResult<void> uploadPostMediaToTable(
-    List<PostMediaEntity> mediaModels,
-  ) async {
+  FutureResult<void> deletePost({required String postId}) async {
     return _errorHandler.handleFutureWithTryCatch(
-      () async => await _iHomePostRemoteDataSource.uploadPostMedia(
-        mediaModels.map((e) => PostMediaModel.fromEntity(e)).toList(),
-      ),
+      () async => await _iHomePostRemoteDataSource.deletePost(postId: postId),
     );
   }
 
   @override
-  FutureResult<void> deletePost(String postId) async {
-    return _errorHandler.handleFutureWithTryCatch(
-      () async => await _iHomePostRemoteDataSource.deletePost(postId),
-    );
-  }
-
-  @override
-  FutureResult<List<PostEntity>> getUserPosts(String uId) async {
+  FutureResult<List<PostEntity>> getUserPosts({required String uId}) async {
     return _errorHandler.handleFutureWithTryCatch(() async {
-      final response = await _iHomePostRemoteDataSource.getUserPosts(uId);
+      final response = await _iHomePostRemoteDataSource.getUserPosts(uId: uId);
       return response.map((e) => e.toEntity()).toList();
     });
   }

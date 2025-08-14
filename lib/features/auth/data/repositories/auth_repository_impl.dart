@@ -1,11 +1,10 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/data/data_sources/auth_remote_data_source.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/data/models/login_model.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/data/models/signup_model.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/login_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/signup_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/repositories/auth_repository.dart';
+
+import '../../domain/repositories/auth_repository.dart';
+import '../data_sources/auth_remote_data_source.dart';
+import '../models/login_model.dart';
+import '../models/signup_model.dart';
 
 @LazySingleton(as: IAuthRepository)
 class AuthRepositoryImpl implements IAuthRepository {
@@ -15,19 +14,19 @@ class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl(this._authRemoteDataSource, this._errorHandler);
 
   @override
-  FutureResult<String?> createAccount(SignupEntity entity) async {
+  FutureResult<String?> createAccount({
+    required SignupModel signupModel,
+  }) async {
     return _errorHandler.handleFutureWithTryCatch(
-      () async => await _authRemoteDataSource.createAccount(
-        SignupModel.fromEntity(entity),
-      ),
+      () async =>
+          await _authRemoteDataSource.createAccount(signupModel: signupModel),
     );
   }
 
   @override
-  FutureResult<String?> login(LoginEntity entity) async {
+  FutureResult<String?> login({required LoginModel loginModel}) async {
     return _errorHandler.handleFutureWithTryCatch(
-      () async =>
-          await _authRemoteDataSource.login(LoginModel.fromEntity(entity)),
+      () async => await _authRemoteDataSource.login(loginModel: loginModel),
     );
   }
 

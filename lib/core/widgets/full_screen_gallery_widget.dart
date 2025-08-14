@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/constants/app_assets.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/enums.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_asset_image.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_video_runner.dart';
+import 'package:sawa/core/constants/app_assets.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/utils/enums.dart';
+import 'package:sawa/core/widgets/app_asset_image.dart';
+import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
+import 'package:sawa/core/widgets/app_padding_widget.dart';
+import 'package:sawa/core/widgets/app_scaffold.dart';
+import 'package:sawa/core/widgets/app_video_runner.dart';
 
 import 'app_network_image.dart';
 

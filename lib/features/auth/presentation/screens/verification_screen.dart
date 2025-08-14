@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/styles/app_styles.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/app_snack_bar.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_padding_widget.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_scaffold.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/presentation/cubits/verification/verification/verification_state.dart';
+import 'package:sawa/core/clients/firebase_client.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/styles/app_styles.dart';
+import 'package:sawa/core/utils/app_snack_bar.dart';
+import 'package:sawa/core/widgets/app_padding_widget.dart';
+import 'package:sawa/core/widgets/app_scaffold.dart';
+import 'package:sawa/features/auth/presentation/cubits/verification/verification/verification_state.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';

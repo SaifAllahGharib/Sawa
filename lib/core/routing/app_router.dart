@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/presentation/cubit/profile/profile_cubit.dart';
-import 'package:intern_intelligence_social_media_application/features/splash/presentation/screen/splash_screen.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/features/profile/presentation/cubit/profile/profile_cubit.dart';
+import 'package:sawa/features/splash/presentation/screen/splash_screen.dart';
 
 import '../../features/auth/presentation/cubits/verification/verification/verification_cubit.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
@@ -42,8 +42,8 @@ abstract class AppRouter {
         );
       case AppRouteName.profile:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => getIt<ProfileCubit>(),
+          builder: (context) => BlocProvider.value(
+            value: getIt<ProfileCubit>(),
             child: ProfileScreen(uId: context.arguments as String),
           ),
           settings: settings,

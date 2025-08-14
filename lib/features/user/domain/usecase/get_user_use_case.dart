@@ -12,7 +12,7 @@ class GetUserUseCase implements UseCase<UserEntity, String> {
   GetUserUseCase(this._userRepository);
 
   @override
-  FutureResult<UserEntity> call(String uId) async {
-    return await _userRepository.getUser(uId);
+  FutureResult<UserEntity> call([String? uId]) async {
+    return await _userRepository.getUser(uId: uId!);
   }
 }

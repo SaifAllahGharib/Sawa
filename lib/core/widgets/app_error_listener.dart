@@ -1,6 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
 
 import '../utils/app_snack_bar.dart';
 

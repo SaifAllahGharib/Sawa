@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/routing/app_route_name.dart';
 
 import 'do_not_or_have_account_widget.dart';
 

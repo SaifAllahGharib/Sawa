@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
 
 abstract class DateTimeHelper {
   static String timeAgoSinceDate(BuildContext context, DateTime date) {

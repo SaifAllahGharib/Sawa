@@ -1,18 +1,17 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intern_intelligence_social_media_application/core/usecases/usecase.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/repositories/home_repository.dart';
-
-import '../entities/post_entity.dart';
+import 'package:sawa/core/usecases/usecase.dart';
+import 'package:sawa/features/home/data/models/create_post_model.dart';
+import 'package:sawa/features/home/domain/repositories/home_repository.dart';
 
 @injectable
-class CreatePostUseCase implements UseCase<String?, PostEntity> {
+class CreatePostUseCase implements UseCase<void, CreatePostModel> {
   final IHomeRepository _iHomeRepository;
 
   CreatePostUseCase(this._iHomeRepository);
 
   @override
-  FutureResult<String?> call(PostEntity params) async {
-    return await _iHomeRepository.createPost(params);
+  FutureResult<void> call([CreatePostModel? createPostModel]) async {
+    return await _iHomeRepository.createPost(createPostModel: createPostModel!);
   }
 }

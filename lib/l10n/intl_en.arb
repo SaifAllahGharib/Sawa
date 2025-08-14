@@ -81,5 +81,8 @@
   "doYouWantToOpenOrCopyTheLink": "Do you want to open or copy the link?",
   "open": "Open",
   "close": "Close",
-  "copy": "Copy"
+  "copy": "Copy",
+  "errorToUpdateImage": "error to update image",
+  "failedToUpdateName": "failed to update Name",
+  "failedToUpdateBio": "failed to update bio"
 }

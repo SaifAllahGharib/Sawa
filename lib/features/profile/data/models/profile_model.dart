@@ -1,7 +1,7 @@
-import 'package:intern_intelligence_social_media_application/features/profile/domain/entity/profile_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sawa/features/profile/domain/entity/profile_entity.dart';
 
-import '../../../../shared/data/models/post_model.dart';
+import '../../../../shared/models/post_model.dart';
 import '../../../user/data/model/user_model.dart';
 
 part 'profile_model.g.dart';
@@ -15,13 +15,6 @@ class ProfileModel {
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$ProfileModelFromJson(json);
-
-  factory ProfileModel.fromEntity(ProfileEntity entity) {
-    return ProfileModel(
-      user: UserModel.fromEntity(entity.user),
-      posts: entity.posts.map((e) => PostModel.fromEntity(e)).toList(),
-    );
-  }
 
   ProfileEntity toEntity() {
     return ProfileEntity(

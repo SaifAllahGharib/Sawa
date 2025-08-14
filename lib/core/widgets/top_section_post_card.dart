@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/utils/app_bottom_sheet.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/profile_image.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/utils/app_bottom_sheet.dart';
+import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
+import 'package:sawa/core/widgets/profile_image.dart';
 
 import '../extensions/number_extensions.dart';
 import '../helpers/date_time_helper.dart';

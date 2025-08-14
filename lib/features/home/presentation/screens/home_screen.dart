@@ -6,7 +6,6 @@ import '../../../../core/widgets/app_scaffold.dart';
 import '../../../../core/widgets/posts_loading.dart';
 import '../../../../shared/cubits/main/main_cubit.dart';
 import '../../../../shared/cubits/main/main_state.dart';
-import '../../../user/domain/entity/user_entity.dart';
 import '../../../user/presentation/cubit/user/user_state.dart';
 import '../../domain/entities/post_entity.dart';
 import '../cubits/home/home_cubit.dart';
@@ -26,7 +25,6 @@ class _HomeScreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin {
   late final TextEditingController _postController;
   List<PostEntity> _posts = [];
-  UserEntity? _user;
 
   @override
   bool get wantKeepAlive => true;
@@ -55,9 +53,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void _handleState(UserState state) {
-    if (state is UserSuccessState) {
-      _user = state.user;
-    } else if (state is UserFailureState) {
+    if (state is UserFailureState) {
       AppSnackBar.showError(context, state.code);
     }
   }
@@ -69,13 +65,14 @@ class _HomeScreenState extends State<HomeScreen>
       child: RefreshIndicator(
         onRefresh: () async => _getDefaultPosts(),
         child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           slivers: [
             const HomeAppBar(),
             BlocConsumer<MainCubit, MainState>(
               listener: (context, state) => _handleState(state.userState),
               builder: (context, state) {
-                return TopSectionHome(user: _user);
+                final user = context.watch<MainCubit>().user;
+                return TopSectionHome(user: user);
               },
             ),
             BlocConsumer<HomeCubit, HomeState>(

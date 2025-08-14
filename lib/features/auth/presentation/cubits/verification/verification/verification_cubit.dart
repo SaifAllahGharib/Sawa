@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intern_intelligence_social_media_application/core/usecases/no_params.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/usecases/send_email_verification_usercase.dart';
+import 'package:sawa/core/usecases/no_params.dart';
+import 'package:sawa/features/auth/domain/usecases/send_email_verification_usercase.dart';
 
 import '../../../../domain/usecases/email_verified_usecase.dart';
 import 'verification_state.dart';

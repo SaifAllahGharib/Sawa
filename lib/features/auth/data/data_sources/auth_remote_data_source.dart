@@ -1,16 +1,16 @@
-import 'package:intern_intelligence_social_media_application/features/auth/data/models/login_model.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/data/models/signup_model.dart';
+import 'package:sawa/features/auth/data/models/login_model.dart';
+import 'package:sawa/features/auth/data/models/signup_model.dart';
 
 abstract class IAuthRemoteDataSource {
-  Future<String?> login(LoginModel model);
+  Future<String?> login({required LoginModel loginModel});
 
-  Future<String?> createAccount(SignupModel model);
+  Future<String?> createAccount({required SignupModel signupModel});
 
   Future<bool> emailVerified();
 
   Future<void> sendEmailVerification();
 
-  Future<void> deleteUser(LoginModel model);
+  Future<void> deleteUser({required LoginModel loginModel});
 
   Future<void> logout();
 }

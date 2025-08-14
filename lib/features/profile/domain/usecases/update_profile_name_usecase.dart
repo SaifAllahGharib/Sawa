@@ -11,7 +11,7 @@ class UpdateProfileNameUseCase extends UseCase<void, String> {
   UpdateProfileNameUseCase(this._iProfileRepository);
 
   @override
-  FutureResult<void> call(String newName) async {
-    return await _iProfileRepository.updateProfileName(newName);
+  FutureResult<void> call([String? newName]) async {
+    return await _iProfileRepository.updateProfileName(newName: newName!);
   }
 }

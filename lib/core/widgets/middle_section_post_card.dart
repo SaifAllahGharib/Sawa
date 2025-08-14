@@ -1,14 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/styles/app_colors.dart';
+import 'package:sawa/core/utils/app_reg_exp.dart';
+import 'package:sawa/features/home/domain/entities/post_entity.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../core/extensions/number_extensions.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 import '../../../../core/widgets/post_gallery_view_widget.dart';
 import '../styles/app_styles.dart';
+import 'url_alert_dialog_widget.dart';
 
 class MiddleSectionPostCard extends StatelessWidget {
   final String? content;
@@ -34,52 +37,10 @@ class MiddleSectionPostCard extends StatelessWidget {
   void _onTapInUrl(BuildContext context, String url) {
     showDialog(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          backgroundColor: context.theme.scaffoldBackgroundColor,
-          title: Text(
-            context.tr.link,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-          ),
-          content: Text(
-            context.tr.doYouWantToOpenOrCopyTheLink,
-            style: TextStyle(
-              fontSize: 16,
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
-          ),
-          actions: [
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.green,
-                textStyle: const TextStyle(fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(context.tr.open),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.blue,
-                textStyle: const TextStyle(fontSize: 16),
-              ),
-              onPressed: () {
-                _copyText(url);
-                Navigator.pop(context);
-              },
-              child: Text(context.tr.copy),
-            ),
-          ],
-        );
-      },
+      builder: (context) => UrlAlertDialogWidget(
+        onClickOpen: () {},
+        onClickCopy: () => _copyText(url),
+      ),
     );
   }
 
@@ -108,51 +69,36 @@ class MiddleSectionPostCard extends StatelessWidget {
                   lessStyle: AppStyles.s14W400.copyWith(color: Colors.blue),
                   annotations: [
                     Annotation(
-                      regExp: RegExp(
-                        r'#([\u0600-\u06FF\u0750-\u077Fa-zA-Z0-9_]+)',
-                        unicode: true,
-                      ),
-                      spanBuilder:
-                          ({required String text, TextStyle? textStyle}) =>
-                              TextSpan(
-                                text: text,
-                                style: textStyle?.copyWith(color: Colors.blue),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    debugPrint('Hashtag tapped: $text');
-                                  },
-                              ),
+                      regExp: AppRegExp.hashtags,
+                      spanBuilder: ({required text, textStyle}) {
+                        return _buildTextSpan(
+                          text: text,
+                          textStyle: textStyle,
+                          onClick: () {},
+                        );
+                      },
                     ),
                     Annotation(
-                      regExp: RegExp(r'<@(\d+)>'),
-                      spanBuilder:
-                          ({required String text, TextStyle? textStyle}) =>
-                              TextSpan(
-                                text: 'User$text',
-                                style: textStyle?.copyWith(color: Colors.green),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    debugPrint('Mention tapped: $text');
-                                  },
-                              ),
+                      regExp: AppRegExp.mention,
+                      spanBuilder: ({required text, textStyle}) {
+                        return _buildTextSpan(
+                          text: text,
+                          textStyle: textStyle,
+                          onClick: () {},
+                        );
+                      },
                     ),
                     Annotation(
-                      regExp: RegExp(
-                        r'(?:(?:https?|ftp)://)?[\w/\-?=%.]+\.[\w/\-?=%.]+',
-                      ),
-                      spanBuilder:
-                          ({required String text, TextStyle? textStyle}) =>
-                              TextSpan(
-                                text: text,
-                                style: textStyle?.copyWith(
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: Colors.blue,
-                                ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () async =>
-                                      _onTapInUrl(context, text),
-                              ),
+                      regExp: AppRegExp.url,
+                      spanBuilder: ({required text, textStyle}) {
+                        return _buildTextSpan(
+                          text: text,
+                          textStyle: textStyle?.copyWith(
+                            decoration: TextDecoration.underline,
+                          ),
+                          onClick: () => _onTapInUrl(context, text),
+                        );
+                      },
                     ),
                   ],
                   style: AppStyles.s15W400.copyWith(
@@ -165,6 +111,19 @@ class MiddleSectionPostCard extends StatelessWidget {
           ),
         if (post.media.isNotEmpty) PostGalleryViewWidget(post: post),
       ],
+    );
+  }
+
+  TextSpan _buildTextSpan({
+    required String text,
+    required TextStyle? textStyle,
+    required VoidCallback onClick,
+    Color color = AppColors.blue,
+  }) {
+    return TextSpan(
+      text: text,
+      style: textStyle?.copyWith(color: color, decorationColor: AppColors.blue),
+      recognizer: TapGestureRecognizer()..onTap = onClick,
     );
   }
 }

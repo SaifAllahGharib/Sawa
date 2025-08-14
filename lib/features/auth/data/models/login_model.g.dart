@@ -7,9 +7,12 @@ part of 'login_model.dart';
 // **************************************************************************
 
 LoginModel _$LoginModelFromJson(Map<String, dynamic> json) => LoginModel(
-  email: json['email'] as String,
+  identifier: json['identifier'] as String,
   password: json['password'] as String,
 );
 
 Map<String, dynamic> _$LoginModelToJson(LoginModel instance) =>
-    <String, dynamic>{'email': instance.email, 'password': instance.password};
+    <String, dynamic>{
+      'identifier': instance.identifier,
+      'password': instance.password,
+    };

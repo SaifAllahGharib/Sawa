@@ -62,11 +62,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorToConnectTheNetwork": MessageLookupByLibrary.simpleMessage(
       "Error to connect the network",
     ),
+    "errorToUpdateImage": MessageLookupByLibrary.simpleMessage(
+      "error to update image",
+    ),
     "failedToCreateUser": MessageLookupByLibrary.simpleMessage(
       "Failed to create user",
     ),
     "failedToStoreUserInDb": MessageLookupByLibrary.simpleMessage(
       "Failed to store user",
+    ),
+    "failedToUpdateBio": MessageLookupByLibrary.simpleMessage(
+      "failed to update bio",
+    ),
+    "failedToUpdateName": MessageLookupByLibrary.simpleMessage(
+      "failed to update Name",
     ),
     "failedToUploadMedia": MessageLookupByLibrary.simpleMessage(
       "Failed to upload media",

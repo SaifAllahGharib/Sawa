@@ -1,11 +1,11 @@
 import 'package:failure_handler/failure_handler.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/login_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/domain/entities/signup_entity.dart';
+import 'package:sawa/features/auth/data/models/login_model.dart';
+import 'package:sawa/features/auth/data/models/signup_model.dart';
 
 abstract class IAuthRepository {
-  FutureResult<String?> login(LoginEntity entity);
+  FutureResult<String?> login({required LoginModel loginModel});
 
-  FutureResult<String?> createAccount(SignupEntity entity);
+  FutureResult<String?> createAccount({required SignupModel signupModel});
 
   FutureResult<bool> emailVerified();
 

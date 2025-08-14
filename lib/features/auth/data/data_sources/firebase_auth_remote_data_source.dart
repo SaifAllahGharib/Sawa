@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
-import 'package:intern_intelligence_social_media_application/core/clients/firebase_client.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/data/data_sources/auth_remote_data_source.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/data/models/login_model.dart';
-import 'package:intern_intelligence_social_media_application/features/auth/data/models/signup_model.dart';
+import 'package:sawa/core/clients/firebase_client.dart';
+import 'package:sawa/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:sawa/features/auth/data/models/login_model.dart';
+import 'package:sawa/features/auth/data/models/signup_model.dart';
 
 @LazySingleton(as: IAuthRemoteDataSource)
 class FirebaseAuthRemoteDataSource implements IAuthRemoteDataSource {
@@ -11,21 +11,21 @@ class FirebaseAuthRemoteDataSource implements IAuthRemoteDataSource {
   FirebaseAuthRemoteDataSource(this._firebaseClint);
 
   @override
-  Future<String?> createAccount(SignupModel model) async {
+  Future<String?> createAccount({required SignupModel signupModel}) async {
     return await _firebaseClint.auth
         .createUserWithEmailAndPassword(
-          email: model.email,
-          password: model.password,
+          email: signupModel.identifier,
+          password: signupModel.password,
         )
         .then((value) => value.user?.uid);
   }
 
   @override
-  Future<String?> login(LoginModel model) async {
+  Future<String?> login({required LoginModel loginModel}) async {
     return await _firebaseClint.auth
         .signInWithEmailAndPassword(
-          email: model.email,
-          password: model.password,
+          email: loginModel.identifier,
+          password: loginModel.password,
         )
         .then((value) => value.user?.uid);
   }
@@ -47,7 +47,7 @@ class FirebaseAuthRemoteDataSource implements IAuthRemoteDataSource {
   }
 
   @override
-  Future<void> deleteUser(LoginModel model) async {
+  Future<void> deleteUser({required LoginModel loginModel}) async {
     final user = _firebaseClint.auth.currentUser;
 
     if (user != null) {
@@ -55,8 +55,8 @@ class FirebaseAuthRemoteDataSource implements IAuthRemoteDataSource {
     } else {
       final userCredential = await _firebaseClint.auth
           .signInWithEmailAndPassword(
-            email: model.email,
-            password: model.password,
+            email: loginModel.identifier,
+            password: loginModel.password,
           );
       await userCredential.user?.delete();
     }

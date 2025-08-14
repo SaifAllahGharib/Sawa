@@ -1,21 +1,16 @@
 import 'package:failure_handler/failure_handler.dart';
+import 'package:sawa/features/home/data/models/create_post_model.dart';
 
-import '../../../../core/utils/enums.dart';
-import '../entities/media_entity.dart';
+import '../../../../core/constants/reaction_type.dart';
 import '../entities/post_entity.dart';
-import '../entities/post_media_entity.dart';
 import '../entities/reaction_entity.dart';
 
 abstract class IHomeRepository {
-  FutureResult<List<String>> uploadPostMedia(MediaEntity mediaEntity);
+  FutureResult<void> createPost({required CreatePostModel createPostModel});
 
-  FutureResult<String?> createPost(PostEntity postModel);
+  FutureResult<void> deletePost({required String postId});
 
-  FutureResult<void> deletePost(String postId);
-
-  FutureResult<void> uploadPostMediaToTable(List<PostMediaEntity> mediaModels);
-
-  FutureResult<List<PostEntity>> getUserPosts(String uId);
+  FutureResult<List<PostEntity>> getUserPosts({required String uId});
 
   FutureResult<List<PostEntity>> getDefaultPosts();
 

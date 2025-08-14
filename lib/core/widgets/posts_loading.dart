@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_placeholder.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/bottom_section_post_card.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/widgets/app_placeholder.dart';
+import 'package:sawa/core/widgets/bottom_section_post_card.dart';
 
 class PostsLoading extends StatelessWidget {
   const PostsLoading({super.key});

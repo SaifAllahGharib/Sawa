@@ -12,7 +12,7 @@ class GetProfileUseCase implements UseCase<ProfileEntity, String> {
   GetProfileUseCase(this._iProfileRepository);
 
   @override
-  FutureResult<ProfileEntity> call(String uId) async {
-    return await _iProfileRepository.getProfile(uId);
+  FutureResult<ProfileEntity> call([String? uId]) async {
+    return await _iProfileRepository.getProfile(uId: uId!);
   }
 }

@@ -18,4 +18,12 @@ abstract class AppRegExp {
     );
     return passwordRegex.hasMatch(password);
   }
+
+  static RegExp get url =>
+      RegExp(r'(?:(?:https?|ftp)://)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
+
+  static RegExp get mention => RegExp(r'<@(\d+)>');
+
+  static RegExp get hashtags =>
+      RegExp(r'#([\u0600-\u06FF\u0750-\u077Fa-zA-Z0-9_]+)', unicode: true);
 }

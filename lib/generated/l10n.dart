@@ -658,6 +658,36 @@ class S {
   String get copy {
     return Intl.message('Copy', name: 'copy', desc: '', args: []);
   }
+
+  /// `error to update image`
+  String get errorToUpdateImage {
+    return Intl.message(
+      'error to update image',
+      name: 'errorToUpdateImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `failed to update Name`
+  String get failedToUpdateName {
+    return Intl.message(
+      'failed to update Name',
+      name: 'failedToUpdateName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `failed to update bio`
+  String get failedToUpdateBio {
+    return Intl.message(
+      'failed to update bio',
+      name: 'failedToUpdateBio',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

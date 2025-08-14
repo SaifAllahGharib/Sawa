@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/build_context_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/routing/app_route_name.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/routing/app_route_name.dart';
+import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 
 import '../../features/home/domain/entities/post_entity.dart';
+import '../../shared/cubits/reactions/reaction_cubit.dart';
+import '../di/dependency_injection.dart';
 import '../extensions/number_extensions.dart';
 import '../styles/app_colors.dart';
 import 'bottom_section_post_card.dart';
@@ -45,12 +48,12 @@ class PostCard extends StatelessWidget {
           BoxShadow(
             color: AppColors.gray.withValues(alpha: 0.1),
             blurRadius: 1,
-            offset: const Offset(0.7, 0.7),
+            offset: Offset(0.7.w, 0.7.h),
           ),
           BoxShadow(
             color: AppColors.gray.withValues(alpha: 0.1),
             blurRadius: 1,
-            offset: const Offset(-0.7, -0.7),
+            offset: Offset(-0.7.w, -0.7.h),
           ),
         ],
       ),
@@ -67,7 +70,7 @@ class PostCard extends StatelessWidget {
             child: TopSectionPostCard(
               name: name,
               postedTime: postedTime,
-              authorImage: post.author!.image,
+              authorImage: post.author.image,
               isMyProfile: isMyProfile,
               onClickDelete: onClickDelete,
               onClickEdit: onClickEdit,
@@ -75,7 +78,12 @@ class PostCard extends StatelessWidget {
           ),
           10.verticalSpace,
           MiddleSectionPostCard(content: content, post: post),
-          BottomSectionPostCard(isPost: true, postId: post.id),
+          BlocProvider.value(
+            value: getIt<ReactionCubit>()
+              ..watchReactions(post.id)
+              ..watchUserReaction(post.id),
+            child: BottomSectionPostCard(isPost: true, postId: post.id),
+          ),
         ],
       ),
     );

@@ -1,4 +1,4 @@
-import '../../data/models/media_item.dart';
+import '../../entities/media_item.dart';
 
 class MediaState {
   final List<MediaItem> pickedAssets;

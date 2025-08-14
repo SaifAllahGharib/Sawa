@@ -1,67 +1,51 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/media_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/data/data_source/profile_remote_data_source.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/data/data_source/profile_upload_storage_remote_data_source.dart';
-import 'package:intern_intelligence_social_media_application/features/profile/domain/entity/profile_entity.dart';
+import 'package:sawa/features/profile/data/data_source/remote/interface/i_profile_remote_data_source.dart';
+import 'package:sawa/features/profile/domain/entity/profile_entity.dart';
 
-import '../../../../shared/data/models/media_model.dart';
 import '../../domain/repository/profile_repository.dart';
-import '../data_source/profile_local_data_source.dart';
+import '../data_source/local/interface/i_profile_local_data_source.dart';
 
 @LazySingleton(as: IProfileRepository)
 class ProfileRepositoryImpl implements IProfileRepository {
   final IProfileRemoteDataSource _iProfileRemoteDataSource;
   final IProfileLocalDataSource _iProfileLocalDataSource;
-  final IProfileUploadStorageRemoteDataSource
-  _iProfileUploadStorageRemoteDataSource;
   final ErrorHandler _errorHandler;
 
   ProfileRepositoryImpl(
     this._iProfileRemoteDataSource,
     this._iProfileLocalDataSource,
-    this._iProfileUploadStorageRemoteDataSource,
     this._errorHandler,
   );
 
   @override
-  FutureResult<void> updateProfileName(String newName) async {
+  FutureResult<void> updateProfileName({required String newName}) async {
     return _errorHandler.handleFutureWithTryCatch(() async {
-      await _iProfileRemoteDataSource.updateProfileName(newName);
-      await _iProfileLocalDataSource.updateProfileName(newName);
+      await _iProfileRemoteDataSource.updateProfileName(newName: newName);
+      await _iProfileLocalDataSource.updateProfileName(newName: newName);
     });
   }
 
   @override
-  FutureResult<ProfileEntity> getProfile(String uId) async {
+  FutureResult<ProfileEntity> getProfile({required String uId}) async {
     return _errorHandler.handleFutureWithTryCatch(() async {
-      final response = await _iProfileRemoteDataSource.getProfile(uId);
+      final response = await _iProfileRemoteDataSource.getProfile(uId: uId);
       return response.toEntity();
     });
   }
 
   @override
-  FutureResult<void> uploadProfileImage(MediaEntity media) async {
-    return _errorHandler.handleFutureWithTryCatch(() async {
-      final path = await _iProfileUploadStorageRemoteDataSource
-          .uploadProfileImage(await MediaModel.fromEntity(media));
-      await _iProfileRemoteDataSource.uploadProfileImage(path);
-      await _iProfileLocalDataSource.uploadProfileImage(path);
-    });
-  }
-
-  @override
-  FutureResult<void> deletePost(String postId) async {
+  FutureResult<void> deletePost({required String postId}) async {
     return _errorHandler.handleFutureWithTryCatch(
-      () async => await _iProfileRemoteDataSource.deletePost(postId),
+      () async => await _iProfileRemoteDataSource.deletePost(postId: postId),
     );
   }
 
   @override
-  FutureResult<void> updateProfileBio(String newBio) async {
+  FutureResult<void> updateProfileBio({required String newBio}) async {
     return _errorHandler.handleFutureWithTryCatch(() async {
-      await _iProfileRemoteDataSource.updateProfileBio(newBio);
-      await _iProfileLocalDataSource.updateProfileBio(newBio);
+      await _iProfileRemoteDataSource.updateProfileBio(newBio: newBio);
+      await _iProfileLocalDataSource.updateProfileBio(newBio: newBio);
     });
   }
 }

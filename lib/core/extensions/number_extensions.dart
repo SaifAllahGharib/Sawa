@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/responsive/app_responsive.dart';
+import 'package:sawa/core/responsive/app_responsive.dart';
 
 extension NumberExtensions on num {
   double get w => AppResponsive.w(toDouble());

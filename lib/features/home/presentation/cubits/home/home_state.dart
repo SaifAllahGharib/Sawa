@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/post_entity.dart';
-import 'package:intern_intelligence_social_media_application/features/home/domain/entities/reaction_entity.dart';
+import 'package:sawa/features/home/domain/entities/post_entity.dart';
+import 'package:sawa/features/home/domain/entities/reaction_entity.dart';
 
 sealed class HomeState extends Equatable {
   const HomeState();

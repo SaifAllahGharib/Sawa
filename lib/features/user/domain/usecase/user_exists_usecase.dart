@@ -11,7 +11,7 @@ class UserExistsUseCase extends UseCase<bool, String> {
   UserExistsUseCase(this._iUserRepository);
 
   @override
-  FutureResult<bool> call(String uId) async {
-    return await _iUserRepository.userExists(uId);
+  FutureResult<bool> call([String? uId]) async {
+    return await _iUserRepository.userExists(uId: uId!);
   }
 }

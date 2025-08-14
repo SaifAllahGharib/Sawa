@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
 
 class SuccessVerificationWidget extends StatefulWidget {
   const SuccessVerificationWidget({super.key});

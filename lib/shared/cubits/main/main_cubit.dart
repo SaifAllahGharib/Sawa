@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,9 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../features/auth/presentation/cubits/auth/auth_cubit.dart';
 import '../../../core/clients/firebase_client.dart';
+import '../../../features/user/domain/entity/user_entity.dart';
 import '../../../features/user/presentation/cubit/user/user_cubit.dart';
+import '../../../features/user/presentation/cubit/user/user_state.dart';
 import '../locale_cubit.dart';
 import '../theme_cubit.dart';
 import 'main_state.dart';
@@ -23,6 +26,16 @@ class MainCubit extends Cubit<MainState> {
   late final StreamSubscription _localeSub;
   late final StreamSubscription _authSub;
   late final StreamSubscription _userSub;
+
+  UserEntity _user = const UserEntity(
+    id: '',
+    name: '',
+    email: '',
+    image: '',
+    bio: '',
+  );
+
+  UserEntity get user => _user;
 
   MainCubit(
     this._themeCubit,
@@ -47,9 +60,13 @@ class MainCubit extends Cubit<MainState> {
     _authSub = _authCubit.stream.listen(
       (auth) => emit(state.copyWith(authState: auth)),
     );
-    _userSub = _userCubit.stream.listen(
-      (user) => emit(state.copyWith(userState: user)),
-    );
+    _userSub = _userCubit.stream.listen((userState) {
+      emit(state.copyWith(userState: userState));
+
+      if (userState is UserSuccessState) {
+        _user = userState.user;
+      }
+    });
   }
 
   void checkAuthStatus() => _authCubit.checkAuthStatus();
@@ -59,7 +76,12 @@ class MainCubit extends Cubit<MainState> {
   void changeLocale(String languageCode) =>
       _localeCubit.setLocale(languageCode);
 
-  void getUser() => _userCubit.getUser(_firebaseClient.auth.currentUser!.uid);
+  void getUser() {
+    log('=================================');
+    log('User Geted');
+    log('=================================');
+    _userCubit.getUser(_firebaseClient.auth.currentUser!.uid);
+  }
 
   @override
   Future<void> close() {

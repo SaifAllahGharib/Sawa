@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intern_intelligence_social_media_application/core/extensions/number_extensions.dart';
-import 'package:intern_intelligence_social_media_application/core/widgets/app_gesture_detector_button.dart';
+import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 
 import '../styles/app_styles.dart';
 import '../utils/enums.dart';
