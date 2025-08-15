@@ -154,73 +154,101 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
 
   @override
   Future<List<PostModel>> getDefaultPosts() async {
-    final postsRef = _firebaseClient.db.ref().child('posts');
-
-    final postsSnapshot = await postsRef.get();
+    final [postsSnapshot, usersSnapshot, mediaSnapshot] = await Future.wait([
+      _firebaseClient.db.ref().child('posts').get(),
+      _firebaseClient.db.ref().child('users').get(),
+      _firebaseClient.db.ref().child('posts_media').get(),
+    ]);
 
     if (!postsSnapshot.exists || postsSnapshot.value == null) return [];
 
-    final Map<dynamic, dynamic> usersPostsMap =
-        postsSnapshot.value as Map<dynamic, dynamic>;
+    final allPostsMap = _convertToMap(postsSnapshot.value);
+    final allUsersMap = usersSnapshot.exists
+        ? _convertToMap(usersSnapshot.value)
+        : <String, dynamic>{};
+    final allMediaMap = mediaSnapshot.exists
+        ? _convertToMap(mediaSnapshot.value)
+        : <String, dynamic>{};
 
-    final List<PostModel?> postsWithNulls = [];
+    final posts = await _processAllPosts(allPostsMap, allUsersMap, allMediaMap);
 
-    for (final userEntry in usersPostsMap.entries) {
-      final Map<dynamic, dynamic> postsMap = Map<String, dynamic>.from(
-        userEntry.value as Map,
-      );
+    posts.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-      for (final postEntry in postsMap.entries) {
-        final postData = Map<String, dynamic>.from(postEntry.value);
-        PostModel post = PostModel.fromJson(postData);
+    return posts;
+  }
 
-        final authorSnapshot = await _firebaseClient.db
-            .ref()
-            .child('users')
-            .child(post.authorId)
-            .get();
+  Future<List<PostModel>> _processAllPosts(
+    Map<String, dynamic> allPostsMap,
+    Map<String, dynamic> allUsersMap,
+    Map<String, dynamic> allMediaMap,
+  ) async {
+    final posts = <PostModel>[];
+    final futures = <Future>[];
 
-        if (!authorSnapshot.exists || authorSnapshot.value == null) {
-          continue;
-        }
+    for (final userEntry in allPostsMap.entries) {
+      final userPostsMap = _convertToMap(userEntry.value);
 
-        final authorData = Map<String, dynamic>.from(
-          authorSnapshot.value as Map<dynamic, dynamic>,
+      for (final postEntry in userPostsMap.entries) {
+        final postJson = _convertToMap(postEntry.value);
+        final postId = postJson['id']?.toString();
+        final authorId = postJson['user_id']?.toString();
+
+        if (postId == null || authorId == null) continue;
+
+        futures.add(
+          _processSinglePost(
+            postJson,
+            authorId,
+            postId,
+            allUsersMap,
+            allMediaMap,
+          ).then(posts.add),
         );
-
-        final author = UserModel.fromJson(authorData);
-
-        post = post.copyWith(author: author);
-
-        final mediaSnapshot = await _firebaseClient.db
-            .ref()
-            .child('posts_media')
-            .child(post.id)
-            .get();
-
-        if (mediaSnapshot.exists && mediaSnapshot.value != null) {
-          final mediaMap = Map<String, dynamic>.from(
-            mediaSnapshot.value as Map<dynamic, dynamic>,
-          );
-
-          final mediaList = mediaMap.entries
-              .map(
-                (e) =>
-                    PostMediaModel.fromJson(Map<String, dynamic>.from(e.value)),
-              )
-              .toList();
-
-          post = post.copyWith(media: mediaList);
-        }
-
-        postsWithNulls.add(post);
       }
     }
 
-    final posts = postsWithNulls.whereType<PostModel>().toList();
-    posts.shuffle();
-
+    await Future.wait(futures);
     return posts;
+  }
+
+  Future<PostModel> _processSinglePost(
+    Map<String, dynamic> postJson,
+    String authorId,
+    String postId,
+    Map<String, dynamic> allUsersMap,
+    Map<String, dynamic> allMediaMap,
+  ) async {
+    final basePost = PostModel.fromJson({
+      ...postJson,
+      'media': [],
+      'author': UserModel.empty().toJson(),
+    });
+
+    final authorData = allUsersMap[authorId] != null
+        ? UserModel.fromJson(_convertToMap(allUsersMap[authorId]))
+        : UserModel.empty();
+
+    final media = await _processMedia(_convertToMap(allMediaMap[postId]));
+
+    return basePost.copyWith(author: authorData, media: media);
+  }
+
+  Future<List<PostMediaModel>> _processMedia(
+    Map<String, dynamic> mediaMap,
+  ) async {
+    if (mediaMap.isEmpty) return [];
+
+    return mediaMap.entries
+        .map((e) => PostMediaModel.fromJson(_convertToMap(e.value)))
+        .where((media) => media.mediaUrl.isNotEmpty)
+        .toList();
+  }
+
+  Map<String, dynamic> _convertToMap(dynamic value) {
+    if (value is Map) {
+      return Map<String, dynamic>.from(value);
+    }
+    return {};
   }
 
   @override

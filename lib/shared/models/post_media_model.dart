@@ -21,8 +21,14 @@ class PostMediaModel {
     required this.mediaType,
   });
 
-  factory PostMediaModel.fromJson(Map<String, dynamic> json) =>
-      _$PostMediaModelFromJson(json);
+  factory PostMediaModel.fromJson(Map<String, dynamic> json) {
+    return PostMediaModel(
+      id: json['id']?.toString() ?? '',
+      postId: json['post_id']?.toString() ?? '',
+      mediaUrl: json['media_url']?.toString() ?? '',
+      mediaType: json['media_type']?.toString() ?? 'image',
+    );
+  }
 
   Map<String, dynamic> toJson() => _$PostMediaModelToJson(this);
 

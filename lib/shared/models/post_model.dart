@@ -30,20 +30,35 @@ class PostModel {
     required this.author,
   });
 
-  factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
-    id: json['id'] as String,
-    authorId: json['user_id'] as String,
-    content: json['content'] as String,
-    isPublic: json['is_public'] as bool,
-    createdAt: DateTime.parse(json['created_at'] as String),
-    media: (json['media'] as List<dynamic>? ?? []).map((e) {
-      final json2 = Map<String, dynamic>.from(e as Map);
-      return PostMediaModel.fromJson(json2);
-    }).toList(),
-    author: json['author'] != null
-        ? UserModel.fromJson(json['author'] as Map<String, dynamic>)
-        : const UserModel(id: '', name: '', email: ''),
-  );
+  factory PostModel.fromJson(Map<String, dynamic> json) {
+    return PostModel(
+      id: json['id']?.toString() ?? '',
+      authorId: json['user_id']?.toString() ?? '',
+      content: json['content']?.toString() ?? '',
+      isPublic: json['is_public'] as bool? ?? true,
+      createdAt: json['created_at'] != null
+          ? DateTime.tryParse(json['created_at'].toString()) ?? DateTime.now()
+          : DateTime.now(),
+      media: json['media'] is List
+          ? (json['media'] as List).map((item) {
+              return PostMediaModel.fromJson(
+                item is Map<String, dynamic>
+                    ? item
+                    : Map<String, dynamic>.from(item as Map? ?? {}),
+              );
+            }).toList()
+          : <PostMediaModel>[],
+      author: json['author'] != null
+          ? UserModel.fromJson(
+              json['author'] is Map<String, dynamic>
+                  ? json['author'] as Map<String, dynamic>
+                  : Map<String, dynamic>.from(json['author'] as Map? ?? {}),
+            )
+          : UserModel.empty(),
+    );
+  }
+
+  Map<String, dynamic> toJson() => _$PostModelToJson(this);
 
   PostEntity toEntity() {
     return PostEntity(
@@ -58,6 +73,7 @@ class PostModel {
   }
 
   PostModel copyWith({
+    String? id,
     String? authorId,
     String? content,
     bool? isPublic,
@@ -66,7 +82,7 @@ class PostModel {
     UserModel? author,
   }) {
     return PostModel(
-      id: id,
+      id: id ?? this.id,
       authorId: authorId ?? this.authorId,
       content: content ?? this.content,
       isPublic: isPublic ?? this.isPublic,

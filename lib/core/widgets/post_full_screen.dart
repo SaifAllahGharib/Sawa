@@ -31,8 +31,8 @@ class PostFullScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TopSectionPostCard(
-                  authorImage: post.author!.image,
-                  name: post.author!.name!,
+                  authorImage: post.author.image,
+                  name: post.author.name,
                   postedTime: post.createdAt,
                 ),
                 10.verticalSpace,

@@ -19,7 +19,7 @@ class LikeButton extends StatelessWidget {
 
   void _showReactionsPopup(BuildContext context, Offset position) {
     final overlay = Overlay.of(context);
-    late OverlayEntry overlayEntry;
+    late final OverlayEntry overlayEntry;
 
     overlayEntry = OverlayEntry(
       builder: (context) {
@@ -32,8 +32,8 @@ class LikeButton extends StatelessWidget {
           },
           child: Stack(
             children: [
-              BlocProvider.value(
-                value: getIt<ReactionCubit>(),
+              BlocProvider(
+                create: (context) => getIt<ReactionCubit>(),
                 child: ReactionsPopupWidget(
                   postId: postId,
                   position: position,
@@ -73,10 +73,10 @@ class LikeButton extends StatelessWidget {
                   height: 20.r,
                   width: 20.r,
                 )
-              : const Icon(
+              : Icon(
                   Icons.thumb_up_alt_outlined,
                   color: Colors.grey,
-                  size: 20,
+                  size: 20.r,
                 ),
           label: context.tr.like,
           onPressed: () => context.read<ReactionCubit>().toggleLike(postId),

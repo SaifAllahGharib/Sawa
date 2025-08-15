@@ -29,53 +29,69 @@ class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
       _firebaseClient.db.ref().child('posts').child(uId).get(),
     ]);
 
-    final userSnapshot = refs[0].value as Map;
-    final user = UserModel.fromJson(Map<String, dynamic>.from(userSnapshot));
+    if (!refs[0].exists || refs[0].value == null) {
+      throw Exception('User data not found');
+    }
 
-    if (refs[1].value == null) {
+    final userData = refs[0].value;
+    final user = UserModel.fromJson(
+      Map<String, dynamic>.from(userData as Map? ?? {}),
+    );
+
+    if (!refs[1].exists || refs[1].value == null) {
       return ProfileModel(user: user, posts: []);
     }
 
-    final postsSnapshot = refs[1].value as Map;
+    final postsData = refs[1].value;
+    final postsMap = Map<String, dynamic>.from(postsData as Map? ?? {});
 
-    final List<PostModel?> posts = await Future.wait(
-      postsSnapshot.entries.map((e) async {
-        final postDate = Map<String, dynamic>.from(e.value as Map);
-        PostModel post = PostModel.fromJson(postDate);
+    final posts = await _processPosts(postsMap, user);
 
-        post = post.copyWith(author: user);
-        final mediaSnapshot = await _firebaseClient.db
-            .ref()
-            .child('posts_media')
-            .child(post.id)
-            .get();
+    posts.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-        if (mediaSnapshot.exists && mediaSnapshot.value != null) {
-          final postsMediaMap = Map<String, dynamic>.from(
-            mediaSnapshot.value as Map,
-          );
+    return ProfileModel(user: user, posts: posts);
+  }
 
-          final mediaList = postsMediaMap.entries
-              .map(
-                (e) => PostMediaModel.fromJson(
-                  Map<String, dynamic>.from(e.value as Map),
-                ),
-              )
-              .toList();
+  Future<List<PostModel>> _processPosts(
+    Map<String, dynamic> postsMap,
+    UserModel user,
+  ) async {
+    final posts = <PostModel>[];
 
-          post = post.copyWith(media: mediaList);
-        }
+    for (final entry in postsMap.entries) {
+      if (entry.value == null) continue;
 
-        return post;
-      }),
-    );
+      final postData = Map<String, dynamic>.from(entry.value as Map? ?? {});
+      if (postData.isEmpty) continue;
 
-    final finalPosts = posts.whereType<PostModel>().toList();
-    finalPosts.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      PostModel post = PostModel.fromJson(postData).copyWith(author: user);
 
-    ProfileModel profile = ProfileModel(user: user, posts: finalPosts);
+      final mediaSnapshot = await _firebaseClient.db
+          .ref()
+          .child('posts_media')
+          .child(post.id)
+          .get();
 
-    return profile;
+      if (mediaSnapshot.exists && mediaSnapshot.value != null) {
+        final mediaData = Map<String, dynamic>.from(
+          mediaSnapshot.value as Map? ?? {},
+        );
+
+        final mediaList = mediaData.entries
+            .map(
+              (e) => PostMediaModel.fromJson(
+                Map<String, dynamic>.from(e.value as Map? ?? {}),
+              ),
+            )
+            .toList();
+
+        post = post.copyWith(media: mediaList);
+      }
+
+      posts.add(post);
+    }
+
+    return posts;
   }
 
   @override

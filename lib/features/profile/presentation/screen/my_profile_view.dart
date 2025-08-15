@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/styles/app_styles.dart';
 import 'package:sawa/core/utils/enums.dart';
 
 import '../../../../core/widgets/posts_loading.dart';
@@ -45,7 +46,14 @@ class MyProfileView extends StatelessWidget {
               );
             }
 
-            return const SizedBox.shrink();
+            return SliverToBoxAdapter(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: Center(
+                  child: Text(context.tr.noPosts, style: AppStyles.s18W500),
+                ),
+              ),
+            );
           },
         ),
       ],

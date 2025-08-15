@@ -9,21 +9,25 @@ import 'reactions_icons_row.dart';
 
 class BottomSectionPostCard extends StatelessWidget {
   final bool isPost;
-  final String? postId;
+  final String postId;
 
-  const BottomSectionPostCard({super.key, this.isPost = false, this.postId});
+  const BottomSectionPostCard({
+    super.key,
+    this.isPost = false,
+    this.postId = '',
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppPaddingWidget(
       child: Column(
         children: [
-          if (isPost) ReactionsIconsRow(postId: postId!),
+          if (isPost) ReactionsIconsRow(postId: postId),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (isPost)
-                LikeButton(postId: postId!)
+                LikeButton(postId: postId)
               else
                 PostActionButton(
                   icon: const Icon(
