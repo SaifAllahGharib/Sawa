@@ -8,6 +8,29 @@ abstract class AppAssets {
   static const String haha = 'assets/svgs/haha.svg';
   static const String wow = 'assets/svgs/wow.svg';
   static const String care = 'assets/svgs/care.svg';
-
-
+  static const String camera = 'assets/svgs/camera.svg';
+  static const String share = 'assets/svgs/share.svg';
+  static const String chat = 'assets/svgs/chat.svg';
+  static const String comment = 'assets/svgs/comment.svg';
+  static const String create = 'assets/svgs/create.svg';
+  static const String menuHorizontal = 'assets/svgs/menu_horizontal.svg';
+  static const String search = 'assets/svgs/search.svg';
+  static const String search2 = 'assets/svgs/search_2.svg';
+  static const String settings = 'assets/svgs/settings.svg';
+  static const String unLike = 'assets/svgs/un_like.svg';
+  static const String world = 'assets/svgs/world.svg';
+  static const String lock = 'assets/svgs/lock.svg';
+  static const String play = 'assets/svgs/play.svg';
+  static const String pause = 'assets/svgs/pause.svg';
+  static const String pause2 = 'assets/svgs/pause_2.svg';
+  static const String friend = 'assets/svgs/friend.svg';
+  static const String addFriend = 'assets/svgs/add_friend.svg';
+  static const String forward = 'assets/svgs/forward_5.svg';
+  static const String backward = 'assets/svgs/backward_5.svg';
+  static const String volumeHigh = 'assets/svgs/volume_high.svg';
+  static const String volumeMute = 'assets/svgs/volume_mute.svg';
+  static const String profileSvg = 'assets/svgs/profile.svg';
+  static const String download = 'assets/svgs/download.svg';
+  static const String image = 'assets/svgs/image.svg';
+  static const String edit = 'assets/svgs/edit.svg';
 }

@@ -6,10 +6,12 @@ import 'package:sawa/core/utils/app_bottom_sheet.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 import 'package:sawa/core/widgets/profile_image.dart';
 
+import '../constants/app_assets.dart';
 import '../extensions/number_extensions.dart';
 import '../helpers/date_time_helper.dart';
 import '../styles/app_styles.dart';
 import 'app_padding_widget.dart';
+import 'app_svg.dart';
 import 'more_post_widget.dart';
 
 class TopSectionPostCard extends StatefulWidget {
@@ -100,10 +102,14 @@ class _TopSectionPostCardState extends State<TopSectionPostCard> {
           if (widget.isMyProfile)
             AppGestureDetectorButton(
               onTap: _onTapMoreIcon,
-              child: Icon(
-                Icons.more_horiz_rounded,
-                color: context.customColor.icon,
-                size: 25.r,
+              child: AppSvg(
+                assetName: AppAssets.menuHorizontal,
+                colorFilter: ColorFilter.mode(
+                  context.customColor.icon!,
+                  BlendMode.srcIn,
+                ),
+                width: 25.r,
+                height: 25.r,
               ),
             ),
         ],

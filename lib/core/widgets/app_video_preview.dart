@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/widgets/app_file_image.dart';
 import 'package:sawa/core/widgets/app_placeholder.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 import 'play_pause_icon_widget.dart';

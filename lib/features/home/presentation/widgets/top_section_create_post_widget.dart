@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sawa/core/constants/app_assets.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/widgets/app_svg.dart';
 import 'package:sawa/shared/cubits/main/main_cubit.dart';
 
 import '../../../../core/styles/app_styles.dart';
@@ -28,7 +30,15 @@ class TopSectionCreatePostWidget extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Icon(Icons.public, size: 25.r, color: context.customColor.icon),
+        AppSvg(
+          assetName: AppAssets.world,
+          height: 22.h,
+          width: 22.h,
+          colorFilter: ColorFilter.mode(
+            context.customColor.icon!,
+            BlendMode.srcIn,
+          ),
+        ),
       ],
     );
   }

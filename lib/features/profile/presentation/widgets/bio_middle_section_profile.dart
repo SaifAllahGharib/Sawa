@@ -4,6 +4,7 @@ import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/features/user/domain/entity/user_entity.dart';
 
+import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/utils/app_bottom_sheet.dart';
@@ -11,6 +12,7 @@ import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/utils/enums.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_placeholder.dart';
+import '../../../../core/widgets/app_svg.dart';
 import '../../../../shared/cubits/main/main_cubit.dart';
 import '../../../../shared/cubits/validation/validation_cubit.dart';
 import '../cubit/profile/profile_cubit.dart';
@@ -65,11 +67,26 @@ class BioMiddleSectionProfile extends StatelessWidget {
 
         return AppGestureDetectorButton(
           onTap: () => isMyProfile ? _onTapOnBio(context) : null,
-          child: Text(
-            userEntity.bio ?? context.tr.noBio,
-            style: AppStyles.s16W400.copyWith(
-              color: context.customColor.textColor,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                userEntity.bio ?? context.tr.noBio,
+                style: AppStyles.s16W400.copyWith(
+                  color: context.customColor.textColor,
+                ),
+              ),
+              if (isMyProfile)
+                AppSvg(
+                  assetName: AppAssets.edit,
+                  colorFilter: ColorFilter.mode(
+                    context.customColor.icon!,
+                    BlendMode.srcIn,
+                  ),
+                  width: 20.r,
+                  height: 20.r,
+                ),
+            ],
           ),
         );
       },

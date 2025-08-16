@@ -9,6 +9,7 @@ import 'package:sawa/core/widgets/reactions_popup_widget.dart';
 
 import '../../shared/cubits/reactions/reaction_cubit.dart';
 import '../../shared/cubits/reactions/reactions_state.dart';
+import '../constants/app_assets.dart';
 import '../constants/reaction_type.dart';
 import 'app_svg.dart';
 
@@ -73,10 +74,14 @@ class LikeButton extends StatelessWidget {
                   height: 20.r,
                   width: 20.r,
                 )
-              : Icon(
-                  Icons.thumb_up_alt_outlined,
-                  color: Colors.grey,
-                  size: 20.r,
+              : AppSvg(
+                  assetName: AppAssets.unLike,
+                  colorFilter: const ColorFilter.mode(
+                    Colors.grey,
+                    BlendMode.srcIn,
+                  ),
+                  width: 20.r,
+                  height: 20.r,
                 ),
           label: context.tr.like,
           onPressed: () => context.read<ReactionCubit>().toggleLike(postId),

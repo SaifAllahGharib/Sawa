@@ -76,13 +76,7 @@ class _HomeScreenState extends State<HomeScreen>
               },
             ),
             BlocConsumer<HomeCubit, HomeState>(
-              listener: (context, state) {
-                if (state is HomeGetDefaultPostsState) {
-                  _posts = state.posts;
-                } else if (state is HomeFailureState) {
-                  AppSnackBar.showError(context, state.code);
-                }
-              },
+              listener: (context, state) {},
               builder: (context, state) {
                 if (state is HomeLoadingState) {
                   return const PostsLoading();

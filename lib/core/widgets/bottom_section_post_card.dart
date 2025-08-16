@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/styles/app_colors.dart';
 
+import '../constants/app_assets.dart';
 import 'app_padding_widget.dart';
+import 'app_svg.dart';
 import 'like_button.dart';
 import 'post_action_button.dart';
 import 'reactions_icons_row.dart';
@@ -30,30 +33,27 @@ class BottomSectionPostCard extends StatelessWidget {
                 LikeButton(postId: postId)
               else
                 PostActionButton(
-                  icon: const Icon(
-                    Icons.thumb_up_alt_outlined,
-                    color: Colors.grey,
-                    size: 20,
+                  icon: _buildSvgIcon(
+                    assetName: AppAssets.unLike,
+                    color: AppColors.gray,
                   ),
                   label: context.tr.comment,
                   onPressed: null,
                 ),
               10.horizontalSpace,
               PostActionButton(
-                icon: const Icon(
-                  Icons.comment_outlined,
-                  color: Colors.grey,
-                  size: 20,
+                icon: _buildSvgIcon(
+                  assetName: AppAssets.comment,
+                  color: AppColors.gray,
                 ),
                 label: context.tr.comment,
                 onPressed: isPost ? () {} : null,
               ),
               10.horizontalSpace,
               PostActionButton(
-                icon: const Icon(
-                  Icons.share_outlined,
-                  color: Colors.grey,
-                  size: 20,
+                icon: _buildSvgIcon(
+                  assetName: AppAssets.share,
+                  color: AppColors.gray,
                 ),
                 label: context.tr.share,
                 onPressed: isPost ? () {} : null,
@@ -62,6 +62,15 @@ class BottomSectionPostCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSvgIcon({required String assetName, required Color color}) {
+    return AppSvg(
+      assetName: assetName,
+      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+      width: 25.r,
+      height: 25.r,
     );
   }
 }

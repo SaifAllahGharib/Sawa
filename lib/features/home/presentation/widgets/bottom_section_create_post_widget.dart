@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sawa/core/constants/app_assets.dart';
+import 'package:sawa/core/widgets/app_svg.dart';
 import 'package:sawa/features/home/data/models/create_post_model.dart';
 import 'package:sawa/shared/models/media_model.dart';
 
@@ -100,10 +102,14 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
         10.horizontalSpace,
         AppGestureDetectorButton(
           onTap: () => _onTapSelectMedia(context),
-          child: Icon(
-            Icons.image_outlined,
-            size: 30.r,
-            color: context.customColor.icon,
+          child: AppSvg(
+            assetName: AppAssets.image,
+            width: 35.r,
+            height: 35.r,
+            colorFilter: ColorFilter.mode(
+              context.customColor.icon!,
+              BlendMode.srcIn,
+            ),
           ),
         ),
       ],

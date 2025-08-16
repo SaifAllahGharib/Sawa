@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
-import 'package:sawa/core/styles/app_colors.dart';
 import 'package:sawa/core/widgets/app_loading_widget.dart';
 
+import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/utils/app_bottom_sheet.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/utils/enums.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
+import '../../../../core/widgets/app_svg.dart';
 import '../../../../core/widgets/full_screen_gallery_widget.dart';
 import '../../../../core/widgets/profile_image.dart';
 import '../../../../shared/cubits/main/main_cubit.dart';
@@ -103,10 +104,14 @@ class ImageMiddleSectionProfile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(3000.r),
                         border: Border.all(color: context.customColor.border!),
                       ),
-                      child: Icon(
-                        Icons.camera_alt_outlined,
-                        color: AppColors.gray,
-                        size: 18.r,
+                      child: AppSvg(
+                        assetName: AppAssets.camera,
+                        colorFilter: ColorFilter.mode(
+                          context.customColor.icon!,
+                          BlendMode.srcIn,
+                        ),
+                        width: 20.r,
+                        height: 20.r,
                       ),
                     ),
                   ),

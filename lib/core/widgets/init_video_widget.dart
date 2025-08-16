@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sawa/core/constants/app_assets.dart';
+import 'package:sawa/core/widgets/app_svg.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../../../core/extensions/build_context_extensions.dart';
@@ -225,7 +227,7 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
                               children: [
                                 _buildButtonSeekTo(
                                   onClick: _seekBackward,
-                                  icon: Icons.replay_5_rounded,
+                                  icon: AppAssets.backward,
                                 ),
                                 20.horizontalSpace,
                                 AppGestureDetectorButton(
@@ -238,7 +240,7 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
                                 20.horizontalSpace,
                                 _buildButtonSeekTo(
                                   onClick: _seekForward,
-                                  icon: Icons.forward_5_rounded,
+                                  icon: AppAssets.forward,
                                 ),
                               ],
                             ),
@@ -363,10 +365,14 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
               color: AppColors.gray.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(1000.r),
             ),
-            child: Icon(
-              state.sound ? Icons.volume_up_rounded : Icons.volume_off_outlined,
-              size: 26.r,
-              color: Colors.white,
+            child: AppSvg(
+              assetName: state.sound
+                  ? AppAssets.volumeHigh
+                  : AppAssets.volumeMute,
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),
@@ -376,20 +382,33 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
 
   Widget _buildButtonSeekTo({
     required VoidCallback onClick,
-    required IconData icon,
+    required String icon,
   }) {
     return AppGestureDetectorButton(
       onTap: onClick,
-      child: Align(
+      child: Container(
+        height: 50.h,
+        width: 50.h,
         alignment: Alignment.center,
-        child: Container(
-          height: 50.h,
-          width: 50.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(1000.r),
-            color: Colors.black.withValues(alpha: 0.3),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(1000.r),
+          color: Colors.black.withValues(alpha: 0.3),
+        ),
+        child: Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: 30.h,
+            width: 30.h,
+            child: AppSvg(
+              assetName: icon,
+              width: 30.r,
+              height: 30.r,
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
+            ),
           ),
-          child: Icon(icon, size: 35.r, color: Colors.white),
         ),
       ),
     );

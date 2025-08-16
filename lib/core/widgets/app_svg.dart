@@ -10,7 +10,7 @@ class AppSvg extends StatelessWidget {
 
   final double? height;
 
-  final Color? color;
+  final ColorFilter? colorFilter;
 
   final BoxFit fit;
 
@@ -19,7 +19,7 @@ class AppSvg extends StatelessWidget {
     required this.assetName,
     this.width,
     this.height,
-    this.color,
+    this.colorFilter,
     this.fit = BoxFit.contain,
   });
 
@@ -30,6 +30,7 @@ class AppSvg extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      colorFilter: colorFilter,
       placeholderBuilder: (context) =>
           AppPlaceholder(width: width ?? 20.r, height: height ?? 20.r),
     );
