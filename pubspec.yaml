@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.9.0
 
 dependencies:
   flutter:
@@ -16,7 +16,7 @@ dependencies:
   get_it: ^8.2.0
   logger: ^2.6.1
   flutter_bloc: ^9.1.1
-  image_picker: ^1.1.2
+  image_picker: ^1.2.0
   intl: ^0.20.2
   shared_preferences: ^2.5.3
   equatable: ^2.0.7
@@ -57,7 +57,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
   injectable_generator: ^2.8.1
-  build_runner: ^2.6.0
+  build_runner: ^2.7.0
   json_serializable: ^6.10.0
   retrofit_generator: ^10.0.2
   freezed: ^3.2.0
