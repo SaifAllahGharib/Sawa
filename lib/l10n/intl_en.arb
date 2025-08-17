@@ -84,5 +84,6 @@
   "copy": "Copy",
   "errorToUpdateImage": "error to update image",
   "failedToUpdateName": "failed to update Name",
-  "failedToUpdateBio": "failed to update bio"
+  "failedToUpdateBio": "failed to update bio",
+  "changeBio": "Change Bio"
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-abstract class AppSnackBar {
+class AppSnackBar {
+  const AppSnackBar._();
+
   static const int _milliseconds = 2400;
 
   static void showSuccess(

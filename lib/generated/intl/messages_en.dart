@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "appName": MessageLookupByLibrary.simpleMessage("Sawa"),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
+    "changeBio": MessageLookupByLibrary.simpleMessage("Change Bio"),
     "changeName": MessageLookupByLibrary.simpleMessage("Change Name"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),

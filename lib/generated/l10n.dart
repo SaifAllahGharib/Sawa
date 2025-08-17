@@ -688,6 +688,11 @@ class S {
       args: [],
     );
   }
+
+  /// `Change Bio`
+  String get changeBio {
+    return Intl.message('Change Bio', name: 'changeBio', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

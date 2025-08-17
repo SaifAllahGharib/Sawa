@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/widgets/app_padding_widget.dart';
 import 'package:sawa/features/user/domain/entity/user_entity.dart';
 
 import '../../../../core/constants/app_assets.dart';
@@ -33,7 +34,8 @@ class BioMiddleSectionProfile extends StatelessWidget {
     context.read<MainCubit>().getUser();
   }
 
-  void _onTapOnBio(BuildContext context) {
+  void _showChangeBioBottomSheet(BuildContext context) {
+    context.navigator.pop();
     AppBottomSheet.showModal(
       context,
       (context) => MultiBlocProvider(
@@ -46,6 +48,17 @@ class BioMiddleSectionProfile extends StatelessWidget {
         child: const ChangeBioWidget(),
       ),
     );
+  }
+
+  void _onTapOnBio(BuildContext context) {
+    if (userEntity.bio == null || userEntity.bio!.isEmpty) {
+      _showChangeBioBottomSheet(context);
+    } else {
+      AppBottomSheet.showModal(
+        context,
+        (context) => _buildBioBottomSheetContent(context: context),
+      );
+    }
   }
 
   void _handleBioState(BuildContext context, ProfileState state) {
@@ -90,6 +103,65 @@ class BioMiddleSectionProfile extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildBioBottomSheetContent({required BuildContext context}) {
+    return AppPaddingWidget(
+      top: 0,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildBioBottomSheetContentRow(
+            context: context,
+            text: context.tr.changeBio,
+            onTap: () => _showChangeBioBottomSheet(context),
+            assetName: AppAssets.edit,
+            assetColor: context.customColor.icon!,
+          ),
+          15.verticalSpace,
+          _buildBioBottomSheetContentRow(
+            context: context,
+            text: context.tr.delete,
+            onTap: () {},
+            assetName: AppAssets.trash,
+            assetColor: Colors.red,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBioBottomSheetContentRow({
+    required BuildContext context,
+    required String text,
+    required VoidCallback onTap,
+    required String assetName,
+    required Color assetColor,
+  }) {
+    return AppGestureDetectorButton(
+      onTap: onTap,
+      child: SizedBox(
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              text,
+              style: AppStyles.s18W500.copyWith(
+                color: context.customColor.textColor,
+              ),
+            ),
+            AppSvg(
+              assetName: assetName,
+              width: 20.r,
+              height: 20.r,
+              colorFilter: ColorFilter.mode(assetColor, BlendMode.srcIn),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

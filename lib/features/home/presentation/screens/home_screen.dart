@@ -58,6 +58,18 @@ class _HomeScreenState extends State<HomeScreen>
     }
   }
 
+  void _handlePostsState(HomeState state) {
+    if (state is HomeGetDefaultPostsState) {
+      _posts = state.posts;
+    } else if (state is HomeFailureState) {
+      AppSnackBar.showError(context, state.code);
+    } else if (state is HomeCreatePostSuccessState) {
+      _getDefaultPosts();
+    } else if (state is HomeDeletePostSuccessState) {
+      _getDefaultPosts();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -76,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen>
               },
             ),
             BlocConsumer<HomeCubit, HomeState>(
-              listener: (context, state) {},
+              listener: (context, state) => _handlePostsState(state),
               builder: (context, state) {
                 if (state is HomeLoadingState) {
                   return const PostsLoading();

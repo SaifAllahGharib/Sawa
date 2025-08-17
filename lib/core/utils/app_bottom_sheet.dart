@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 
-abstract class AppBottomSheet {
+class AppBottomSheet {
+  const AppBottomSheet._();
+
   static void show(
     BuildContext context,
     WidgetBuilder builder, [

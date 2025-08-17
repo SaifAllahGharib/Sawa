@@ -1,4 +1,6 @@
-abstract class AppRegExp {
+class AppRegExp {
+  const AppRegExp._();
+
   static bool emailValidator(String email) {
     final emailRegex = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
