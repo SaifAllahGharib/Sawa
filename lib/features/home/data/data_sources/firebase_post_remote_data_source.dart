@@ -173,7 +173,7 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
 
     final posts = await _processAllPosts(allPostsMap, allUsersMap, allMediaMap);
 
-    posts.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    posts.shuffle();
 
     return posts;
   }
