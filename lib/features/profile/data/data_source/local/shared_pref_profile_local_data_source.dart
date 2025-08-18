@@ -20,7 +20,7 @@ class SharedPrefProfileLocalDataSource implements IProfileLocalDataSource {
   }
 
   @override
-  Future<void> uploadProfileImage({required String path}) async {
+  Future<void> updateProfileImage({required String path}) async {
     await _sharedPreferencesHelper.storeString(UserInfo.image.asString, path);
   }
 }

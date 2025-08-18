@@ -37,7 +37,7 @@ class MediaCubit extends Cubit<MediaState> {
     return uniqueAssets;
   }
 
-  void pickImageFromCamera() async {
+  Future<void> pickImageFromCamera() async {
     final pickedAsset = await _imagePickerHelper.pickImageFromCamera();
     if (pickedAsset.path.isNotEmpty) {
       final updatedAssets = List<MediaItem>.from(state.pickedAssets)
@@ -46,7 +46,7 @@ class MediaCubit extends Cubit<MediaState> {
     }
   }
 
-  void pickImageFromGallery() async {
+  Future<void> pickImageFromGallery() async {
     final pickedAsset = await _imagePickerHelper.pickImageFromGallery();
     if (pickedAsset.path.isNotEmpty) {
       final updatedAssets = List<MediaItem>.from(state.pickedAssets)
@@ -55,7 +55,7 @@ class MediaCubit extends Cubit<MediaState> {
     }
   }
 
-  void pickVideoFromCamera() async {
+  Future<void> pickVideoFromCamera() async {
     final pickedAsset = await _imagePickerHelper.pickVideoFromCamera();
     if (pickedAsset.path.isNotEmpty) {
       final updatedAssets = List<MediaItem>.from(state.pickedAssets)
@@ -64,7 +64,7 @@ class MediaCubit extends Cubit<MediaState> {
     }
   }
 
-  void pickVideoFromGallery() async {
+  Future<void> pickVideoFromGallery() async {
     final pickedAsset = await _imagePickerHelper.pickVideoFromGallery();
     if (pickedAsset.path.isNotEmpty) {
       final updatedAssets = List<MediaItem>.from(state.pickedAssets)

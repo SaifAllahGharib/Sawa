@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:injectable/injectable.dart';
+import 'package:path/path.dart' as p;
+import 'package:sawa/core/services/storage/i_storage_service.dart';
 import 'package:sawa/features/profile/data/models/profile_model.dart';
+import 'package:sawa/shared/models/media_model.dart';
 
 import '../../../../../core/clients/firebase_client.dart';
 import '../../../../../shared/models/post_media_model.dart';
@@ -10,8 +15,9 @@ import 'interface/i_profile_remote_data_source.dart';
 @LazySingleton(as: IProfileRemoteDataSource)
 class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
   final FirebaseClient _firebaseClient;
+  final IStorageService _iStorageService;
 
-  FirebaseProfileRemoteDataSource(this._firebaseClient);
+  FirebaseProfileRemoteDataSource(this._firebaseClient, this._iStorageService);
 
   @override
   Future<void> updateProfileName({required String newName}) async {
@@ -95,15 +101,6 @@ class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
   }
 
   @override
-  Future<void> uploadProfileImage({required String path}) async {
-    return _firebaseClient.db
-        .ref()
-        .child('users')
-        .child(_firebaseClient.auth.currentUser!.uid)
-        .update({'image': path});
-  }
-
-  @override
   Future<void> deletePost({required String postId}) async {
     await _firebaseClient.db
         .ref()
@@ -122,5 +119,29 @@ class FirebaseProfileRemoteDataSource extends IProfileRemoteDataSource {
         .child('users')
         .child(_firebaseClient.auth.currentUser!.uid)
         .update({'bio': newBio});
+  }
+
+  @override
+  Future<String> updateProfileImage({required MediaModel mediaModel}) async {
+    final userId = _firebaseClient.auth.currentUser!.uid;
+
+    final file = File(mediaModel.path);
+    final bytes = await file.readAsBytes();
+
+    final fileName = p.basename(file.path);
+
+    final urls = await _iStorageService.uploadFiles(
+      bucket: 'media',
+      basePath: 'profile_media/$userId',
+      files: [bytes],
+      fileNames: [fileName],
+      overwrite: true,
+    );
+
+    await _firebaseClient.db.ref().child('users').child(userId).update({
+      'image': urls.first,
+    });
+
+    return urls.first;
   }
 }

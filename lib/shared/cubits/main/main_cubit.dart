@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sawa/features/user/data/model/user_model.dart';
 
 import '../../../../features/auth/presentation/cubits/auth/auth_cubit.dart';
 import '../../../core/clients/firebase_client.dart';
@@ -27,13 +28,7 @@ class MainCubit extends Cubit<MainState> {
   late final StreamSubscription _authSub;
   late final StreamSubscription _userSub;
 
-  UserEntity _user = const UserEntity(
-    id: '',
-    name: '',
-    email: '',
-    image: '',
-    bio: '',
-  );
+  static UserEntity _user = UserModel.empty().toEntity();
 
   UserEntity get user => _user;
 
@@ -65,6 +60,7 @@ class MainCubit extends Cubit<MainState> {
 
       if (userState is UserSuccessState) {
         _user = userState.user;
+        print('User updated: ${_user.id} - ${_user.image}');
       }
     });
   }

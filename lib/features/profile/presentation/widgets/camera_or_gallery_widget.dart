@@ -19,15 +19,15 @@ class CameraOrGalleryWidget extends StatelessWidget {
     context.read<MediaCubit>().clearPickedAssets();
   }
 
-  void _pickedFromGallery(BuildContext context) {
+  void _pickedFromGallery(BuildContext context) async {
     _clearAssets(context);
-    context.read<MediaCubit>().pickImageFromGallery();
+    await context.read<MediaCubit>().pickImageFromGallery();
     context.navigator.pop();
   }
 
-  void _pickedFromCamera(BuildContext context) {
+  void _pickedFromCamera(BuildContext context) async {
     _clearAssets(context);
-    context.read<MediaCubit>().pickImageFromCamera();
+    await context.read<MediaCubit>().pickImageFromCamera();
     context.navigator.pop();
   }
 

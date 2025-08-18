@@ -79,6 +79,8 @@ import '../../features/profile/domain/usecases/profile_delete_post_usecase.dart'
     as _i727;
 import '../../features/profile/domain/usecases/update_profile_bio_usecase.dart'
     as _i182;
+import '../../features/profile/domain/usecases/update_profile_image_usecase.dart'
+    as _i414;
 import '../../features/profile/domain/usecases/update_profile_name_usecase.dart'
     as _i643;
 import '../../features/profile/presentation/cubit/profile/profile_cubit.dart'
@@ -163,6 +165,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i557.IStorageService>(),
       ),
     );
+    gh.lazySingleton<_i959.IProfileRemoteDataSource>(
+      () => _i276.FirebaseProfileRemoteDataSource(
+        gh<_i244.FirebaseClient>(),
+        gh<_i557.IStorageService>(),
+      ),
+    );
     gh.lazySingleton<_i44.IUserLocalDataSource>(
       () => _i746.SharedPrefUserLocalDataSource(
         gh<_i285.SharedPreferencesHelper>(),
@@ -170,9 +178,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i809.IUserRemoteDataSource>(
       () => _i213.FirebaseUserRemoteDataSource(gh<_i244.FirebaseClient>()),
-    );
-    gh.lazySingleton<_i959.IProfileRemoteDataSource>(
-      () => _i276.FirebaseProfileRemoteDataSource(gh<_i244.FirebaseClient>()),
     );
     gh.lazySingleton<_i753.ImagePickerHelper>(
       () => _i753.ImagePickerHelper(gh<_i183.ImagePicker>()),
@@ -220,16 +225,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i182.UpdateProfileBioUseCase>(
       () => _i182.UpdateProfileBioUseCase(gh<_i364.IProfileRepository>()),
     );
+    gh.factory<_i414.UpdateProfileImageUseCase>(
+      () => _i414.UpdateProfileImageUseCase(gh<_i364.IProfileRepository>()),
+    );
     gh.factory<_i643.UpdateProfileNameUseCase>(
       () => _i643.UpdateProfileNameUseCase(gh<_i364.IProfileRepository>()),
-    );
-    gh.singleton<_i771.ProfileCubit>(
-      () => _i771.ProfileCubit(
-        gh<_i643.UpdateProfileNameUseCase>(),
-        gh<_i965.GetProfileUseCase>(),
-        gh<_i727.ProfileDeletePostUseCase>(),
-        gh<_i182.UpdateProfileBioUseCase>(),
-      ),
     );
     gh.factory<_i444.AddReactionUseCase>(
       () => _i444.AddReactionUseCase(gh<_i0.IHomeRepository>()),
@@ -283,6 +283,15 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i91.GetUserUseCase>(
       () => _i91.GetUserUseCase(gh<_i450.IUserRepository>()),
+    );
+    gh.singleton<_i771.ProfileCubit>(
+      () => _i771.ProfileCubit(
+        gh<_i643.UpdateProfileNameUseCase>(),
+        gh<_i965.GetProfileUseCase>(),
+        gh<_i727.ProfileDeletePostUseCase>(),
+        gh<_i182.UpdateProfileBioUseCase>(),
+        gh<_i414.UpdateProfileImageUseCase>(),
+      ),
     );
     gh.factory<_i104.EmailVerifiedUseCase>(
       () => _i104.EmailVerifiedUseCase(gh<_i787.IAuthRepository>()),

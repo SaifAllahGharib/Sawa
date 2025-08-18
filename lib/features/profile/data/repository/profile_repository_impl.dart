@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sawa/features/profile/data/data_source/remote/interface/i_profile_remote_data_source.dart';
 import 'package:sawa/features/profile/domain/entity/profile_entity.dart';
 
+import '../../../../shared/models/media_model.dart';
 import '../../domain/repository/profile_repository.dart';
 import '../data_source/local/interface/i_profile_local_data_source.dart';
 
@@ -46,6 +47,18 @@ class ProfileRepositoryImpl implements IProfileRepository {
     return _errorHandler.handleFutureWithTryCatch(() async {
       await _iProfileRemoteDataSource.updateProfileBio(newBio: newBio);
       await _iProfileLocalDataSource.updateProfileBio(newBio: newBio);
+    });
+  }
+
+  @override
+  FutureResult<void> updateProfileImage({
+    required MediaModel mediaModel,
+  }) async {
+    return _errorHandler.handleFutureWithTryCatch(() async {
+      final url = await _iProfileRemoteDataSource.updateProfileImage(
+        mediaModel: mediaModel,
+      );
+      await _iProfileLocalDataSource.updateProfileImage(path: url);
     });
   }
 }

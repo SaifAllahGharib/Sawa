@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sawa/features/profile/domain/usecases/update_profile_image_usecase.dart';
 
 import '../../../../../core/utils/enums.dart';
+import '../../../../../shared/models/media_model.dart';
 import '../../../domain/usecases/get_profile_usecase.dart';
 import '../../../domain/usecases/profile_delete_post_usecase.dart';
 import '../../../domain/usecases/update_profile_bio_usecase.dart';
@@ -14,12 +16,14 @@ class ProfileCubit extends Cubit<ProfileState> {
   final GetProfileUseCase _getProfileUseCase;
   final ProfileDeletePostUseCase _profileDeletePostUseCase;
   final UpdateProfileBioUseCase _updateProfileBioUseCase;
+  final UpdateProfileImageUseCase _updateProfileImageUseCase;
 
   ProfileCubit(
     this._updateProfileNameUseCase,
     this._getProfileUseCase,
     this._profileDeletePostUseCase,
     this._updateProfileBioUseCase,
+    this._updateProfileImageUseCase,
   ) : super(const ProfileState());
 
   void getProfile(String uId) async {
@@ -113,6 +117,26 @@ class ProfileCubit extends Cubit<ProfileState> {
         );
         getProfile(uId);
       },
+    );
+  }
+
+  void updateProfileImage(MediaModel mediaModel) async {
+    emit(
+      state.copyWith(
+        isLoading: true,
+        updateType: ProfileUpdateType.image,
+        errorCode: null,
+      ),
+    );
+
+    final result = await _updateProfileImageUseCase(mediaModel);
+
+    result.when(
+      failure: (failure) =>
+          emit(state.copyWith(isLoading: false, errorCode: failure.code)),
+      success: (_) => emit(
+        state.copyWith(isLoading: false, updateType: ProfileUpdateType.image),
+      ),
     );
   }
 }

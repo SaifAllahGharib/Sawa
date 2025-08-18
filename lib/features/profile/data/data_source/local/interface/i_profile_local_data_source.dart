@@ -1,5 +1,5 @@
 abstract class IProfileLocalDataSource {
-  Future<void> uploadProfileImage({required String path});
+  Future<void> updateProfileImage({required String path});
 
   Future<void> updateProfileName({required String newName});
 
