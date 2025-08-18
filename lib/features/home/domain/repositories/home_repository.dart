@@ -1,5 +1,6 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:sawa/features/home/data/models/create_post_model.dart';
+import 'package:sawa/features/user/domain/entity/user_entity.dart';
 
 import '../../../../core/constants/reaction_type.dart';
 import '../entities/post_entity.dart';
@@ -24,4 +25,8 @@ abstract class IHomeRepository {
   StreamResult<List<ReactionEntity>> getReactions({required String postId});
 
   StreamResult<ReactionEntity?> getUserReaction({required String postId});
+
+  FutureResult<List<UserEntity>> getUsersReactedToPostWithReaction({
+    required List<String> uIds,
+  });
 }

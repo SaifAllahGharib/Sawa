@@ -63,12 +63,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
     );
   }
 
-  void _whenSuccess() {
+  void _whenSuccess(BuildContext context) {
+    final navigator = context.navigator;
+    final arguments = context.arguments;
+
     Future.delayed(const Duration(milliseconds: 1500), () {
-      context.navigator.pushNamedAndRemoveUntil(
+      navigator.pushNamedAndRemoveUntil(
         AppRouteName.home,
-        arguments:
-            (context.arguments as Map<String, dynamic>)['name'] as String,
+        arguments: (arguments as Map<String, dynamic>)['name'] as String,
         (route) => false,
       );
     });
@@ -86,9 +88,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
     AppSnackBar.showError(context, context.tr.codeSendNotSuccess);
   }
 
-  void _handleState(VerificationState state) {
+  void _handleState(BuildContext context, VerificationState state) {
     if (state is VerificationSuccess) {
-      _whenSuccess();
+      _whenSuccess(context);
     } else if (state is VerificationCodeSentSuccessOnce) {
       _whenCodeSendSuccess();
     } else if (state is VerificationFailure) {
@@ -105,7 +107,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
     return AppScaffold(
       child: AppPaddingWidget(
         child: BlocConsumer<VerificationCubit, VerificationState>(
-          listener: (context, state) => _handleState(state),
+          listener: _handleState,
           builder: (context, state) {
             if (state is VerificationSuccess) {
               return const SuccessVerificationWidget();

@@ -1,4 +1,5 @@
 import 'package:sawa/features/home/data/models/create_post_model.dart';
+import 'package:sawa/features/user/data/model/user_model.dart';
 
 import '../../../../../core/constants/reaction_type.dart';
 import '../../../../../shared/models/post_model.dart';
@@ -23,4 +24,8 @@ abstract class IHomePostRemoteDataSource {
   Stream<List<ReactionModel>> getReactions({required String postId});
 
   Stream<ReactionModel?> getUserReaction({required String postId});
+
+  Future<List<UserModel>> getUsersReactedToPostWithReaction({
+    required List<String> uIds,
+  });
 }

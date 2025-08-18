@@ -1,4 +1,4 @@
-import 'package:failure_handler/src/types/future_result.dart';
+import 'package:failure_handler/failure_handler.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sawa/core/usecases/usecase.dart';
 import 'package:sawa/features/profile/domain/repository/profile_repository.dart';

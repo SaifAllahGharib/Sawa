@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sawa/core/di/dependency_injection.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 
@@ -38,8 +39,12 @@ class ReactionsIconsRow extends StatelessWidget {
             return AppGestureDetectorButton(
               onTap: () => AppBottomSheet.show(
                 context,
-                (_) => ListUserReactionsPost(
-                  users: reactions.map((e) => e.userId).toList(),
+                (_) => BlocProvider(
+                  create: (context) => getIt<ReactionCubit>(),
+                  child: ListUserReactionsPost(
+                    users: reactions.map((e) => e.userId).toList(),
+                    reactions: reactions,
+                  ),
                 ),
               ),
               child: Row(

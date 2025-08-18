@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sawa/features/home/data/models/create_post_model.dart';
 
 import '../../../../core/constants/reaction_type.dart';
+import '../../../user/domain/entity/user_entity.dart';
 import '../../domain/entities/post_entity.dart';
 import '../../domain/entities/reaction_entity.dart';
 import '../../domain/repositories/home_repository.dart';
@@ -81,5 +82,17 @@ class HomeRepositoryImpl implements IHomeRepository {
     return _errorHandler.handleFutureWithTryCatch(
       () => _iHomePostRemoteDataSource.removeReaction(postId: postId),
     );
+  }
+
+  @override
+  FutureResult<List<UserEntity>> getUsersReactedToPostWithReaction({
+    required List<String> uIds,
+  }) async {
+    return _errorHandler.handleFutureWithTryCatch(() async {
+      final response = await _iHomePostRemoteDataSource
+          .getUsersReactedToPostWithReaction(uIds: uIds);
+
+      return response.map((e) => e.toEntity()).toList();
+    });
   }
 }

@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../core/utils/enums.dart';
 import '../../domain/entities/reaction_entity.dart';
 
 part 'reactio_model.g.dart';

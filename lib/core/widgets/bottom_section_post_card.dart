@@ -12,6 +12,7 @@ import 'reactions_icons_row.dart';
 
 class BottomSectionPostCard extends StatelessWidget {
   final bool isPost;
+
   final String postId;
 
   const BottomSectionPostCard({

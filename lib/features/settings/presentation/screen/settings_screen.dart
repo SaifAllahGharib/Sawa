@@ -35,8 +35,6 @@ class SettingsScreen extends StatelessWidget {
     context.read<AuthCubit>().logout();
   }
 
-  void _showDeleteAccountBottomSheet(BuildContext context) {}
-
   void _deleteAccount(BuildContext context) {}
 
   @override

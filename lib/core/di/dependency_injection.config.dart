@@ -56,6 +56,8 @@ import '../../features/home/domain/usecases/get_reaction_use_case.dart'
     as _i724;
 import '../../features/home/domain/usecases/get_user_reaction_use_case.dart'
     as _i761;
+import '../../features/home/domain/usecases/get_users_reaction_to_post_with_reactions.dart'
+    as _i774;
 import '../../features/home/domain/usecases/remove_reaction_use_case.dart'
     as _i948;
 import '../../features/home/presentation/cubits/home/home_cubit.dart' as _i715;
@@ -260,12 +262,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i556.MediaCubit>(
       () => _i556.MediaCubit(gh<_i753.ImagePickerHelper>()),
     );
+    gh.factory<_i774.GetUsersReactionToPostWithReactions>(
+      () =>
+          _i774.GetUsersReactionToPostWithReactions(gh<_i0.IHomeRepository>()),
+    );
     gh.factory<_i651.ReactionCubit>(
       () => _i651.ReactionCubit(
         gh<_i444.AddReactionUseCase>(),
         gh<_i948.RemoveReactionUseCase>(),
         gh<_i724.GetReactionUseCase>(),
         gh<_i761.GetUserReactionUseCase>(),
+        gh<_i774.GetUsersReactionToPostWithReactions>(),
       ),
     );
     gh.factory<_i892.CreateUserUseCase>(

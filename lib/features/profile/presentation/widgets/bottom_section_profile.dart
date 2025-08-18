@@ -46,14 +46,14 @@ class BottomSectionProfile extends StatelessWidget {
             bottom: index == 4 ? 16.r : 0,
           ),
           child: PostCard(
-            image: posts[index].author!.image,
-            name: posts[index].author!.name!,
+            image: posts[index].author.image,
+            name: posts[index].author.name,
             content: posts[index].content,
             postedTime: posts[index].createdAt,
             post: posts[index],
             isMyProfile: isMyProfile,
             isProfile: true,
-            onClickDelete: () => _deletePost(context, posts[index].id!),
+            onClickDelete: () => _deletePost(context, posts[index].id),
             onClickEdit: () {},
           ),
         );

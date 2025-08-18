@@ -36,18 +36,14 @@ class _AppVideoPreviewState extends State<AppVideoPreview>
   }
 
   void generateVideoThumbnail() async {
-    try {
-      _thumbnailFile = await VideoThumbnail.thumbnailFile(
-        video: widget.path,
-        thumbnailPath: (await getTemporaryDirectory()).path,
-        imageFormat: ImageFormat.JPEG,
-        quality: 100,
-      );
+    _thumbnailFile = await VideoThumbnail.thumbnailFile(
+      video: widget.path,
+      thumbnailPath: (await getTemporaryDirectory()).path,
+      imageFormat: ImageFormat.JPEG,
+      quality: 100,
+    );
 
-      setState(() {});
-    } catch (e) {
-      print('Thumbnail generation error: $e');
-    }
+    setState(() {});
   }
 
   @override

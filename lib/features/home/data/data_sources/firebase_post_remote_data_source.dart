@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path/path.dart' as p;
 
@@ -313,6 +314,30 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
       if (!event.snapshot.exists) return null;
       final data = Map<String, dynamic>.from(event.snapshot.value as Map);
       return ReactionModel.fromJson(data);
+    });
+  }
+
+  @override
+  Future<List<UserModel>> getUsersReactedToPostWithReaction({
+    required List<String> uIds,
+  }) async {
+    final List<Future<DataSnapshot>> futureList = [];
+
+    for (final userId in uIds) {
+      futureList.add(
+        _firebaseClient.db.ref().child('users').child(userId).get(),
+      );
+    }
+
+    return await Future.wait(futureList).then((snapshots) {
+      return snapshots.map((snapshot) {
+        if (!snapshot.exists || snapshot.value == null) {
+          return UserModel.empty();
+        }
+
+        final userData = Map<String, dynamic>.from(snapshot.value as Map);
+        return UserModel.fromJson(userData);
+      }).toList();
     });
   }
 }

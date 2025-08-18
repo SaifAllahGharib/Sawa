@@ -8,7 +8,7 @@ import '../../core/helpers/shared_preferences_helper.dart';
 class LocaleCubit extends Cubit<Locale> {
   final SharedPreferencesHelper _prefs;
 
-  LocaleCubit(this._prefs) : super(Locale(_prefs.getLanguageCode() ?? 'en'));
+  LocaleCubit(this._prefs) : super(Locale(_prefs.getLanguageCode()));
 
   void setLocale(String languageCode) async {
     if (languageCode != state.languageCode) {
