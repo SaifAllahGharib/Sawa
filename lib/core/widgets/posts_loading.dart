@@ -39,11 +39,7 @@ class PostsLoading extends StatelessWidget {
                 ],
               ),
               15.verticalSpace,
-              AppPlaceholder(
-                width: double.infinity,
-                height: 15.h,
-                borderRadius: BorderRadius.zero,
-              ),
+              AppPlaceholder(width: double.infinity, height: 15.h),
               10.verticalSpace,
               AppPlaceholder(width: double.infinity, height: 400.h),
               const BottomSectionPostCard(),
