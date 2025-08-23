@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,7 +16,13 @@ import 'shared/cubits/main/main_state.dart';
 
 void main() async {
   await initializeApp();
-  runApp(const SocialMediaApp());
+  runApp(
+    DevicePreview(
+      enabled: true,
+      tools: const [...DevicePreview.defaultTools],
+      builder: (context) => const SocialMediaApp(),
+    ),
+  );
 }
 
 class SocialMediaApp extends StatelessWidget {

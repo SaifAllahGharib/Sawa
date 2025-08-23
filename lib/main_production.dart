@@ -10,6 +10,7 @@ import 'core/di/dependency_injection.dart';
 import 'core/init/init_app.dart';
 import 'core/routing/app_route_name.dart';
 import 'core/routing/app_router.dart';
+import 'core/services/navigation/navigation_service.dart';
 import 'core/theme/app_theme.dart';
 import 'core/widgets/app_error_listener.dart';
 import 'core/widgets/app_responsive_builder.dart';
@@ -70,6 +71,7 @@ class SocialMediaApp extends StatelessWidget {
               darkTheme: AppTheme.dark,
               themeMode: state.themeMode,
               initialRoute: AppRouteName.splash,
+              navigatorKey: NavigationService.I.navigatorKey,
               onGenerateRoute: AppRouter.generateRoute,
               builder: (context, child) => AppErrorListener(child: child!),
             );
