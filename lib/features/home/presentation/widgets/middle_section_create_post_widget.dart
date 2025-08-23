@@ -4,6 +4,7 @@ import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/features/home/presentation/screens/display_selected_media.dart';
 
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../shared/cubits/media/media_cubit.dart';
 import '../../../../shared/cubits/media/media_state.dart';
 import '../../../../shared/cubits/validation/validation_cubit.dart';
@@ -28,7 +29,7 @@ class MiddleSectionCreatePostWidget extends StatelessWidget {
     BuildContext context,
     MediaCubit mediaCubit,
   ) {
-    context.navigator.push(
+    NavigationService.I.push(
       PageRouteBuilder(
         opaque: false,
         barrierDismissible: true,

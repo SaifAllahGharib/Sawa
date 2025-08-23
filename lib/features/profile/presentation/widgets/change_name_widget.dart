@@ -4,6 +4,7 @@ import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/features/profile/presentation/cubit/profile/profile_cubit.dart';
 
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
@@ -37,7 +38,7 @@ class _ChangeNameWidgetState extends State<ChangeNameWidget> {
     context.read<ProfileCubit>().changeName(
       _changeNameController.text.trimLeft().trimRight(),
     );
-    context.navigator.pop();
+    NavigationService.I.pop();
   }
 
   @override

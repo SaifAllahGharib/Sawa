@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/constants/strings.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
+import 'package:sawa/core/services/navigation/navigation_service.dart';
 import 'package:sawa/core/styles/app_styles.dart';
 import 'package:sawa/core/widgets/app_scaffold.dart';
 
@@ -22,7 +23,7 @@ class SplashScreen extends StatelessWidget {
 
     await Future.delayed(const Duration(milliseconds: 2000), () {
       if (context.mounted) {
-        context.navigator.pushNamedAndRemoveUntil(route, (route) => false);
+        NavigationService.I.offAllNamed(route);
       }
     });
   }

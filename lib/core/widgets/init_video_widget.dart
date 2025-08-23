@@ -11,6 +11,7 @@ import '../../../../../../core/extensions/build_context_extensions.dart';
 import '../../../../../../core/extensions/number_extensions.dart';
 import '../../shared/cubits/video_player/video_player_cubit.dart';
 import '../../shared/cubits/video_player/video_player_state.dart';
+import '../services/navigation/navigation_service.dart';
 import '../styles/app_colors.dart';
 import '../styles/app_styles.dart';
 import '../utils/enums.dart';
@@ -269,7 +270,7 @@ class _InitVideoWidgetState extends State<InitVideoWidget> {
             child: Column(
               children: [
                 AppGestureDetectorButton(
-                  onTap: () => context.navigator.pop(),
+                  onTap: () => NavigationService.I.pop(),
                   child: Icon(
                     Icons.close,
                     size: 25.r,

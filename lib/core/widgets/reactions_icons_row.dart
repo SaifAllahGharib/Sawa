@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/di/dependency_injection.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/shared/cubits/locale_cubit.dart';
 
 import '../../shared/cubits/reactions/reaction_cubit.dart';
 import '../../shared/cubits/reactions/reactions_state.dart';
@@ -48,16 +49,25 @@ class ReactionsIconsRow extends StatelessWidget {
                 ),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
+                    width: icons.length * 22.r,
                     height: 25.r,
-                    width: 95.r,
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: List.generate(icons.length, (index) {
                         return Positioned(
-                          left: index * 17.r,
+                          left: getIt<LocaleCubit>().isArabic
+                              ? null
+                              : index * 17.r,
+                          right: getIt<LocaleCubit>().isArabic
+                              ? index * 17.r
+                              : null,
                           child: Container(
+                            height: 25.r,
+                            width: 25.r,
                             padding: EdgeInsets.all(3.r),
                             decoration: BoxDecoration(
                               color: context.theme.scaffoldBackgroundColor,

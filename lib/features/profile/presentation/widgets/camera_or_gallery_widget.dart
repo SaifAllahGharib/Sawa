@@ -5,6 +5,7 @@ import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/features/profile/presentation/widgets/display_image_profile.dart';
 
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
@@ -22,20 +23,20 @@ class CameraOrGalleryWidget extends StatelessWidget {
   void _pickedFromGallery(BuildContext context) async {
     _clearAssets(context);
     await context.read<MediaCubit>().pickImageFromGallery();
-    context.navigator.pop();
+    NavigationService.I.pop();
   }
 
   void _pickedFromCamera(BuildContext context) async {
     _clearAssets(context);
     await context.read<MediaCubit>().pickImageFromCamera();
-    context.navigator.pop();
+    NavigationService.I.pop();
   }
 
   void _handleState(BuildContext context, MediaState state) {
     if (state.pickedAssets.isNotEmpty) {
       final mediaCubit = context.read<MediaCubit>();
 
-      context.navigator.push(
+      NavigationService.I.push(
         PageRouteBuilder(
           opaque: false,
           barrierDismissible: true,

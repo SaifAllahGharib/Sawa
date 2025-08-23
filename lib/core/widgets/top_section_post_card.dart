@@ -105,7 +105,7 @@ class _TopSectionPostCardState extends State<TopSectionPostCard> {
               child: AppSvg(
                 assetName: AppAssets.menuHorizontal,
                 colorFilter: ColorFilter.mode(
-                  context.customColor.icon!,
+                  context.customColor.icon,
                   BlendMode.srcIn,
                 ),
                 width: 25.r,

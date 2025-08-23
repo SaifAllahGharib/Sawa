@@ -7,6 +7,7 @@ import 'package:sawa/features/user/domain/entity/user_entity.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/utils/app_bottom_sheet.dart';
 import '../../../../core/utils/app_snack_bar.dart';
@@ -35,7 +36,7 @@ class BioMiddleSectionProfile extends StatelessWidget {
   }
 
   void _showChangeBioBottomSheet(BuildContext context) {
-    context.navigator.pop();
+    NavigationService.I.pop();
     AppBottomSheet.showModal(
       context,
       (context) => MultiBlocProvider(
@@ -93,7 +94,7 @@ class BioMiddleSectionProfile extends StatelessWidget {
                 AppSvg(
                   assetName: AppAssets.edit,
                   colorFilter: ColorFilter.mode(
-                    context.customColor.icon!,
+                    context.customColor.icon,
                     BlendMode.srcIn,
                   ),
                   width: 20.r,
@@ -118,7 +119,7 @@ class BioMiddleSectionProfile extends StatelessWidget {
             text: context.tr.changeBio,
             onTap: () => _showChangeBioBottomSheet(context),
             assetName: AppAssets.edit,
-            assetColor: context.customColor.icon!,
+            assetColor: context.customColor.icon,
           ),
           15.verticalSpace,
           _buildBioBottomSheetContentRow(

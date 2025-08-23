@@ -6,6 +6,7 @@ import 'package:sawa/core/widgets/app_loading_widget.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/utils/app_bottom_sheet.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/utils/enums.dart';
@@ -47,7 +48,7 @@ class ImageMiddleSectionProfile extends StatelessWidget {
   }
 
   void _onTapImage(BuildContext context) {
-    context.navigator.push(
+    NavigationService.I.push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             FullScreenGalleryWidget(
@@ -102,12 +103,12 @@ class ImageMiddleSectionProfile extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: context.theme.scaffoldBackgroundColor,
                         borderRadius: BorderRadius.circular(3000.r),
-                        border: Border.all(color: context.customColor.border!),
+                        border: Border.all(color: context.customColor.border),
                       ),
                       child: AppSvg(
                         assetName: AppAssets.camera,
                         colorFilter: ColorFilter.mode(
-                          context.customColor.icon!,
+                          context.customColor.icon,
                           BlendMode.srcIn,
                         ),
                         width: 20.r,

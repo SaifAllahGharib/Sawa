@@ -12,6 +12,7 @@ import 'package:sawa/core/widgets/app_scaffold.dart';
 import 'package:sawa/core/widgets/app_video_preview.dart';
 import 'package:sawa/core/widgets/app_video_runner.dart';
 
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/widgets/media_delete_button.dart';
 import '../../../../shared/cubits/media/media_cubit.dart';
 import '../../../../shared/cubits/media/media_state.dart';
@@ -41,7 +42,7 @@ class DisplaySelectedMedia extends StatelessWidget {
                   ],
                 ),
                 AppGestureDetectorButton(
-                  onTap: () => context.navigator.pop(),
+                  onTap: () => NavigationService.I.pop(),
                   child: Text(context.tr.ok, style: AppStyles.s17W500),
                 ),
               ],
@@ -73,7 +74,7 @@ class DisplaySelectedMedia extends StatelessWidget {
                                     height: 400.r,
                                     child: AppGestureDetectorButton(
                                       onTap: () async {
-                                        await context.navigator.push(
+                                        await NavigationService.I.push(
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 AppVideoRunner(

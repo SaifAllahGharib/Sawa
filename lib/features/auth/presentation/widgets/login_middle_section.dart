@@ -11,6 +11,7 @@ import 'package:sawa/features/auth/presentation/cubits/login/login_state.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/routing/app_route_name.dart';
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/utils/enums.dart';
 import '../../../../core/widgets/app_button.dart';
@@ -72,12 +73,9 @@ class _LoginMiddleSectionState extends State<LoginMiddleSection> {
     });
 
     if (_firebaseClient.auth.currentUser!.emailVerified) {
-      context.navigator.pushNamedAndRemoveUntil(
-        AppRouteName.home,
-        (route) => false,
-      );
+      NavigationService.I.offAllNamed(AppRouteName.home);
     } else {
-      context.navigator.pushNamed(
+      NavigationService.I.pushNamed(
         AppRouteName.verification,
         arguments: {'name': '', 'email': _emailController.text.trim()},
       );

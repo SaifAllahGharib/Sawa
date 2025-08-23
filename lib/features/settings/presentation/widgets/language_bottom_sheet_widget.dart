@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/features/settings/presentation/widgets/setting_button.dart';
 
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 import '../../../../shared/cubits/main/main_cubit.dart';
 
@@ -18,7 +18,7 @@ class _LanguageBottomSheetWidgetState extends State<LanguageBottomSheetWidget> {
   final Map<String, String> _languages = {'ar': 'العربيه', 'en': 'English'};
 
   void _changeLanguage(BuildContext context, String code) {
-    context.navigator.pop();
+    NavigationService.I.pop();
     context.read<MainCubit>().changeLocale(code);
   }
 

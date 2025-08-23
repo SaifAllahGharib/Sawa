@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/utils/enums.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
@@ -8,6 +7,7 @@ import 'package:sawa/core/widgets/app_video_preview.dart';
 import 'package:sawa/core/widgets/bottom_section_post_card.dart';
 import 'package:sawa/features/home/domain/entities/post_entity.dart';
 
+import '../services/navigation/navigation_service.dart';
 import 'app_network_image.dart';
 import 'app_scaffold.dart';
 import 'full_screen_gallery_widget.dart';
@@ -54,7 +54,7 @@ class PostFullScreen extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.only(top: 15.r),
                 child: AppGestureDetectorButton(
-                  onTap: () => context.navigator.push(
+                  onTap: () => NavigationService.I.push(
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) {
                         return FullScreenGalleryWidget(

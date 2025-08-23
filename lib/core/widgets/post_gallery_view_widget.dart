@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/utils/enums.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
@@ -7,6 +6,7 @@ import 'package:sawa/core/widgets/app_video_preview.dart';
 import 'package:sawa/core/widgets/full_screen_gallery_widget.dart';
 import 'package:sawa/features/home/domain/entities/post_entity.dart';
 
+import '../services/navigation/navigation_service.dart';
 import '../styles/app_styles.dart';
 import 'app_network_image.dart';
 import 'post_full_screen.dart';
@@ -185,7 +185,7 @@ class PostGalleryViewWidget extends StatelessWidget {
     required String media,
     required String mediaType,
   }) {
-    context.navigator.push(
+    NavigationService.I.push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             FullScreenGalleryWidget(media: media, mediaType: mediaType),
@@ -197,7 +197,7 @@ class PostGalleryViewWidget extends StatelessWidget {
     required BuildContext context,
     required PostEntity post,
   }) {
-    context.navigator.push(
+    NavigationService.I.push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             PostFullScreen(post: post),

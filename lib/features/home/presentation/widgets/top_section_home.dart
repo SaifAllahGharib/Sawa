@@ -9,6 +9,7 @@ import 'package:sawa/features/home/presentation/widgets/create_post_bottom_sheet
 import 'package:sawa/features/user/domain/entity/user_entity.dart';
 
 import '../../../../core/routing/app_route_name.dart';
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
@@ -34,7 +35,7 @@ class TopSectionHome extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AppGestureDetectorButton(
-              onTap: () => context.navigator.pushNamed(
+              onTap: () => NavigationService.I.pushNamed(
                 AppRouteName.profile,
                 arguments: getIt<FirebaseClient>().auth.currentUser!.uid,
               ),
@@ -53,7 +54,7 @@ class TopSectionHome extends StatelessWidget {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(1000.r),
                     border: Border.all(
-                      color: context.customColor.border!,
+                      color: context.customColor.border,
                       width: 1.r,
                     ),
                   ),

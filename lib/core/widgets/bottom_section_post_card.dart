@@ -25,6 +25,8 @@ class BottomSectionPostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppPaddingWidget(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (isPost) ReactionsIconsRow(postId: postId),
           Row(

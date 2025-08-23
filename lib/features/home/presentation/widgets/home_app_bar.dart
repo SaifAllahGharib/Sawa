@@ -9,6 +9,7 @@ import 'package:sawa/core/routing/app_route_name.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 import 'package:sawa/core/widgets/app_svg.dart';
 
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/utils/app_bottom_sheet.dart';
 import 'create_post_bottom_sheet_widget.dart';
@@ -23,7 +24,7 @@ class HomeAppBar extends StatelessWidget {
   }
 
   void _onTapProfile(BuildContext context) {
-    context.navigator.pushNamed(
+    NavigationService.I.pushNamed(
       AppRouteName.profile,
       arguments: getIt<FirebaseClient>().auth.currentUser!.uid,
     );
@@ -49,7 +50,7 @@ class HomeAppBar extends StatelessWidget {
         AppGestureDetectorButton(
           child: Icon(
             Icons.person_outlined,
-            color: context.customColor.icon!,
+            color: context.customColor.icon,
             size: 26.r,
           ),
           onTap: () => _onTapProfile(context),
@@ -86,7 +87,7 @@ class HomeAppBar extends StatelessWidget {
     return AppSvg(
       assetName: assetName,
       colorFilter: ColorFilter.mode(
-        color ?? context.customColor.icon!,
+        color ?? context.customColor.icon,
         BlendMode.srcIn,
       ),
       width: 26.r,

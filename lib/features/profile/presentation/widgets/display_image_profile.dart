@@ -11,6 +11,7 @@ import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 import 'package:sawa/core/widgets/app_scaffold.dart';
 import 'package:sawa/shared/models/media_model.dart';
 
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 import '../../../../shared/cubits/media/media_cubit.dart';
 import '../../../../shared/cubits/media/media_state.dart';
@@ -26,7 +27,7 @@ class DisplayImageProfile extends StatelessWidget {
         type: MediaType.image.toString(),
       ),
     );
-    context.navigator.pop();
+    NavigationService.I.pop();
   }
 
   @override
@@ -60,7 +61,7 @@ class DisplayImageProfile extends StatelessWidget {
                           ),
                           10.horizontalSpace,
                           AppGestureDetectorButton(
-                            onTap: () => context.navigator.pop(),
+                            onTap: () => NavigationService.I.pop(),
                             child: Icon(
                               Icons.arrow_forward_ios,
                               size: 20.r,

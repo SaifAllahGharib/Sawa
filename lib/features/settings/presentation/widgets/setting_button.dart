@@ -38,7 +38,7 @@ class SettingButton extends StatelessWidget {
             Divider(
               height: 1,
               thickness: 0.7,
-              color: context.customColor.border!.withValues(alpha: 0.5),
+              color: context.customColor.border.withValues(alpha: 0.5),
             ),
           ],
         ),

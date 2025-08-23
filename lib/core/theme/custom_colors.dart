@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 @immutable
 class CustomColors extends ThemeExtension<CustomColors> {
-  final Color? textColor;
-  final Color? border;
-  final Color? icon;
+  final Color textColor;
+  final Color border;
+  final Color icon;
 
-  const CustomColors({this.textColor, this.border, this.icon});
+  const CustomColors({
+    this.textColor = Colors.black,
+    this.border = Colors.grey,
+    this.icon = Colors.blue,
+  });
 
   @override
   CustomColors copyWith({Color? textColor, Color? border, Color? icon}) {

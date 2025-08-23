@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/features/settings/presentation/widgets/setting_button.dart';
 
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 import '../../../../shared/cubits/main/main_cubit.dart';
 
@@ -10,7 +11,7 @@ class ThemeBottomSheetWidget extends StatelessWidget {
   const ThemeBottomSheetWidget({super.key});
 
   void _changeTheme(BuildContext context, ThemeMode mode) {
-    context.navigator.pop();
+    NavigationService.I.pop();
     context.read<MainCubit>().changeTheme(mode);
   }
 

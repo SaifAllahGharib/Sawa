@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sawa/core/di/dependency_injection.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/shared/cubits/locale_cubit.dart';
 
 import '../../shared/cubits/reactions/reaction_cubit.dart';
 import '../constants/reaction_type.dart';
@@ -57,7 +59,7 @@ class _ReactionsPopupWidgetState extends State<ReactionsPopupWidget>
   }
 
   void _onClose() {
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
         _close();
       }
@@ -77,9 +79,11 @@ class _ReactionsPopupWidgetState extends State<ReactionsPopupWidget>
 
   @override
   Widget build(BuildContext context) {
+    final bool isArabic = getIt<LocaleCubit>().isArabic;
     return Positioned(
-      left: widget.position.dx,
-      top: widget.position.dy - 60,
+      left: isArabic ? null : 15.r,
+      right: isArabic ? 15.r : null,
+      top: widget.position.dy - 50.r,
       child: Material(
         color: Colors.transparent,
         child: SlideTransition(
@@ -89,10 +93,7 @@ class _ReactionsPopupWidgetState extends State<ReactionsPopupWidget>
             decoration: BoxDecoration(
               color: context.theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(40),
-              border: Border.all(
-                color: context.customColor.border!,
-                width: 1.r,
-              ),
+              border: Border.all(color: context.customColor.border, width: 1.r),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,

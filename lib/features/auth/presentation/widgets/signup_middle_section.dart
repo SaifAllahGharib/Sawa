@@ -4,6 +4,7 @@ import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 
 import '../../../../core/routing/app_route_name.dart';
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/utils/app_reg_exp.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/utils/enums.dart';
@@ -70,7 +71,7 @@ class _SignupMiddleSectionState extends State<SignupMiddleSection> {
     setState(() {
       _isLoading = false;
     });
-    context.navigator.pushNamed(
+    NavigationService.I.pushNamed(
       AppRouteName.verification,
       arguments: {
         'name': _nameController.text,

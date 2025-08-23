@@ -35,7 +35,7 @@ class TopSectionCreatePostWidget extends StatelessWidget {
           height: 22.h,
           width: 22.h,
           colorFilter: ColorFilter.mode(
-            context.customColor.icon!,
+            context.customColor.icon,
             BlendMode.srcIn,
           ),
         ),

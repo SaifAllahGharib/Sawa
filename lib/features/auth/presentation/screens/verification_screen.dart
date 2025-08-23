@@ -14,6 +14,7 @@ import 'package:sawa/features/auth/presentation/cubits/verification/verification
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/routing/app_route_name.dart';
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../cubits/verification/verification/verification_cubit.dart';
 import '../widgets/success_verification_widget.dart';
@@ -64,14 +65,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
   }
 
   void _whenSuccess(BuildContext context) {
-    final navigator = context.navigator;
+    final navigator = NavigationService.I;
     final arguments = context.arguments;
 
     Future.delayed(const Duration(milliseconds: 1500), () {
-      navigator.pushNamedAndRemoveUntil(
+      navigator.offAllNamed(
         AppRouteName.home,
         arguments: (arguments as Map<String, dynamic>)['name'] as String,
-        (route) => false,
       );
     });
   }

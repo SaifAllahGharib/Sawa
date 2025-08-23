@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sawa/core/constants/app_assets.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/services/navigation/navigation_service.dart';
 import 'package:sawa/core/utils/enums.dart';
 import 'package:sawa/core/widgets/app_asset_image.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
@@ -32,7 +33,7 @@ class FullScreenGalleryWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppGestureDetectorButton(
-                  onTap: () => context.navigator.pop(),
+                  onTap: () => NavigationService.I.pop(),
                   child: Icon(
                     Icons.close,
                     size: 24.r,

@@ -4,6 +4,7 @@ import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/routing/app_route_name.dart';
 
 import '../../../../core/constants/app_assets.dart';
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/widgets/app_back_button.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
@@ -26,11 +27,11 @@ class AppBarProfile extends StatelessWidget {
                 const AppBackButton(),
                 AppGestureDetectorButton(
                   onTap: () =>
-                      context.navigator.pushNamed(AppRouteName.settings),
+                      NavigationService.I.pushNamed(AppRouteName.settings),
                   child: AppSvg(
                     assetName: AppAssets.settings,
                     colorFilter: ColorFilter.mode(
-                      context.customColor.icon!,
+                      context.customColor.icon,
                       BlendMode.srcIn,
                     ),
                     width: 25.r,

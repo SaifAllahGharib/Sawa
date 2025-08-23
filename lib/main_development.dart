@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sawa/core/services/navigation/navigation_service.dart';
 
 import 'core/di/dependency_injection.dart';
 import 'core/init/init_app.dart';
@@ -41,6 +42,7 @@ class SocialMediaApp extends StatelessWidget {
               darkTheme: AppTheme.dark,
               themeMode: state.themeMode,
               initialRoute: AppRouteName.splash,
+              navigatorKey: NavigationService.I.navigatorKey,
               onGenerateRoute: AppRouter.generateRoute,
             );
           },

@@ -9,6 +9,7 @@ import '../../../../../../core/extensions/build_context_extensions.dart';
 import '../../../../../../core/extensions/number_extensions.dart';
 import '../../../../core/clients/firebase_client.dart';
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/utils/app_bottom_sheet.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_button.dart';
@@ -57,7 +58,7 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
 
   void _handleState(BuildContext context, HomeState state) {
     if (state is HomeCreatePostSuccessState) {
-      context.navigator.pop();
+      NavigationService.I.pop();
       AppSnackBar.showSuccess(context, context.tr.postCreatedSuccessfully);
     } else if (state is HomeFailureState) {
       final code = state.code;
@@ -107,7 +108,7 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
             width: 35.r,
             height: 35.r,
             colorFilter: ColorFilter.mode(
-              context.customColor.icon!,
+              context.customColor.icon,
               BlendMode.srcIn,
             ),
           ),

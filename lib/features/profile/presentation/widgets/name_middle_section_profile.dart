@@ -81,7 +81,7 @@ class NameMiddleSectionProfile extends StatelessWidget {
                 AppSvg(
                   assetName: AppAssets.edit,
                   colorFilter: ColorFilter.mode(
-                    context.customColor.icon!,
+                    context.customColor.icon,
                     BlendMode.srcIn,
                   ),
                   width: 20.r,

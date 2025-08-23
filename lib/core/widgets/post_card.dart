@@ -8,6 +8,7 @@ import '../../features/home/domain/entities/post_entity.dart';
 import '../../shared/cubits/reactions/reaction_cubit.dart';
 import '../di/dependency_injection.dart';
 import '../extensions/number_extensions.dart';
+import '../services/navigation/navigation_service.dart';
 import '../styles/app_colors.dart';
 import 'bottom_section_post_card.dart';
 import 'middle_section_post_card.dart';
@@ -62,7 +63,7 @@ class PostCard extends StatelessWidget {
         children: [
           AppGestureDetectorButton(
             onTap: () => !isProfile
-                ? context.navigator.pushNamed(
+                ? NavigationService.I.pushNamed(
                     AppRouteName.profile,
                     arguments: post.authorId,
                   )

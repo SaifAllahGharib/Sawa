@@ -16,4 +16,6 @@ class LocaleCubit extends Cubit<Locale> {
       emit(Locale(languageCode));
     }
   }
+
+  bool get isArabic => state.languageCode == 'ar';
 }

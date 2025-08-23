@@ -16,6 +16,7 @@ import 'package:sawa/shared/cubits/reactions/reaction_cubit.dart';
 import 'package:sawa/shared/cubits/reactions/reactions_state.dart';
 
 import '../routing/app_route_name.dart';
+import '../services/navigation/navigation_service.dart';
 import 'app_padding_widget.dart';
 
 class ListUserReactionsPost extends StatefulWidget {
@@ -46,7 +47,7 @@ class _ListUserReactionsPostState extends State<ListUserReactionsPost> {
   }
 
   void _onTapItem(int index, String uId) {
-    context.navigator.pushNamed(AppRouteName.profile, arguments: uId);
+    NavigationService.I.pushNamed(AppRouteName.profile, arguments: uId);
   }
 
   @override
@@ -105,7 +106,7 @@ class _ListUserReactionsPostState extends State<ListUserReactionsPost> {
                     color: context.theme.scaffoldBackgroundColor,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: context.customColor.border!,
+                      color: context.customColor.border,
                       width: 1.r,
                     ),
                   ),
