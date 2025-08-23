@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/routing/app_route_name.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 
 import '../../features/home/domain/entities/post_entity.dart';
-import '../../shared/cubits/reactions/reaction_cubit.dart';
-import '../di/dependency_injection.dart';
 import '../extensions/number_extensions.dart';
 import '../services/navigation/navigation_service.dart';
 import '../styles/app_colors.dart';
@@ -79,12 +76,7 @@ class PostCard extends StatelessWidget {
           ),
           10.verticalSpace,
           MiddleSectionPostCard(content: content, post: post),
-          BlocProvider.value(
-            value: getIt<ReactionCubit>()
-              ..watchReactions(post.id)
-              ..watchUserReaction(post.id),
-            child: BottomSectionPostCard(isPost: true, postId: post.id),
-          ),
+          BottomSectionPostCard(isPost: true, postId: post.id),
         ],
       ),
     );
