@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/widgets/app_placeholder.dart';
-import 'package:sawa/core/widgets/bottom_section_post_card.dart';
 
 class PostsLoading extends StatelessWidget {
   const PostsLoading({super.key});
@@ -42,7 +41,6 @@ class PostsLoading extends StatelessWidget {
               AppPlaceholder(width: double.infinity, height: 15.h),
               10.verticalSpace,
               AppPlaceholder(width: double.infinity, height: 400.h),
-              const BottomSectionPostCard(),
             ],
           ),
         );

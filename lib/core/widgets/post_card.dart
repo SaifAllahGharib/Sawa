@@ -76,7 +76,7 @@ class PostCard extends StatelessWidget {
           ),
           10.verticalSpace,
           MiddleSectionPostCard(content: content, post: post),
-          BottomSectionPostCard(isPost: true, postId: post.id),
+          BottomSectionPostCard(postId: post.id),
         ],
       ),
     );

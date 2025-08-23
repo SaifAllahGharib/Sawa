@@ -14,15 +14,9 @@ import 'post_action_button.dart';
 import 'reactions_icons_row.dart';
 
 class BottomSectionPostCard extends StatelessWidget {
-  final bool isPost;
-
   final String postId;
 
-  const BottomSectionPostCard({
-    super.key,
-    this.isPost = false,
-    this.postId = '',
-  });
+  const BottomSectionPostCard({super.key, required this.postId});
 
   @override
   Widget build(BuildContext context) {
@@ -35,21 +29,11 @@ class BottomSectionPostCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (isPost) ReactionsIconsRow(postId: postId),
+            ReactionsIconsRow(postId: postId),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (isPost)
-                  LikeButton(postId: postId)
-                else
-                  PostActionButton(
-                    icon: _buildSvgIcon(
-                      assetName: AppAssets.unLike,
-                      color: AppColors.gray,
-                    ),
-                    label: context.tr.like,
-                    onPressed: null,
-                  ),
+                LikeButton(postId: postId),
                 10.horizontalSpace,
                 PostActionButton(
                   icon: _buildSvgIcon(
@@ -57,7 +41,7 @@ class BottomSectionPostCard extends StatelessWidget {
                     color: AppColors.gray,
                   ),
                   label: context.tr.comment,
-                  onPressed: isPost ? () {} : null,
+                  onPressed: () {},
                 ),
                 10.horizontalSpace,
                 PostActionButton(
@@ -66,7 +50,7 @@ class BottomSectionPostCard extends StatelessWidget {
                     color: AppColors.gray,
                   ),
                   label: context.tr.share,
-                  onPressed: isPost ? () {} : null,
+                  onPressed: () {},
                 ),
               ],
             ),

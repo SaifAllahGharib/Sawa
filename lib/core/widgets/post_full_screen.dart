@@ -44,7 +44,7 @@ class PostFullScreen extends StatelessWidget {
                   ),
                   10.verticalSpace,
                 ],
-                BottomSectionPostCard(isPost: true, postId: post.id),
+                BottomSectionPostCard(postId: post.id),
               ],
             ),
           ),
