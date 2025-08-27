@@ -25,8 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "accountExistsWithDifferentMethod": MessageLookupByLibrary.simpleMessage(
       "Account exists with different method",
     ),
+    "angry": MessageLookupByLibrary.simpleMessage("Angry"),
     "appName": MessageLookupByLibrary.simpleMessage("Sawa"),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
+    "care": MessageLookupByLibrary.simpleMessage("Care"),
     "changeBio": MessageLookupByLibrary.simpleMessage("Change Bio"),
     "changeName": MessageLookupByLibrary.simpleMessage("Change Name"),
     "changePassword": MessageLookupByLibrary.simpleMessage("Change Password"),
@@ -89,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
     "h": MessageLookupByLibrary.simpleMessage("h"),
+    "haha": MessageLookupByLibrary.simpleMessage("Haha"),
     "hintEmail": MessageLookupByLibrary.simpleMessage("example@ex.ex"),
     "hintName": MessageLookupByLibrary.simpleMessage("Saif Allah"),
     "hintPassword": MessageLookupByLibrary.simpleMessage("SaIf@01K"),
@@ -110,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "link": MessageLookupByLibrary.simpleMessage("Link"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "love": MessageLookupByLibrary.simpleMessage("Love"),
     "m": MessageLookupByLibrary.simpleMessage("m"),
     "month": MessageLookupByLibrary.simpleMessage("month"),
     "noBio": MessageLookupByLibrary.simpleMessage("No Bio"),
@@ -130,8 +134,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "postDeleteSuccess": MessageLookupByLibrary.simpleMessage(
       "Post Delete Successfully",
     ),
+    "reply": MessageLookupByLibrary.simpleMessage("Reply"),
     "required": MessageLookupByLibrary.simpleMessage("Required"),
     "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
+    "sad": MessageLookupByLibrary.simpleMessage("Sad"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "selected": MessageLookupByLibrary.simpleMessage("Selected"),
     "sendLinkVerificationYourEmailTo": MessageLookupByLibrary.simpleMessage(
@@ -176,6 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "whateYouThinking": MessageLookupByLibrary.simpleMessage(
       "What are you thinking?",
     ),
+    "wow": MessageLookupByLibrary.simpleMessage("Wow"),
     "year": MessageLookupByLibrary.simpleMessage("year"),
   };
 }

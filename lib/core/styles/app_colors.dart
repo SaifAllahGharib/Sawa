@@ -10,6 +10,9 @@ abstract class AppColors {
   static const lightBackground = Color(0xFFF9F9F9);
   static const darkBackground = Color(0xFF181A1B);
 
+  static const lightOverlay = Color(0xFFEBEAEA);
+  static const darkOverlay = Color(0xFF2A2C2D);
+
   static const lightText = Color(0xFF1C1C1E);
   static const darkText = Color(0xFFF1F1F1);
 

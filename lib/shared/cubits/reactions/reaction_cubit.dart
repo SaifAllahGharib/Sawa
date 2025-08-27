@@ -1,50 +1,34 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sawa/features/home/domain/repositories/home_repository.dart';
 
 import '../../../core/constants/reaction_type.dart';
-import '../../../core/usecases/reaction_params.dart';
-import '../../../features/home/domain/usecases/add_reaction_use_case.dart';
-import '../../../features/home/domain/usecases/get_reaction_use_case.dart';
-import '../../../features/home/domain/usecases/get_user_reaction_use_case.dart';
-import '../../../features/home/domain/usecases/get_users_reaction_to_post_with_reactions.dart';
-import '../../../features/home/domain/usecases/remove_reaction_use_case.dart';
 import 'reactions_state.dart';
 
 @injectable
 class ReactionCubit extends Cubit<ReactionState> {
-  final AddReactionUseCase _addReaction;
-  final RemoveReactionUseCase _removeReaction;
-  final GetReactionUseCase _getReactions;
-  final GetUserReactionUseCase _getUserReaction;
-  final GetUsersReactionToPostWithReactions
-  _getUsersReactionToPostWithReactions;
+  final IHomeRepository _iHomeRepository;
 
-  ReactionCubit(
-    this._addReaction,
-    this._removeReaction,
-    this._getReactions,
-    this._getUserReaction,
-    this._getUsersReactionToPostWithReactions,
-  ) : super(ReactionState.initial());
+  ReactionCubit(this._iHomeRepository) : super(ReactionState.initial());
 
-  void watchReactions(String postId) {
-    _getReactions(postId).listen((result) {
+  void watchPostReactions(String postId) {
+    _iHomeRepository.getPostReactions(postId: postId).listen((result) {
       emit(state.copyWith(reactionsResult: result));
     });
   }
 
-  void watchUserReaction(String postId) {
-    _getUserReaction(postId).listen((result) {
+  void watchUserPostReaction(String postId) {
+    _iHomeRepository.getUserPostReaction(postId: postId).listen((result) {
       emit(state.copyWith(userReactionResult: result));
     });
   }
 
   Future<void> addReactionFun(String postId, ReactionType type) async {
-    await _addReaction(ReactionParams(postId: postId, type: type));
+    await _iHomeRepository.addReaction(postId: postId, type: type);
   }
 
   Future<void> _removeReactionFun(String postId) async {
-    await _removeReaction(postId);
+    await _iHomeRepository.removeReaction(postId: postId);
   }
 
   void toggleLike(String postId) {
@@ -62,7 +46,9 @@ class ReactionCubit extends Cubit<ReactionState> {
 
   Future<void> getUsersReactionToPostWithReactions(List<String> uIds) async {
     emit(state.copyWith(isLoading: true));
-    final result = await _getUsersReactionToPostWithReactions(uIds);
+    final result = await _iHomeRepository.getUsersReactedToPostWithReaction(
+      uIds: uIds,
+    );
 
     result.when(
       failure: (failure) => emit(state.copyWith(users: [], isLoading: false)),

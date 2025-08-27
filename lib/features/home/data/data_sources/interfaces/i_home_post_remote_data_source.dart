@@ -21,9 +21,9 @@ abstract class IHomePostRemoteDataSource {
 
   Future<void> removeReaction({required String postId});
 
-  Stream<List<ReactionModel>> getReactions({required String postId});
+  Stream<List<ReactionModel>> getPostReactions({required String postId});
 
-  Stream<ReactionModel?> getUserReaction({required String postId});
+  Stream<ReactionModel?> getUserPostReaction({required String postId});
 
   Future<List<UserModel>> getUsersReactedToPostWithReaction({
     required List<String> uIds,

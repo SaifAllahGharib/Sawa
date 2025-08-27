@@ -22,9 +22,9 @@ abstract class IHomeRepository {
 
   FutureResult<void> removeReaction({required String postId});
 
-  StreamResult<List<ReactionEntity>> getReactions({required String postId});
+  StreamResult<List<ReactionEntity>> getPostReactions({required String postId});
 
-  StreamResult<ReactionEntity?> getUserReaction({required String postId});
+  StreamResult<ReactionEntity?> getUserPostReaction({required String postId});
 
   FutureResult<List<UserEntity>> getUsersReactedToPostWithReaction({
     required List<String> uIds,

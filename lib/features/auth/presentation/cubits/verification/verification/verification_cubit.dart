@@ -2,23 +2,17 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sawa/core/usecases/no_params.dart';
-import 'package:sawa/features/auth/domain/usecases/send_email_verification_usercase.dart';
+import 'package:sawa/features/auth/domain/repositories/auth_repository.dart';
 
-import '../../../../domain/usecases/email_verified_usecase.dart';
 import 'verification_state.dart';
 
 @injectable
 class VerificationCubit extends Cubit<VerificationState> {
-  final EmailVerifiedUseCase _emailVerifiedUseCase;
-  final SendEmailVerificationUserCase _sendEmailVerificationUserCase;
+  final IAuthRepository _iAuthRepository;
   Timer? _timer;
   int _time = 60;
 
-  VerificationCubit(
-    this._emailVerifiedUseCase,
-    this._sendEmailVerificationUserCase,
-  ) : super(const VerificationInitial());
+  VerificationCubit(this._iAuthRepository) : super(const VerificationInitial());
 
   @override
   Future<void> close() {
@@ -29,7 +23,7 @@ class VerificationCubit extends Cubit<VerificationState> {
   void sendEmailVerification() async {
     _startTimer();
 
-    final result = await _sendEmailVerificationUserCase(const NoParams());
+    final result = await _iAuthRepository.sendEmailVerification();
 
     result.when(
       failure: (_) => emit(const VerificationFailure('send email failed')),
@@ -40,7 +34,7 @@ class VerificationCubit extends Cubit<VerificationState> {
   }
 
   void emailVerified() async {
-    final result = await _emailVerifiedUseCase(const NoParams());
+    final result = await _iAuthRepository.emailVerified();
 
     result.when(
       failure: (failure) => emit(VerificationFailure(failure.code)),

@@ -1,29 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sawa/core/usecases/no_params.dart';
 import 'package:sawa/features/home/data/models/create_post_model.dart';
+import 'package:sawa/features/home/domain/repositories/home_repository.dart';
 
-import '../../../domain/usecases/create_post_usecase.dart';
-import '../../../domain/usecases/delete_post_usecase.dart';
-import '../../../domain/usecases/get_default_posts_usecase.dart';
 import 'home_state.dart';
 
 @injectable
 class HomeCubit extends Cubit<HomeState> {
-  final CreatePostUseCase _createPostUseCase;
-  final DeletePostUseCase _deletePostUseCase;
-  final GetDefaultPostsUseCase _getDefaultPostsUseCase;
+  final IHomeRepository _iHomeRepository;
 
-  HomeCubit(
-    this._createPostUseCase,
-    this._deletePostUseCase,
-    this._getDefaultPostsUseCase,
-  ) : super(const HomeInitState());
+  HomeCubit(this._iHomeRepository) : super(const HomeInitState());
 
   Future<void> createPost({required CreatePostModel createPostModel}) async {
     emit(const HomeLoadingState());
 
-    final result = await _createPostUseCase(createPostModel);
+    final result = await _iHomeRepository.createPost(
+      createPostModel: createPostModel,
+    );
 
     result.when(
       failure: (failure) => emit(HomeFailureState(failure.code)),
@@ -33,7 +26,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getDefaultPosts() async {
     emit(const HomeLoadingState());
-    final result = await _getDefaultPostsUseCase(const NoParams());
+    final result = await _iHomeRepository.getDefaultPosts();
 
     result.when(
       failure: (failure) => emit(HomeFailureState(failure.code)),
@@ -42,7 +35,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> deletePost(String postId) async {
-    final result = await _deletePostUseCase(postId);
+    final result = await _iHomeRepository.deletePost(postId: postId);
 
     result.when(
       failure: (failure) => emit(HomeFailureState(failure.code)),

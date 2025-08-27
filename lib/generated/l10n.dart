@@ -359,6 +359,36 @@ class S {
     return Intl.message('Like', name: 'like', desc: '', args: []);
   }
 
+  /// `Love`
+  String get love {
+    return Intl.message('Love', name: 'love', desc: '', args: []);
+  }
+
+  /// `Haha`
+  String get haha {
+    return Intl.message('Haha', name: 'haha', desc: '', args: []);
+  }
+
+  /// `Wow`
+  String get wow {
+    return Intl.message('Wow', name: 'wow', desc: '', args: []);
+  }
+
+  /// `Sad`
+  String get sad {
+    return Intl.message('Sad', name: 'sad', desc: '', args: []);
+  }
+
+  /// `Angry`
+  String get angry {
+    return Intl.message('Angry', name: 'angry', desc: '', args: []);
+  }
+
+  /// `Care`
+  String get care {
+    return Intl.message('Care', name: 'care', desc: '', args: []);
+  }
+
   /// `Comment`
   String get comment {
     return Intl.message('Comment', name: 'comment', desc: '', args: []);
@@ -692,6 +722,11 @@ class S {
   /// `Change Bio`
   String get changeBio {
     return Intl.message('Change Bio', name: 'changeBio', desc: '', args: []);
+  }
+
+  /// `Reply`
+  String get reply {
+    return Intl.message('Reply', name: 'reply', desc: '', args: []);
   }
 }
 

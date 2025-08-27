@@ -1,30 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sawa/features/profile/domain/usecases/update_profile_image_usecase.dart';
+import 'package:sawa/features/profile/domain/repository/profile_repository.dart';
 
 import '../../../../../core/utils/enums.dart';
 import '../../../../../shared/models/media_model.dart';
-import '../../../domain/usecases/get_profile_usecase.dart';
-import '../../../domain/usecases/profile_delete_post_usecase.dart';
-import '../../../domain/usecases/update_profile_bio_usecase.dart';
-import '../../../domain/usecases/update_profile_name_usecase.dart';
 import 'profile_state.dart';
 
 @singleton
 class ProfileCubit extends Cubit<ProfileState> {
-  final UpdateProfileNameUseCase _updateProfileNameUseCase;
-  final GetProfileUseCase _getProfileUseCase;
-  final ProfileDeletePostUseCase _profileDeletePostUseCase;
-  final UpdateProfileBioUseCase _updateProfileBioUseCase;
-  final UpdateProfileImageUseCase _updateProfileImageUseCase;
+  final IProfileRepository _iProfileRepository;
 
-  ProfileCubit(
-    this._updateProfileNameUseCase,
-    this._getProfileUseCase,
-    this._profileDeletePostUseCase,
-    this._updateProfileBioUseCase,
-    this._updateProfileImageUseCase,
-  ) : super(const ProfileState());
+  ProfileCubit(this._iProfileRepository) : super(const ProfileState());
 
   void getProfile(String uId) async {
     emit(
@@ -35,7 +21,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       ),
     );
 
-    final result = await _getProfileUseCase(uId);
+    final result = await _iProfileRepository.getProfile(uId: uId);
 
     result.when(
       failure: (failure) =>
@@ -54,7 +40,9 @@ class ProfileCubit extends Cubit<ProfileState> {
       ),
     );
 
-    final result = await _updateProfileNameUseCase(newName);
+    final result = await _iProfileRepository.updateProfileName(
+      newName: newName,
+    );
 
     result.when(
       failure: (failure) {
@@ -87,7 +75,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       ),
     );
 
-    final result = await _updateProfileBioUseCase(newBio);
+    final result = await _iProfileRepository.updateProfileBio(newBio: newBio);
 
     result.when(
       failure: (failure) =>
@@ -103,7 +91,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       state.copyWith(isLoading: true, updateType: ProfileUpdateType.deletePost),
     );
 
-    final result = await _profileDeletePostUseCase(postId);
+    final result = await _iProfileRepository.deletePost(postId: postId);
 
     result.when(
       failure: (failure) =>
@@ -129,7 +117,9 @@ class ProfileCubit extends Cubit<ProfileState> {
       ),
     );
 
-    final result = await _updateProfileImageUseCase(mediaModel);
+    final result = await _iProfileRepository.updateProfileImage(
+      mediaModel: mediaModel,
+    );
 
     result.when(
       failure: (failure) =>

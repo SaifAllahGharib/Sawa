@@ -25,13 +25,6 @@ import '../../features/auth/data/data_sources/firebase_auth_remote_data_source.d
 import '../../features/auth/data/repositories/auth_repository_impl.dart'
     as _i153;
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
-import '../../features/auth/domain/usecases/email_verified_usecase.dart'
-    as _i104;
-import '../../features/auth/domain/usecases/login_usecase.dart' as _i188;
-import '../../features/auth/domain/usecases/logout_usecase.dart' as _i48;
-import '../../features/auth/domain/usecases/send_email_verification_usercase.dart'
-    as _i699;
-import '../../features/auth/domain/usecases/signup_usecase.dart' as _i57;
 import '../../features/auth/presentation/cubits/auth/auth_cubit.dart' as _i235;
 import '../../features/auth/presentation/cubits/login/login_cubit.dart'
     as _i1019;
@@ -46,20 +39,6 @@ import '../../features/home/data/data_sources/interfaces/i_home_post_remote_data
 import '../../features/home/data/repositories/home_repository_impl.dart'
     as _i76;
 import '../../features/home/domain/repositories/home_repository.dart' as _i0;
-import '../../features/home/domain/usecases/add_reaction_use_case.dart'
-    as _i444;
-import '../../features/home/domain/usecases/create_post_usecase.dart' as _i992;
-import '../../features/home/domain/usecases/delete_post_usecase.dart' as _i1006;
-import '../../features/home/domain/usecases/get_default_posts_usecase.dart'
-    as _i994;
-import '../../features/home/domain/usecases/get_reaction_use_case.dart'
-    as _i724;
-import '../../features/home/domain/usecases/get_user_reaction_use_case.dart'
-    as _i761;
-import '../../features/home/domain/usecases/get_users_reaction_to_post_with_reactions.dart'
-    as _i774;
-import '../../features/home/domain/usecases/remove_reaction_use_case.dart'
-    as _i948;
 import '../../features/home/presentation/cubits/home/home_cubit.dart' as _i715;
 import '../../features/profile/data/data_source/local/interface/i_profile_local_data_source.dart'
     as _i1070;
@@ -73,16 +52,6 @@ import '../../features/profile/data/repository/profile_repository_impl.dart'
     as _i309;
 import '../../features/profile/domain/repository/profile_repository.dart'
     as _i364;
-import '../../features/profile/domain/usecases/get_profile_usecase.dart'
-    as _i965;
-import '../../features/profile/domain/usecases/profile_delete_post_usecase.dart'
-    as _i727;
-import '../../features/profile/domain/usecases/update_profile_bio_usecase.dart'
-    as _i182;
-import '../../features/profile/domain/usecases/update_profile_image_usecase.dart'
-    as _i414;
-import '../../features/profile/domain/usecases/update_profile_name_usecase.dart'
-    as _i643;
 import '../../features/profile/presentation/cubit/profile/profile_cubit.dart'
     as _i771;
 import '../../features/user/data/data_source/local/interface/i_user_local_data_source.dart'
@@ -216,64 +185,29 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i281.ErrorHandler>(),
       ),
     );
-    gh.factory<_i965.GetProfileUseCase>(
-      () => _i965.GetProfileUseCase(gh<_i364.IProfileRepository>()),
+    gh.singleton<_i771.ProfileCubit>(
+      () => _i771.ProfileCubit(gh<_i364.IProfileRepository>()),
     );
-    gh.factory<_i727.ProfileDeletePostUseCase>(
-      () => _i727.ProfileDeletePostUseCase(gh<_i364.IProfileRepository>()),
-    );
-    gh.factory<_i182.UpdateProfileBioUseCase>(
-      () => _i182.UpdateProfileBioUseCase(gh<_i364.IProfileRepository>()),
-    );
-    gh.factory<_i414.UpdateProfileImageUseCase>(
-      () => _i414.UpdateProfileImageUseCase(gh<_i364.IProfileRepository>()),
-    );
-    gh.factory<_i643.UpdateProfileNameUseCase>(
-      () => _i643.UpdateProfileNameUseCase(gh<_i364.IProfileRepository>()),
-    );
-    gh.factory<_i444.AddReactionUseCase>(
-      () => _i444.AddReactionUseCase(gh<_i0.IHomeRepository>()),
-    );
-    gh.factory<_i992.CreatePostUseCase>(
-      () => _i992.CreatePostUseCase(gh<_i0.IHomeRepository>()),
-    );
-    gh.factory<_i1006.DeletePostUseCase>(
-      () => _i1006.DeletePostUseCase(gh<_i0.IHomeRepository>()),
-    );
-    gh.factory<_i994.GetDefaultPostsUseCase>(
-      () => _i994.GetDefaultPostsUseCase(gh<_i0.IHomeRepository>()),
-    );
-    gh.factory<_i724.GetReactionUseCase>(
-      () => _i724.GetReactionUseCase(gh<_i0.IHomeRepository>()),
-    );
-    gh.factory<_i761.GetUserReactionUseCase>(
-      () => _i761.GetUserReactionUseCase(gh<_i0.IHomeRepository>()),
-    );
-    gh.factory<_i948.RemoveReactionUseCase>(
-      () => _i948.RemoveReactionUseCase(gh<_i0.IHomeRepository>()),
+    gh.singleton<_i235.AuthCubit>(
+      () => _i235.AuthCubit(
+        gh<_i244.FirebaseClient>(),
+        gh<_i787.IAuthRepository>(),
+      ),
     );
     gh.factory<_i715.HomeCubit>(
-      () => _i715.HomeCubit(
-        gh<_i992.CreatePostUseCase>(),
-        gh<_i1006.DeletePostUseCase>(),
-        gh<_i994.GetDefaultPostsUseCase>(),
-      ),
+      () => _i715.HomeCubit(gh<_i0.IHomeRepository>()),
+    );
+    gh.factory<_i651.ReactionCubit>(
+      () => _i651.ReactionCubit(gh<_i0.IHomeRepository>()),
     );
     gh.factory<_i556.MediaCubit>(
       () => _i556.MediaCubit(gh<_i753.ImagePickerHelper>()),
     );
-    gh.factory<_i774.GetUsersReactionToPostWithReactions>(
-      () =>
-          _i774.GetUsersReactionToPostWithReactions(gh<_i0.IHomeRepository>()),
+    gh.factory<_i1019.LoginCubit>(
+      () => _i1019.LoginCubit(gh<_i787.IAuthRepository>()),
     );
-    gh.factory<_i651.ReactionCubit>(
-      () => _i651.ReactionCubit(
-        gh<_i444.AddReactionUseCase>(),
-        gh<_i948.RemoveReactionUseCase>(),
-        gh<_i724.GetReactionUseCase>(),
-        gh<_i761.GetUserReactionUseCase>(),
-        gh<_i774.GetUsersReactionToPostWithReactions>(),
-      ),
+    gh.factory<_i739.VerificationCubit>(
+      () => _i739.VerificationCubit(gh<_i787.IAuthRepository>()),
     );
     gh.factory<_i892.CreateUserUseCase>(
       () => _i892.CreateUserUseCase(gh<_i450.IUserRepository>()),
@@ -284,51 +218,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i91.GetUserUseCase>(
       () => _i91.GetUserUseCase(gh<_i450.IUserRepository>()),
     );
-    gh.singleton<_i771.ProfileCubit>(
-      () => _i771.ProfileCubit(
-        gh<_i643.UpdateProfileNameUseCase>(),
-        gh<_i965.GetProfileUseCase>(),
-        gh<_i727.ProfileDeletePostUseCase>(),
-        gh<_i182.UpdateProfileBioUseCase>(),
-        gh<_i414.UpdateProfileImageUseCase>(),
+    gh.factory<_i24.SignupCubit>(
+      () => _i24.SignupCubit(
+        gh<_i787.IAuthRepository>(),
+        gh<_i892.CreateUserUseCase>(),
       ),
-    );
-    gh.factory<_i104.EmailVerifiedUseCase>(
-      () => _i104.EmailVerifiedUseCase(gh<_i787.IAuthRepository>()),
-    );
-    gh.factory<_i188.LoginUseCase>(
-      () => _i188.LoginUseCase(gh<_i787.IAuthRepository>()),
-    );
-    gh.factory<_i48.LogoutUseCase>(
-      () => _i48.LogoutUseCase(gh<_i787.IAuthRepository>()),
-    );
-    gh.factory<_i699.SendEmailVerificationUserCase>(
-      () => _i699.SendEmailVerificationUserCase(gh<_i787.IAuthRepository>()),
-    );
-    gh.factory<_i57.SignupUseCase>(
-      () => _i57.SignupUseCase(gh<_i787.IAuthRepository>()),
-    );
-    gh.singleton<_i235.AuthCubit>(
-      () =>
-          _i235.AuthCubit(gh<_i244.FirebaseClient>(), gh<_i48.LogoutUseCase>()),
-    );
-    gh.factory<_i1019.LoginCubit>(
-      () => _i1019.LoginCubit(gh<_i188.LoginUseCase>()),
     );
     gh.singleton<_i430.UserCubit>(
       () => _i430.UserCubit(gh<_i91.GetUserUseCase>()),
-    );
-    gh.factory<_i739.VerificationCubit>(
-      () => _i739.VerificationCubit(
-        gh<_i104.EmailVerifiedUseCase>(),
-        gh<_i699.SendEmailVerificationUserCase>(),
-      ),
-    );
-    gh.factory<_i24.SignupCubit>(
-      () => _i24.SignupCubit(
-        gh<_i57.SignupUseCase>(),
-        gh<_i892.CreateUserUseCase>(),
-      ),
     );
     gh.singleton<_i997.MainCubit>(
       () => _i997.MainCubit(

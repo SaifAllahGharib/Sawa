@@ -45,6 +45,7 @@ abstract class LightTheme {
           textColor: AppColors.lightText,
           border: AppColors.lightBorder,
           icon: AppColors.darkBackground,
+          overlay: AppColors.lightOverlay,
         ),
       ];
 

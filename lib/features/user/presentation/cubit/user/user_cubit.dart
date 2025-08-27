@@ -11,7 +11,7 @@ class UserCubit extends Cubit<UserState> {
   UserCubit(this._getUserUseCase) : super(const UserInitialState());
 
   void getUser(String userId) async {
-    final result = await _getUserUseCase(userId);
+    final result = await _getUserUseCase(uId: userId);
 
     result.when(
       failure: (failure) => emit(UserFailureState(failure.code)),

@@ -45,6 +45,7 @@ abstract class DarkTheme {
           textColor: AppColors.darkText,
           border: AppColors.darkBorder,
           icon: AppColors.lightBackground,
+          overlay: AppColors.darkOverlay,
         ),
       ];
 

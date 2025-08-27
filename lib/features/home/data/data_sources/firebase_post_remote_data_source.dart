@@ -283,7 +283,7 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
   }
 
   @override
-  Stream<List<ReactionModel>> getReactions({required String postId}) {
+  Stream<List<ReactionModel>> getPostReactions({required String postId}) {
     final ref = _firebaseClient.db.ref().child('reactions').child(postId);
 
     return ref.onValue.map((event) {
@@ -303,7 +303,7 @@ class FirebasePostRemoteDataSource implements IHomePostRemoteDataSource {
   }
 
   @override
-  Stream<ReactionModel?> getUserReaction({required String postId}) {
+  Stream<ReactionModel?> getUserPostReaction({required String postId}) {
     final ref = _firebaseClient.db
         .ref()
         .child('reactions')

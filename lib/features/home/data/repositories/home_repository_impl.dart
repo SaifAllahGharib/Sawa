@@ -64,16 +64,18 @@ class HomeRepositoryImpl implements IHomeRepository {
   }
 
   @override
-  StreamResult<List<ReactionEntity>> getReactions({required String postId}) {
+  StreamResult<List<ReactionEntity>> getPostReactions({
+    required String postId,
+  }) {
     return _errorHandler.handleStreamWithTryCatch(
-      () => _iHomePostRemoteDataSource.getReactions(postId: postId),
+      () => _iHomePostRemoteDataSource.getPostReactions(postId: postId),
     );
   }
 
   @override
-  StreamResult<ReactionEntity?> getUserReaction({required String postId}) {
+  StreamResult<ReactionEntity?> getUserPostReaction({required String postId}) {
     return _errorHandler.handleStreamWithTryCatch(
-      () => _iHomePostRemoteDataSource.getUserReaction(postId: postId),
+      () => _iHomePostRemoteDataSource.getUserPostReaction(postId: postId),
     );
   }
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/di/dependency_injection.dart';
-import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/core/extensions/string_extentions.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 import 'package:sawa/core/widgets/post_action_button.dart';
 import 'package:sawa/core/widgets/reactions_popup_widget.dart';
@@ -83,7 +83,7 @@ class LikeButton extends StatelessWidget {
                   width: 20.r,
                   height: 20.r,
                 ),
-          label: context.tr.like,
+          label: ReactionType.fromValue(type ?? '').type.tr,
           onPressed: () => context.read<ReactionCubit>().toggleLike(postId),
           onLongPress: () {
             final box = context.findRenderObject() as RenderBox;
