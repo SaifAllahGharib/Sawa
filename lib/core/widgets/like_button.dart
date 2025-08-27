@@ -10,7 +10,7 @@ import 'package:sawa/core/widgets/reactions_popup_widget.dart';
 import '../../shared/cubits/reactions/reaction_cubit.dart';
 import '../../shared/cubits/reactions/reactions_state.dart';
 import '../constants/app_assets.dart';
-import '../constants/reaction_type.dart';
+import '../enums/reaction_type.dart';
 import 'app_svg.dart';
 
 class LikeButton extends StatelessWidget {

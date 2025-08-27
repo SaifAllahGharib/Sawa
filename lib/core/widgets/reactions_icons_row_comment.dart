@@ -4,7 +4,7 @@ import 'package:sawa/core/di/dependency_injection.dart';
 
 import '../../shared/cubits/reactions/reaction_cubit.dart';
 import '../../shared/cubits/reactions/reactions_state.dart';
-import '../constants/reaction_type.dart';
+import '../enums/reaction_type.dart';
 import '../utils/app_bottom_sheet.dart';
 import 'app_gesture_detector_button.dart';
 import 'list_user_reactions_post.dart';

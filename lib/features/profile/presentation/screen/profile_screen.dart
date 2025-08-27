@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sawa/core/utils/enums.dart';
 
+import '../../../../core/enums/profile_update_type.dart';
 import '../../../../core/extensions/build_context_extensions.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_scaffold.dart';

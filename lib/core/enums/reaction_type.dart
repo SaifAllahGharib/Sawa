@@ -1,4 +1,4 @@
-import 'app_assets.dart';
+import '../constants/app_assets.dart';
 
 enum ReactionType {
   like('like', AppAssets.like),

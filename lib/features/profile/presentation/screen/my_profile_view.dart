@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/styles/app_styles.dart';
-import 'package:sawa/core/utils/enums.dart';
 
+import '../../../../core/enums/profile_update_type.dart';
 import '../../../../core/widgets/posts_loading.dart';
 import '../../../user/domain/entity/user_entity.dart';
 import '../cubit/profile/profile_cubit.dart';

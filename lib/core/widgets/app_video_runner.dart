@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../shared/cubits/video_player/video_player_cubit.dart';
 import '../di/dependency_injection.dart';
-import '../utils/enums.dart';
+import '../enums/video_type.dart';
 import 'app_padding_widget.dart';
 import 'app_scaffold.dart';
 import 'init_video_widget.dart';

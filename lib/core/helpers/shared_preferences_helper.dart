@@ -2,7 +2,7 @@ import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/user/data/model/user_model.dart';
-import '../utils/enums.dart';
+import '../enums/user_info.dart';
 
 class SharedPreferencesHelper {
   final Logger _logger;
@@ -66,7 +66,7 @@ class SharedPreferencesHelper {
       final name = getUserName();
       final email = getUserEmail();
 
-      if (id == null || name == null || email == null) {
+      if (id.isEmpty || name.isEmpty || email.isEmpty) {
         return null;
       }
 
@@ -87,15 +87,15 @@ class SharedPreferencesHelper {
     }
   }
 
-  String? getUserId() => getString(UserInfo.id.asString);
+  String getUserId() => getString(UserInfo.id.asString) ?? '';
 
-  String? getUserName() => getString(UserInfo.name.asString);
+  String getUserName() => getString(UserInfo.name.asString) ?? '';
 
-  String? getUserEmail() => getString(UserInfo.email.asString);
+  String getUserEmail() => getString(UserInfo.email.asString) ?? '';
 
   String getUserImage() => getString(UserInfo.image.asString) ?? '';
 
-  String? getUserBio() => getString(UserInfo.bio.asString);
+  String getUserBio() => getString(UserInfo.bio.asString) ?? '';
 
   // ---------------- Generic Setters/Getters ----------------
   Future<bool> storeString(String key, String value) async {

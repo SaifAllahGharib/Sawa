@@ -6,10 +6,10 @@ import 'package:sawa/features/user/domain/entity/user_entity.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/enums/profile_update_type.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/utils/app_bottom_sheet.dart';
 import '../../../../core/utils/app_snack_bar.dart';
-import '../../../../core/utils/enums.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_placeholder.dart';
 import '../../../../core/widgets/app_svg.dart';

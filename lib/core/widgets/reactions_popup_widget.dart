@@ -6,7 +6,7 @@ import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/shared/cubits/locale_cubit.dart';
 
 import '../../shared/cubits/reactions/reaction_cubit.dart';
-import '../constants/reaction_type.dart';
+import '../enums/reaction_type.dart';
 import 'app_gesture_detector_button.dart';
 import 'app_svg.dart';
 

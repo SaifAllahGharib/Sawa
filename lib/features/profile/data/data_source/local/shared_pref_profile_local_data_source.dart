@@ -1,7 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:sawa/core/helpers/shared_preferences_helper.dart';
-import 'package:sawa/core/utils/enums.dart';
 import 'package:sawa/features/profile/data/data_source/local/interface/i_profile_local_data_source.dart';
+
+import '../../../../../core/enums/user_info.dart';
 
 @LazySingleton(as: IProfileLocalDataSource)
 class SharedPrefProfileLocalDataSource implements IProfileLocalDataSource {

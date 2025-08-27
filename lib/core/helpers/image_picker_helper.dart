@@ -2,7 +2,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../shared/entities/media_item.dart';
-import '../utils/enums.dart';
+import '../enums/media_type.dart';
 
 @LazySingleton()
 class ImagePickerHelper {

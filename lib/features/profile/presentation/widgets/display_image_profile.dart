@@ -4,13 +4,13 @@ import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/styles/app_colors.dart';
 import 'package:sawa/core/styles/app_styles.dart';
-import 'package:sawa/core/utils/enums.dart';
 import 'package:sawa/core/widgets/app_button.dart';
 import 'package:sawa/core/widgets/app_file_image.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 import 'package:sawa/core/widgets/app_scaffold.dart';
 import 'package:sawa/shared/models/media_model.dart';
 
+import '../../../../core/enums/media_type.dart';
 import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
 import '../../../../shared/cubits/media/media_cubit.dart';

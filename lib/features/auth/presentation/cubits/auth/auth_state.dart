@@ -1,4 +1,4 @@
-import '../../../../../core/utils/enums.dart';
+import '../../../../../core/enums/auth_status.dart';
 
 class AuthState {
   final AuthStatus status;

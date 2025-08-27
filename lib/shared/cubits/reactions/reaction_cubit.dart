@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sawa/features/home/domain/repositories/home_repository.dart';
 
-import '../../../core/constants/reaction_type.dart';
+import '../../../core/enums/reaction_type.dart';
 import 'reactions_state.dart';
 
 @injectable

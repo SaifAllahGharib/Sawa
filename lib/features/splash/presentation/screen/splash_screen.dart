@@ -6,8 +6,8 @@ import 'package:sawa/core/services/navigation/navigation_service.dart';
 import 'package:sawa/core/styles/app_styles.dart';
 import 'package:sawa/core/widgets/app_scaffold.dart';
 
+import '../../../../core/enums/auth_status.dart';
 import '../../../../core/routing/app_route_name.dart';
-import '../../../../core/utils/enums.dart';
 import '../../../../shared/cubits/main/main_cubit.dart';
 import '../../../../shared/cubits/main/main_state.dart';
 

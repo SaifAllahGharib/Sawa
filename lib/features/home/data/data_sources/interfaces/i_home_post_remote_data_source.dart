@@ -1,7 +1,7 @@
 import 'package:sawa/features/home/data/models/create_post_model.dart';
 import 'package:sawa/features/user/data/model/user_model.dart';
 
-import '../../../../../core/constants/reaction_type.dart';
+import '../../../../../core/enums/reaction_type.dart';
 import '../../../../../shared/models/post_model.dart';
 import '../../models/reactio_model.dart';
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 
+import '../enums/text_form_type.dart';
 import '../styles/app_styles.dart';
-import '../utils/enums.dart';
 
 class AppTextFormField extends StatefulWidget {
   final TextEditingController controller;

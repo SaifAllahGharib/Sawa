@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/clients/firebase_client.dart';
-import 'package:sawa/core/constants/reaction_type.dart';
 import 'package:sawa/core/di/dependency_injection.dart';
+import 'package:sawa/core/enums/reaction_type.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/styles/app_styles.dart';

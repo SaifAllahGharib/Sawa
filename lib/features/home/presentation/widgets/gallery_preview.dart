@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/styles/app_styles.dart';
-import 'package:sawa/core/utils/enums.dart';
 import 'package:sawa/core/widgets/app_file_image.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 import 'package:sawa/core/widgets/app_video_preview.dart';
 import 'package:sawa/core/widgets/media_delete_button.dart';
 
+import '../../../../core/enums/media_type.dart';
 import '../../../../shared/entities/media_item.dart';
 
 class GalleryPreview extends StatelessWidget {

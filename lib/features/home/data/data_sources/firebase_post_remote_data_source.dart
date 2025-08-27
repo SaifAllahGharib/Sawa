@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:path/path.dart' as p;
 
 import '../../../../core/clients/firebase_client.dart';
-import '../../../../core/constants/reaction_type.dart';
+import '../../../../core/enums/reaction_type.dart';
 import '../../../../core/services/storage/i_storage_service.dart';
 import '../../../../shared/models/post_media_model.dart';
 import '../../../../shared/models/post_model.dart';

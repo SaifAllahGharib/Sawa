@@ -2,7 +2,7 @@ import 'package:failure_handler/failure_handler.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sawa/features/home/data/models/create_post_model.dart';
 
-import '../../../../core/constants/reaction_type.dart';
+import '../../../../core/enums/reaction_type.dart';
 import '../../../user/domain/entity/user_entity.dart';
 import '../../domain/entities/post_entity.dart';
 import '../../domain/entities/reaction_entity.dart';

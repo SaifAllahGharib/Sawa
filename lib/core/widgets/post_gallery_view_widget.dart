@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
-import 'package:sawa/core/utils/enums.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 import 'package:sawa/core/widgets/app_video_preview.dart';
 import 'package:sawa/core/widgets/full_screen_gallery_widget.dart';
 import 'package:sawa/features/home/domain/entities/post_entity.dart';
 
+import '../enums/media_type.dart';
 import '../services/navigation/navigation_service.dart';
 import '../styles/app_styles.dart';
 import 'app_network_image.dart';

@@ -3,13 +3,14 @@ import 'package:sawa/core/constants/app_assets.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/services/navigation/navigation_service.dart';
-import 'package:sawa/core/utils/enums.dart';
 import 'package:sawa/core/widgets/app_asset_image.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 import 'package:sawa/core/widgets/app_padding_widget.dart';
 import 'package:sawa/core/widgets/app_scaffold.dart';
 import 'package:sawa/core/widgets/app_video_runner.dart';
 
+import '../enums/media_type.dart';
+import '../enums/video_type.dart';
 import 'app_network_image.dart';
 
 class FullScreenGalleryWidget extends StatelessWidget {

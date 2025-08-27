@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sawa/features/profile/domain/entity/profile_entity.dart';
 
-import '../../../../../core/utils/enums.dart';
+import '../../../../../core/enums/profile_update_type.dart';
 
 part 'profile_state.freezed.dart';
 

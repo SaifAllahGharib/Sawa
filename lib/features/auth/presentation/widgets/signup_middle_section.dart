@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 
+import '../../../../core/enums/text_form_type.dart';
 import '../../../../core/routing/app_route_name.dart';
 import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/utils/app_reg_exp.dart';
 import '../../../../core/utils/app_snack_bar.dart';
-import '../../../../core/utils/enums.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_button_loading.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
