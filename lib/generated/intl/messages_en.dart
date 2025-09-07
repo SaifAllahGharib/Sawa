@@ -134,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "postDeleteSuccess": MessageLookupByLibrary.simpleMessage(
       "Post Delete Successfully",
     ),
+    "publish": MessageLookupByLibrary.simpleMessage("Publish"),
     "reply": MessageLookupByLibrary.simpleMessage("Reply"),
     "required": MessageLookupByLibrary.simpleMessage("Required"),
     "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),

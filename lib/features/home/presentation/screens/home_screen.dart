@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_scaffold.dart';
-import '../../../../core/widgets/posts_loading.dart';
 import '../../../../shared/cubits/main/main_cubit.dart';
 import '../../../../shared/cubits/main/main_state.dart';
+import '../../../post/domain/entities/post_entity.dart';
+import '../../../post/presentation/cubits/post/post_cubit.dart';
+import '../../../post/presentation/cubits/post/post_state.dart';
+import '../../../post/presentation/widgets/posts_loading.dart';
 import '../../../user/presentation/cubit/user/user_state.dart';
-import '../../domain/entities/post_entity.dart';
-import '../cubits/home/home_cubit.dart';
-import '../cubits/home/home_state.dart';
 import '../widgets/bottom_section_home.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/top_section_home.dart';
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void _getDefaultPosts() {
-    context.read<HomeCubit>().getDefaultPosts();
+    context.read<PostCubit>().getDefaultPosts();
   }
 
   void _handleState(UserState state) {
@@ -58,14 +58,14 @@ class _HomeScreenState extends State<HomeScreen>
     }
   }
 
-  void _handlePostsState(HomeState state) {
-    if (state is HomeGetDefaultPostsState) {
+  void _handlePostsState(PostState state) {
+    if (state is PostGetDefaultPostsState) {
       _posts = state.posts;
-    } else if (state is HomeFailureState) {
+    } else if (state is PostFailureState) {
       AppSnackBar.showError(context, state.code);
-    } else if (state is HomeCreatePostSuccessState) {
+    } else if (state is PostCreatePostSuccessState) {
       _getDefaultPosts();
-    } else if (state is HomeDeletePostSuccessState) {
+    } else if (state is PostDeletePostSuccessState) {
       _getDefaultPosts();
     }
   }
@@ -87,10 +87,10 @@ class _HomeScreenState extends State<HomeScreen>
                 return TopSectionHome(user: user);
               },
             ),
-            BlocConsumer<HomeCubit, HomeState>(
+            BlocConsumer<PostCubit, PostState>(
               listener: (context, state) => _handlePostsState(state),
               builder: (context, state) {
-                if (state is HomeLoadingState) {
+                if (state is PostLoadingState) {
                   return const PostsLoading();
                 }
 

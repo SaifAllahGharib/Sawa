@@ -25,7 +25,8 @@ class UserModel {
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
-  factory UserModel.empty() => const UserModel(id: '', name: '', email: '');
+  factory UserModel.empty() =>
+      const UserModel(id: '', name: '', email: '', bio: '', image: '');
 
   UserEntity toEntity() {
     return UserEntity(id: id, name: name, email: email, image: image, bio: bio);

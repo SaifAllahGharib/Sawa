@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../firebase_options.dart';
+import '../../shared/cubits/main/main_cubit.dart';
 import '../di/dependency_injection.dart';
 import 'set_portrait_orientation.dart';
 
@@ -23,4 +24,6 @@ Future<void> initializeApp() async {
       anonKey: dotenv.get('SUPABASE_KEY'),
     ),
   ]);
+
+  getIt<MainCubit>().checkAuthStatus();
 }

@@ -32,26 +32,28 @@ class MainCubit extends Cubit<MainState> {
 
   UserEntity get user => _user;
 
-  MainCubit(this._themeCubit,
-      this._localeCubit,
-      this._authCubit,
-      this._userCubit,
-      this._firebaseClient,) : super(
-    MainState(
-      themeMode: _themeCubit.state,
-      locale: _localeCubit.state,
-      authState: _authCubit.state,
-      userState: _userCubit.state,
-    ),
-  ) {
+  MainCubit(
+    this._themeCubit,
+    this._localeCubit,
+    this._authCubit,
+    this._userCubit,
+    this._firebaseClient,
+  ) : super(
+        MainState(
+          themeMode: _themeCubit.state,
+          locale: _localeCubit.state,
+          authState: _authCubit.state,
+          userState: _userCubit.state,
+        ),
+      ) {
     _themeSub = _themeCubit.stream.listen(
-          (theme) => emit(state.copyWith(themeMode: theme)),
+      (theme) => emit(state.copyWith(themeMode: theme)),
     );
     _localeSub = _localeCubit.stream.listen(
-          (locale) => emit(state.copyWith(locale: locale)),
+      (locale) => emit(state.copyWith(locale: locale)),
     );
     _authSub = _authCubit.stream.listen(
-          (auth) => emit(state.copyWith(authState: auth)),
+      (auth) => emit(state.copyWith(authState: auth)),
     );
     _userSub = _userCubit.stream.listen((userState) {
       emit(state.copyWith(userState: userState));

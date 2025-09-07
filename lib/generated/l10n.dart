@@ -728,6 +728,11 @@ class S {
   String get reply {
     return Intl.message('Reply', name: 'reply', desc: '', args: []);
   }
+
+  /// `Publish`
+  String get publish {
+    return Intl.message('Publish', name: 'publish', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

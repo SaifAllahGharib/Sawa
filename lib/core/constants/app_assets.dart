@@ -34,4 +34,5 @@ abstract class AppAssets {
   static const String image = 'assets/svgs/image.svg';
   static const String edit = 'assets/svgs/edit.svg';
   static const String trash = 'assets/svgs/delete.svg';
+  static const String send = 'assets/svgs/send.svg';
 }

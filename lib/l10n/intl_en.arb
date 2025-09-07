@@ -92,5 +92,6 @@
   "failedToUpdateName": "failed to update Name",
   "failedToUpdateBio": "failed to update bio",
   "changeBio": "Change Bio",
-  "reply": "Reply"
+  "reply": "Reply",
+  "publish": "Publish"
 }

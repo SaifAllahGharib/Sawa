@@ -32,14 +32,17 @@ import '../../features/auth/presentation/cubits/signup/signup_cubit.dart'
     as _i24;
 import '../../features/auth/presentation/cubits/verification/verification/verification_cubit.dart'
     as _i739;
-import '../../features/home/data/data_sources/firebase_post_remote_data_source.dart'
-    as _i49;
-import '../../features/home/data/data_sources/interfaces/i_home_post_remote_data_source.dart'
-    as _i428;
-import '../../features/home/data/repositories/home_repository_impl.dart'
-    as _i76;
-import '../../features/home/domain/repositories/home_repository.dart' as _i0;
-import '../../features/home/presentation/cubits/home/home_cubit.dart' as _i715;
+import '../../features/post/data/data_sources/firebase_post_remote_data_source.dart'
+    as _i465;
+import '../../features/post/data/data_sources/interface/i_post_remote_data_source.dart'
+    as _i63;
+import '../../features/post/data/repositories/post_repository_impl.dart'
+    as _i1039;
+import '../../features/post/domain/repositories/i_post_repository.dart'
+    as _i689;
+import '../../features/post/presentation/cubits/post/post_cubit.dart' as _i859;
+import '../../features/post/presentation/cubits/reactions/reaction_cubit.dart'
+    as _i486;
 import '../../features/profile/data/data_source/local/interface/i_profile_local_data_source.dart'
     as _i1070;
 import '../../features/profile/data/data_source/local/shared_pref_profile_local_data_source.dart'
@@ -71,7 +74,6 @@ import '../../features/user/presentation/cubit/user/user_cubit.dart' as _i430;
 import '../../shared/cubits/locale_cubit.dart' as _i223;
 import '../../shared/cubits/main/main_cubit.dart' as _i997;
 import '../../shared/cubits/media/media_cubit.dart' as _i556;
-import '../../shared/cubits/reactions/reaction_cubit.dart' as _i651;
 import '../../shared/cubits/theme_cubit.dart' as _i253;
 import '../../shared/cubits/video_player/video_player_cubit.dart' as _i52;
 import '../clients/firebase_client.dart' as _i244;
@@ -128,8 +130,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i253.ThemeCubit>(
       () => _i253.ThemeCubit(gh<_i285.SharedPreferencesHelper>()),
     );
-    gh.lazySingleton<_i428.IHomePostRemoteDataSource>(
-      () => _i49.FirebasePostRemoteDataSource(
+    gh.lazySingleton<_i63.IPostRemoteDataSource>(
+      () => _i465.FirebasePostRemoteDataSource(
         gh<_i244.FirebaseClient>(),
         gh<_i557.IStorageService>(),
       ),
@@ -166,9 +168,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i25.IAuthRemoteDataSource>(
       () => _i992.FirebaseAuthRemoteDataSource(gh<_i244.FirebaseClient>()),
     );
-    gh.lazySingleton<_i0.IHomeRepository>(
-      () => _i76.HomeRepositoryImpl(
-        gh<_i428.IHomePostRemoteDataSource>(),
+    gh.lazySingleton<_i689.IPostRepository>(
+      () => _i1039.PostRepositoryImpl(
+        gh<_i63.IPostRemoteDataSource>(),
         gh<_i281.ErrorHandler>(),
       ),
     );
@@ -194,11 +196,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i787.IAuthRepository>(),
       ),
     );
-    gh.factory<_i715.HomeCubit>(
-      () => _i715.HomeCubit(gh<_i0.IHomeRepository>()),
+    gh.factory<_i859.PostCubit>(
+      () => _i859.PostCubit(gh<_i689.IPostRepository>()),
     );
-    gh.factory<_i651.ReactionCubit>(
-      () => _i651.ReactionCubit(gh<_i0.IHomeRepository>()),
+    gh.factory<_i486.ReactionCubit>(
+      () => _i486.ReactionCubit(gh<_i689.IPostRepository>()),
     );
     gh.factory<_i556.MediaCubit>(
       () => _i556.MediaCubit(gh<_i753.ImagePickerHelper>()),

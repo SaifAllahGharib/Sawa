@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sawa/features/profile/data/data_source/remote/interface/i_profile_remote_data_source.dart';
 import 'package:sawa/features/profile/domain/entity/profile_entity.dart';
 
-import '../../../../shared/models/media_model.dart';
+import '../../../post/data/models/media_model.dart';
 import '../../domain/repository/profile_repository.dart';
 import '../data_source/local/interface/i_profile_local_data_source.dart';
 

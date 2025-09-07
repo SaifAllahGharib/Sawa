@@ -1,4 +1,4 @@
-import 'package:sawa/shared/models/media_model.dart';
+import 'package:sawa/features/post/data/models/media_model.dart';
 
 import '../../../models/profile_model.dart';
 

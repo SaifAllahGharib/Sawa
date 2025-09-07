@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sawa/core/constants/app_assets.dart';
-import 'package:sawa/core/widgets/app_svg.dart';
-import 'package:sawa/features/home/data/models/create_post_model.dart';
-import 'package:sawa/shared/models/media_model.dart';
 
 import '../../../../../../core/extensions/build_context_extensions.dart';
 import '../../../../../../core/extensions/number_extensions.dart';
 import '../../../../core/clients/firebase_client.dart';
+import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/services/navigation/navigation_service.dart';
 import '../../../../core/utils/app_bottom_sheet.dart';
@@ -15,13 +12,16 @@ import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_button_loading.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
+import '../../../../core/widgets/app_svg.dart';
 import '../../../../shared/cubits/media/media_cubit.dart';
 import '../../../../shared/cubits/media/media_state.dart';
 import '../../../../shared/cubits/validation/validation_cubit.dart';
 import '../../../../shared/cubits/validation/validation_state.dart';
 import '../../../../shared/entities/media_item.dart';
-import '../cubits/home/home_cubit.dart';
-import '../cubits/home/home_state.dart';
+import '../../../post/data/models/create_post_model.dart';
+import '../../../post/data/models/media_model.dart';
+import '../../../post/presentation/cubits/post/post_cubit.dart';
+import '../../../post/presentation/cubits/post/post_state.dart';
 import 'image_and_video_from_camera_or_gallery_widget_bottom_sheet.dart';
 
 class BottomSectionCreatePostWidget extends StatelessWidget {
@@ -43,7 +43,7 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
           .toList(),
     );
 
-    context.read<HomeCubit>().createPost(createPostModel: createPostModel);
+    context.read<PostCubit>().createPost(createPostModel: createPostModel);
   }
 
   void _onTapSelectMedia(BuildContext context) {
@@ -56,11 +56,11 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
     });
   }
 
-  void _handleState(BuildContext context, HomeState state) {
-    if (state is HomeCreatePostSuccessState) {
+  void _handleState(BuildContext context, PostState state) {
+    if (state is PostCreatePostSuccessState) {
       NavigationService.I.pop();
       AppSnackBar.showSuccess(context, context.tr.postCreatedSuccessfully);
-    } else if (state is HomeFailureState) {
+    } else if (state is PostFailureState) {
       final code = state.code;
       if (code == 'Post creation failed' ||
           code == 'Failed to upload media to table') {
@@ -80,10 +80,10 @@ class BottomSectionCreatePostWidget extends StatelessWidget {
             builder: (context, enableButtonState) {
               return BlocBuilder<MediaCubit, MediaState>(
                 builder: (context, mediaState) {
-                  return BlocConsumer<HomeCubit, HomeState>(
+                  return BlocConsumer<PostCubit, PostState>(
                     listener: (context, state) => _handleState(context, state),
                     builder: (context, state) {
-                      if (state is HomeLoadingState) {
+                      if (state is PostLoadingState) {
                         return const AppButtonLoading();
                       }
 

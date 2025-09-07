@@ -92,5 +92,6 @@
   "failedToUpdateName": "فشل في تحديث الاسم",
   "failedToUpdateBio": "فشل في تحديث النبذة",
   "changeBio": "تغيير النبذة",
-  "reply": "رد"
+  "reply": "رد",
+  "publish": "نشر"
 }

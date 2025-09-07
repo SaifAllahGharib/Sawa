@@ -4,7 +4,7 @@ import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/styles/app_styles.dart';
 
 import '../../../../core/enums/profile_update_type.dart';
-import '../../../../core/widgets/posts_loading.dart';
+import '../../../post/presentation/widgets/posts_loading.dart';
 import '../../../user/domain/entity/user_entity.dart';
 import '../cubit/profile/profile_cubit.dart';
 import '../cubit/profile/profile_state.dart';

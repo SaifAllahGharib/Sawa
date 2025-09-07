@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sawa/features/profile/domain/entity/profile_entity.dart';
 
-import '../../../../shared/models/post_model.dart';
+import '../../../post/data/models/post_model.dart';
 import '../../../user/data/model/user_model.dart';
+import '../../domain/entity/profile_entity.dart';
 
 part 'profile_model.g.dart';
 

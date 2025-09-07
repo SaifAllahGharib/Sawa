@@ -132,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "postDeleteSuccess": MessageLookupByLibrary.simpleMessage(
       "تم حذف المنشور بنجاح",
     ),
+    "publish": MessageLookupByLibrary.simpleMessage("نشر"),
     "reply": MessageLookupByLibrary.simpleMessage("رد"),
     "required": MessageLookupByLibrary.simpleMessage("إلزامي"),
     "resendEmail": MessageLookupByLibrary.simpleMessage("إعادة إرسال البريد"),

@@ -1,4 +1,4 @@
-import '../../../home/domain/entities/post_entity.dart';
+import '../../../post/domain/entities/post_entity.dart';
 import '../../../user/domain/entity/user_entity.dart';
 
 class ProfileEntity {

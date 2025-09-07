@@ -3,7 +3,7 @@ import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
 import 'package:sawa/core/widgets/app_padding_widget.dart';
 import 'package:sawa/core/widgets/app_placeholder.dart';
-import 'package:sawa/core/widgets/posts_loading.dart';
+import 'package:sawa/features/post/presentation/widgets/posts_loading.dart';
 
 import 'app_bar_profile.dart';
 

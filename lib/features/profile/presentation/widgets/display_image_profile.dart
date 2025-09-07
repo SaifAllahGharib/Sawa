@@ -8,7 +8,7 @@ import 'package:sawa/core/widgets/app_button.dart';
 import 'package:sawa/core/widgets/app_file_image.dart';
 import 'package:sawa/core/widgets/app_gesture_detector_button.dart';
 import 'package:sawa/core/widgets/app_scaffold.dart';
-import 'package:sawa/shared/models/media_model.dart';
+import 'package:sawa/features/post/data/models/media_model.dart';
 
 import '../../../../core/enums/media_type.dart';
 import '../../../../core/services/navigation/navigation_service.dart';

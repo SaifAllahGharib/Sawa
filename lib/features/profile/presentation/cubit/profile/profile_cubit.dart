@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sawa/features/profile/domain/repository/profile_repository.dart';
 
 import '../../../../../core/enums/profile_update_type.dart';
-import '../../../../../shared/models/media_model.dart';
+import '../../../../post/data/models/media_model.dart';
 import 'profile_state.dart';
 
 @singleton

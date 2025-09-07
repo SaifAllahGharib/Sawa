@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 import 'package:path/path.dart' as p;
-import 'package:sawa/core/services/storage/i_storage_service.dart';
-import 'package:sawa/features/profile/data/models/profile_model.dart';
-import 'package:sawa/shared/models/media_model.dart';
 
 import '../../../../../core/clients/firebase_client.dart';
-import '../../../../../shared/models/post_media_model.dart';
-import '../../../../../shared/models/post_model.dart';
+import '../../../../../core/services/storage/i_storage_service.dart';
+import '../../../../post/data/models/media_model.dart';
+import '../../../../post/data/models/post_media_model.dart';
+import '../../../../post/data/models/post_model.dart';
 import '../../../../user/data/model/user_model.dart';
+import '../../models/profile_model.dart';
 import 'interface/i_profile_remote_data_source.dart';
 
 @LazySingleton(as: IProfileRemoteDataSource)

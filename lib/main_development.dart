@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sawa/core/services/navigation/navigation_service.dart';
 
 import 'core/di/dependency_injection.dart';
+import 'core/enums/auth_status.dart';
 import 'core/init/init_app.dart';
 import 'core/routing/app_route_name.dart';
 import 'core/routing/app_router.dart';
@@ -31,10 +32,14 @@ class SocialMediaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppResponsiveBuilder(
-      builder: (context) => BlocProvider(
-        create: (context) => getIt<MainCubit>()..checkAuthStatus(),
+      builder: (context) => BlocProvider.value(
+        value: getIt<MainCubit>(),
         child: BlocBuilder<MainCubit, MainState>(
           builder: (context, state) {
+            final route = (state.authState.status == AuthStatus.authenticated)
+                ? AppRouteName.home
+                : AppRouteName.login;
+
             return MaterialApp(
               locale: state.locale,
               debugShowCheckedModeBanner: true,
@@ -48,7 +53,7 @@ class SocialMediaApp extends StatelessWidget {
               theme: AppTheme.light,
               darkTheme: AppTheme.dark,
               themeMode: state.themeMode,
-              initialRoute: AppRouteName.splash,
+              initialRoute: route,
               navigatorKey: NavigationService.I.navigatorKey,
               onGenerateRoute: AppRouter.generateRoute,
             );

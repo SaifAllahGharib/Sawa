@@ -1,6 +1,5 @@
 abstract class AppRouteName {
-  static const String splash = '/';
-  static const String login = '/login';
+  static const String login = '/';
   static const String signup = '/signup';
   static const String verification = '/verification';
   static const String home = '/home';

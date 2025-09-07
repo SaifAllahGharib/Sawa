@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sawa/core/extensions/build_context_extensions.dart';
-import 'package:sawa/core/extensions/number_extensions.dart';
-import 'package:sawa/core/styles/app_styles.dart';
-import 'package:sawa/features/home/domain/entities/post_entity.dart';
 import 'package:sawa/features/profile/presentation/cubit/profile/profile_cubit.dart';
 
-import '../../../../core/widgets/post_card.dart';
+import '../../../../../core/extensions/build_context_extensions.dart';
+import '../../../../../core/extensions/number_extensions.dart';
+import '../../../../core/styles/app_styles.dart';
+import '../../../post/domain/entities/post_entity.dart';
+import '../../../post/presentation/widgets/post_card.dart';
 
 class BottomSectionProfile extends StatelessWidget {
   final List<PostEntity> posts;

@@ -29,11 +29,6 @@ class UserRepositoryImpl implements IUserRepository {
   @override
   FutureResult<UserEntity> getUser({required String uId}) async {
     return _errorHandler.handleFutureWithTryCatch(() async {
-      final localUser = _iUserLocalDataSource.getUser();
-      if (localUser != null) {
-        return localUser.toEntity();
-      }
-
       final remoteUser = await _iUserRemoteDataSource.getUser(uId: uId);
 
       await _iUserLocalDataSource.saveUser(remoteUser);

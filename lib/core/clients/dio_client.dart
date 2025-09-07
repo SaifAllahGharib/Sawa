@@ -22,6 +22,8 @@ class DioClint {
         responseBody: true,
         requestBody: true,
         error: true,
+        requestHeader: true,
+        responseHeader: true,
       ),
     );
 

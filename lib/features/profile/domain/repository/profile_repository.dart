@@ -1,7 +1,7 @@
 import 'package:failure_handler/failure_handler.dart';
 import 'package:sawa/features/profile/domain/entity/profile_entity.dart';
 
-import '../../../../shared/models/media_model.dart';
+import '../../../post/data/models/media_model.dart';
 
 abstract class IProfileRepository {
   FutureResult<void> updateProfileName({required String newName});
