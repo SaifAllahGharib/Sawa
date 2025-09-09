@@ -1,6 +1,7 @@
 import '../../../../../core/enums/reaction_type.dart';
 import '../../../../user/data/model/user_model.dart';
 import '../../models/comment_request_model.dart';
+import '../../models/comment_response_model.dart';
 import '../../models/create_post_model.dart';
 import '../../models/post_model.dart';
 import '../../models/reactio_model.dart';
@@ -30,4 +31,6 @@ abstract class IPostRemoteDataSource {
   });
 
   Future<void> addComment({required CommentRequestModel comment});
+
+  Future<List<CommentResponseModel>> getComments({required String postId});
 }

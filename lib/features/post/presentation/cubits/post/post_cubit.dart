@@ -9,8 +9,6 @@ import 'post_state.dart';
 class PostCubit extends Cubit<PostState> {
   final IPostRepository _iPostRepository;
 
-  bool _enableSendCommentButton = false;
-
   PostCubit(this._iPostRepository) : super(const PostInitState());
 
   Future<void> createPost({required CreatePostModel createPostModel}) async {
@@ -44,11 +42,4 @@ class PostCubit extends Cubit<PostState> {
       success: (_) => emit(const PostDeletePostSuccessState()),
     );
   }
-
-  void enableSendComment(String value) {
-    _enableSendCommentButton = value.isNotEmpty;
-    emit(EnableSendCommentButtonState(_enableSendCommentButton));
-  }
-
-  bool get enableSendCommentButton => _enableSendCommentButton;
 }

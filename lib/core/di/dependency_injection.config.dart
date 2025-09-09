@@ -40,6 +40,8 @@ import '../../features/post/data/repositories/post_repository_impl.dart'
     as _i1039;
 import '../../features/post/domain/repositories/i_post_repository.dart'
     as _i689;
+import '../../features/post/presentation/cubits/comments/comments_cubit.dart'
+    as _i133;
 import '../../features/post/presentation/cubits/post/post_cubit.dart' as _i859;
 import '../../features/post/presentation/cubits/reactions/reaction_cubit.dart'
     as _i486;
@@ -195,6 +197,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i244.FirebaseClient>(),
         gh<_i787.IAuthRepository>(),
       ),
+    );
+    gh.factory<_i133.CommentsCubit>(
+      () => _i133.CommentsCubit(gh<_i689.IPostRepository>()),
     );
     gh.factory<_i859.PostCubit>(
       () => _i859.PostCubit(gh<_i689.IPostRepository>()),

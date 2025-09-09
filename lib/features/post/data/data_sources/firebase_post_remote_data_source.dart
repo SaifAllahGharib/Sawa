@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path/path.dart' as p;
+import 'package:sawa/features/post/data/models/comment_response_model.dart';
 
 import '../../../../core/clients/firebase_client.dart';
 import '../../../../core/enums/reaction_type.dart';
@@ -362,5 +363,55 @@ class FirebasePostRemoteDataSource implements IPostRemoteDataSource {
     };
 
     await ref.set(commentData);
+  }
+
+  @override
+  Future<List<CommentResponseModel>> getComments({
+    required String postId,
+  }) async {
+    final ref = _firebaseClient.db.ref().child('comments').child(postId);
+    final snapshot = await ref.get();
+
+    if (!snapshot.exists || snapshot.value == null) return [];
+
+    final commentsMap = Map<String, dynamic>.from(snapshot.value as Map);
+
+    final comments = await Future.wait(
+      commentsMap.entries.map((entry) async {
+        final commentData = Map<String, dynamic>.from(entry.value as Map);
+
+        final userSnapshot = await _firebaseClient.db
+            .ref()
+            .child('users')
+            .child(commentData['userId'])
+            .get();
+
+        UserModel user = UserModel.empty();
+        if (userSnapshot.exists && userSnapshot.value != null) {
+          user = UserModel.fromJson(
+            Map<String, dynamic>.from(userSnapshot.value as Map),
+          );
+        }
+
+        return CommentResponseModel(
+          id: commentData['id'] as String,
+          userId: commentData['userId'] as String,
+          user: user,
+          postId: commentData['postId'] as String,
+          content: commentData['content'] as String,
+          createdAt: DateTime.fromMillisecondsSinceEpoch(
+            commentData['createdAt'] as int,
+          ),
+        );
+      }),
+    );
+
+    comments.sort((a, b) {
+      final aTime = (commentsMap[a.id]['createdAt'] ?? 0) as int;
+      final bTime = (commentsMap[b.id]['createdAt'] ?? 0) as int;
+      return bTime.compareTo(aTime);
+    });
+
+    return comments;
   }
 }

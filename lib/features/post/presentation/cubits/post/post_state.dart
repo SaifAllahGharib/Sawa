@@ -76,15 +76,6 @@ final class PostGetUserReactionState extends PostState {
   List<Object?> get props => [reaction];
 }
 
-final class EnableSendCommentButtonState extends PostState {
-  final bool enabled;
-
-  const EnableSendCommentButtonState(this.enabled);
-
-  @override
-  List<Object?> get props => [enabled];
-}
-
 final class PostFailureState extends PostState {
   final String code;
 

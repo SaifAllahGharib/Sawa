@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/features/post/domain/entities/comment_response_entity.dart';
 
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/helpers/date_time_helper.dart';
 import '../../../../core/styles/app_styles.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_padding_widget.dart';
@@ -12,8 +14,30 @@ import '../../../../core/widgets/profile_image.dart';
 import '../cubits/reactions/reaction_cubit.dart';
 import 'reactions_icons_row_comment.dart';
 
-class CommentItemWidget extends StatelessWidget {
-  const CommentItemWidget({super.key});
+class CommentItemWidget extends StatefulWidget {
+  final CommentResponseEntity comment;
+
+  const CommentItemWidget({super.key, required this.comment});
+
+  @override
+  State<CommentItemWidget> createState() => _CommentItemWidgetState();
+}
+
+class _CommentItemWidgetState extends State<CommentItemWidget> {
+  late final Stream<String> _timeStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _timeStream = Stream.periodic(
+      const Duration(microseconds: 1),
+      (_) => _getTimeAgo(),
+    );
+  }
+
+  String _getTimeAgo() {
+    return DateTimeHelper.timeAgoSinceDate(context, widget.comment.createdAt);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +50,7 @@ class CommentItemWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ProfileImage(),
+            ProfileImage(url: widget.comment.user.image),
             10.horizontalSpace,
             Expanded(
               child: Column(
@@ -41,21 +65,27 @@ class CommentItemWidget extends StatelessWidget {
                         color: context.customColor.overlay,
                         borderRadius: BorderRadius.circular(10.r),
                       ),
-                      child: const AppReadMoreText(
+                      child: AppReadMoreText(
                         numberOfLines: 5,
-                        content:
-                            'سيبتاسخيبسمنيبهخسيبتسيSdfsdfhnsllakshflashflkasfhoaosjfhalksfhalksfhlaksfسيبسيبسيبسيخهابخهسيبSdfoiisdflskdhlkashflkashflkashflkasfhla',
+                        content: widget.comment.content,
                       ),
                     ),
                   ),
                   10.verticalSpace,
                   Row(
                     children: [
-                      Text(
-                        '2 ${context.tr.h}',
-                        style: AppStyles.s14W400.copyWith(
-                          color: context.customColor.textColor,
-                        ),
+                      StreamBuilder<String>(
+                        stream: _timeStream,
+                        builder: (context, snapshot) {
+                          return Text(
+                            snapshot.data.toString(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppStyles.s14W400.copyWith(
+                              color: context.customColor.textColor,
+                            ),
+                          );
+                        },
                       ),
                       15.horizontalSpace,
                       AppGestureDetectorButton(

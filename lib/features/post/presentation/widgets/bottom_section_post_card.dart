@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
+import 'package:sawa/features/post/presentation/cubits/comments/comments_cubit.dart';
 import 'package:sawa/features/post/presentation/widgets/comments_bottom_sheet_widget.dart';
 
 import '../../../../core/constants/app_assets.dart';
@@ -22,7 +23,10 @@ class BottomSectionPostCard extends StatelessWidget {
 
   void _showCommentBottomSheet(BuildContext context) {
     AppBottomSheet.show(context, (context) {
-      return const CommentsBottomSheetWidget();
+      return BlocProvider(
+        create: (context) => getIt<CommentsCubit>(),
+        child: CommentsBottomSheetWidget(postId: postId),
+      );
     });
   }
 

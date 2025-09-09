@@ -93,5 +93,6 @@
   "failedToUpdateBio": "failed to update bio",
   "changeBio": "Change Bio",
   "reply": "Reply",
-  "publish": "Publish"
+  "publish": "Publish",
+  "empty": "Empty"
 }

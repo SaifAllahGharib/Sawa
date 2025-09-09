@@ -4,6 +4,7 @@ import 'package:sawa/features/post/data/models/comment_request_model.dart';
 
 import '../../../../core/enums/reaction_type.dart';
 import '../../../user/domain/entity/user_entity.dart';
+import '../../domain/entities/comment_response_entity.dart';
 import '../../domain/entities/post_entity.dart';
 import '../../domain/entities/reaction_entity.dart';
 import '../../domain/repositories/i_post_repository.dart';
@@ -102,5 +103,15 @@ class PostRepositoryImpl implements IPostRepository {
     return _errorHandler.handleFutureWithTryCatch(
       () async => await _iPostRemoteDataSource.addComment(comment: comment),
     );
+  }
+
+  @override
+  FutureResult<List<CommentResponseEntity>> getComments({
+    required String postId,
+  }) async {
+    return _errorHandler.handleFutureWithTryCatch(() async {
+      final response = await _iPostRemoteDataSource.getComments(postId: postId);
+      return response.map((e) => e.toEntity()).toList();
+    });
   }
 }

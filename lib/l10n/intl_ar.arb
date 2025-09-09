@@ -93,5 +93,6 @@
   "failedToUpdateBio": "فشل في تحديث النبذة",
   "changeBio": "تغيير النبذة",
   "reply": "رد",
-  "publish": "نشر"
+  "publish": "نشر",
+  "empty": "فارغ"
 }

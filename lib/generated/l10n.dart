@@ -733,6 +733,11 @@ class S {
   String get publish {
     return Intl.message('Publish', name: 'publish', desc: '', args: []);
   }
+
+  /// `Empty`
+  String get empty {
+    return Intl.message('Empty', name: 'empty', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

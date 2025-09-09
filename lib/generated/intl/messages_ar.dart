@@ -61,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "email_already_used": MessageLookupByLibrary.simpleMessage(
       "البريد الإلكتروني مستخدم مسبقاً",
     ),
+    "empty": MessageLookupByLibrary.simpleMessage("فارغ"),
     "errorConnectionNetwork": MessageLookupByLibrary.simpleMessage(
       "خطأ في الاتصال بالشبكة",
     ),

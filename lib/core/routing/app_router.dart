@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/features/profile/presentation/cubit/profile/profile_cubit.dart';
+import 'package:sawa/features/splash/presentation/splash_screen.dart';
+import 'package:sawa/shared/cubits/main/main_cubit.dart';
 
 import '../../features/auth/presentation/cubits/verification/verification/verification_cubit.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
@@ -17,10 +19,24 @@ import 'app_route_name.dart';
 abstract class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case AppRouteName.splash:
+        return MaterialPageRoute(
+          builder: (context) => const SplashScreen(),
+          settings: settings,
+        );
       case AppRouteName.login:
-        return MaterialPageRoute(builder: (context) => const LoginScreen());
+        return MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+          settings: settings,
+        );
       case AppRouteName.signup:
-        return MaterialPageRoute(builder: (context) => const SignupScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: getIt<MainCubit>(),
+            child: const SignupScreen(),
+          ),
+          settings: settings,
+        );
       case AppRouteName.verification:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(

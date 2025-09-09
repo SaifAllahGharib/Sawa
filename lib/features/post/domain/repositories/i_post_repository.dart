@@ -1,4 +1,5 @@
 import 'package:failure_handler/failure_handler.dart';
+import 'package:sawa/features/post/domain/entities/comment_response_entity.dart';
 
 import '../../../../core/enums/reaction_type.dart';
 import '../../../user/domain/entity/user_entity.dart';
@@ -32,4 +33,8 @@ abstract class IPostRepository {
   });
 
   FutureResult<void> addComment({required CommentRequestModel comment});
+
+  FutureResult<List<CommentResponseEntity>> getComments({
+    required String postId,
+  });
 }
