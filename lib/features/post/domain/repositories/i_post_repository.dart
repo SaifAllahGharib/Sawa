@@ -37,4 +37,19 @@ abstract class IPostRepository {
   FutureResult<List<CommentResponseEntity>> getComments({
     required String postId,
   });
+
+  FutureResult<void> addReactionToComment({
+    required String commentId,
+    required ReactionType type,
+  });
+
+  FutureResult<void> removeReactionFromComment({required String commentId});
+
+  StreamResult<List<ReactionEntity>> getCommentReactions({
+    required String commentId,
+  });
+
+  StreamResult<ReactionEntity?> getUserCommentReaction({
+    required String commentId,
+  });
 }

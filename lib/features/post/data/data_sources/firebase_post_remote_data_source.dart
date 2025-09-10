@@ -414,4 +414,81 @@ class FirebasePostRemoteDataSource implements IPostRemoteDataSource {
 
     return comments;
   }
+
+  @override
+  Future<void> addReactionToComment({
+    required String commentId,
+    required ReactionType type,
+  }) async {
+    final ref = _firebaseClient.db
+        .ref()
+        .child('reactions_comments')
+        .child(commentId);
+
+    final userId = _firebaseClient.auth.currentUser!.uid;
+
+    final reactionModel = ReactionModel(
+      id: userId, // خليت الـ id يساوي userId
+      postId: commentId,
+      userId: userId,
+      type: type.type,
+    );
+
+    await ref.child(userId).set(reactionModel.toJson());
+  }
+
+  @override
+  Future<void> removeReactionFromComment({required String commentId}) async {
+    final ref = _firebaseClient.db
+        .ref()
+        .child('reactions_comments')
+        .child(commentId)
+        .child(_firebaseClient.auth.currentUser!.uid);
+
+    await ref.remove();
+  }
+
+  @override
+  Stream<List<ReactionModel>> getCommentReactions({required String commentId}) {
+    final ref = _firebaseClient.db
+        .ref()
+        .child('reactions_comments')
+        .child(commentId);
+
+    return ref.onValue.map((event) {
+      final data = event.snapshot.value;
+
+      if (data == null) {
+        return <ReactionModel>[];
+      }
+
+      final map = Map<String, dynamic>.from(data as Map<Object?, Object?>);
+
+      final reactions = map.entries.map((entry) {
+        final value = Map<String, dynamic>.from(
+          entry.value as Map<Object?, Object?>,
+        );
+        return ReactionModel.fromJson(value);
+      }).toList();
+
+      return reactions;
+    });
+  }
+
+  @override
+  Stream<ReactionModel?> getUserCommentReaction({required String commentId}) {
+    final ref = _firebaseClient.db
+        .ref()
+        .child('reactions_comments')
+        .child(commentId)
+        .child(_firebaseClient.auth.currentUser!.uid);
+
+    return ref.onValue.map((event) {
+      if (!event.snapshot.exists) return null;
+      final data = Map<String, dynamic>.from(
+        event.snapshot.value as Map<Object?, Object?>,
+      );
+      return ReactionModel.fromJson(data);
+    });
+  }
 }

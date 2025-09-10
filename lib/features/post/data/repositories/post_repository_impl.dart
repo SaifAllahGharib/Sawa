@@ -80,9 +80,9 @@ class PostRepositoryImpl implements IPostRepository {
   }
 
   @override
-  FutureResult<void> removeReaction({required String postId}) {
+  FutureResult<void> removeReaction({required String postId}) async {
     return _errorHandler.handleFutureWithTryCatch(
-      () => _iPostRemoteDataSource.removeReaction(postId: postId),
+      () async => await _iPostRemoteDataSource.removeReaction(postId: postId),
     );
   }
 
@@ -113,5 +113,47 @@ class PostRepositoryImpl implements IPostRepository {
       final response = await _iPostRemoteDataSource.getComments(postId: postId);
       return response.map((e) => e.toEntity()).toList();
     });
+  }
+
+  @override
+  FutureResult<void> addReactionToComment({
+    required String commentId,
+    required ReactionType type,
+  }) async {
+    return _errorHandler.handleFutureWithTryCatch(
+      () async => await _iPostRemoteDataSource.addReactionToComment(
+        commentId: commentId,
+        type: type,
+      ),
+    );
+  }
+
+  @override
+  FutureResult<void> removeReactionFromComment({
+    required String commentId,
+  }) async {
+    return _errorHandler.handleFutureWithTryCatch(
+      () async => await _iPostRemoteDataSource.removeReactionFromComment(
+        commentId: commentId,
+      ),
+    );
+  }
+
+  @override
+  StreamResult<List<ReactionEntity>> getCommentReactions({
+    required String commentId,
+  }) {
+    return _errorHandler.handleStreamWithTryCatch(
+      () => _iPostRemoteDataSource.getCommentReactions(commentId: commentId),
+    );
+  }
+
+  @override
+  StreamResult<ReactionEntity?> getUserCommentReaction({
+    required String commentId,
+  }) {
+    return _errorHandler.handleStreamWithTryCatch(
+      () => _iPostRemoteDataSource.getUserCommentReaction(commentId: commentId),
+    );
   }
 }

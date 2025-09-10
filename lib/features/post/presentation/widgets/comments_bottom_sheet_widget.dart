@@ -8,7 +8,9 @@ import 'package:sawa/core/widgets/app_loading_widget.dart';
 import 'package:sawa/features/post/domain/entities/comment_response_entity.dart';
 import 'package:sawa/features/post/presentation/cubits/comments/comments_cubit.dart';
 
+import '../../../../core/di/dependency_injection.dart';
 import '../cubits/comments/comments_state.dart';
+import '../cubits/reactions/reaction_cubit.dart';
 import 'comment_item_widget.dart';
 import 'comment_text_field.dart';
 
@@ -59,7 +61,12 @@ class _CommentsBottomSheetWidgetState extends State<CommentsBottomSheetWidget> {
               return ListView.builder(
                 itemCount: _comments.length,
                 itemBuilder: (context, index) {
-                  return CommentItemWidget(comment: _comments[index]);
+                  return BlocProvider.value(
+                    value: getIt<ReactionCubit>()
+                      ..watchCommentReactions(_comments[index].id)
+                      ..watchUserCommentReaction(_comments[index].id),
+                    child: CommentItemWidget(comment: _comments[index]),
+                  );
                 },
               );
             },

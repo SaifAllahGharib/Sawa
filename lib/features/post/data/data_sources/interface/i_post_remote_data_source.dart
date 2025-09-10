@@ -33,4 +33,15 @@ abstract class IPostRemoteDataSource {
   Future<void> addComment({required CommentRequestModel comment});
 
   Future<List<CommentResponseModel>> getComments({required String postId});
+
+  Future<void> addReactionToComment({
+    required String commentId,
+    required ReactionType type,
+  });
+
+  Future<void> removeReactionFromComment({required String commentId});
+
+  Stream<List<ReactionModel>> getCommentReactions({required String commentId});
+
+  Stream<ReactionModel?> getUserCommentReaction({required String commentId});
 }

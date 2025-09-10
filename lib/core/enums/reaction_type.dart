@@ -1,18 +1,21 @@
+import 'package:flutter/material.dart';
+
 import '../constants/app_assets.dart';
 
 enum ReactionType {
-  like('like', AppAssets.like),
-  love('love', AppAssets.love),
-  haha('haha', AppAssets.haha),
-  wow('wow', AppAssets.wow),
-  sad('sad', AppAssets.sad),
-  angry('angry', AppAssets.angry),
-  care('care', AppAssets.care);
+  like('like', AppAssets.like, Colors.blue),
+  love('love', AppAssets.love, Colors.red),
+  haha('haha', AppAssets.haha, Color(0xfff8ed00)),
+  wow('wow', AppAssets.wow, Color(0xfff8ed00)),
+  sad('sad', AppAssets.sad, Color(0xfff8ed00)),
+  angry('angry', AppAssets.angry, Colors.orange),
+  care('care', AppAssets.care, Color(0xfff8ed00));
 
   final String type;
   final String icon;
+  final Color color;
 
-  const ReactionType(this.type, this.icon);
+  const ReactionType(this.type, this.icon, this.color);
 
   static ReactionType fromValue(String value) {
     return ReactionType.values.firstWhere(

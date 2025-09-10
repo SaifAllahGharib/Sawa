@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawa/core/di/dependency_injection.dart';
 import 'package:sawa/core/extensions/build_context_extensions.dart';
 import 'package:sawa/core/extensions/number_extensions.dart';
@@ -8,18 +7,19 @@ import 'package:sawa/shared/cubits/locale_cubit.dart';
 import '../../../../core/enums/reaction_type.dart';
 import '../../../../core/widgets/app_gesture_detector_button.dart';
 import '../../../../core/widgets/app_svg.dart';
-import '../cubits/reactions/reaction_cubit.dart';
 
 class ReactionsPopupWidget extends StatefulWidget {
   final Offset position;
-  final String postId;
+  final String targetId;
+  final void Function(ReactionType reaction) onTapReaction;
   final VoidCallback onClose;
 
   const ReactionsPopupWidget({
     super.key,
     required this.position,
-    required this.postId,
+    required this.targetId,
     required this.onClose,
+    required this.onTapReaction,
   });
 
   @override
@@ -100,10 +100,7 @@ class _ReactionsPopupWidgetState extends State<ReactionsPopupWidget>
               children: ReactionType.values.map((reaction) {
                 return AppGestureDetectorButton(
                   onTap: () {
-                    context.read<ReactionCubit>().addReactionToPost(
-                      widget.postId,
-                      reaction,
-                    );
+                    widget.onTapReaction(reaction);
                     _close();
                   },
                   child: Padding(
